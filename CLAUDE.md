@@ -2,6 +2,10 @@
 
 This file provides instructions and context for AI coding agents working on this project.
 
+## Version Control
+
+**ALWAYS use `jj` (Jujutsu)** for all version control operations (`jj status`, `jj diff`, `jj commit`, `jj describe`, `jj bookmark`, `jj git push`, etc.) instead of raw `git` commands. This repository is colocated with `.jj/`.
+
 <!-- BEGIN BEADS INTEGRATION v:1 profile:minimal hash:1105d646 -->
 ## Beads Issue Tracker
 

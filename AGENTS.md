@@ -1,5 +1,9 @@
 # Agent Instructions
 
+## Version Control
+
+**ALWAYS use `jj` (Jujutsu)** for all version control operations (`jj status`, `jj diff`, `jj commit`, `jj describe`, `jj bookmark`, `jj git push`, etc.) instead of raw `git` commands. This repository is colocated with `.jj/`.
+
 This project uses **bd** (beads) for issue tracking. Run `bd prime` for full workflow context.
 
 > **Architecture in one line:** Issues live in a local Dolt database
