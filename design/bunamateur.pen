@@ -1,1 +1,3032 @@
-{"version":"2.21","children":[]}
+{
+  "version": "2.21",
+  "children": [
+    {
+      "type": "frame",
+      "id": "e3vR0",
+      "x": 0,
+      "y": 0,
+      "name": "Components Library",
+      "theme": {
+        "mode": "light"
+      },
+      "fill": "$bg-subtle",
+      "cornerRadius": 16,
+      "gap": 32,
+      "padding": 32,
+      "children": [
+        {
+          "type": "frame",
+          "id": "j2Ua8o",
+          "name": "Component / MetricCard",
+          "reusable": true,
+          "width": 220,
+          "fill": "$bg-surface",
+          "cornerRadius": 12,
+          "stroke": "$border-subtle",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 8,
+          "padding": 20,
+          "children": [
+            {
+              "type": "frame",
+              "id": "P0BFj5",
+              "name": "Metric Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "WBRbH",
+                  "name": "Metric Label",
+                  "fill": "$text-muted",
+                  "content": "Metric Label",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "text",
+                  "id": "KRD6Y",
+                  "name": "Metric Badge",
+                  "fill": "$accent-matcha",
+                  "content": "+4",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 11,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "EhOE5",
+              "name": "Metric Value",
+              "fill": "$text-primary",
+              "content": "42",
+              "fontFamily": "$font-sans",
+              "fontSize": 30,
+              "fontWeight": "700"
+            },
+            {
+              "type": "text",
+              "id": "BoBIp",
+              "name": "Metric Sub",
+              "fill": "$text-secondary",
+              "content": "Ready to review now",
+              "fontFamily": "$font-sans",
+              "fontSize": 12,
+              "fontWeight": "normal"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "EQ7Ao",
+          "name": "Component / GrammarCard",
+          "reusable": true,
+          "width": 320,
+          "fill": "$bg-surface",
+          "cornerRadius": 12,
+          "stroke": "$border-subtle",
+          "strokeWidth": 1,
+          "layout": "vertical",
+          "gap": 10,
+          "padding": 18,
+          "children": [
+            {
+              "type": "frame",
+              "id": "sln9u",
+              "name": "GC Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "eXENY",
+                  "name": "Grammar Title",
+                  "fill": "$text-primary",
+                  "content": "〜ている",
+                  "fontFamily": "$font-jp",
+                  "fontSize": 20,
+                  "fontWeight": "700"
+                },
+                {
+                  "type": "frame",
+                  "id": "I6l1iD",
+                  "name": "JLPT Pill",
+                  "fill": "$accent-indigo-soft",
+                  "cornerRadius": 6,
+                  "padding": [
+                    3,
+                    8
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "s2azK",
+                      "name": "JLPT Text",
+                      "fill": "$accent-indigo",
+                      "content": "N5",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 11,
+                      "fontWeight": "700"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "ipbh6",
+              "name": "Meaning",
+              "fill": "$text-secondary",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "Ongoing action or resulting state",
+              "fontFamily": "$font-sans",
+              "fontSize": 13,
+              "fontWeight": "normal"
+            },
+            {
+              "type": "frame",
+              "id": "tctGX",
+              "name": "GC Footer",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "fVeud",
+                  "name": "SRS Stage",
+                  "fill": "$accent-matcha",
+                  "content": "Guru II • Next 3d",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "text",
+                  "id": "h6UiM",
+                  "name": "WK Readiness",
+                  "fill": "$wk-pink",
+                  "content": "100% WK Kanji",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 11,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "xO2c5",
+      "x": 0,
+      "y": -140,
+      "name": "Component / TopNav",
+      "reusable": true,
+      "width": 1440,
+      "height": 68,
+      "fill": "$bg-surface",
+      "stroke": "$border-subtle",
+      "strokeWidth": {
+        "bottom": 1
+      },
+      "padding": [
+        0,
+        40
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "Niduj",
+          "name": "Brand Group",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "WRd6e",
+              "name": "Hanko Stamp",
+              "width": 34,
+              "height": 34,
+              "fill": "$accent-vermilion",
+              "cornerRadius": 8,
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "bsgH2",
+                  "name": "Hanko Char",
+                  "fill": "#FFFFFF",
+                  "content": "文",
+                  "fontFamily": "$font-jp",
+                  "fontSize": 18,
+                  "fontWeight": "700"
+                }
+              ]
+            },
+            {
+              "type": "text",
+              "id": "i01HY",
+              "name": "Brand Title",
+              "fill": "$text-primary",
+              "content": "BunAmateur",
+              "fontFamily": "$font-sans",
+              "fontSize": 18,
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "YAtf7",
+          "name": "Nav Links",
+          "gap": 28,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "LMlbt",
+              "name": "Nav Dashboard",
+              "fill": "$accent-vermilion",
+              "content": "Dashboard",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "600"
+            },
+            {
+              "type": "text",
+              "id": "ujL8s",
+              "name": "Nav Reviews",
+              "fill": "$text-secondary",
+              "content": "Reviews",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "Ns35h",
+              "name": "Nav Grammar",
+              "fill": "$text-secondary",
+              "content": "Grammar",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "AlNYT",
+              "name": "Nav Conjugation",
+              "fill": "$text-secondary",
+              "content": "Conjugation",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "p2aVHi",
+              "name": "Nav Reading Lab",
+              "fill": "$text-secondary",
+              "content": "Reading Lab",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "500"
+            },
+            {
+              "type": "text",
+              "id": "KkXxz",
+              "name": "Nav WaniKani",
+              "fill": "$text-secondary",
+              "content": "WaniKani",
+              "fontFamily": "$font-sans",
+              "fontSize": 14,
+              "fontWeight": "500"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "t5v3pB",
+          "name": "Nav Right",
+          "gap": 12,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "m7UD6d",
+              "name": "WK Sync Pill",
+              "fill": "$wk-pink-soft",
+              "cornerRadius": 99,
+              "gap": 6,
+              "padding": [
+                6,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "ellipse",
+                  "id": "gq4zA",
+                  "name": "WK Dot",
+                  "fill": "$wk-pink",
+                  "width": 8,
+                  "height": 8
+                },
+                {
+                  "type": "text",
+                  "id": "ZiTVW",
+                  "name": "WK Status",
+                  "fill": "$wk-pink",
+                  "content": "WK Lv.14 Synced",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "pGx8e",
+              "name": "Streak Pill",
+              "fill": "$accent-amber-soft",
+              "cornerRadius": 99,
+              "gap": 6,
+              "padding": [
+                6,
+                12
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "icon",
+                  "id": "ryHhR",
+                  "name": "Flame Icon",
+                  "width": 14,
+                  "height": 14,
+                  "icon": "flame",
+                  "library": "lucide",
+                  "fill": "$accent-amber"
+                },
+                {
+                  "type": "text",
+                  "id": "ckaRA",
+                  "name": "Streak Text",
+                  "fill": "$accent-amber",
+                  "content": "12d",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "YtYgp",
+      "x": 0,
+      "y": 280,
+      "name": "Screen 01 / Dashboard (Light)",
+      "theme": {
+        "mode": "light"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 1080,
+      "fill": "$bg-canvas",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "cR7sD",
+          "type": "ref",
+          "ref": "xO2c5",
+          "name": "TopNav",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "QzqHv",
+          "name": "Dashboard Body",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            32,
+            64
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "h5Oi8",
+              "name": "Hero Study Banner",
+              "width": "fill_container",
+              "fill": "$bg-surface",
+              "cornerRadius": 16,
+              "stroke": "$border-subtle",
+              "strokeWidth": 1,
+              "padding": 28,
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "IFCR5",
+                  "name": "Hero Copy",
+                  "layout": "vertical",
+                  "gap": 6,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "e1Sxp",
+                      "name": "Hero Greeting",
+                      "fill": "$text-primary",
+                      "content": "おかえりなさい — Ready for today's study?",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 22,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "IOj6l",
+                      "name": "Hero Sub",
+                      "fill": "$text-secondary",
+                      "content": "18 grammar reviews due now, including 3 Ghost Reviews. WaniKani Smart Furigana is hiding 482 mastered kanji.",
+                      "fontFamily": "$font-sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "CIT4F",
+                  "name": "Hero Actions",
+                  "gap": 12,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Xiv18",
+                      "name": "Start Reviews CTA",
+                      "fill": "$accent-vermilion",
+                      "cornerRadius": 10,
+                      "padding": [
+                        12,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "CV1zL",
+                          "name": "Start Reviews CTA Label",
+                          "fill": "#FFFFFF",
+                          "content": "Start Reviews (18)",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "NotpO",
+                      "name": "Learn CTA",
+                      "fill": "$accent-indigo",
+                      "cornerRadius": 10,
+                      "padding": [
+                        12,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "XWv5e",
+                          "name": "Learn CTA Label",
+                          "fill": "#FFFFFF",
+                          "content": "Learn New (5)",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "qCBrz",
+                      "name": "Cram CTA",
+                      "fill": "$bg-subtle",
+                      "cornerRadius": 10,
+                      "padding": [
+                        12,
+                        20
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GiSrh",
+                          "name": "Cram CTA Label",
+                          "fill": "$text-primary",
+                          "content": "Cram Mode",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 14,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "PtA92",
+              "name": "KPI Row",
+              "width": "fill_container",
+              "gap": 20,
+              "children": [
+                {
+                  "id": "MBgwc",
+                  "type": "ref",
+                  "ref": "j2Ua8o",
+                  "name": "Metric / Reviews Due",
+                  "width": "fill_container",
+                  "descendants": {
+                    "WBRbH": {
+                      "content": "Reviews Due"
+                    },
+                    "KRD6Y": {
+                      "content": "+6 / hr"
+                    },
+                    "EhOE5": {
+                      "content": "18"
+                    },
+                    "BoBIp": {
+                      "content": "3 Ghost reviews included"
+                    }
+                  }
+                },
+                {
+                  "id": "Gis0J",
+                  "type": "ref",
+                  "ref": "j2Ua8o",
+                  "name": "Metric / Grammar Learned",
+                  "width": "fill_container",
+                  "descendants": {
+                    "WBRbH": {
+                      "content": "Grammar Learned"
+                    },
+                    "KRD6Y": {
+                      "content": "N5 84%"
+                    },
+                    "EhOE5": {
+                      "content": "64"
+                    },
+                    "BoBIp": {
+                      "content": "Across N5 – N2 decks"
+                    }
+                  }
+                },
+                {
+                  "id": "O832sx",
+                  "type": "ref",
+                  "ref": "j2Ua8o",
+                  "name": "Metric / Accuracy (7d)",
+                  "width": "fill_container",
+                  "descendants": {
+                    "WBRbH": {
+                      "content": "Accuracy (7d)"
+                    },
+                    "KRD6Y": {
+                      "content": "+3.2%"
+                    },
+                    "EhOE5": {
+                      "content": "91%"
+                    },
+                    "BoBIp": {
+                      "content": "214 reviews completed"
+                    }
+                  }
+                },
+                {
+                  "id": "bpLg1",
+                  "type": "ref",
+                  "ref": "j2Ua8o",
+                  "name": "Metric / WK Kanji Synced",
+                  "width": "fill_container",
+                  "descendants": {
+                    "WBRbH": {
+                      "content": "WK Kanji Synced"
+                    },
+                    "KRD6Y": {
+                      "content": "Lv. 14"
+                    },
+                    "EhOE5": {
+                      "content": "482"
+                    },
+                    "BoBIp": {
+                      "content": "Auto-hiding furigana"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "tlqXn",
+              "name": "Main Columns",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ejYg0",
+                  "name": "Left Column",
+                  "width": 830,
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "WofTz",
+                      "name": "JLPT Mastery Card",
+                      "width": "fill_container",
+                      "fill": "$bg-surface",
+                      "cornerRadius": 16,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "N1Vz5J",
+                          "name": "JLPT Title",
+                          "fill": "$text-primary",
+                          "content": "JLPT Grammar Mastery",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "leTD9",
+                          "name": "Row N5 Beginner",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "P6tFTb",
+                              "name": "Label N5 Beginner",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 120,
+                              "content": "N5 Beginner",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "N20LGw",
+                              "name": "Track N5 Beginner",
+                              "width": 580,
+                              "height": 10,
+                              "fill": "$bg-subtle",
+                              "cornerRadius": 99,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 99,
+                                  "id": "xOCnp",
+                                  "name": "Fill N5 Beginner",
+                                  "fill": "$accent-matcha",
+                                  "width": 560,
+                                  "height": 10
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "b7iUq",
+                              "name": "Count N5 Beginner",
+                              "fill": "$text-secondary",
+                              "content": "16 / 19",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "qRC0L",
+                          "name": "Row N4 Elementary",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "pc2DR",
+                              "name": "Label N4 Elementary",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 120,
+                              "content": "N4 Elementary",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "EWtGV",
+                              "name": "Track N4 Elementary",
+                              "width": 580,
+                              "height": 10,
+                              "fill": "$bg-subtle",
+                              "cornerRadius": 99,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 99,
+                                  "id": "WAe8C",
+                                  "name": "Fill N4 Elementary",
+                                  "fill": "$accent-indigo",
+                                  "width": 420,
+                                  "height": 10
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "dmiZs",
+                              "name": "Count N4 Elementary",
+                              "fill": "$text-secondary",
+                              "content": "9 / 14",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "eT3bS",
+                          "name": "Row N3 Intermediate",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "URdht",
+                              "name": "Label N3 Intermediate",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 120,
+                              "content": "N3 Intermediate",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "P3cRaW",
+                              "name": "Track N3 Intermediate",
+                              "width": 580,
+                              "height": 10,
+                              "fill": "$bg-subtle",
+                              "cornerRadius": 99,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 99,
+                                  "id": "z1KWSd",
+                                  "name": "Fill N3 Intermediate",
+                                  "fill": "$accent-amber",
+                                  "width": 270,
+                                  "height": 10
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "Y3Hqme",
+                              "name": "Count N3 Intermediate",
+                              "fill": "$text-secondary",
+                              "content": "5 / 12",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "mQ2NC",
+                          "name": "Row N2 Upper-Int",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "EgGYG",
+                              "name": "Label N2 Upper-Int",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 120,
+                              "content": "N2 Upper-Int",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "wctlk",
+                              "name": "Track N2 Upper-Int",
+                              "width": 580,
+                              "height": 10,
+                              "fill": "$bg-subtle",
+                              "cornerRadius": 99,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 99,
+                                  "id": "ecuoP",
+                                  "name": "Fill N2 Upper-Int",
+                                  "fill": "$accent-vermilion",
+                                  "width": 160,
+                                  "height": 10
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "v0ztnx",
+                              "name": "Count N2 Upper-Int",
+                              "fill": "$text-secondary",
+                              "content": "2 / 8",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "QDgKW",
+                          "name": "Row N1 Advanced",
+                          "width": "fill_container",
+                          "gap": 16,
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "WcTp1",
+                              "name": "Label N1 Advanced",
+                              "fill": "$text-primary",
+                              "textGrowth": "fixed-width",
+                              "width": 120,
+                              "content": "N1 Advanced",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "v8z54",
+                              "name": "Track N1 Advanced",
+                              "width": 580,
+                              "height": 10,
+                              "fill": "$bg-subtle",
+                              "cornerRadius": 99,
+                              "children": [
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": 99,
+                                  "id": "ynX9o",
+                                  "name": "Fill N1 Advanced",
+                                  "fill": "$wk-purple",
+                                  "width": 24,
+                                  "height": 10
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "aBrMO",
+                              "name": "Count N1 Advanced",
+                              "fill": "$text-secondary",
+                              "content": "0 / 6",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "v3qgul",
+                      "name": "Forecast Card",
+                      "width": "fill_container",
+                      "fill": "$bg-surface",
+                      "cornerRadius": 16,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 16,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SgfX3",
+                          "name": "Forecast Title",
+                          "fill": "$text-primary",
+                          "content": "24-Hour Review Forecast",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "uN96E",
+                          "name": "Forecast Bars",
+                          "width": "fill_container",
+                          "height": 120,
+                          "gap": 14,
+                          "alignItems": "end",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "qufgN",
+                              "name": "Bar Now",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "jXxPV",
+                                  "name": "Val Now",
+                                  "fill": "$text-secondary",
+                                  "content": "18",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "Ei1Ax",
+                                  "name": "Col Now",
+                                  "fill": "$accent-vermilion",
+                                  "width": 42,
+                                  "height": 96
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "TVrx8",
+                                  "name": "Lbl Now",
+                                  "fill": "$text-muted",
+                                  "content": "Now",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "J5XJ9",
+                              "name": "Bar +3h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "VKD8S",
+                                  "name": "Val +3h",
+                                  "fill": "$text-secondary",
+                                  "content": "4",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "EzkA4",
+                                  "name": "Col +3h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 28
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "zJKp5",
+                                  "name": "Lbl +3h",
+                                  "fill": "$text-muted",
+                                  "content": "+3h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "D0Ek8",
+                              "name": "Bar +6h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "qTJbs",
+                                  "name": "Val +6h",
+                                  "fill": "$text-secondary",
+                                  "content": "7",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "HOnaz",
+                                  "name": "Col +6h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 46
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "GJ87e",
+                                  "name": "Lbl +6h",
+                                  "fill": "$text-muted",
+                                  "content": "+6h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Ep2I9",
+                              "name": "Bar +9h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Qh3eZ",
+                                  "name": "Val +9h",
+                                  "fill": "$text-secondary",
+                                  "content": "2",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "kTOzK",
+                                  "name": "Col +9h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 18
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "u17e8",
+                                  "name": "Lbl +9h",
+                                  "fill": "$text-muted",
+                                  "content": "+9h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "s4Q15",
+                              "name": "Bar +12h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "zvhFU",
+                                  "name": "Val +12h",
+                                  "fill": "$text-secondary",
+                                  "content": "5",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "RG22S",
+                                  "name": "Col +12h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 34
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "H5RCAF",
+                                  "name": "Lbl +12h",
+                                  "fill": "$text-muted",
+                                  "content": "+12h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "lnB3c",
+                              "name": "Bar +16h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "fL5Qw",
+                                  "name": "Val +16h",
+                                  "fill": "$text-secondary",
+                                  "content": "9",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "CeTin",
+                                  "name": "Col +16h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 58
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "EcUmN",
+                                  "name": "Lbl +16h",
+                                  "fill": "$text-muted",
+                                  "content": "+16h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "apjVt",
+                              "name": "Bar +20h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "kKg3N",
+                                  "name": "Val +20h",
+                                  "fill": "$text-secondary",
+                                  "content": "3",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "ldod7",
+                                  "name": "Col +20h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 22
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "KcHyG",
+                                  "name": "Lbl +20h",
+                                  "fill": "$text-muted",
+                                  "content": "+20h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "V7Ijo1",
+                              "name": "Bar +24h",
+                              "width": "fill_container",
+                              "layout": "vertical",
+                              "gap": 6,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "J21XTL",
+                                  "name": "Val +24h",
+                                  "fill": "$text-secondary",
+                                  "content": "6",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "rectangle",
+                                  "cornerRadius": [
+                                    6,
+                                    6,
+                                    0,
+                                    0
+                                  ],
+                                  "id": "Vg9uT",
+                                  "name": "Col +24h",
+                                  "fill": "$accent-indigo",
+                                  "width": 42,
+                                  "height": 40
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "hgDY4",
+                                  "name": "Lbl +24h",
+                                  "fill": "$text-muted",
+                                  "content": "+24h",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "bQv9A",
+                  "name": "Right Column",
+                  "width": "fill_container",
+                  "layout": "vertical",
+                  "gap": 20,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "FwSPO",
+                      "name": "WaniKani Hub Card",
+                      "width": "fill_container",
+                      "fill": "$bg-surface",
+                      "cornerRadius": 16,
+                      "stroke": "$wk-pink",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 14,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "SGbwy",
+                          "name": "WK Header",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "tAuRG",
+                              "name": "WK Title",
+                              "fill": "$text-primary",
+                              "content": "WaniKani Integration",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 16,
+                              "fontWeight": "700"
+                            },
+                            {
+                              "type": "frame",
+                              "id": "HzhHp",
+                              "name": "WK Level Pill",
+                              "fill": "$wk-pink",
+                              "cornerRadius": 99,
+                              "padding": [
+                                4,
+                                10
+                              ],
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "HPuOL",
+                                  "name": "WK Level Text",
+                                  "fill": "#FFFFFF",
+                                  "content": "Level 14",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 11,
+                                  "fontWeight": "700"
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "text",
+                          "id": "O38eym",
+                          "name": "WK Desc",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Smart Furigana hides readings above kanji passed (Guru+) in WaniKani.",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "qtB1G",
+                          "name": "WK Stats Row",
+                          "width": "fill_container",
+                          "gap": 12,
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "efVQq",
+                              "name": "WK Stat Kanji Known",
+                              "width": "fill_container",
+                              "fill": "$wk-pink-soft",
+                              "cornerRadius": 10,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "padding": 12,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "x1svYX",
+                                  "name": "WK Val Kanji Known",
+                                  "fill": "$wk-pink",
+                                  "content": "482",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 18,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "k5OSz",
+                                  "name": "WK Lbl Kanji Known",
+                                  "fill": "$text-secondary",
+                                  "content": "Kanji Known",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "Mnnt9",
+                              "name": "WK Stat Vocab Known",
+                              "width": "fill_container",
+                              "fill": "$wk-purple-soft",
+                              "cornerRadius": 10,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "padding": 12,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "Z2cQ1",
+                                  "name": "WK Val Vocab Known",
+                                  "fill": "$wk-purple",
+                                  "content": "1,240",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 18,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "NKMiz",
+                                  "name": "WK Lbl Vocab Known",
+                                  "fill": "$text-secondary",
+                                  "content": "Vocab Known",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "frame",
+                              "id": "MLmah",
+                              "name": "WK Stat WK Reviews",
+                              "width": "fill_container",
+                              "fill": "$accent-amber-soft",
+                              "cornerRadius": 10,
+                              "layout": "vertical",
+                              "gap": 2,
+                              "padding": 12,
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "cVyjb",
+                                  "name": "WK Val WK Reviews",
+                                  "fill": "$accent-amber",
+                                  "content": "34",
+                                  "fontFamily": "$font-mono",
+                                  "fontSize": 18,
+                                  "fontWeight": "700"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "MUEd7",
+                                  "name": "WK Lbl WK Reviews",
+                                  "fill": "$text-secondary",
+                                  "content": "WK Reviews",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 11,
+                                  "fontWeight": "normal"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "xu8Dg",
+                      "name": "SRS Breakdown Card",
+                      "width": "fill_container",
+                      "fill": "$bg-surface",
+                      "cornerRadius": 16,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 14,
+                      "padding": 24,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "SOO98",
+                          "name": "SRS Title",
+                          "fill": "$text-primary",
+                          "content": "SRS Distribution",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 16,
+                          "fontWeight": "700"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "xFDs9",
+                          "name": "SRS Apprentice (1–4)",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "HQXJj",
+                              "name": "SRS Left Apprentice (1–4)",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "S217r",
+                                  "name": "Dot Apprentice (1–4)",
+                                  "fill": "$wk-pink",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "TMUvc",
+                                  "name": "Name Apprentice (1–4)",
+                                  "fill": "$text-primary",
+                                  "content": "Apprentice (1–4)",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "TEF9d",
+                              "name": "Cnt Apprentice (1–4)",
+                              "fill": "$text-secondary",
+                              "content": "14 items",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "KHHWV",
+                          "name": "SRS Guru (5–6)",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "AHk7I",
+                              "name": "SRS Left Guru (5–6)",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "ux3nW",
+                                  "name": "Dot Guru (5–6)",
+                                  "fill": "$wk-purple",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "JO7PE",
+                                  "name": "Name Guru (5–6)",
+                                  "fill": "$text-primary",
+                                  "content": "Guru (5–6)",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "zE6TI",
+                              "name": "Cnt Guru (5–6)",
+                              "fill": "$text-secondary",
+                              "content": "22 items",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "C85XHU",
+                          "name": "SRS Master (7–8)",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "tpDr0",
+                              "name": "SRS Left Master (7–8)",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "YLRJO",
+                                  "name": "Dot Master (7–8)",
+                                  "fill": "$accent-indigo",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "yhE9x",
+                                  "name": "Name Master (7–8)",
+                                  "fill": "$text-primary",
+                                  "content": "Master (7–8)",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "n9ACS",
+                              "name": "Cnt Master (7–8)",
+                              "fill": "$text-secondary",
+                              "content": "15 items",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "etlPl",
+                          "name": "SRS Enlightened (9–10)",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "Bow0q",
+                              "name": "SRS Left Enlightened (9–10)",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "X3OPeg",
+                                  "name": "Dot Enlightened (9–10)",
+                                  "fill": "$accent-matcha",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "Ik3id",
+                                  "name": "Name Enlightened (9–10)",
+                                  "fill": "$text-primary",
+                                  "content": "Enlightened (9–10)",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "YmOrh",
+                              "name": "Cnt Enlightened (9–10)",
+                              "fill": "$text-secondary",
+                              "content": "8 items",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Uc2Mq",
+                          "name": "SRS Burned (11–12)",
+                          "width": "fill_container",
+                          "justifyContent": "space_between",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "oTshG",
+                              "name": "SRS Left Burned (11–12)",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "ellipse",
+                                  "id": "ItO42",
+                                  "name": "Dot Burned (11–12)",
+                                  "fill": "$accent-amber",
+                                  "width": 10,
+                                  "height": 10
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "oBPAU",
+                                  "name": "Name Burned (11–12)",
+                                  "fill": "$text-primary",
+                                  "content": "Burned (11–12)",
+                                  "fontFamily": "$font-sans",
+                                  "fontSize": 13,
+                                  "fontWeight": "500"
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "wCH03",
+                              "name": "Cnt Burned (11–12)",
+                              "fill": "$text-secondary",
+                              "content": "5 items",
+                              "fontFamily": "$font-mono",
+                              "fontSize": 12,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "AQ8h2",
+      "x": 1520,
+      "y": 280,
+      "name": "Screen 02 / Cloze Review Session",
+      "theme": {
+        "mode": "light"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-canvas",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "m4rMg",
+          "type": "ref",
+          "ref": "xO2c5",
+          "name": "TopNav",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "tJOC6",
+          "name": "Progress Track",
+          "width": "fill_container",
+          "height": 5,
+          "fill": "$bg-subtle",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "LmTa5",
+              "name": "Progress Fill",
+              "fill": "$accent-vermilion",
+              "width": 480,
+              "height": 5
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "stNHd",
+          "name": "Review Center",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            44,
+            220
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "AYRQe",
+              "name": "Session Meta",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "WRHsh",
+                  "name": "Meta Left",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "CfCDH",
+                      "name": "Ghost Badge",
+                      "fill": "$accent-vermilion-soft",
+                      "cornerRadius": 99,
+                      "gap": 6,
+                      "padding": [
+                        5,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "aGYFN",
+                          "name": "Ghost Text",
+                          "fill": "$accent-vermilion",
+                          "content": "Ghost Review • Level 2",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "RenGs",
+                      "name": "WK Furigana Pill",
+                      "fill": "$wk-pink-soft",
+                      "cornerRadius": 99,
+                      "padding": [
+                        5,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZqKPa",
+                          "name": "WK Furigana Text",
+                          "fill": "$wk-pink",
+                          "content": "WaniKani Smart Furigana: ON",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "FAsyo",
+                  "name": "Session Counter",
+                  "fill": "$text-secondary",
+                  "content": "6 / 18  •  Accuracy 94%",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "FVz5q",
+              "name": "Cloze Question Card",
+              "width": "fill_container",
+              "fill": "$bg-surface",
+              "cornerRadius": 20,
+              "stroke": "$border-subtle",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 22,
+              "padding": 40,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "x9SkW",
+                  "name": "Grammar Hint Pill",
+                  "fill": "$accent-indigo",
+                  "content": "N4  •  Polite Past  •  'Even though / Despite'",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "OOu1J",
+                  "name": "Japanese Sentence Row",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "jJp6j",
+                      "name": "JP Part 1",
+                      "fill": "$text-primary",
+                      "content": "雨が降った",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 34,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "U9Vlk7",
+                      "name": "Cloze Blank",
+                      "fill": "$accent-vermilion-soft",
+                      "cornerRadius": 10,
+                      "stroke": "$accent-vermilion",
+                      "strokeWidth": 2,
+                      "padding": [
+                        6,
+                        22
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "A2luB",
+                          "name": "Blank Typed",
+                          "fill": "$accent-vermilion",
+                          "content": "のに",
+                          "fontFamily": "$font-jp",
+                          "fontSize": 32,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "WcSAE",
+                      "name": "JP Part 2",
+                      "fill": "$text-primary",
+                      "content": "、ピクニックに行きました。",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 34,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "mQYxv",
+                  "name": "English Prompt",
+                  "fill": "$text-secondary",
+                  "content": "Even though it rained, we went on a picnic.",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "NZLTN",
+                  "name": "IME Input Container",
+                  "width": 640,
+                  "fill": "$bg-canvas",
+                  "cornerRadius": 12,
+                  "stroke": "$accent-matcha",
+                  "strokeWidth": 2,
+                  "padding": [
+                    14,
+                    20
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "evYPE",
+                      "name": "IME Value",
+                      "fill": "$text-primary",
+                      "content": "のに",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 22,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "h70vIt",
+                      "name": "IME Badge",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "GpqTW",
+                          "name": "IME Mode",
+                          "fill": "$accent-matcha",
+                          "content": "あ Kana IME",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "BDOGU",
+                          "name": "Next Button",
+                          "fill": "$accent-matcha",
+                          "cornerRadius": 8,
+                          "padding": [
+                            8,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "i9PMtr",
+                              "name": "Next Label",
+                              "fill": "#FFFFFF",
+                              "content": "Correct! Next →",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "XVlRP",
+              "name": "Grammar Breakdown Drawer",
+              "width": "fill_container",
+              "fill": "$bg-surface",
+              "cornerRadius": 16,
+              "stroke": "$border-subtle",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "L36D4",
+                  "name": "FB Header",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "ZllkQ",
+                      "name": "FB Grammar",
+                      "fill": "$text-primary",
+                      "content": "のに — Even though / Despite (unexpected result)",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "pL42G",
+                      "name": "FB Formula",
+                      "fill": "$accent-indigo",
+                      "content": "Plain Form + のに  |  な-Adj / Noun + な + のに",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "fBtP0",
+                  "name": "FB Nuance",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nuance vs ても: のに expresses surprise, regret, or frustration about an actual event, whereas ても is hypothetical ('even if').",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "Xs1uw",
+      "x": 0,
+      "y": 1440,
+      "name": "Screen 03 / Grammar Library & Reading Lab",
+      "theme": {
+        "mode": "light"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 960,
+      "fill": "$bg-canvas",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "h454qq",
+          "type": "ref",
+          "ref": "xO2c5",
+          "name": "TopNav",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "y254mz",
+          "name": "Library Body",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            32,
+            64
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "joZh2",
+              "name": "Library Header",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "qxCEO",
+                  "name": "Library Titles",
+                  "layout": "vertical",
+                  "gap": 4,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "r0fVsh",
+                      "name": "Lib H1",
+                      "fill": "$text-primary",
+                      "content": "Grammar Library & Immersion Lab",
+                      "fontFamily": "$font-sans",
+                      "fontSize": 24,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "eKdCf",
+                      "name": "Lib Sub",
+                      "fill": "$text-secondary",
+                      "content": "Browse curated JLPT N5–N1 grammar points or analyze Japanese passages with WaniKani kanji detection.",
+                      "fontFamily": "$font-sans",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Oo8sg",
+              "name": "Library Split",
+              "width": "fill_container",
+              "height": "fill_container",
+              "gap": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "eiLmk",
+                  "name": "Grammar Grid Col",
+                  "width": 760,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "Ld839",
+                      "name": "Grid Row",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "id": "wd4Ua",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜ている",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜ている"
+                            },
+                            "s2azK": {
+                              "content": "N5"
+                            },
+                            "ipbh6": {
+                              "content": "Ongoing action or resulting state"
+                            },
+                            "fVeud": {
+                              "content": "Guru II • Next 3d"
+                            },
+                            "h6UiM": {
+                              "content": "100% WK Kanji"
+                            }
+                          }
+                        },
+                        {
+                          "id": "KTi78",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜なければならない",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜なければならない"
+                            },
+                            "s2azK": {
+                              "content": "N5"
+                            },
+                            "ipbh6": {
+                              "content": "Must do / have to do"
+                            },
+                            "fVeud": {
+                              "content": "Apprentice III • 8h"
+                            },
+                            "h6UiM": {
+                              "content": "88% WK Kanji"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Qw9FB",
+                      "name": "Grid Row",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "id": "Y7n6C",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜てみる",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜てみる"
+                            },
+                            "s2azK": {
+                              "content": "N4"
+                            },
+                            "ipbh6": {
+                              "content": "Try doing something to see what happens"
+                            },
+                            "fVeud": {
+                              "content": "Master I • 12d"
+                            },
+                            "h6UiM": {
+                              "content": "100% WK Kanji"
+                            }
+                          }
+                        },
+                        {
+                          "id": "gU5dE",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜ようにする",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜ようにする"
+                            },
+                            "s2azK": {
+                              "content": "N4"
+                            },
+                            "ipbh6": {
+                              "content": "Make an effort to / try to ensure"
+                            },
+                            "fVeud": {
+                              "content": "Guru I • 2d"
+                            },
+                            "h6UiM": {
+                              "content": "92% WK Kanji"
+                            }
+                          }
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "H3bSk9",
+                      "name": "Grid Row",
+                      "width": "fill_container",
+                      "gap": 16,
+                      "children": [
+                        {
+                          "id": "zc8Dn",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜おかげで",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜おかげで"
+                            },
+                            "s2azK": {
+                              "content": "N3"
+                            },
+                            "ipbh6": {
+                              "content": "Thanks to / owing to (positive result)"
+                            },
+                            "fVeud": {
+                              "content": "Apprentice II • 4h"
+                            },
+                            "h6UiM": {
+                              "content": "76% WK Kanji"
+                            }
+                          }
+                        },
+                        {
+                          "id": "P4R8XN",
+                          "type": "ref",
+                          "ref": "EQ7Ao",
+                          "name": "Card 〜わけではない",
+                          "width": "fill_container",
+                          "descendants": {
+                            "eXENY": {
+                              "content": "〜わけではない"
+                            },
+                            "s2azK": {
+                              "content": "N3"
+                            },
+                            "ipbh6": {
+                              "content": "It does not mean that / not necessarily"
+                            },
+                            "fVeud": {
+                              "content": "New Lesson"
+                            },
+                            "h6UiM": {
+                              "content": "82% WK Kanji"
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "frame",
+                  "id": "HIeeI",
+                  "name": "Reading Lab Panel",
+                  "width": "fill_container",
+                  "fill": "$bg-surface",
+                  "cornerRadius": 16,
+                  "stroke": "$border-subtle",
+                  "strokeWidth": 1,
+                  "layout": "vertical",
+                  "gap": 16,
+                  "padding": 24,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "gz3Ub",
+                      "name": "Lab Title",
+                      "fill": "$text-primary",
+                      "content": "読解ラボ — Reading Analyzer",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "A4p7cs",
+                      "name": "Passage Box",
+                      "width": "fill_container",
+                      "fill": "$bg-canvas",
+                      "cornerRadius": 12,
+                      "stroke": "$border-subtle",
+                      "strokeWidth": 1,
+                      "layout": "vertical",
+                      "gap": 12,
+                      "padding": 20,
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "uAsMV",
+                          "name": "Passage JP",
+                          "fill": "$text-primary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "毎日日本語を勉強しているおかげで、少しずつ日本の新聞が読めるようになりました。まだ分からない漢字もありますが、毎日読んでみることにしています。",
+                          "lineHeight": 1.8,
+                          "fontFamily": "$font-jp",
+                          "fontSize": 16,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "text",
+                          "id": "xphyF",
+                          "name": "Passage EN",
+                          "fill": "$text-secondary",
+                          "textGrowth": "fixed-width",
+                          "width": "fill_container",
+                          "content": "Thanks to studying Japanese every day, I gradually became able to read Japanese newspapers.",
+                          "lineHeight": 1.5,
+                          "fontFamily": "$font-sans",
+                          "fontSize": 13,
+                          "fontWeight": "normal"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "EXB1P",
+      "x": 1520,
+      "y": 1440,
+      "name": "Screen 04 / Cloze Review (Sumi Dark)",
+      "theme": {
+        "mode": "dark"
+      },
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "$bg-canvas",
+      "layout": "vertical",
+      "children": [
+        {
+          "id": "q8HVV",
+          "type": "ref",
+          "ref": "xO2c5",
+          "name": "TopNav",
+          "width": "fill_container"
+        },
+        {
+          "type": "frame",
+          "id": "mgYBu",
+          "name": "Progress Track",
+          "width": "fill_container",
+          "height": 5,
+          "fill": "$bg-subtle",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "sdjYp",
+              "name": "Progress Fill",
+              "fill": "$accent-vermilion",
+              "width": 480,
+              "height": 5
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "mW0LO",
+          "name": "Review Center",
+          "width": "fill_container",
+          "height": "fill_container",
+          "layout": "vertical",
+          "gap": 24,
+          "padding": [
+            44,
+            220
+          ],
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "frame",
+              "id": "gc4Xn",
+              "name": "Session Meta",
+              "width": "fill_container",
+              "justifyContent": "space_between",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "umT37",
+                  "name": "Meta Left",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "frame",
+                      "id": "iCzYC",
+                      "name": "Ghost Badge",
+                      "fill": "$accent-vermilion-soft",
+                      "cornerRadius": 99,
+                      "gap": 6,
+                      "padding": [
+                        5,
+                        12
+                      ],
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "viwqw",
+                          "name": "Ghost Text",
+                          "fill": "$accent-vermilion",
+                          "content": "Ghost Review • Level 2",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "frame",
+                      "id": "zeete",
+                      "name": "WK Furigana Pill",
+                      "fill": "$wk-pink-soft",
+                      "cornerRadius": 99,
+                      "padding": [
+                        5,
+                        12
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "n5yylo",
+                          "name": "WK Furigana Text",
+                          "fill": "$wk-pink",
+                          "content": "WaniKani Smart Furigana: ON",
+                          "fontFamily": "$font-sans",
+                          "fontSize": 12,
+                          "fontWeight": "600"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "fYJu3",
+                  "name": "Session Counter",
+                  "fill": "$text-secondary",
+                  "content": "6 / 18  •  Accuracy 94%",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "Th6IQ",
+              "name": "Cloze Question Card",
+              "width": "fill_container",
+              "fill": "$bg-surface",
+              "cornerRadius": 20,
+              "stroke": "$border-subtle",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 22,
+              "padding": 40,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "B0Wmu0",
+                  "name": "Grammar Hint Pill",
+                  "fill": "$accent-indigo",
+                  "content": "N4  •  Polite Past  •  'Even though / Despite'",
+                  "fontFamily": "$font-mono",
+                  "fontSize": 12,
+                  "fontWeight": "600"
+                },
+                {
+                  "type": "frame",
+                  "id": "l8F6dC",
+                  "name": "Japanese Sentence Row",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "Khu2b",
+                      "name": "JP Part 1",
+                      "fill": "$text-primary",
+                      "content": "雨が降った",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 34,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "VF9Jq",
+                      "name": "Cloze Blank",
+                      "fill": "$accent-vermilion-soft",
+                      "cornerRadius": 10,
+                      "stroke": "$accent-vermilion",
+                      "strokeWidth": 2,
+                      "padding": [
+                        6,
+                        22
+                      ],
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "HoeiC",
+                          "name": "Blank Typed",
+                          "fill": "$accent-vermilion",
+                          "content": "のに",
+                          "fontFamily": "$font-jp",
+                          "fontSize": 32,
+                          "fontWeight": "700"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "text",
+                      "id": "NkXxW",
+                      "name": "JP Part 2",
+                      "fill": "$text-primary",
+                      "content": "、ピクニックに行きました。",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 34,
+                      "fontWeight": "700"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "jETMq",
+                  "name": "English Prompt",
+                  "fill": "$text-secondary",
+                  "content": "Even though it rained, we went on a picnic.",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 17,
+                  "fontWeight": "normal"
+                },
+                {
+                  "type": "frame",
+                  "id": "SnA9j",
+                  "name": "IME Input Container",
+                  "width": 640,
+                  "fill": "$bg-canvas",
+                  "cornerRadius": 12,
+                  "stroke": "$accent-matcha",
+                  "strokeWidth": 2,
+                  "padding": [
+                    14,
+                    20
+                  ],
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "qRb8S",
+                      "name": "IME Value",
+                      "fill": "$text-primary",
+                      "content": "のに",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 22,
+                      "fontWeight": "600"
+                    },
+                    {
+                      "type": "frame",
+                      "id": "Y5IlH",
+                      "name": "IME Badge",
+                      "gap": 8,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "fnsbY",
+                          "name": "IME Mode",
+                          "fill": "$accent-matcha",
+                          "content": "あ Kana IME",
+                          "fontFamily": "$font-mono",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        },
+                        {
+                          "type": "frame",
+                          "id": "s8uP2",
+                          "name": "Next Button",
+                          "fill": "$accent-matcha",
+                          "cornerRadius": 8,
+                          "padding": [
+                            8,
+                            16
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "l5NJhH",
+                              "name": "Next Label",
+                              "fill": "#FFFFFF",
+                              "content": "Correct! Next →",
+                              "fontFamily": "$font-sans",
+                              "fontSize": 13,
+                              "fontWeight": "600"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "vTbM7",
+              "name": "Grammar Breakdown Drawer",
+              "width": "fill_container",
+              "fill": "$bg-surface",
+              "cornerRadius": 16,
+              "stroke": "$border-subtle",
+              "strokeWidth": 1,
+              "layout": "vertical",
+              "gap": 12,
+              "padding": 24,
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "RL1iY",
+                  "name": "FB Header",
+                  "width": "fill_container",
+                  "justifyContent": "space_between",
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "tqkDM",
+                      "name": "FB Grammar",
+                      "fill": "$text-primary",
+                      "content": "のに — Even though / Despite (unexpected result)",
+                      "fontFamily": "$font-jp",
+                      "fontSize": 16,
+                      "fontWeight": "700"
+                    },
+                    {
+                      "type": "text",
+                      "id": "d6d76",
+                      "name": "FB Formula",
+                      "fill": "$accent-indigo",
+                      "content": "Plain Form + のに  |  な-Adj / Noun + な + のに",
+                      "fontFamily": "$font-mono",
+                      "fontSize": 12,
+                      "fontWeight": "normal"
+                    }
+                  ]
+                },
+                {
+                  "type": "text",
+                  "id": "B7zTRG",
+                  "name": "FB Nuance",
+                  "fill": "$text-secondary",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
+                  "content": "Nuance vs ても: のに expresses surprise, regret, or frustration about an actual event, whereas ても is hypothetical ('even if').",
+                  "fontFamily": "$font-sans",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "themes": {
+    "mode": [
+      "light",
+      "dark"
+    ]
+  },
+  "variables": {
+    "bg-canvas": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FAF8F4",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#111318",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-surface": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#FFFFFF",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#1A1E27",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "bg-subtle": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#F2EFE9",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#232836",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "border-subtle": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#E6E1D6",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#2E3445",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-primary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#1C1917",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#F5F2EB",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-secondary": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#57534E",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#A8A29E",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "text-muted": {
+      "type": "color",
+      "value": [
+        {
+          "value": "#8C857B",
+          "theme": {
+            "mode": "light"
+          }
+        },
+        {
+          "value": "#78716C",
+          "theme": {
+            "mode": "dark"
+          }
+        }
+      ]
+    },
+    "accent-vermilion": {
+      "type": "color",
+      "value": "#D94436"
+    },
+    "accent-vermilion-soft": {
+      "type": "color",
+      "value": "#FDF0EE"
+    },
+    "accent-indigo": {
+      "type": "color",
+      "value": "#2B4C7E"
+    },
+    "accent-indigo-soft": {
+      "type": "color",
+      "value": "#EDF2F9"
+    },
+    "accent-matcha": {
+      "type": "color",
+      "value": "#2E7D5B"
+    },
+    "accent-matcha-soft": {
+      "type": "color",
+      "value": "#ECF7F2"
+    },
+    "accent-amber": {
+      "type": "color",
+      "value": "#D97706"
+    },
+    "accent-amber-soft": {
+      "type": "color",
+      "value": "#FEF6E7"
+    },
+    "wk-pink": {
+      "type": "color",
+      "value": "#E6007A"
+    },
+    "wk-pink-soft": {
+      "type": "color",
+      "value": "#FCE8F3"
+    },
+    "wk-purple": {
+      "type": "color",
+      "value": "#7C3AED"
+    },
+    "wk-purple-soft": {
+      "type": "color",
+      "value": "#F3EEFE"
+    },
+    "font-sans": {
+      "type": "string",
+      "value": "Plus Jakarta Sans"
+    },
+    "font-jp": {
+      "type": "string",
+      "value": "Noto Sans JP"
+    },
+    "font-mono": {
+      "type": "string",
+      "value": "JetBrains Mono"
+    }
+  },
+  "fileToken": "3d6fce93-dd32-46ad-83f2-5824049a6ad6"
+}
