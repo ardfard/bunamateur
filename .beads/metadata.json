@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "bunamateur",
+  "project_id": "18664e23-090a-4f6e-8c82-7535baf42397"
+}
