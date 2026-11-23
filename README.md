@@ -1,6 +1,6 @@
 # BunAmateur (文アマ)
 
-A **Bunpro-inspired Japanese grammar SRS & immersion companion** built with a **single-binary Rust backend** (`axum` + bundled `SQLite` + `rust-embed`), a React + TypeScript + Tailwind CSS v4 frontend, **WaniKani API v2 integration**, and design files authored in **pen.dev** (`design/bunamateur.pen`).
+A **Bunpro-inspired Japanese grammar SRS & immersion companion** built with a **single-binary Rust backend** (`axum` + async `sqlx` PostgreSQL with embedded migrations + `rust-embed`), a React + TypeScript + Tailwind CSS v4 frontend, **WaniKani API v2 integration**, and design files authored in **pen.dev** (`design/bunamateur.pen`).
 
 ## Features
 
@@ -24,14 +24,14 @@ A **Bunpro-inspired Japanese grammar SRS & immersion companion** built with a **
 ## Single-Binary Build & Deployment
 
 ```bash
-# Build frontend and compile everything (UI + SQLite + Rust server) into one standalone binary
+# Build frontend and compile everything (embedded UI + embedded SQL migrations + pure-Rust server) into one standalone binary
 make release
 
-# Run the single binary anywhere (creates bunamateur.db automatically)
-./target/release/bunamateur
+# Run the single binary (automatically runs embedded PostgreSQL migrations and idempotent content seeding)
+DATABASE_URL=postgres://ardfard@127.0.0.1:5432/bunamateur_dev ./target/release/bunamateur
 
-# Optional environment variables
-PORT=8080 HOST=0.0.0.0 BUNAMATEUR_DB=./bunamateur.db ./target/release/bunamateur
+# Optional environment variables (see .env.example)
+PORT=8080 HOST=0.0.0.0 DATABASE_URL=postgres://user:pass@localhost:5432/bunamateur_dev ./target/release/bunamateur
 ```
 
 ## Design File

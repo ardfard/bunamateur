@@ -6,6 +6,7 @@ frontend/dist/
 *.db-shm
 *.db-wal
 .DS_Store
+.env
 
 # Beads / Dolt files (added by bd init)
 .dolt/

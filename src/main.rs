@@ -1,16 +1,12 @@
-mod db;
-mod models;
-mod routes;
-mod seed_data;
-mod srs;
-mod wanikani;
-
 use axum::{
     Router,
     http::{StatusCode, Uri, header},
     response::{Html, IntoResponse, Response},
 };
-use db::AppState;
+use bunamateur::{
+    db::{AppState, DEFAULT_DATABASE_URL, sanitize_database_url},
+    routes,
+};
 use rust_embed::RustEmbed;
 use std::net::SocketAddr;
 use tower_http::cors::CorsLayer;
@@ -24,16 +20,16 @@ async fn static_handler(uri: Uri) -> Response {
     let path = uri.path().trim_start_matches('/');
 
     // Try exact static asset first
-    if !path.is_empty() {
-        if let Some(content) = FrontendAssets::get(path) {
-            let mime = mime_guess::from_path(path).first_or_octet_stream();
-            return (
-                StatusCode::OK,
-                [(header::CONTENT_TYPE, mime.as_ref().to_string())],
-                content.data.into_owned(),
-            )
-                .into_response();
-        }
+    if !path.is_empty()
+        && let Some(content) = FrontendAssets::get(path)
+    {
+        let mime = mime_guess::from_path(path).first_or_octet_stream();
+        return (
+            StatusCode::OK,
+            [(header::CONTENT_TYPE, mime.as_ref().to_string())],
+            content.data.into_owned(),
+        )
+            .into_response();
     }
 
     // SPA fallback to index.html
@@ -50,18 +46,25 @@ async fn static_handler(uri: Uri) -> Response {
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::try_from_default_env().unwrap_or_else(|_| "bunamateur=info,tower_http=info".into()))
+        .with_env_filter(
+            EnvFilter::try_from_default_env()
+                .unwrap_or_else(|_| "bunamateur=info,tower_http=info".into()),
+        )
         .init();
 
-    let db_path = std::env::var("BUNAMATEUR_DB").unwrap_or_else(|_| "bunamateur.db".to_string());
+    let database_url =
+        std::env::var("DATABASE_URL").unwrap_or_else(|_| DEFAULT_DATABASE_URL.to_string());
     let port: u16 = std::env::var("PORT")
         .ok()
         .and_then(|p| p.parse().ok())
         .unwrap_or(8080);
     let host = std::env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
 
-    let state = AppState::open(&db_path)?;
-    tracing::info!("SQLite database initialized at {}", db_path);
+    let state = AppState::connect(&database_url).await?;
+    tracing::info!(
+        "PostgreSQL database connected, migrated, and seeded ({})",
+        sanitize_database_url(&database_url)
+    );
 
     let app = Router::new()
         .nest("/api", routes::api_router())
