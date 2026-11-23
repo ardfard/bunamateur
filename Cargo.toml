@@ -1,0 +1,26 @@
+[package]
+name = "bunamateur"
+version = "0.1.0"
+edition = "2024"
+description = "BunAmateur — A Bunpro-inspired Japanese grammar SRS & immersion platform with WaniKani integration, compiled to a single Rust binary."
+
+[dependencies]
+axum = { version = "0.8", features = ["macros"] }
+tokio = { version = "1", features = ["full"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "0.35", features = ["bundled"] }
+chrono = { version = "0.4", features = ["serde"] }
+reqwest = { version = "0.12", default-features = false, features = ["json", "rustls-tls"] }
+rust-embed = "8"
+mime_guess = "2"
+tower-http = { version = "0.6", features = ["cors", "trace"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+anyhow = "1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+strip = true
