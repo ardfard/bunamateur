@@ -1,4 +1,5 @@
 import type {
+  AuthResponse,
   ConjugationItem,
   DashboardStats,
   GrammarPointDetail,
@@ -11,19 +12,94 @@ import type {
   WaniKaniStatus,
 } from './types'
 
+export class ApiError extends Error {
+  status: number
+  constructor(message: string, status: number) {
+    super(message)
+    this.name = 'ApiError'
+    this.status = status
+  }
+}
+
+let inMemoryCsrfToken: string | null = null
+
+export function setCsrfToken(token: string | null) {
+  inMemoryCsrfToken = token
+}
+
+function readCookie(name: string): string | null {
+  if (typeof document === 'undefined') return null
+  const prefix = `${name}=`
+  for (const part of document.cookie.split(';')) {
+    const trimmed = part.trim()
+    if (trimmed.startsWith(prefix)) {
+      return decodeURIComponent(trimmed.slice(prefix.length))
+    }
+  }
+  return null
+}
+
+function getCsrfToken(): string | null {
+  return inMemoryCsrfToken || readCookie('bunamateur_csrf')
+}
+
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const method = (init?.method || 'GET').toUpperCase()
+  const headers: Record<string, string> = {
+    'Content-Type': 'application/json',
+    ...((init?.headers as Record<string, string>) || {}),
+  }
+
+  if (method !== 'GET' && method !== 'HEAD' && method !== 'OPTIONS') {
+    const csrf = getCsrfToken()
+    if (csrf) {
+      headers['X-CSRF-Token'] = csrf
+    }
+  }
+
   const res = await fetch(path, {
-    headers: { 'Content-Type': 'application/json', ...(init?.headers || {}) },
+    credentials: 'include',
     ...init,
+    headers,
   })
   const data = await res.json().catch(() => ({}))
   if (!res.ok) {
-    throw new Error(data.error || `Request failed (${res.status})`)
+    throw new ApiError(data.error || `Request failed (${res.status})`, res.status)
   }
   return data as T
 }
 
 export const api = {
+  authMe: async () => {
+    const resp = await request<AuthResponse>('/api/auth/me')
+    setCsrfToken(resp.csrf_token)
+    return resp
+  },
+
+  register: async (payload: { email: string; username: string; password: string }) => {
+    const resp = await request<AuthResponse>('/api/auth/register', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+    setCsrfToken(resp.csrf_token)
+    return resp
+  },
+
+  login: async (payload: { email: string; password: string }) => {
+    const resp = await request<AuthResponse>('/api/auth/login', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    })
+    setCsrfToken(resp.csrf_token)
+    return resp
+  },
+
+  logout: async () => {
+    const resp = await request<{ ok: boolean }>('/api/auth/logout', { method: 'POST' })
+    setCsrfToken(null)
+    return resp
+  },
+
   getDashboard: () => request<DashboardStats>('/api/dashboard'),
 
   getReviews: (mode: ReviewMode, jlpt = 'ALL', limit = 20) =>

@@ -189,10 +189,10 @@ pub async fn sync_from_wanikani(api_token: &str) -> Result<WaniKaniSyncResult> {
         }
         let page: WkCollectionEnvelope<WkSubjectData> = resp.json().await?;
         for item in page.data {
-            if let Some((stype, srs)) = passed_map.get(&item.id) {
-                if let Some(chars) = item.data.characters {
-                    subjects_out.push((item.id, stype.clone(), chars, item.data.level, *srs));
-                }
+            if let Some((stype, srs)) = passed_map.get(&item.id)
+                && let Some(chars) = item.data.characters
+            {
+                subjects_out.push((item.id, stype.clone(), chars, item.data.level, *srs));
             }
         }
         subj_url = page.pages.next_url;

@@ -4,12 +4,14 @@ use axum::{
     response::{Html, IntoResponse, Response},
 };
 use bunamateur::{
+    crypto::TokenCipher,
     db::{AppState, DEFAULT_DATABASE_URL, sanitize_database_url},
+    email::{EmailConfig, build_email_sender},
     routes,
+    security::{SecurityConfig, build_cors_layer},
 };
 use rust_embed::RustEmbed;
 use std::net::SocketAddr;
-use tower_http::cors::CorsLayer;
 use tracing_subscriber::EnvFilter;
 
 #[derive(RustEmbed)]
@@ -60,22 +62,42 @@ async fn main() -> anyhow::Result<()> {
         .unwrap_or(8080);
     let host = std::env::var("HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
 
-    let state = AppState::connect(&database_url).await?;
+    let cipher = TokenCipher::from_env()?;
+    let security = SecurityConfig::from_env(&host)?;
+    let email_config = EmailConfig::from_env()?;
+    let mailer = build_email_sender(&email_config)?;
+    let cors = build_cors_layer(&security)?;
+
+    let state = AppState::connect_with_config(&database_url, cipher, security)
+        .await?
+        .with_mailer(mailer, email_config.app_public_url.clone());
     tracing::info!(
         "PostgreSQL database connected, migrated, and seeded ({})",
         sanitize_database_url(&database_url)
     );
+    tracing::info!(
+        allowed_origins = ?state.security.allowed_origins,
+        cookie_secure = state.security.cookie_secure,
+        session_ttl_days = state.security.session_ttl_days,
+        email_provider = state.mailer.provider_name(),
+        "Security & email configuration active"
+    );
 
+    let api = routes::api_router(&state);
     let app = Router::new()
-        .nest("/api", routes::api_router())
+        .nest("/api", api)
         .fallback(static_handler)
-        .layer(CorsLayer::permissive())
+        .layer(cors)
         .with_state(state);
 
     let addr: SocketAddr = format!("{}:{}", host, port).parse()?;
     tracing::info!("BunAmateur (文アマ) running at http://{}", addr);
 
     let listener = tokio::net::TcpListener::bind(addr).await?;
-    axum::serve(listener, app).await?;
+    axum::serve(
+        listener,
+        app.into_make_service_with_connect_info::<SocketAddr>(),
+    )
+    .await?;
     Ok(())
 }

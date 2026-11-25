@@ -1,8 +1,13 @@
-use crate::models::{
-    ConjugationItem, DashboardStats, DetectedGrammar, ForecastBucket, GrammarPointDetail,
-    GrammarPointSummary, GrammarSentence, JlptProgress, ReadingPassage, ReviewQueueItem,
-    SrsTierCount, WaniKaniStatus,
+use crate::crypto::TokenCipher;
+use crate::email::{
+    DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
 };
+use crate::models::{
+    AuthUserInfo, ConjugationItem, DashboardStats, DetectedGrammar, ForecastBucket,
+    GrammarPointDetail, GrammarPointSummary, GrammarSentence, JlptProgress, ReadingPassage,
+    ReviewQueueItem, SrsTierCount, WaniKaniStatus,
+};
+use crate::security::{RateLimiter, SecurityConfig};
 use crate::seed_data::{SEED_CONJUGATIONS, SEED_GRAMMAR, SEED_PASSAGES};
 use crate::srs::{SrsTransition, srs_stage_label};
 use crate::wanikani::{WaniKaniSyncResult, compute_kanji_readiness, strip_ruby_markup};
@@ -10,6 +15,7 @@ use anyhow::{Context, Result};
 use chrono::{DateTime, Duration, NaiveDate, Utc};
 use sqlx::{FromRow, PgPool, postgres::PgPoolOptions};
 use std::collections::{HashMap, HashSet};
+use std::sync::Arc;
 use std::time::Duration as StdDuration;
 
 pub const DEFAULT_DATABASE_URL: &str = "postgres://ardfard@127.0.0.1:5432/bunamateur_dev";
@@ -17,10 +23,25 @@ pub const DEFAULT_DATABASE_URL: &str = "postgres://ardfard@127.0.0.1:5432/bunama
 #[derive(Clone)]
 pub struct AppState {
     pub pool: PgPool,
+    pub cipher: TokenCipher,
+    pub security: SecurityConfig,
+    pub rate_limiter: RateLimiter,
+    pub mailer: DynEmailSender,
+    pub app_public_url: String,
 }
 
 impl AppState {
     pub async fn connect(database_url: &str) -> Result<Self> {
+        let cipher = TokenCipher::from_env()?;
+        let security = SecurityConfig::default();
+        Self::connect_with_config(database_url, cipher, security).await
+    }
+
+    pub async fn connect_with_config(
+        database_url: &str,
+        cipher: TokenCipher,
+        security: SecurityConfig,
+    ) -> Result<Self> {
         let pool = PgPoolOptions::new()
             .max_connections(10)
             .acquire_timeout(StdDuration::from_secs(10))
@@ -33,13 +54,42 @@ impl AppState {
                 )
             })?;
 
-        Self::from_pool(pool).await
+        Self::from_pool_with_config(pool, cipher, security).await
     }
 
     pub async fn from_pool(pool: PgPool) -> Result<Self> {
+        Self::from_pool_with_config(
+            pool,
+            TokenCipher::generate_ephemeral(),
+            SecurityConfig::default(),
+        )
+        .await
+    }
+
+    pub async fn from_pool_with_config(
+        pool: PgPool,
+        cipher: TokenCipher,
+        security: SecurityConfig,
+    ) -> Result<Self> {
         run_migrations(&pool).await?;
         seed_content(&pool).await?;
-        Ok(Self { pool })
+        let rate_limiter = RateLimiter::new(security.rate_limits.clone(), security.trust_proxy);
+        let mailer: DynEmailSender =
+            Arc::new(NoopLogEmailSender::new(DEFAULT_EMAIL_FROM.to_string()));
+        Ok(Self {
+            pool,
+            cipher,
+            security,
+            rate_limiter,
+            mailer,
+            app_public_url: DEFAULT_APP_PUBLIC_URL.to_string(),
+        })
+    }
+
+    pub fn with_mailer(mut self, mailer: DynEmailSender, app_public_url: String) -> Self {
+        self.mailer = mailer;
+        self.app_public_url = app_public_url;
+        self
     }
 }
 
@@ -65,26 +115,10 @@ pub async fn run_migrations(pool: &PgPool) -> Result<()> {
     Ok(())
 }
 
-/// Idempotently upserts static curriculum content (grammar points, sentences, reading passages,
-/// conjugation drills) without overwriting existing user progress, notes, review logs, or WaniKani profile.
+/// Idempotently upserts shared static curriculum content (grammar points, sentences,
+/// reading passages, conjugation drills) without touching any user-scoped tables.
 pub async fn seed_content(pool: &PgPool) -> Result<()> {
     let mut tx = pool.begin().await?;
-
-    sqlx::query(
-        "INSERT INTO wk_profile (id, smart_furigana, highlight_known_kanji)
-         VALUES (1, TRUE, TRUE)
-         ON CONFLICT (id) DO NOTHING",
-    )
-    .execute(&mut *tx)
-    .await?;
-
-    let existing_grammar_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points")
-        .fetch_one(&mut *tx)
-        .await?;
-    let is_fresh_db = existing_grammar_count == 0;
-
-    let now = Utc::now();
-    let mut seeded_grammar_ids: Vec<i64> = Vec::with_capacity(SEED_GRAMMAR.len());
 
     for g in SEED_GRAMMAR {
         let patterns: Vec<String> = g.match_patterns.iter().map(|s| (*s).to_string()).collect();
@@ -122,8 +156,6 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
         .fetch_one(&mut *tx)
         .await?;
 
-        seeded_grammar_ids.push(grammar_id);
-
         for (pos, s) in g.sentences.iter().enumerate() {
             let alts: Vec<String> = s.alt_answers.iter().map(|a| (*a).to_string()).collect();
             sqlx::query(
@@ -150,73 +182,6 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
             .bind(s.nuance_note)
             .execute(&mut *tx)
             .await?;
-        }
-
-        // Preserve existing user progress on subsequent runs; seed initial progress only on a fresh DB.
-        let (init_srs, next_review, init_ghost, ghost_due, init_correct, init_incorrect, init_streak) =
-            if is_fresh_db {
-                let next_review = g
-                    .initial_due_offset_hours
-                    .map(|h| now + Duration::hours(h));
-                let ghost_due = if g.initial_ghost > 0 {
-                    Some(now - Duration::minutes(30))
-                } else {
-                    None
-                };
-                let init_correct = if g.initial_srs > 0 {
-                    g.initial_srs * 2
-                } else {
-                    0
-                };
-                let init_incorrect = if g.initial_ghost > 0 { 2 } else { 0 };
-                (
-                    g.initial_srs,
-                    next_review,
-                    g.initial_ghost,
-                    ghost_due,
-                    init_correct,
-                    init_incorrect,
-                    g.initial_srs.max(0),
-                )
-            } else {
-                (0, None, 0, None, 0, 0, 0)
-            };
-
-        sqlx::query(
-            "INSERT INTO user_progress
-                 (grammar_id, srs_stage, next_review_at, ghost_level, ghost_due_at, correct_count, incorrect_count, streak)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
-             ON CONFLICT (grammar_id) DO NOTHING",
-        )
-        .bind(grammar_id)
-        .bind(init_srs)
-        .bind(next_review)
-        .bind(init_ghost)
-        .bind(ghost_due)
-        .bind(init_correct)
-        .bind(init_incorrect)
-        .bind(init_streak)
-        .execute(&mut *tx)
-        .await?;
-    }
-
-    // Seed recent review logs only on a brand-new database
-    if is_fresh_db && !seeded_grammar_ids.is_empty() {
-        let sample_ids: Vec<i64> = seeded_grammar_ids.iter().copied().take(6).collect();
-        for day_offset in 0..5 {
-            let ts = now - Duration::days(day_offset) - Duration::hours(1);
-            for (idx, &gid) in sample_ids.iter().enumerate() {
-                let correct = !(day_offset == 1 && idx == 4);
-                sqlx::query(
-                    "INSERT INTO review_logs (grammar_id, correct, mode, is_ghost, reviewed_at)
-                     VALUES ($1, $2, 'review', FALSE, $3)",
-                )
-                .bind(gid)
-                .bind(correct)
-                .bind(ts)
-                .execute(&mut *tx)
-                .await?;
-            }
         }
     }
 
@@ -274,11 +239,221 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
     Ok(())
 }
 
-pub async fn load_known_kanji(pool: &PgPool) -> Result<HashSet<char>> {
-    let rows: Vec<String> =
-        sqlx::query_scalar("SELECT characters FROM wk_subjects WHERE subject_type = 'kanji'")
-            .fetch_all(pool)
-            .await?;
+// ---------------------------------------------------------------------------
+// Users & Sessions
+// ---------------------------------------------------------------------------
+
+#[derive(Debug)]
+pub enum CreateUserError {
+    EmailTaken,
+    UsernameTaken,
+    Other(anyhow::Error),
+}
+
+#[derive(FromRow)]
+struct UserRow {
+    id: i64,
+    email: String,
+    username: String,
+    created_at: DateTime<Utc>,
+}
+
+impl From<UserRow> for AuthUserInfo {
+    fn from(r: UserRow) -> Self {
+        Self {
+            id: r.id,
+            email: r.email,
+            username: r.username,
+            created_at: r.created_at.to_rfc3339(),
+        }
+    }
+}
+
+pub async fn create_user(
+    pool: &PgPool,
+    email: &str,
+    username: &str,
+    password_hash: &str,
+) -> std::result::Result<AuthUserInfo, CreateUserError> {
+    let mut tx = pool.begin().await.map_err(|e| CreateUserError::Other(e.into()))?;
+
+    let row: UserRow = match sqlx::query_as(
+        "INSERT INTO users (email, username, password_hash)
+         VALUES ($1, $2, $3)
+         RETURNING id, email, username, created_at",
+    )
+    .bind(email)
+    .bind(username)
+    .bind(password_hash)
+    .fetch_one(&mut *tx)
+    .await
+    {
+        Ok(r) => r,
+        Err(sqlx::Error::Database(db_err)) if db_err.code().as_deref() == Some("23505") => {
+            let constraint = db_err.constraint().unwrap_or("");
+            if constraint.contains("username") {
+                return Err(CreateUserError::UsernameTaken);
+            }
+            return Err(CreateUserError::EmailTaken);
+        }
+        Err(e) => return Err(CreateUserError::Other(e.into())),
+    };
+
+    sqlx::query(
+        "INSERT INTO wk_profile (user_id, smart_furigana, highlight_known_kanji)
+         VALUES ($1, TRUE, TRUE)
+         ON CONFLICT (user_id) DO NOTHING",
+    )
+    .bind(row.id)
+    .execute(&mut *tx)
+    .await
+    .map_err(|e| CreateUserError::Other(e.into()))?;
+
+    tx.commit()
+        .await
+        .map_err(|e| CreateUserError::Other(e.into()))?;
+
+    Ok(row.into())
+}
+
+#[derive(FromRow)]
+struct UserWithPasswordRow {
+    id: i64,
+    email: String,
+    username: String,
+    password_hash: String,
+    created_at: DateTime<Utc>,
+}
+
+pub async fn find_user_by_email(
+    pool: &PgPool,
+    email: &str,
+) -> Result<Option<(AuthUserInfo, String)>> {
+    let row: Option<UserWithPasswordRow> = sqlx::query_as(
+        "SELECT id, email, username, password_hash, created_at
+         FROM users
+         WHERE LOWER(email) = LOWER($1)",
+    )
+    .bind(email)
+    .fetch_optional(pool)
+    .await?;
+
+    Ok(row.map(|r| {
+        (
+            AuthUserInfo {
+                id: r.id,
+                email: r.email,
+                username: r.username,
+                created_at: r.created_at.to_rfc3339(),
+            },
+            r.password_hash,
+        )
+    }))
+}
+
+pub async fn create_session(
+    pool: &PgPool,
+    session_id_hash: &str,
+    user_id: i64,
+    csrf_token: &str,
+    expires_at: DateTime<Utc>,
+    user_agent: Option<&str>,
+    ip_address: Option<&str>,
+) -> Result<()> {
+    sqlx::query(
+        "INSERT INTO sessions (id, user_id, csrf_token, expires_at, user_agent, ip_address)
+         VALUES ($1, $2, $3, $4, $5, $6)",
+    )
+    .bind(session_id_hash)
+    .bind(user_id)
+    .bind(csrf_token)
+    .bind(expires_at)
+    .bind(user_agent)
+    .bind(ip_address)
+    .execute(pool)
+    .await?;
+
+    // Best-effort cleanup of expired sessions for this user
+    let _ = sqlx::query("DELETE FROM sessions WHERE user_id = $1 AND expires_at <= NOW()")
+        .bind(user_id)
+        .execute(pool)
+        .await;
+
+    Ok(())
+}
+
+#[derive(FromRow)]
+struct SessionUserRow {
+    id: i64,
+    email: String,
+    username: String,
+    created_at: DateTime<Utc>,
+    csrf_token: String,
+    last_seen_at: DateTime<Utc>,
+}
+
+pub async fn get_session_user(
+    pool: &PgPool,
+    session_id_hash: &str,
+) -> Result<Option<(AuthUserInfo, String)>> {
+    let row: Option<SessionUserRow> = sqlx::query_as(
+        "SELECT u.id, u.email, u.username, u.created_at, s.csrf_token, s.last_seen_at
+         FROM sessions s
+         JOIN users u ON u.id = s.user_id
+         WHERE s.id = $1 AND s.expires_at > NOW()",
+    )
+    .bind(session_id_hash)
+    .fetch_optional(pool)
+    .await?;
+
+    let Some(row) = row else {
+        return Ok(None);
+    };
+
+    if Utc::now() - row.last_seen_at > Duration::minutes(5) {
+        let _ = sqlx::query("UPDATE sessions SET last_seen_at = NOW() WHERE id = $1")
+            .bind(session_id_hash)
+            .execute(pool)
+            .await;
+    }
+
+    Ok(Some((
+        AuthUserInfo {
+            id: row.id,
+            email: row.email,
+            username: row.username,
+            created_at: row.created_at.to_rfc3339(),
+        },
+        row.csrf_token,
+    )))
+}
+
+pub async fn delete_session(pool: &PgPool, session_id_hash: &str) -> Result<()> {
+    sqlx::query("DELETE FROM sessions WHERE id = $1")
+        .bind(session_id_hash)
+        .execute(pool)
+        .await?;
+    Ok(())
+}
+
+pub async fn prune_expired_sessions(pool: &PgPool) -> Result<u64> {
+    let res = sqlx::query("DELETE FROM sessions WHERE expires_at <= NOW()")
+        .execute(pool)
+        .await?;
+    Ok(res.rows_affected())
+}
+
+// ---------------------------------------------------------------------------
+// WaniKani (scoped by user_id, api_token encrypted at rest)
+// ---------------------------------------------------------------------------
+
+pub async fn load_known_kanji(pool: &PgPool, user_id: i64) -> Result<HashSet<char>> {
+    let rows: Vec<String> = sqlx::query_scalar(
+        "SELECT characters FROM wk_subjects WHERE user_id = $1 AND subject_type = 'kanji'",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
 
     let mut set = HashSet::new();
     for chars in rows {
@@ -302,28 +477,55 @@ struct WkProfileRow {
     last_synced_at: Option<DateTime<Utc>>,
 }
 
-pub async fn load_wanikani_status(pool: &PgPool) -> Result<WaniKaniStatus> {
-    let profile: WkProfileRow = sqlx::query_as(
+pub async fn load_wanikani_status(pool: &PgPool, user_id: i64) -> Result<WaniKaniStatus> {
+    let profile: Option<WkProfileRow> = sqlx::query_as(
         "SELECT api_token, is_demo, username, level, lessons_available, reviews_available,
                 smart_furigana, highlight_known_kanji, last_synced_at
          FROM wk_profile
-         WHERE id = 1",
+         WHERE user_id = $1",
     )
+    .bind(user_id)
+    .fetch_optional(pool)
+    .await?;
+
+    let Some(profile) = profile else {
+        return Ok(WaniKaniStatus {
+            connected: false,
+            is_demo: false,
+            username: None,
+            level: 0,
+            kanji_known: 0,
+            vocab_known: 0,
+            wk_lessons_available: 0,
+            wk_reviews_available: 0,
+            smart_furigana: true,
+            highlight_known_kanji: true,
+            last_synced_at: None,
+            known_kanji_list: Vec::new(),
+        });
+    };
+
+    let kanji_known: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*) FROM wk_subjects WHERE user_id = $1 AND subject_type = 'kanji'",
+    )
+    .bind(user_id)
     .fetch_one(pool)
     .await?;
 
-    let kanji_known: i64 =
-        sqlx::query_scalar("SELECT COUNT(*) FROM wk_subjects WHERE subject_type = 'kanji'")
-            .fetch_one(pool)
-            .await?;
-    let vocab_known: i64 =
-        sqlx::query_scalar("SELECT COUNT(*) FROM wk_subjects WHERE subject_type = 'vocabulary'")
-            .fetch_one(pool)
-            .await?;
+    let vocab_known: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*) FROM wk_subjects WHERE user_id = $1 AND subject_type = 'vocabulary'",
+    )
+    .bind(user_id)
+    .fetch_one(pool)
+    .await?;
 
     let known_kanji_list: Vec<String> = sqlx::query_scalar(
-        "SELECT characters FROM wk_subjects WHERE subject_type = 'kanji' ORDER BY level, subject_id",
+        "SELECT characters
+         FROM wk_subjects
+         WHERE user_id = $1 AND subject_type = 'kanji'
+         ORDER BY level, subject_id",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
 
@@ -345,35 +547,60 @@ pub async fn load_wanikani_status(pool: &PgPool) -> Result<WaniKaniStatus> {
     })
 }
 
-pub async fn get_wanikani_credentials(pool: &PgPool) -> Result<(Option<String>, bool)> {
-    let row: (Option<String>, bool) =
-        sqlx::query_as("SELECT api_token, is_demo FROM wk_profile WHERE id = 1")
-            .fetch_one(pool)
+pub async fn get_wanikani_credentials(
+    pool: &PgPool,
+    cipher: &TokenCipher,
+    user_id: i64,
+) -> Result<(Option<String>, bool)> {
+    let row: Option<(Option<String>, bool)> =
+        sqlx::query_as("SELECT api_token, is_demo FROM wk_profile WHERE user_id = $1")
+            .bind(user_id)
+            .fetch_optional(pool)
             .await?;
-    Ok(row)
+
+    let Some((stored_token, is_demo)) = row else {
+        return Ok((None, false));
+    };
+
+    let decrypted = match stored_token {
+        Some(enc) => Some(cipher.decrypt_for_user(user_id, &enc)?),
+        None => None,
+    };
+
+    Ok((decrypted, is_demo))
 }
 
 pub async fn save_wanikani_sync(
     pool: &PgPool,
+    cipher: &TokenCipher,
+    user_id: i64,
     api_token: Option<&str>,
     is_demo: bool,
     sync: &WaniKaniSyncResult,
 ) -> Result<WaniKaniStatus> {
+    let encrypted_token = match api_token {
+        Some(tok) => Some(cipher.encrypt_for_user(user_id, tok)?),
+        None => None,
+    };
+
     let now = Utc::now();
     let mut tx = pool.begin().await?;
 
     sqlx::query(
-        "UPDATE wk_profile
-         SET api_token = $1,
-             is_demo = $2,
-             username = $3,
-             level = $4,
-             lessons_available = $5,
-             reviews_available = $6,
-             last_synced_at = $7
-         WHERE id = 1",
+        "INSERT INTO wk_profile
+             (user_id, api_token, is_demo, username, level, lessons_available, reviews_available, smart_furigana, highlight_known_kanji, last_synced_at)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE, TRUE, $8)
+         ON CONFLICT (user_id) DO UPDATE SET
+             api_token = EXCLUDED.api_token,
+             is_demo = EXCLUDED.is_demo,
+             username = EXCLUDED.username,
+             level = EXCLUDED.level,
+             lessons_available = EXCLUDED.lessons_available,
+             reviews_available = EXCLUDED.reviews_available,
+             last_synced_at = EXCLUDED.last_synced_at",
     )
-    .bind(api_token)
+    .bind(user_id)
+    .bind(encrypted_token.as_deref())
     .bind(is_demo)
     .bind(&sync.username)
     .bind(sync.level)
@@ -383,7 +610,8 @@ pub async fn save_wanikani_sync(
     .execute(&mut *tx)
     .await?;
 
-    sqlx::query("DELETE FROM wk_subjects")
+    sqlx::query("DELETE FROM wk_subjects WHERE user_id = $1")
+        .bind(user_id)
         .execute(&mut *tx)
         .await?;
 
@@ -403,14 +631,17 @@ pub async fn save_wanikani_sync(
         }
 
         sqlx::query(
-            "INSERT INTO wk_subjects (subject_id, subject_type, characters, level, srs_stage)
-             SELECT * FROM UNNEST($1::BIGINT[], $2::TEXT[], $3::TEXT[], $4::INTEGER[], $5::INTEGER[])
-             ON CONFLICT (subject_id) DO UPDATE SET
+            "INSERT INTO wk_subjects (user_id, subject_id, subject_type, characters, level, srs_stage)
+             SELECT $1, u.subject_id, u.subject_type, u.characters, u.level, u.srs_stage
+             FROM UNNEST($2::BIGINT[], $3::TEXT[], $4::TEXT[], $5::INTEGER[], $6::INTEGER[])
+                 AS u(subject_id, subject_type, characters, level, srs_stage)
+             ON CONFLICT (user_id, subject_id) DO UPDATE SET
                  subject_type = EXCLUDED.subject_type,
                  characters = EXCLUDED.characters,
                  level = EXCLUDED.level,
                  srs_stage = EXCLUDED.srs_stage",
         )
+        .bind(user_id)
         .bind(&ids)
         .bind(&types)
         .bind(&chars)
@@ -421,50 +652,61 @@ pub async fn save_wanikani_sync(
     }
 
     tx.commit().await?;
-    load_wanikani_status(pool).await
+    load_wanikani_status(pool, user_id).await
 }
 
-pub async fn disconnect_wanikani(pool: &PgPool) -> Result<WaniKaniStatus> {
+pub async fn disconnect_wanikani(pool: &PgPool, user_id: i64) -> Result<WaniKaniStatus> {
     let mut tx = pool.begin().await?;
     sqlx::query(
-        "UPDATE wk_profile
-         SET api_token = NULL,
+        "INSERT INTO wk_profile (user_id, api_token, is_demo, username, level, lessons_available, reviews_available, smart_furigana, highlight_known_kanji, last_synced_at)
+         VALUES ($1, NULL, FALSE, NULL, 0, 0, 0, TRUE, TRUE, NULL)
+         ON CONFLICT (user_id) DO UPDATE SET
+             api_token = NULL,
              is_demo = FALSE,
              username = NULL,
              level = 0,
              lessons_available = 0,
              reviews_available = 0,
-             last_synced_at = NULL
-         WHERE id = 1",
+             last_synced_at = NULL",
     )
+    .bind(user_id)
     .execute(&mut *tx)
     .await?;
 
-    sqlx::query("DELETE FROM wk_subjects")
+    sqlx::query("DELETE FROM wk_subjects WHERE user_id = $1")
+        .bind(user_id)
         .execute(&mut *tx)
         .await?;
 
     tx.commit().await?;
-    load_wanikani_status(pool).await
+    load_wanikani_status(pool, user_id).await
 }
 
 pub async fn update_wanikani_settings(
     pool: &PgPool,
+    user_id: i64,
     smart_furigana: bool,
     highlight_known_kanji: bool,
 ) -> Result<WaniKaniStatus> {
     sqlx::query(
-        "UPDATE wk_profile
-         SET smart_furigana = $1, highlight_known_kanji = $2
-         WHERE id = 1",
+        "INSERT INTO wk_profile (user_id, smart_furigana, highlight_known_kanji)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (user_id) DO UPDATE SET
+             smart_furigana = EXCLUDED.smart_furigana,
+             highlight_known_kanji = EXCLUDED.highlight_known_kanji",
     )
+    .bind(user_id)
     .bind(smart_furigana)
     .bind(highlight_known_kanji)
     .execute(pool)
     .await?;
 
-    load_wanikani_status(pool).await
+    load_wanikani_status(pool, user_id).await
 }
+
+// ---------------------------------------------------------------------------
+// Grammar, Progress & Reviews (scoped by user_id)
+// ---------------------------------------------------------------------------
 
 #[derive(FromRow)]
 struct GrammarSummaryRow {
@@ -486,22 +728,28 @@ struct GrammarSummaryRow {
 
 pub async fn list_grammar_summaries(
     pool: &PgPool,
+    user_id: i64,
     jlpt_filter: Option<&str>,
     query: Option<&str>,
     status_filter: Option<&str>,
 ) -> Result<Vec<GrammarPointSummary>> {
-    let known_kanji = load_known_kanji(pool).await?;
+    let known_kanji = load_known_kanji(pool, user_id).await?;
 
     let rows: Vec<GrammarSummaryRow> = sqlx::query_as(
         "SELECT g.id, g.slug, g.title, g.reading, g.meaning, g.jlpt_level, g.study_path, g.structure,
-                p.srs_stage, p.next_review_at, p.ghost_level, p.correct_count, p.incorrect_count,
+                COALESCE(p.srs_stage, 0) AS srs_stage,
+                p.next_review_at,
+                COALESCE(p.ghost_level, 0) AS ghost_level,
+                COALESCE(p.correct_count, 0) AS correct_count,
+                COALESCE(p.incorrect_count, 0) AS incorrect_count,
                 COALESCE(STRING_AGG(s.jp_before || s.answer || s.jp_after, ' ' ORDER BY s.position, s.id), '') AS combined_sentences
          FROM grammar_points g
-         JOIN user_progress p ON p.grammar_id = g.id
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
          LEFT JOIN grammar_sentences s ON s.grammar_id = g.id
-         GROUP BY g.id, p.grammar_id
+         GROUP BY g.id, p.srs_stage, p.next_review_at, p.ghost_level, p.correct_count, p.incorrect_count
          ORDER BY CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END, g.id",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
 
@@ -603,18 +851,26 @@ struct GrammarSentenceRow {
 
 pub async fn get_grammar_detail(
     pool: &PgPool,
+    user_id: i64,
     grammar_id: i64,
 ) -> Result<Option<GrammarPointDetail>> {
-    let known_kanji = load_known_kanji(pool).await?;
+    let known_kanji = load_known_kanji(pool, user_id).await?;
 
     let row: Option<GrammarDetailRow> = sqlx::query_as(
         "SELECT g.id, g.slug, g.title, g.reading, g.meaning, g.jlpt_level, g.study_path,
                 g.structure, g.nuance, g.caution, g.confusable_with, g.pitch_note,
-                p.user_notes, p.srs_stage, p.correct_count, p.incorrect_count, p.streak, p.ghost_level, p.next_review_at
+                COALESCE(p.user_notes, '') AS user_notes,
+                COALESCE(p.srs_stage, 0) AS srs_stage,
+                COALESCE(p.correct_count, 0) AS correct_count,
+                COALESCE(p.incorrect_count, 0) AS incorrect_count,
+                COALESCE(p.streak, 0) AS streak,
+                COALESCE(p.ghost_level, 0) AS ghost_level,
+                p.next_review_at
          FROM grammar_points g
-         JOIN user_progress p ON p.grammar_id = g.id
-         WHERE g.id = $1",
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+         WHERE g.id = $2",
     )
+    .bind(user_id)
     .bind(grammar_id)
     .fetch_optional(pool)
     .await?;
@@ -683,16 +939,31 @@ pub async fn get_grammar_detail(
     }))
 }
 
-pub async fn update_grammar_notes(pool: &PgPool, grammar_id: i64, notes: &str) -> Result<()> {
-    sqlx::query("UPDATE user_progress SET user_notes = $1 WHERE grammar_id = $2")
-        .bind(notes)
-        .bind(grammar_id)
-        .execute(pool)
-        .await?;
+pub async fn update_grammar_notes(
+    pool: &PgPool,
+    user_id: i64,
+    grammar_id: i64,
+    notes: &str,
+) -> Result<()> {
+    sqlx::query(
+        "INSERT INTO user_progress (user_id, grammar_id, user_notes)
+         VALUES ($1, $2, $3)
+         ON CONFLICT (user_id, grammar_id) DO UPDATE SET
+             user_notes = EXCLUDED.user_notes",
+    )
+    .bind(user_id)
+    .bind(grammar_id)
+    .bind(notes)
+    .execute(pool)
+    .await?;
     Ok(())
 }
 
-pub async fn reset_grammar_progress(pool: &PgPool, grammar_id: i64) -> Result<()> {
+pub async fn reset_grammar_progress(
+    pool: &PgPool,
+    user_id: i64,
+    grammar_id: i64,
+) -> Result<()> {
     sqlx::query(
         "UPDATE user_progress
          SET srs_stage = 0,
@@ -700,8 +971,9 @@ pub async fn reset_grammar_progress(pool: &PgPool, grammar_id: i64) -> Result<()
              ghost_level = 0,
              ghost_due_at = NULL,
              streak = 0
-         WHERE grammar_id = $1",
+         WHERE user_id = $1 AND grammar_id = $2",
     )
+    .bind(user_id)
     .bind(grammar_id)
     .execute(pool)
     .await?;
@@ -710,17 +982,20 @@ pub async fn reset_grammar_progress(pool: &PgPool, grammar_id: i64) -> Result<()
 
 pub async fn start_lesson(
     pool: &PgPool,
+    user_id: i64,
     grammar_id: i64,
     next_due: DateTime<Utc>,
 ) -> Result<()> {
     sqlx::query(
-        "UPDATE user_progress
-         SET srs_stage = CASE WHEN srs_stage = 0 THEN 1 ELSE srs_stage END,
-             next_review_at = COALESCE(next_review_at, $1)
-         WHERE grammar_id = $2",
+        "INSERT INTO user_progress (user_id, grammar_id, srs_stage, next_review_at)
+         VALUES ($1, $2, 1, $3)
+         ON CONFLICT (user_id, grammar_id) DO UPDATE SET
+             srs_stage = CASE WHEN user_progress.srs_stage = 0 THEN 1 ELSE user_progress.srs_stage END,
+             next_review_at = COALESCE(user_progress.next_review_at, EXCLUDED.next_review_at)",
     )
-    .bind(next_due)
+    .bind(user_id)
     .bind(grammar_id)
+    .bind(next_due)
     .execute(pool)
     .await?;
     Ok(())
@@ -740,18 +1015,26 @@ pub async fn get_sentence_answers(
 
 pub async fn get_user_progress_stages(
     pool: &PgPool,
+    user_id: i64,
     grammar_id: i64,
 ) -> Result<Option<(i32, i32)>> {
-    let row: Option<(i32, i32)> =
-        sqlx::query_as("SELECT srs_stage, ghost_level FROM user_progress WHERE grammar_id = $1")
-            .bind(grammar_id)
-            .fetch_optional(pool)
-            .await?;
+    let row: Option<(i32, i32)> = sqlx::query_as(
+        "SELECT COALESCE(p.srs_stage, 0), COALESCE(p.ghost_level, 0)
+         FROM grammar_points g
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+         WHERE g.id = $2",
+    )
+    .bind(user_id)
+    .bind(grammar_id)
+    .fetch_optional(pool)
+    .await?;
     Ok(row)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub async fn record_review_submission(
     pool: &PgPool,
+    user_id: i64,
     grammar_id: i64,
     mode: &str,
     is_ghost: bool,
@@ -763,52 +1046,61 @@ pub async fn record_review_submission(
 
     let correct_delta: i32 = if correct { 1 } else { 0 };
     let incorrect_delta: i32 = if correct { 0 } else { 1 };
+    let initial_streak: i32 = if correct { 1 } else { 0 };
 
     if is_ghost {
         sqlx::query(
-            "UPDATE user_progress
-             SET ghost_level = $1,
-                 ghost_due_at = $2,
-                 correct_count = correct_count + $3,
-                 incorrect_count = incorrect_count + $4
-             WHERE grammar_id = $5",
+            "INSERT INTO user_progress
+                 (user_id, grammar_id, ghost_level, ghost_due_at, correct_count, incorrect_count)
+             VALUES ($1, $2, $3, $4, $5, $6)
+             ON CONFLICT (user_id, grammar_id) DO UPDATE SET
+                 ghost_level = EXCLUDED.ghost_level,
+                 ghost_due_at = EXCLUDED.ghost_due_at,
+                 correct_count = user_progress.correct_count + EXCLUDED.correct_count,
+                 incorrect_count = user_progress.incorrect_count + EXCLUDED.incorrect_count",
         )
+        .bind(user_id)
+        .bind(grammar_id)
         .bind(transition.new_ghost_level)
         .bind(transition.ghost_due_at)
         .bind(correct_delta)
         .bind(incorrect_delta)
-        .bind(grammar_id)
         .execute(&mut *tx)
         .await?;
     } else {
         sqlx::query(
-            "UPDATE user_progress
-             SET srs_stage = $1,
-                 next_review_at = $2,
-                 ghost_level = $3,
-                 ghost_due_at = COALESCE($4, ghost_due_at),
-                 correct_count = correct_count + $5,
-                 incorrect_count = incorrect_count + $6,
-                 streak = CASE WHEN $7 THEN streak + 1 ELSE 0 END
-             WHERE grammar_id = $8",
+            "INSERT INTO user_progress
+                 (user_id, grammar_id, srs_stage, next_review_at, ghost_level, ghost_due_at, correct_count, incorrect_count, streak)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+             ON CONFLICT (user_id, grammar_id) DO UPDATE SET
+                 srs_stage = EXCLUDED.srs_stage,
+                 next_review_at = EXCLUDED.next_review_at,
+                 ghost_level = EXCLUDED.ghost_level,
+                 ghost_due_at = COALESCE(EXCLUDED.ghost_due_at, user_progress.ghost_due_at),
+                 correct_count = user_progress.correct_count + EXCLUDED.correct_count,
+                 incorrect_count = user_progress.incorrect_count + EXCLUDED.incorrect_count,
+                 streak = CASE WHEN $10 THEN user_progress.streak + 1 ELSE 0 END",
         )
+        .bind(user_id)
+        .bind(grammar_id)
         .bind(transition.new_stage)
         .bind(transition.next_review_at)
         .bind(transition.new_ghost_level)
         .bind(transition.ghost_due_at)
         .bind(correct_delta)
         .bind(incorrect_delta)
+        .bind(initial_streak)
         .bind(correct)
-        .bind(grammar_id)
         .execute(&mut *tx)
         .await?;
     }
 
     let log_id: i64 = sqlx::query_scalar(
-        "INSERT INTO review_logs (grammar_id, correct, mode, is_ghost, reviewed_at)
-         VALUES ($1, $2, $3, $4, $5)
+        "INSERT INTO review_logs (user_id, grammar_id, correct, mode, is_ghost, reviewed_at)
+         VALUES ($1, $2, $3, $4, $5, $6)
          RETURNING id",
     )
+    .bind(user_id)
     .bind(grammar_id)
     .bind(correct)
     .bind(mode)
@@ -823,6 +1115,7 @@ pub async fn record_review_submission(
 
 pub async fn undo_review(
     pool: &PgPool,
+    user_id: i64,
     grammar_id: i64,
     previous_srs_stage: i32,
     previous_ghost_level: i32,
@@ -842,24 +1135,27 @@ pub async fn undo_review(
 
     let mut tx = pool.begin().await?;
     sqlx::query(
-        "UPDATE user_progress
-         SET srs_stage = $1,
-             next_review_at = $2,
-             ghost_level = $3,
-             ghost_due_at = $4
-         WHERE grammar_id = $5",
+        "INSERT INTO user_progress (user_id, grammar_id, srs_stage, next_review_at, ghost_level, ghost_due_at)
+         VALUES ($1, $2, $3, $4, $5, $6)
+         ON CONFLICT (user_id, grammar_id) DO UPDATE SET
+             srs_stage = EXCLUDED.srs_stage,
+             next_review_at = EXCLUDED.next_review_at,
+             ghost_level = EXCLUDED.ghost_level,
+             ghost_due_at = EXCLUDED.ghost_due_at",
     )
+    .bind(user_id)
+    .bind(grammar_id)
     .bind(previous_srs_stage)
     .bind(restore_due)
     .bind(previous_ghost_level)
     .bind(restore_ghost_due)
-    .bind(grammar_id)
     .execute(&mut *tx)
     .await?;
 
     if let Some(lid) = review_log_id {
-        sqlx::query("DELETE FROM review_logs WHERE id = $1")
+        sqlx::query("DELETE FROM review_logs WHERE id = $1 AND user_id = $2")
             .bind(lid)
+            .bind(user_id)
             .execute(&mut *tx)
             .await?;
     }
@@ -885,6 +1181,7 @@ struct QueueGrammarRow {
 
 pub async fn build_review_queue(
     pool: &PgPool,
+    user_id: i64,
     mode: &str,
     jlpt_filter: Option<&str>,
     limit: usize,
@@ -895,55 +1192,64 @@ pub async fn build_review_queue(
     let mut candidates: Vec<(QueueGrammarRow, bool, &'static str)> = Vec::new();
     let mut seen_grammar: HashSet<i64> = HashSet::new();
 
-    let mut accept = |rows: Vec<QueueGrammarRow>, is_ghost_fn: fn(i32) -> bool, item_mode: &'static str| -> bool {
-        for row in rows {
-            if candidates.len() >= limit {
-                break;
+    let mut accept =
+        |rows: Vec<QueueGrammarRow>, is_ghost_fn: fn(i32) -> bool, item_mode: &'static str| -> bool {
+            for row in rows {
+                if candidates.len() >= limit {
+                    break;
+                }
+                if jlpt != "ALL" && row.jlpt_level != jlpt {
+                    continue;
+                }
+                if !seen_grammar.insert(row.id) {
+                    continue;
+                }
+                let is_ghost = is_ghost_fn(row.ghost_level);
+                candidates.push((row, is_ghost, item_mode));
             }
-            if jlpt != "ALL" && row.jlpt_level != jlpt {
-                continue;
-            }
-            if !seen_grammar.insert(row.id) {
-                continue;
-            }
-            let is_ghost = is_ghost_fn(row.ghost_level);
-            candidates.push((row, is_ghost, item_mode));
-        }
-        candidates.len() < limit
-    };
+            candidates.len() < limit
+        };
 
     match mode {
         "ghost" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, p.srs_stage, p.ghost_level
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                        p.srs_stage, p.ghost_level
                  FROM grammar_points g
-                 JOIN user_progress p ON p.grammar_id = g.id
+                 JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
                  WHERE p.ghost_level > 0
                  ORDER BY p.ghost_due_at ASC NULLS LAST, g.id",
             )
+            .bind(user_id)
             .fetch_all(pool)
             .await?;
             accept(rows, |_| true, "review");
         }
         "lesson" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, p.srs_stage, p.ghost_level
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                        COALESCE(p.srs_stage, 0) AS srs_stage,
+                        COALESCE(p.ghost_level, 0) AS ghost_level
                  FROM grammar_points g
-                 JOIN user_progress p ON p.grammar_id = g.id
-                 WHERE p.srs_stage = 0
+                 LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+                 WHERE COALESCE(p.srs_stage, 0) = 0
                  ORDER BY CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END, g.id",
             )
+            .bind(user_id)
             .fetch_all(pool)
             .await?;
             accept(rows, |_| false, "lesson");
         }
         "cram" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, p.srs_stage, p.ghost_level
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                        COALESCE(p.srs_stage, 0) AS srs_stage,
+                        COALESCE(p.ghost_level, 0) AS ghost_level
                  FROM grammar_points g
-                 JOIN user_progress p ON p.grammar_id = g.id
-                 ORDER BY p.ghost_level DESC, p.incorrect_count DESC, p.srs_stage DESC, g.id",
+                 LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+                 ORDER BY COALESCE(p.ghost_level, 0) DESC, COALESCE(p.incorrect_count, 0) DESC, COALESCE(p.srs_stage, 0) DESC, g.id",
             )
+            .bind(user_id)
             .fetch_all(pool)
             .await?;
             accept(rows, |gl| gl > 0, "cram");
@@ -951,23 +1257,27 @@ pub async fn build_review_queue(
         _ => {
             // Due Ghost Reviews first, then due regular SRS reviews
             let ghost_rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, p.srs_stage, p.ghost_level
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                        p.srs_stage, p.ghost_level
                  FROM grammar_points g
-                 JOIN user_progress p ON p.grammar_id = g.id
-                 WHERE p.ghost_level > 0 AND p.ghost_due_at IS NOT NULL AND p.ghost_due_at <= $1
+                 JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+                 WHERE p.ghost_level > 0 AND p.ghost_due_at IS NOT NULL AND p.ghost_due_at <= $2
                  ORDER BY p.ghost_due_at ASC, g.id",
             )
+            .bind(user_id)
             .bind(now)
             .fetch_all(pool)
             .await?;
             if accept(ghost_rows, |_| true, "review") {
                 let regular_rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                    "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, p.srs_stage, p.ghost_level
+                    "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                            p.srs_stage, p.ghost_level
                      FROM grammar_points g
-                     JOIN user_progress p ON p.grammar_id = g.id
-                     WHERE p.srs_stage > 0 AND p.srs_stage < 12 AND p.next_review_at IS NOT NULL AND p.next_review_at <= $1
+                     JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+                     WHERE p.srs_stage > 0 AND p.srs_stage < 12 AND p.next_review_at IS NOT NULL AND p.next_review_at <= $2
                      ORDER BY p.next_review_at ASC, g.id",
                 )
+                .bind(user_id)
                 .bind(now)
                 .fetch_all(pool)
                 .await?;
@@ -1050,13 +1360,15 @@ struct GrammarMatchRow {
     srs_stage: i32,
 }
 
-async fn load_grammar_match_rows(pool: &PgPool) -> Result<Vec<GrammarMatchRow>> {
+async fn load_grammar_match_rows(pool: &PgPool, user_id: i64) -> Result<Vec<GrammarMatchRow>> {
     let rows: Vec<GrammarMatchRow> = sqlx::query_as(
-        "SELECT g.id, g.title, g.meaning, g.jlpt_level, g.match_patterns, p.srs_stage
+        "SELECT g.id, g.title, g.meaning, g.jlpt_level, g.match_patterns,
+                COALESCE(p.srs_stage, 0) AS srs_stage
          FROM grammar_points g
-         JOIN user_progress p ON p.grammar_id = g.id
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
          ORDER BY g.id",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
     Ok(rows)
@@ -1085,8 +1397,12 @@ fn match_grammar_patterns(rows: &[GrammarMatchRow], text: &str) -> Vec<DetectedG
     found
 }
 
-pub async fn detect_grammar_in_text(pool: &PgPool, text: &str) -> Result<Vec<DetectedGrammar>> {
-    let rows = load_grammar_match_rows(pool).await?;
+pub async fn detect_grammar_in_text(
+    pool: &PgPool,
+    user_id: i64,
+    text: &str,
+) -> Result<Vec<DetectedGrammar>> {
+    let rows = load_grammar_match_rows(pool, user_id).await?;
     Ok(match_grammar_patterns(&rows, text))
 }
 
@@ -1100,9 +1416,9 @@ struct ReadingPassageRow {
     english: String,
 }
 
-pub async fn list_reading_passages(pool: &PgPool) -> Result<Vec<ReadingPassage>> {
-    let known_kanji = load_known_kanji(pool).await?;
-    let grammar_rows = load_grammar_match_rows(pool).await?;
+pub async fn list_reading_passages(pool: &PgPool, user_id: i64) -> Result<Vec<ReadingPassage>> {
+    let known_kanji = load_known_kanji(pool, user_id).await?;
+    let grammar_rows = load_grammar_match_rows(pool, user_id).await?;
 
     let rows: Vec<ReadingPassageRow> = sqlx::query_as(
         "SELECT id, title, jlpt_level, topic, content_ruby, english
@@ -1193,32 +1509,40 @@ pub async fn list_conjugations(
         .collect())
 }
 
-pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
+pub async fn compute_dashboard(pool: &PgPool, user_id: i64) -> Result<DashboardStats> {
     let now = Utc::now();
 
     let regular_due: i64 = sqlx::query_scalar(
         "SELECT COUNT(*) FROM user_progress
-         WHERE srs_stage > 0 AND srs_stage < 12 AND next_review_at IS NOT NULL AND next_review_at <= $1",
+         WHERE user_id = $1 AND srs_stage > 0 AND srs_stage < 12 AND next_review_at IS NOT NULL AND next_review_at <= $2",
     )
+    .bind(user_id)
     .bind(now)
     .fetch_one(pool)
     .await?;
 
     let ghost_due: i64 = sqlx::query_scalar(
         "SELECT COUNT(*) FROM user_progress
-         WHERE ghost_level > 0 AND ghost_due_at IS NOT NULL AND ghost_due_at <= $1",
+         WHERE user_id = $1 AND ghost_level > 0 AND ghost_due_at IS NOT NULL AND ghost_due_at <= $2",
     )
+    .bind(user_id)
     .bind(now)
     .fetch_one(pool)
     .await?;
 
-    let lessons_available: i64 =
-        sqlx::query_scalar("SELECT COUNT(*) FROM user_progress WHERE srs_stage = 0")
-            .fetch_one(pool)
-            .await?;
+    let lessons_available: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*)
+         FROM grammar_points g
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
+         WHERE COALESCE(p.srs_stage, 0) = 0",
+    )
+    .bind(user_id)
+    .fetch_one(pool)
+    .await?;
 
     let total_learned: i64 =
-        sqlx::query_scalar("SELECT COUNT(*) FROM user_progress WHERE srs_stage > 0")
+        sqlx::query_scalar("SELECT COUNT(*) FROM user_progress WHERE user_id = $1 AND srs_stage > 0")
+            .bind(user_id)
             .fetch_one(pool)
             .await?;
 
@@ -1228,10 +1552,12 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
 
     let leech_count: i64 = sqlx::query_scalar(
         "SELECT COUNT(*) FROM user_progress
-         WHERE incorrect_count >= 2
+         WHERE user_id = $1
+           AND incorrect_count >= 2
            AND (correct_count + incorrect_count) >= 3
            AND (incorrect_count::DOUBLE PRECISION / (correct_count + incorrect_count)) >= 0.35",
     )
+    .bind(user_id)
     .fetch_one(pool)
     .await?;
 
@@ -1241,8 +1567,9 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
         "SELECT COUNT(*),
                 COALESCE(SUM(CASE WHEN correct THEN 1 ELSE 0 END), 0)::BIGINT
          FROM review_logs
-         WHERE reviewed_at >= $1",
+         WHERE user_id = $1 AND reviewed_at >= $2",
     )
+    .bind(user_id)
     .bind(week_ago)
     .fetch_one(pool)
     .await?;
@@ -1258,13 +1585,15 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
         .and_hms_opt(0, 0, 0)
         .unwrap()
         .and_utc();
-    let today_reviews: i64 =
-        sqlx::query_scalar("SELECT COUNT(*) FROM review_logs WHERE reviewed_at >= $1")
-            .bind(today_start)
-            .fetch_one(pool)
-            .await?;
+    let today_reviews: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*) FROM review_logs WHERE user_id = $1 AND reviewed_at >= $2",
+    )
+    .bind(user_id)
+    .bind(today_start)
+    .fetch_one(pool)
+    .await?;
 
-    // Consecutive daily study streak in a single query
+    // Consecutive daily study streak
     let streak_window_start = (now.date_naive() - Duration::days(365))
         .and_hms_opt(0, 0, 0)
         .unwrap()
@@ -1272,8 +1601,9 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
     let review_days: Vec<NaiveDate> = sqlx::query_scalar(
         "SELECT DISTINCT (reviewed_at AT TIME ZONE 'UTC')::DATE AS review_day
          FROM review_logs
-         WHERE reviewed_at >= $1",
+         WHERE user_id = $1 AND reviewed_at >= $2",
     )
+    .bind(user_id)
     .bind(streak_window_start)
     .fetch_all(pool)
     .await?;
@@ -1294,12 +1624,13 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
     let jlpt_rows: Vec<(String, i64, i64, i64)> = sqlx::query_as(
         "SELECT g.jlpt_level,
                 COUNT(*),
-                COALESCE(SUM(CASE WHEN p.srs_stage > 0 THEN 1 ELSE 0 END), 0)::BIGINT,
-                COALESCE(SUM(CASE WHEN p.srs_stage >= 7 THEN 1 ELSE 0 END), 0)::BIGINT
+                COALESCE(SUM(CASE WHEN COALESCE(p.srs_stage, 0) > 0 THEN 1 ELSE 0 END), 0)::BIGINT,
+                COALESCE(SUM(CASE WHEN COALESCE(p.srs_stage, 0) >= 7 THEN 1 ELSE 0 END), 0)::BIGINT
          FROM grammar_points g
-         JOIN user_progress p ON p.grammar_id = g.id
+         LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
          GROUP BY g.jlpt_level",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
     let jlpt_map: HashMap<String, (i64, i64, i64)> = jlpt_rows
@@ -1334,8 +1665,9 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
     let due_rows: Vec<DueTimesRow> = sqlx::query_as(
         "SELECT next_review_at, ghost_due_at
          FROM user_progress
-         WHERE srs_stage > 0 AND srs_stage < 12",
+         WHERE user_id = $1 AND srs_stage > 0 AND srs_stage < 12",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
 
@@ -1382,9 +1714,10 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
     let stage_rows: Vec<(i32, i64)> = sqlx::query_as(
         "SELECT srs_stage, COUNT(*)
          FROM user_progress
-         WHERE srs_stage >= 1
+         WHERE user_id = $1 AND srs_stage >= 1
          GROUP BY srs_stage",
     )
+    .bind(user_id)
     .fetch_all(pool)
     .await?;
 
@@ -1409,7 +1742,7 @@ pub async fn compute_dashboard(pool: &PgPool) -> Result<DashboardStats> {
         });
     }
 
-    let wanikani = load_wanikani_status(pool).await?;
+    let wanikani = load_wanikani_status(pool, user_id).await?;
 
     Ok(DashboardStats {
         reviews_due: (regular_due + ghost_due) as i32,

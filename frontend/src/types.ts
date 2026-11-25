@@ -1,3 +1,15 @@
+export interface AuthUser {
+  id: number
+  email: string
+  username: string
+  created_at: string
+}
+
+export interface AuthResponse {
+  user: AuthUser
+  csrf_token: string
+}
+
 export interface GrammarSentence {
   id: number
   grammar_id: number

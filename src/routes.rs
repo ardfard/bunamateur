@@ -1,33 +1,80 @@
+use crate::auth::{
+    AuthUser, build_clear_session_cookies, build_session_cookies, dummy_password_check,
+    generate_random_token, hash_password, hash_session_token, normalize_and_validate_email,
+    validate_password, validate_username, verify_csrf, verify_password,
+};
 use crate::db::{
-    AppState, build_review_queue, compute_dashboard, detect_grammar_in_text,
-    disconnect_wanikani as db_disconnect_wanikani, get_grammar_detail, get_sentence_answers,
-    get_user_progress_stages, get_wanikani_credentials, list_conjugations, list_grammar_summaries,
-    list_reading_passages, load_known_kanji, load_wanikani_status, record_review_submission,
+    AppState, CreateUserError, build_review_queue, compute_dashboard, create_session, create_user,
+    delete_session, detect_grammar_in_text, disconnect_wanikani as db_disconnect_wanikani,
+    find_user_by_email, get_grammar_detail, get_sentence_answers, get_user_progress_stages,
+    get_wanikani_credentials, list_conjugations, list_grammar_summaries, list_reading_passages,
+    load_known_kanji, load_wanikani_status, record_review_submission,
     reset_grammar_progress as db_reset_grammar_progress, save_wanikani_sync,
     start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes,
     update_wanikani_settings as db_update_wanikani_settings,
 };
+use crate::email::build_welcome_email;
 use crate::models::{
-    ReadingAnalyzeRequest, ReadingAnalyzeResponse, StartLessonRequest, SubmitAnswerRequest,
-    SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest, WaniKaniConnectRequest,
-    WaniKaniSettingsRequest,
+    AuthResponse, LoginRequest, ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest,
+    StartLessonRequest, SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest,
+    UpdateNotesRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
+};
+use crate::security::{
+    AUTH_BODY_LIMIT_BYTES, DEFAULT_BODY_LIMIT_BYTES, READING_ANALYZE_BODY_LIMIT_BYTES,
+    RateLimitTier, rate_limit_middleware,
 };
 use crate::srs::{check_answer, compute_srs_transition, srs_interval_hours, srs_stage_label};
 use crate::wanikani::{compute_kanji_readiness, generate_demo_wanikani_sync, sync_from_wanikani};
 use axum::{
     Json, Router,
-    extract::{Path, Query, State},
-    http::StatusCode,
-    response::IntoResponse,
+    extract::{ConnectInfo, DefaultBodyLimit, Path, Query, State},
+    http::{Extensions, HeaderMap, StatusCode, header},
+    middleware,
+    response::{IntoResponse, Response},
     routing::{get, post, put},
 };
 use chrono::{Duration, Utc};
 use serde::Deserialize;
 use serde_json::json;
+use std::net::SocketAddr;
+use tower_http::limit::RequestBodyLimitLayer;
 
-pub fn api_router() -> Router<AppState> {
-    Router::new()
+pub fn api_router(state: &AppState) -> Router<AppState> {
+    let auth_limiter = state.rate_limiter.clone();
+    let auth_public_routes = Router::new()
+        .route("/auth/register", post(register))
+        .route("/auth/login", post(login))
+        .layer(DefaultBodyLimit::max(AUTH_BODY_LIMIT_BYTES))
+        .layer(RequestBodyLimitLayer::new(AUTH_BODY_LIMIT_BYTES))
+        .layer(middleware::from_fn(move |req, next| {
+            rate_limit_middleware(auth_limiter.clone(), RateLimitTier::Auth, req, next)
+        }));
+
+    let wk_limiter = state.rate_limiter.clone();
+    let wk_sync_routes = Router::new()
+        .route("/wanikani/connect", post(connect_wanikani))
+        .route("/wanikani/sync", post(resync_wanikani))
+        .route("/wanikani/demo", post(demo_wanikani))
+        .layer(DefaultBodyLimit::max(DEFAULT_BODY_LIMIT_BYTES))
+        .layer(RequestBodyLimitLayer::new(DEFAULT_BODY_LIMIT_BYTES))
+        .layer(middleware::from_fn(move |req, next| {
+            rate_limit_middleware(wk_limiter.clone(), RateLimitTier::WaniKani, req, next)
+        }));
+
+    let reading_limiter = state.rate_limiter.clone();
+    let reading_analyze_routes = Router::new()
+        .route("/reading/analyze", post(analyze_reading))
+        .layer(DefaultBodyLimit::max(READING_ANALYZE_BODY_LIMIT_BYTES))
+        .layer(RequestBodyLimitLayer::new(READING_ANALYZE_BODY_LIMIT_BYTES))
+        .layer(middleware::from_fn(move |req, next| {
+            rate_limit_middleware(reading_limiter.clone(), RateLimitTier::General, req, next)
+        }));
+
+    let general_limiter = state.rate_limiter.clone();
+    let general_routes = Router::new()
+        .route("/auth/me", get(auth_me))
+        .route("/auth/logout", post(logout))
         .route("/dashboard", get(get_dashboard))
         .route("/reviews", get(get_reviews))
         .route("/reviews/submit", post(submit_review))
@@ -38,22 +85,217 @@ pub fn api_router() -> Router<AppState> {
         .route("/grammar/{id}/notes", put(update_grammar_notes))
         .route("/grammar/{id}/reset", post(reset_grammar_progress))
         .route("/reading/passages", get(get_reading_passages))
-        .route("/reading/analyze", post(analyze_reading))
         .route("/conjugation", get(get_conjugation_items))
         .route("/wanikani/status", get(get_wanikani_status))
-        .route("/wanikani/connect", post(connect_wanikani))
-        .route("/wanikani/sync", post(resync_wanikani))
-        .route("/wanikani/demo", post(demo_wanikani))
         .route("/wanikani/disconnect", post(disconnect_wanikani))
         .route("/wanikani/settings", put(update_wanikani_settings))
+        .layer(DefaultBodyLimit::max(DEFAULT_BODY_LIMIT_BYTES))
+        .layer(RequestBodyLimitLayer::new(DEFAULT_BODY_LIMIT_BYTES))
+        .layer(middleware::from_fn(move |req, next| {
+            rate_limit_middleware(general_limiter.clone(), RateLimitTier::General, req, next)
+        }));
+
+    Router::new()
+        .merge(auth_public_routes)
+        .merge(wk_sync_routes)
+        .merge(reading_analyze_routes)
+        .merge(general_routes)
 }
 
 fn err_response(status: StatusCode, msg: impl Into<String>) -> (StatusCode, Json<serde_json::Value>) {
     (status, Json(json!({ "error": msg.into() })))
 }
 
-async fn get_dashboard(State(state): State<AppState>) -> impl IntoResponse {
-    match compute_dashboard(&state.pool).await {
+// ---------------------------------------------------------------------------
+// Auth Routes
+// ---------------------------------------------------------------------------
+
+async fn register(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    extensions: Extensions,
+    Json(req): Json<RegisterRequest>,
+) -> Response {
+    let email = match normalize_and_validate_email(&req.email) {
+        Ok(e) => e,
+        Err(e) => return err_response(StatusCode::BAD_REQUEST, e.to_string()).into_response(),
+    };
+    let username = match validate_username(&req.username) {
+        Ok(u) => u,
+        Err(e) => return err_response(StatusCode::BAD_REQUEST, e.to_string()).into_response(),
+    };
+    if let Err(e) = validate_password(&req.password) {
+        return err_response(StatusCode::BAD_REQUEST, e.to_string()).into_response();
+    }
+
+    let password_hash = match hash_password(req.password).await {
+        Ok(h) => h,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response(),
+    };
+
+    let user = match create_user(&state.pool, &email, &username, &password_hash).await {
+        Ok(u) => u,
+        Err(CreateUserError::EmailTaken) => {
+            return err_response(StatusCode::CONFLICT, "An account with that email already exists")
+                .into_response();
+        }
+        Err(CreateUserError::UsernameTaken) => {
+            return err_response(StatusCode::CONFLICT, "That username is already taken")
+                .into_response();
+        }
+        Err(CreateUserError::Other(e)) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    // Send welcome email asynchronously through the pluggable EmailSender interface
+    let mailer = state.mailer.clone();
+    let welcome_msg = build_welcome_email(&user.email, &user.username, &state.app_public_url);
+    tokio::spawn(async move {
+        match mailer.send(welcome_msg).await {
+            Ok(res) => tracing::info!(
+                provider = res.provider,
+                message_id = ?res.message_id,
+                "Welcome email dispatched"
+            ),
+            Err(e) => tracing::warn!(
+                provider = mailer.provider_name(),
+                error = %e,
+                "Failed to dispatch welcome email"
+            ),
+        }
+    });
+
+    let peer = extensions.get::<ConnectInfo<SocketAddr>>().map(|c| c.0);
+    issue_session_response(&state, &headers, peer, user, StatusCode::CREATED).await
+}
+
+async fn login(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    extensions: Extensions,
+    Json(req): Json<LoginRequest>,
+) -> Response {
+    let email = req.email.trim().to_lowercase();
+    if email.is_empty() || req.password.is_empty() {
+        return err_response(StatusCode::BAD_REQUEST, "Email and password are required")
+            .into_response();
+    }
+
+    let found = match find_user_by_email(&state.pool, &email).await {
+        Ok(v) => v,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    let Some((user, password_hash)) = found else {
+        dummy_password_check(req.password).await;
+        return err_response(StatusCode::UNAUTHORIZED, "Invalid email or password").into_response();
+    };
+
+    if !verify_password(req.password, password_hash).await {
+        return err_response(StatusCode::UNAUTHORIZED, "Invalid email or password").into_response();
+    }
+
+    let peer = extensions.get::<ConnectInfo<SocketAddr>>().map(|c| c.0);
+    issue_session_response(&state, &headers, peer, user, StatusCode::OK).await
+}
+
+async fn issue_session_response(
+    state: &AppState,
+    headers: &HeaderMap,
+    peer: Option<SocketAddr>,
+    user: crate::models::AuthUserInfo,
+    status: StatusCode,
+) -> Response {
+    let raw_session_token = generate_random_token();
+    let session_id_hash = hash_session_token(&raw_session_token);
+    let csrf_token = generate_random_token();
+    let ttl_days = state.security.session_ttl_days;
+    let max_age_secs = ttl_days * 24 * 60 * 60;
+    let expires_at = Utc::now() + Duration::days(ttl_days);
+
+    let user_agent = headers
+        .get(header::USER_AGENT)
+        .and_then(|v| v.to_str().ok())
+        .map(|s| s.chars().take(256).collect::<String>());
+    let ip_address = state.rate_limiter.extract_client_key(headers, peer);
+
+    if let Err(e) = create_session(
+        &state.pool,
+        &session_id_hash,
+        user.id,
+        &csrf_token,
+        expires_at,
+        user_agent.as_deref(),
+        Some(ip_address.as_str()),
+    )
+    .await
+    {
+        return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+    }
+
+    let cookies = match build_session_cookies(
+        &raw_session_token,
+        &csrf_token,
+        max_age_secs,
+        state.security.cookie_secure,
+    ) {
+        Ok(c) => c,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    let mut resp = (status, Json(AuthResponse { user, csrf_token })).into_response();
+    let resp_headers = resp.headers_mut();
+    for cookie in cookies {
+        resp_headers.append(header::SET_COOKIE, cookie);
+    }
+    resp
+}
+
+async fn auth_me(auth: AuthUser) -> impl IntoResponse {
+    (
+        StatusCode::OK,
+        Json(AuthResponse {
+            user: auth.user,
+            csrf_token: auth.csrf_token,
+        }),
+    )
+}
+
+async fn logout(State(state): State<AppState>, auth: AuthUser, headers: HeaderMap) -> Response {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err.into_response();
+    }
+
+    if let Err(e) = delete_session(&state.pool, &auth.session_id_hash).await {
+        return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+    }
+
+    let cookies = match build_clear_session_cookies(state.security.cookie_secure) {
+        Ok(c) => c,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    let mut resp = (StatusCode::OK, Json(json!({ "ok": true }))).into_response();
+    let resp_headers = resp.headers_mut();
+    for cookie in cookies {
+        resp_headers.append(header::SET_COOKIE, cookie);
+    }
+    resp
+}
+
+// ---------------------------------------------------------------------------
+// Authenticated App Routes (all scoped to auth.user_id())
+// ---------------------------------------------------------------------------
+
+async fn get_dashboard(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match compute_dashboard(&state.pool, auth.user_id()).await {
         Ok(stats) => (StatusCode::OK, Json(json!(stats))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -68,11 +310,12 @@ struct ReviewQuery {
 
 async fn get_reviews(
     State(state): State<AppState>,
+    auth: AuthUser,
     Query(q): Query<ReviewQuery>,
 ) -> impl IntoResponse {
     let mode = q.mode.as_deref().unwrap_or("review");
     let limit = q.limit.unwrap_or(20).clamp(1, 50);
-    match build_review_queue(&state.pool, mode, q.jlpt.as_deref(), limit).await {
+    match build_review_queue(&state.pool, auth.user_id(), mode, q.jlpt.as_deref(), limit).await {
         Ok(items) => (StatusCode::OK, Json(json!(items))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -80,19 +323,26 @@ async fn get_reviews(
 
 async fn submit_review(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<SubmitAnswerRequest>,
 ) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
     let (primary, alts) = match get_sentence_answers(&state.pool, req.sentence_id).await {
         Ok(Some(v)) => v,
         Ok(None) => return err_response(StatusCode::NOT_FOUND, "Sentence not found"),
         Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     };
 
-    let (prev_srs, prev_ghost) = match get_user_progress_stages(&state.pool, req.grammar_id).await {
-        Ok(Some(v)) => v,
-        Ok(None) => return err_response(StatusCode::NOT_FOUND, "Grammar progress not found"),
-        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-    };
+    let (prev_srs, prev_ghost) =
+        match get_user_progress_stages(&state.pool, auth.user_id(), req.grammar_id).await {
+            Ok(Some(v)) => v,
+            Ok(None) => return err_response(StatusCode::NOT_FOUND, "Grammar point not found"),
+            Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+        };
 
     let matched = check_answer(&req.user_input, &primary, &alts);
     let correct = matched.is_some();
@@ -126,6 +376,7 @@ async fn submit_review(
 
     let log_id = match record_review_submission(
         &state.pool,
+        auth.user_id(),
         req.grammar_id,
         &req.mode,
         req.is_ghost,
@@ -147,7 +398,10 @@ async fn submit_review(
                 format!("Ghost weakened -> Level {}!", transition.new_ghost_level)
             }
         } else {
-            format!("Expected 「{}」. Ghost remains active for extra practice.", primary)
+            format!(
+                "Expected 「{}」. Ghost remains active for extra practice.",
+                primary
+            )
         }
     } else if correct {
         format!("Promoted to {}!", srs_stage_label(transition.new_stage))
@@ -178,11 +432,18 @@ async fn submit_review(
 
 async fn undo_review(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<UndoReviewRequest>,
 ) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
     let now = Utc::now();
     match db_undo_review(
         &state.pool,
+        auth.user_id(),
         req.grammar_id,
         req.previous_srs_stage,
         req.previous_ghost_level,
@@ -198,10 +459,16 @@ async fn undo_review(
 
 async fn start_lesson(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<StartLessonRequest>,
 ) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
     let next_due = Utc::now() + Duration::hours(srs_interval_hours(1).unwrap_or(4));
-    match db_start_lesson(&state.pool, req.grammar_id, next_due).await {
+    match db_start_lesson(&state.pool, auth.user_id(), req.grammar_id, next_due).await {
         Ok(()) => (
             StatusCode::OK,
             Json(json!({ "ok": true, "next_review_at": next_due.to_rfc3339() })),
@@ -219,10 +486,12 @@ struct GrammarQuery {
 
 async fn get_grammar_list(
     State(state): State<AppState>,
+    auth: AuthUser,
     Query(q): Query<GrammarQuery>,
 ) -> impl IntoResponse {
     match list_grammar_summaries(
         &state.pool,
+        auth.user_id(),
         q.jlpt.as_deref(),
         q.q.as_deref(),
         q.status.as_deref(),
@@ -236,9 +505,10 @@ async fn get_grammar_list(
 
 async fn get_grammar_item(
     State(state): State<AppState>,
+    auth: AuthUser,
     Path(id): Path<i64>,
 ) -> impl IntoResponse {
-    match get_grammar_detail(&state.pool, id).await {
+    match get_grammar_detail(&state.pool, auth.user_id(), id).await {
         Ok(Some(detail)) => (StatusCode::OK, Json(json!(detail))),
         Ok(None) => err_response(StatusCode::NOT_FOUND, "Grammar point not found"),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
@@ -247,10 +517,16 @@ async fn get_grammar_item(
 
 async fn update_grammar_notes(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Path(id): Path<i64>,
     Json(req): Json<UpdateNotesRequest>,
 ) -> impl IntoResponse {
-    match db_update_grammar_notes(&state.pool, id, &req.notes).await {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_update_grammar_notes(&state.pool, auth.user_id(), id, &req.notes).await {
         Ok(()) => (StatusCode::OK, Json(json!({ "ok": true }))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -258,16 +534,25 @@ async fn update_grammar_notes(
 
 async fn reset_grammar_progress(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Path(id): Path<i64>,
 ) -> impl IntoResponse {
-    match db_reset_grammar_progress(&state.pool, id).await {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_reset_grammar_progress(&state.pool, auth.user_id(), id).await {
         Ok(()) => (StatusCode::OK, Json(json!({ "ok": true }))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
 }
 
-async fn get_reading_passages(State(state): State<AppState>) -> impl IntoResponse {
-    match list_reading_passages(&state.pool).await {
+async fn get_reading_passages(
+    State(state): State<AppState>,
+    auth: AuthUser,
+) -> impl IntoResponse {
+    match list_reading_passages(&state.pool, auth.user_id()).await {
         Ok(items) => (StatusCode::OK, Json(json!(items))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -275,14 +560,20 @@ async fn get_reading_passages(State(state): State<AppState>) -> impl IntoRespons
 
 async fn analyze_reading(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<ReadingAnalyzeRequest>,
 ) -> impl IntoResponse {
-    let known = match load_known_kanji(&state.pool).await {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    let known = match load_known_kanji(&state.pool, auth.user_id()).await {
         Ok(k) => k,
         Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     };
     let (known_cnt, total_cnt, pct, unknown) = compute_kanji_readiness(&req.text, &known);
-    let detected = match detect_grammar_in_text(&state.pool, &req.text).await {
+    let detected = match detect_grammar_in_text(&state.pool, auth.user_id(), &req.text).await {
         Ok(d) => d,
         Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     };
@@ -304,6 +595,7 @@ struct ConjugationQuery {
 
 async fn get_conjugation_items(
     State(state): State<AppState>,
+    _auth: AuthUser,
     Query(q): Query<ConjugationQuery>,
 ) -> impl IntoResponse {
     match list_conjugations(&state.pool, q.form.as_deref()).await {
@@ -312,8 +604,8 @@ async fn get_conjugation_items(
     }
 }
 
-async fn get_wanikani_status(State(state): State<AppState>) -> impl IntoResponse {
-    match load_wanikani_status(&state.pool).await {
+async fn get_wanikani_status(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match load_wanikani_status(&state.pool, auth.user_id()).await {
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -321,14 +613,29 @@ async fn get_wanikani_status(State(state): State<AppState>) -> impl IntoResponse
 
 async fn connect_wanikani(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<WaniKaniConnectRequest>,
 ) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
     let token = req.api_token.trim().to_string();
     if token.is_empty() {
         return err_response(StatusCode::BAD_REQUEST, "API token is required");
     }
     match sync_from_wanikani(&token).await {
-        Ok(sync_result) => match save_wanikani_sync(&state.pool, Some(&token), false, &sync_result).await {
+        Ok(sync_result) => match save_wanikani_sync(
+            &state.pool,
+            &state.cipher,
+            auth.user_id(),
+            Some(&token),
+            false,
+            &sync_result,
+        )
+        .await
+        {
             Ok(status) => (StatusCode::OK, Json(json!(status))),
             Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
         },
@@ -336,15 +643,33 @@ async fn connect_wanikani(
     }
 }
 
-async fn resync_wanikani(State(state): State<AppState>) -> impl IntoResponse {
-    let (token, is_demo) = match get_wanikani_credentials(&state.pool).await {
-        Ok(v) => v,
-        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-    };
+async fn resync_wanikani(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    let (token, is_demo) =
+        match get_wanikani_credentials(&state.pool, &state.cipher, auth.user_id()).await {
+            Ok(v) => v,
+            Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+        };
 
     if is_demo {
         let demo = generate_demo_wanikani_sync();
-        return match save_wanikani_sync(&state.pool, None, true, &demo).await {
+        return match save_wanikani_sync(
+            &state.pool,
+            &state.cipher,
+            auth.user_id(),
+            None,
+            true,
+            &demo,
+        )
+        .await
+        {
             Ok(status) => (StatusCode::OK, Json(json!(status))),
             Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
         };
@@ -355,7 +680,16 @@ async fn resync_wanikani(State(state): State<AppState>) -> impl IntoResponse {
     };
 
     match sync_from_wanikani(&tok).await {
-        Ok(sync_result) => match save_wanikani_sync(&state.pool, Some(&tok), false, &sync_result).await {
+        Ok(sync_result) => match save_wanikani_sync(
+            &state.pool,
+            &state.cipher,
+            auth.user_id(),
+            Some(&tok),
+            false,
+            &sync_result,
+        )
+        .await
+        {
             Ok(status) => (StatusCode::OK, Json(json!(status))),
             Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
         },
@@ -363,16 +697,41 @@ async fn resync_wanikani(State(state): State<AppState>) -> impl IntoResponse {
     }
 }
 
-async fn demo_wanikani(State(state): State<AppState>) -> impl IntoResponse {
+async fn demo_wanikani(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
     let demo = generate_demo_wanikani_sync();
-    match save_wanikani_sync(&state.pool, None, true, &demo).await {
+    match save_wanikani_sync(
+        &state.pool,
+        &state.cipher,
+        auth.user_id(),
+        None,
+        true,
+        &demo,
+    )
+    .await
+    {
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
 }
 
-async fn disconnect_wanikani(State(state): State<AppState>) -> impl IntoResponse {
-    match db_disconnect_wanikani(&state.pool).await {
+async fn disconnect_wanikani(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_disconnect_wanikani(&state.pool, auth.user_id()).await {
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -380,10 +739,21 @@ async fn disconnect_wanikani(State(state): State<AppState>) -> impl IntoResponse
 
 async fn update_wanikani_settings(
     State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
     Json(req): Json<WaniKaniSettingsRequest>,
 ) -> impl IntoResponse {
-    match db_update_wanikani_settings(&state.pool, req.smart_furigana, req.highlight_known_kanji)
-        .await
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_update_wanikani_settings(
+        &state.pool,
+        auth.user_id(),
+        req.smart_furigana,
+        req.highlight_known_kanji,
+    )
+    .await
     {
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),

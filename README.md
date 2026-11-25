@@ -28,11 +28,21 @@ A **Bunpro-inspired Japanese grammar SRS & immersion companion** built with a **
 make release
 
 # Run the single binary (automatically runs embedded PostgreSQL migrations and idempotent content seeding)
-DATABASE_URL=postgres://ardfard@127.0.0.1:5432/bunamateur_dev ./target/release/bunamateur
+DATABASE_URL=postgres://ardfard@127.0.0.1:5432/bunamateur_dev \
+ENCRYPTION_KEY=$(openssl rand -hex 32) \
+./target/release/bunamateur
 
 # Optional environment variables (see .env.example)
-PORT=8080 HOST=0.0.0.0 DATABASE_URL=postgres://user:pass@localhost:5432/bunamateur_dev ./target/release/bunamateur
+# PORT=8080 HOST=0.0.0.0 ALLOWED_ORIGINS=https://app.example.com COOKIE_SECURE=true APP_ENV=production
 ```
+
+## Security & Multi-User Auth
+
+- **Multi-user accounts & sessions**: Argon2id password hashing, SHA-256-hashed database sessions, `HttpOnly` / `SameSite=Lax` / `Secure` session cookies, and synchronizer-token `X-CSRF-Token` validation on all state-changing routes.
+- **Per-user data scoping**: `user_progress`, `review_logs`, `wk_profile`, and `wk_subjects` are isolated by `user_id`.
+- **Encrypted WaniKani tokens at rest**: `wk_profile.api_token` is encrypted using AES-256-GCM via `ENCRYPTION_KEY` (64 hex chars or 32-byte base64) with per-user AAD binding.
+- **Hardened HTTP layer**: Explicit `ALLOWED_ORIGINS` CORS policy (no wildcard), per-route request body limits (16 KiB auth, 64 KiB API, 256 KiB reading analysis), and per-route IP rate limiting (`auth`, `wanikani`, `general` tiers).
+- **Pluggable transactional email (`EmailSender` trait)**: Ships with `ResendApiEmailSender` (`RESEND_API_KEY`, `EMAIL_FROM`, `APP_PUBLIC_URL`) and `NoopLogEmailSender` for local dev (`EMAIL_PROVIDER=log`), with `EMAIL_PROVIDER=smtp` and `SMTP_*` config reserved so an SMTP transport can be swapped in behind the same trait.
 
 ## Design File
 

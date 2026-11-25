@@ -1,6 +1,33 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AuthUserInfo {
+    pub id: i64,
+    pub email: String,
+    pub username: String,
+    pub created_at: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct RegisterRequest {
+    pub email: String,
+    pub username: String,
+    pub password: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct LoginRequest {
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AuthResponse {
+    pub user: AuthUserInfo,
+    pub csrf_token: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct GrammarSentence {
     pub id: i64,
     pub grammar_id: i64,

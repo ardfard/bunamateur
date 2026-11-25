@@ -1,16 +1,19 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { api } from './api'
+import { ApiError, api } from './api'
 import { GrammarDetailModal } from './components/GrammarDetailModal'
 import { TopNav } from './components/TopNav'
+import { AuthPage } from './pages/AuthPage'
 import { ConjugationPage } from './pages/ConjugationPage'
 import { DashboardPage } from './pages/DashboardPage'
 import { GrammarPage } from './pages/GrammarPage'
 import { ReadingLabPage } from './pages/ReadingLabPage'
 import { ReviewPage } from './pages/ReviewPage'
 import { WaniKaniPage } from './pages/WaniKaniPage'
-import type { DashboardStats, FuriganaMode, PageTab, ReviewMode } from './types'
+import type { AuthUser, DashboardStats, FuriganaMode, PageTab, ReviewMode } from './types'
 
 export const App: React.FC = () => {
+  const [user, setUser] = useState<AuthUser | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
   const [activeTab, setActiveTab] = useState<PageTab>('dashboard')
   const [reviewMode, setReviewMode] = useState<ReviewMode>('review')
   const [stats, setStats] = useState<DashboardStats | null>(null)
@@ -35,7 +38,26 @@ export const App: React.FC = () => {
     }
   }, [darkMode])
 
+  useEffect(() => {
+    let active = true
+    api
+      .authMe()
+      .then((res) => {
+        if (active) setUser(res.user)
+      })
+      .catch(() => {
+        if (active) setUser(null)
+      })
+      .finally(() => {
+        if (active) setAuthLoading(false)
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
   const loadStats = useCallback(async () => {
+    if (!user) return
     try {
       const data = await api.getDashboard()
       setStats(data)
@@ -43,18 +65,39 @@ export const App: React.FC = () => {
         setFuriganaMode((prev) => (prev === 'smart' ? 'all' : prev))
       }
     } catch (e) {
+      if (e instanceof ApiError && e.status === 401) {
+        setUser(null)
+        setStats(null)
+        return
+      }
       console.error('Failed to load dashboard:', e)
     }
-  }, [])
+  }, [user])
 
   useEffect(() => {
-    loadStats()
-  }, [loadStats])
+    if (user) {
+      loadStats()
+    } else {
+      setStats(null)
+    }
+  }, [user, loadStats])
 
   const handleRefreshAll = useCallback(() => {
     loadStats()
     setRefreshKey((k) => k + 1)
   }, [loadStats])
+
+  const handleLogout = useCallback(async () => {
+    try {
+      await api.logout()
+    } catch {
+      // Clear local session state even if cookie was already expired
+    }
+    setUser(null)
+    setStats(null)
+    setSelectedGrammarId(null)
+    setActiveTab('dashboard')
+  }, [])
 
   const knownKanji = useMemo(() => {
     return new Set(stats?.wanikani.known_kanji_list || [])
@@ -65,6 +108,30 @@ export const App: React.FC = () => {
     setActiveTab('reviews')
   }
 
+  if (authLoading) {
+    return (
+      <div
+        className="min-h-screen flex items-center justify-center text-sm"
+        style={{ backgroundColor: 'var(--bg-canvas)', color: 'var(--text-muted)' }}
+      >
+        Loading BunAmateur...
+      </div>
+    )
+  }
+
+  if (!user) {
+    return (
+      <AuthPage
+        darkMode={darkMode}
+        onToggleDark={() => setDarkMode((d) => !d)}
+        onAuthenticated={(u) => {
+          setUser(u)
+          setActiveTab('dashboard')
+        }}
+      />
+    )
+  }
+
   return (
     <div className="min-h-screen flex flex-col">
       <TopNav
@@ -73,6 +140,8 @@ export const App: React.FC = () => {
         reviewsDue={stats?.reviews_due ?? 0}
         streakDays={stats?.streak_days ?? 0}
         wanikani={stats?.wanikani ?? null}
+        user={user}
+        onLogout={handleLogout}
         darkMode={darkMode}
         onToggleDark={() => setDarkMode((d) => !d)}
       />

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Flame, Moon, Sun } from 'lucide-react'
-import type { PageTab, WaniKaniStatus } from '../types'
+import { Flame, LogOut, Moon, Sun } from 'lucide-react'
+import type { AuthUser, PageTab, WaniKaniStatus } from '../types'
 
 interface TopNavProps {
   activeTab: PageTab
@@ -8,6 +8,8 @@ interface TopNavProps {
   reviewsDue: number
   streakDays: number
   wanikani: WaniKaniStatus | null
+  user: AuthUser
+  onLogout: () => void
   darkMode: boolean
   onToggleDark: () => void
 }
@@ -27,6 +29,8 @@ export const TopNav: React.FC<TopNavProps> = ({
   reviewsDue,
   streakDays,
   wanikani,
+  user,
+  onLogout,
   darkMode,
   onToggleDark,
 }) => {
@@ -139,6 +143,31 @@ export const TopNav: React.FC<TopNavProps> = ({
             title={darkMode ? 'Switch to Washi Light Mode' : 'Switch to Sumi Dark Mode'}
           >
             {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+
+          <div
+            className="hidden lg:flex items-center rounded-full border px-3 py-1 text-xs font-medium"
+            style={{
+              borderColor: 'var(--border-subtle)',
+              backgroundColor: 'var(--bg-subtle)',
+              color: 'var(--text-secondary)',
+            }}
+            title={user.email}
+          >
+            {user.username}
+          </div>
+
+          <button
+            onClick={onLogout}
+            className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors cursor-pointer"
+            style={{
+              borderColor: 'var(--border-subtle)',
+              backgroundColor: 'var(--bg-subtle)',
+              color: 'var(--text-secondary)',
+            }}
+            title={`Sign out (${user.username})`}
+          >
+            <LogOut className="h-4 w-4" />
           </button>
         </div>
       </div>

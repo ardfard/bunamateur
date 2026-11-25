@@ -235,7 +235,7 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
         </form>
 
         <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-          Generate a read-only API v2 token at <strong>wanikani.com/settings/personal_access_tokens</strong>. Your token is stored locally in your SQLite database and never sent anywhere except <code>api.wanikani.com/v2</code>.
+          Generate a read-only API v2 token at <strong>wanikani.com/settings/personal_access_tokens</strong>. Your token is encrypted at rest (AES-256-GCM) in PostgreSQL and never sent anywhere except <code>api.wanikani.com/v2</code>.
         </p>
       </div>
 
