@@ -3,6 +3,7 @@ pub mod crypto;
 pub mod db;
 pub mod email;
 pub mod models;
+pub mod oauth;
 pub mod routes;
 pub mod security;
 pub mod seed_data;

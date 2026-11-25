@@ -5,7 +5,13 @@ pub struct AuthUserInfo {
     pub id: i64,
     pub email: String,
     pub username: String,
+    pub avatar_url: Option<String>,
     pub created_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AuthProvidersResponse {
+    pub google: bool,
 }
 
 #[derive(Debug, Clone, Deserialize)]

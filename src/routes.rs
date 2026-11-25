@@ -1,7 +1,8 @@
 use crate::auth::{
     AuthUser, build_clear_session_cookies, build_session_cookies, dummy_password_check,
-    generate_random_token, hash_password, hash_session_token, normalize_and_validate_email,
-    validate_password, validate_username, verify_csrf, verify_password,
+    extract_cookie, generate_random_token, hash_password, hash_session_token,
+    normalize_and_validate_email, validate_password, validate_username, verify_csrf,
+    verify_password,
 };
 use crate::db::{
     AppState, CreateUserError, build_review_queue, complete_onboarding as db_complete_onboarding,
@@ -15,14 +16,19 @@ use crate::db::{
     save_wanikani_sync, save_wanikani_token_and_start_sync, spawn_wanikani_sync_job,
     start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
-    update_wanikani_settings as db_update_wanikani_settings,
+    update_wanikani_settings as db_update_wanikani_settings, upsert_google_user,
 };
 use crate::email::build_welcome_email;
 use crate::models::{
-    AuthResponse, CompleteOnboardingRequest, ImportProgressRequest, LoginRequest,
-    ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest, StartLessonRequest,
-    SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest,
-    UpdateSrsSettingsRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
+    AuthProvidersResponse, AuthResponse, CompleteOnboardingRequest, ImportProgressRequest,
+    LoginRequest, ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest,
+    StartLessonRequest, SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest,
+    UpdateNotesRequest, UpdateSrsSettingsRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
+};
+use crate::oauth::{
+    OAUTH_STATE_COOKIE_NAME, build_clear_oauth_state_cookie, build_google_authorize_url,
+    build_oauth_state_cookie, exchange_code_for_google_profile, generate_pkce_pair,
+    verify_oauth_state_cookie,
 };
 use crate::security::{
     AUTH_BODY_LIMIT_BYTES, DEFAULT_BODY_LIMIT_BYTES, READING_ANALYZE_BODY_LIMIT_BYTES,
@@ -38,7 +44,7 @@ use axum::{
     extract::{ConnectInfo, DefaultBodyLimit, Path, Query, State},
     http::{Extensions, HeaderMap, StatusCode, header},
     middleware,
-    response::{IntoResponse, Response},
+    response::{IntoResponse, Redirect, Response},
     routing::{get, post, put},
 };
 use chrono::{Duration, Utc};
@@ -52,6 +58,8 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
     let auth_public_routes = Router::new()
         .route("/auth/register", post(register))
         .route("/auth/login", post(login))
+        .route("/auth/google/start", get(google_oauth_start))
+        .route("/auth/google/callback", get(google_oauth_callback))
         .layer(DefaultBodyLimit::max(AUTH_BODY_LIMIT_BYTES))
         .layer(RequestBodyLimitLayer::new(AUTH_BODY_LIMIT_BYTES))
         .layer(middleware::from_fn(move |req, next| {
@@ -81,6 +89,7 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
 
     let general_limiter = state.rate_limiter.clone();
     let general_routes = Router::new()
+        .route("/auth/providers", get(auth_providers))
         .route("/auth/me", get(auth_me))
         .route("/auth/logout", post(logout))
         .route("/dashboard", get(get_dashboard))
@@ -266,6 +275,160 @@ async fn issue_session_response(
     let resp_headers = resp.headers_mut();
     for cookie in cookies {
         resp_headers.append(header::SET_COOKIE, cookie);
+    }
+    resp
+}
+
+async fn auth_providers(State(state): State<AppState>) -> impl IntoResponse {
+    (
+        StatusCode::OK,
+        Json(AuthProvidersResponse {
+            google: state.google_oauth.is_enabled(),
+        }),
+    )
+}
+
+async fn google_oauth_start(State(state): State<AppState>) -> Response {
+    if !state.google_oauth.is_enabled() {
+        return Redirect::to("/?auth_error=google_not_configured").into_response();
+    }
+
+    let oauth_state = generate_random_token();
+    let (verifier, challenge) = generate_pkce_pair();
+    let auth_url = match build_google_authorize_url(&state.google_oauth, &oauth_state, &challenge) {
+        Ok(url) => url,
+        Err(e) => {
+            tracing::error!("Failed to build Google authorize URL: {}", e);
+            return Redirect::to("/?auth_error=google_failed").into_response();
+        }
+    };
+
+    let state_cookie =
+        match build_oauth_state_cookie(&oauth_state, &verifier, state.security.cookie_secure) {
+            Ok(c) => c,
+            Err(e) => {
+                tracing::error!("Failed to build OAuth state cookie: {}", e);
+                return Redirect::to("/?auth_error=google_failed").into_response();
+            }
+        };
+
+    let mut resp = Redirect::temporary(&auth_url).into_response();
+    resp.headers_mut().append(header::SET_COOKIE, state_cookie);
+    resp
+}
+
+#[derive(Deserialize)]
+struct GoogleCallbackQuery {
+    code: Option<String>,
+    state: Option<String>,
+    error: Option<String>,
+}
+
+fn redirect_with_cleared_oauth_cookie(target: &str, secure: bool) -> Response {
+    let mut resp = Redirect::to(target).into_response();
+    if let Ok(clear) = build_clear_oauth_state_cookie(secure) {
+        resp.headers_mut().append(header::SET_COOKIE, clear);
+    }
+    resp
+}
+
+async fn google_oauth_callback(
+    State(state): State<AppState>,
+    headers: HeaderMap,
+    extensions: Extensions,
+    Query(q): Query<GoogleCallbackQuery>,
+) -> Response {
+    let secure = state.security.cookie_secure;
+
+    if !state.google_oauth.is_enabled() {
+        return redirect_with_cleared_oauth_cookie("/?auth_error=google_not_configured", secure);
+    }
+
+    if let Some(err) = q.error.as_deref() {
+        tracing::info!(error = err, "Google OAuth authorization declined or failed");
+        return redirect_with_cleared_oauth_cookie("/?auth_error=google_cancelled", secure);
+    }
+
+    let Some(code) = q.code.as_deref().filter(|s| !s.is_empty()) else {
+        return redirect_with_cleared_oauth_cookie("/?auth_error=google_failed", secure);
+    };
+    let Some(callback_state) = q.state.as_deref().filter(|s| !s.is_empty()) else {
+        return redirect_with_cleared_oauth_cookie("/?auth_error=invalid_state", secure);
+    };
+
+    let Some(state_cookie_val) = extract_cookie(&headers, OAUTH_STATE_COOKIE_NAME) else {
+        return redirect_with_cleared_oauth_cookie("/?auth_error=invalid_state", secure);
+    };
+    let Some(code_verifier) = verify_oauth_state_cookie(&state_cookie_val, callback_state) else {
+        return redirect_with_cleared_oauth_cookie("/?auth_error=invalid_state", secure);
+    };
+
+    let profile =
+        match exchange_code_for_google_profile(&state.google_oauth, code, &code_verifier).await {
+            Ok(p) => p,
+            Err(e) => {
+                tracing::warn!("Google OAuth token/profile exchange failed: {}", e);
+                return redirect_with_cleared_oauth_cookie("/?auth_error=google_failed", secure);
+            }
+        };
+
+    let (user, is_new_user) = match upsert_google_user(&state.pool, &profile).await {
+        Ok(v) => v,
+        Err(e) => {
+            tracing::error!("Failed to upsert Google OAuth user: {}", e);
+            return redirect_with_cleared_oauth_cookie("/?auth_error=google_failed", secure);
+        }
+    };
+
+    if is_new_user {
+        let mailer = state.mailer.clone();
+        let welcome_msg = build_welcome_email(&user.email, &user.username, &state.app_public_url);
+        tokio::spawn(async move {
+            if let Err(e) = mailer.send(welcome_msg).await {
+                tracing::warn!(error = %e, "Failed to dispatch welcome email for Google user");
+            }
+        });
+    }
+
+    let raw_session_token = generate_random_token();
+    let session_id_hash = hash_session_token(&raw_session_token);
+    let csrf_token = generate_random_token();
+    let ttl_days = state.security.session_ttl_days;
+    let max_age_secs = ttl_days * 24 * 60 * 60;
+    let expires_at = Utc::now() + Duration::days(ttl_days);
+
+    let user_agent = headers
+        .get(header::USER_AGENT)
+        .and_then(|v| v.to_str().ok())
+        .map(|s| s.chars().take(256).collect::<String>());
+    let peer = extensions.get::<ConnectInfo<SocketAddr>>().map(|c| c.0);
+    let ip_address = state.rate_limiter.extract_client_key(&headers, peer);
+
+    if let Err(e) = create_session(
+        &state.pool,
+        &session_id_hash,
+        user.id,
+        &csrf_token,
+        expires_at,
+        user_agent.as_deref(),
+        Some(ip_address.as_str()),
+    )
+    .await
+    {
+        tracing::error!("Failed to create session after Google OAuth: {}", e);
+        return redirect_with_cleared_oauth_cookie("/?auth_error=google_failed", secure);
+    }
+
+    let mut resp = Redirect::to("/").into_response();
+    let resp_headers = resp.headers_mut();
+    if let Ok(clear) = build_clear_oauth_state_cookie(secure) {
+        resp_headers.append(header::SET_COOKIE, clear);
+    }
+    if let Ok(cookies) = build_session_cookies(&raw_session_token, &csrf_token, max_age_secs, secure)
+    {
+        for cookie in cookies {
+            resp_headers.append(header::SET_COOKIE, cookie);
+        }
     }
     resp
 }

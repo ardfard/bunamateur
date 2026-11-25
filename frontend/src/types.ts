@@ -2,7 +2,12 @@ export interface AuthUser {
   id: number
   email: string
   username: string
+  avatar_url?: string | null
   created_at: string
+}
+
+export interface AuthProvidersResponse {
+  google: boolean
 }
 
 export interface AuthResponse {

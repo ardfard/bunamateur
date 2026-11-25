@@ -9,6 +9,7 @@ use crate::models::{
     ProgressExportPayload, ProgressExportRow, ReadingPassage, ReviewQueueItem, SrsSettings,
     SrsTierCount, UpdateSrsSettingsRequest, WaniKaniStatus, WaniKaniSyncStatus,
 };
+use crate::oauth::{GoogleOAuthConfig, GoogleProfile, derive_username_base};
 use crate::security::{RateLimiter, SecurityConfig};
 use crate::seed_data::{SEED_CONJUGATIONS, SEED_PASSAGES};
 use crate::seed_data_extra::{CONTENT_SCHEMA_VERSION, all_seed_grammar, sentences_for_grammar};
@@ -35,6 +36,7 @@ pub struct AppState {
     pub rate_limiter: RateLimiter,
     pub mailer: DynEmailSender,
     pub app_public_url: String,
+    pub google_oauth: GoogleOAuthConfig,
     pub wk_api_base_url: String,
     pub wk_sync_inflight: Arc<tokio::sync::Mutex<HashSet<i64>>>,
 }
@@ -96,6 +98,7 @@ impl AppState {
             rate_limiter,
             mailer,
             app_public_url: DEFAULT_APP_PUBLIC_URL.to_string(),
+            google_oauth: GoogleOAuthConfig::default(),
             wk_api_base_url,
             wk_sync_inflight: Arc::new(tokio::sync::Mutex::new(HashSet::new())),
         })
@@ -104,6 +107,11 @@ impl AppState {
     pub fn with_mailer(mut self, mailer: DynEmailSender, app_public_url: String) -> Self {
         self.mailer = mailer;
         self.app_public_url = app_public_url;
+        self
+    }
+
+    pub fn with_google_oauth(mut self, google_oauth: GoogleOAuthConfig) -> Self {
+        self.google_oauth = google_oauth;
         self
     }
 
@@ -367,6 +375,7 @@ struct UserRow {
     id: i64,
     email: String,
     username: String,
+    avatar_url: Option<String>,
     created_at: DateTime<Utc>,
 }
 
@@ -376,6 +385,7 @@ impl From<UserRow> for AuthUserInfo {
             id: r.id,
             email: r.email,
             username: r.username,
+            avatar_url: r.avatar_url,
             created_at: r.created_at.to_rfc3339(),
         }
     }
@@ -392,7 +402,7 @@ pub async fn create_user(
     let row: UserRow = match sqlx::query_as(
         "INSERT INTO users (email, username, password_hash)
          VALUES ($1, $2, $3)
-         RETURNING id, email, username, created_at",
+         RETURNING id, email, username, avatar_url, created_at",
     )
     .bind(email)
     .bind(username)
@@ -433,6 +443,7 @@ struct UserWithPasswordRow {
     id: i64,
     email: String,
     username: String,
+    avatar_url: Option<String>,
     password_hash: String,
     created_at: DateTime<Utc>,
 }
@@ -442,7 +453,7 @@ pub async fn find_user_by_email(
     email: &str,
 ) -> Result<Option<(AuthUserInfo, String)>> {
     let row: Option<UserWithPasswordRow> = sqlx::query_as(
-        "SELECT id, email, username, password_hash, created_at
+        "SELECT id, email, username, avatar_url, password_hash, created_at
          FROM users
          WHERE LOWER(email) = LOWER($1)",
     )
@@ -456,11 +467,156 @@ pub async fn find_user_by_email(
                 id: r.id,
                 email: r.email,
                 username: r.username,
+                avatar_url: r.avatar_url,
                 created_at: r.created_at.to_rfc3339(),
             },
             r.password_hash,
         )
     }))
+}
+
+/// Finds, links, or creates a user from a verified Google OIDC profile.
+/// Returns `(user, is_new_user)`.
+pub async fn upsert_google_user(
+    pool: &PgPool,
+    profile: &GoogleProfile,
+) -> Result<(AuthUserInfo, bool)> {
+    let mut tx = pool.begin().await?;
+
+    // 1. Existing linked Google identity
+    let existing_linked: Option<UserRow> = sqlx::query_as(
+        "SELECT u.id, u.email, u.username, u.avatar_url, u.created_at
+         FROM oauth_identities o
+         JOIN users u ON u.id = o.user_id
+         WHERE o.provider = 'google' AND o.provider_user_id = $1",
+    )
+    .bind(&profile.sub)
+    .fetch_optional(&mut *tx)
+    .await?;
+
+    if let Some(mut user) = existing_linked {
+        sqlx::query(
+            "UPDATE oauth_identities
+             SET email = $2, avatar_url = $3, updated_at = NOW()
+             WHERE provider = 'google' AND provider_user_id = $1",
+        )
+        .bind(&profile.sub)
+        .bind(&profile.email)
+        .bind(profile.picture.as_deref())
+        .execute(&mut *tx)
+        .await?;
+
+        if let Some(pic) = &profile.picture {
+            sqlx::query(
+                "UPDATE users SET avatar_url = COALESCE(avatar_url, $2), updated_at = NOW() WHERE id = $1",
+            )
+            .bind(user.id)
+            .bind(pic)
+            .execute(&mut *tx)
+            .await?;
+            if user.avatar_url.is_none() {
+                user.avatar_url = Some(pic.clone());
+            }
+        }
+
+        tx.commit().await?;
+        return Ok((user.into(), false));
+    }
+
+    // 2. Existing user with matching verified email -> link Google identity seamlessly
+    let existing_by_email: Option<UserRow> = sqlx::query_as(
+        "SELECT id, email, username, avatar_url, created_at
+         FROM users
+         WHERE LOWER(email) = LOWER($1)",
+    )
+    .bind(&profile.email)
+    .fetch_optional(&mut *tx)
+    .await?;
+
+    if let Some(mut user) = existing_by_email {
+        sqlx::query(
+            "INSERT INTO oauth_identities (user_id, provider, provider_user_id, email, avatar_url)
+             VALUES ($1, 'google', $2, $3, $4)
+             ON CONFLICT (user_id, provider) DO UPDATE SET
+                 provider_user_id = EXCLUDED.provider_user_id,
+                 email = EXCLUDED.email,
+                 avatar_url = EXCLUDED.avatar_url,
+                 updated_at = NOW()",
+        )
+        .bind(user.id)
+        .bind(&profile.sub)
+        .bind(&profile.email)
+        .bind(profile.picture.as_deref())
+        .execute(&mut *tx)
+        .await?;
+
+        if let Some(pic) = &profile.picture
+            && user.avatar_url.is_none()
+        {
+            sqlx::query("UPDATE users SET avatar_url = $2, updated_at = NOW() WHERE id = $1")
+                .bind(user.id)
+                .bind(pic)
+                .execute(&mut *tx)
+                .await?;
+            user.avatar_url = Some(pic.clone());
+        }
+
+        tx.commit().await?;
+        return Ok((user.into(), false));
+    }
+
+    // 3. Brand-new Google user: pick a unique sanitized username
+    let base_username = derive_username_base(profile.name.as_deref(), &profile.email);
+    let mut chosen_username = base_username.clone();
+    for attempt in 0..10u32 {
+        let taken: bool = sqlx::query_scalar(
+            "SELECT EXISTS(SELECT 1 FROM users WHERE LOWER(username) = LOWER($1))",
+        )
+        .bind(&chosen_username)
+        .fetch_one(&mut *tx)
+        .await?;
+        if !taken {
+            break;
+        }
+        let mut suffix_bytes = [0u8; 3];
+        rand::RngCore::fill_bytes(&mut rand::rngs::OsRng, &mut suffix_bytes);
+        let suffix = hex::encode(suffix_bytes);
+        chosen_username = format!("{}_{}", base_username, &suffix[..4 + (attempt > 3) as usize]);
+    }
+
+    let created: UserRow = sqlx::query_as(
+        "INSERT INTO users (email, username, password_hash, avatar_url)
+         VALUES ($1, $2, '!oauth-google', $3)
+         RETURNING id, email, username, avatar_url, created_at",
+    )
+    .bind(&profile.email)
+    .bind(&chosen_username)
+    .bind(profile.picture.as_deref())
+    .fetch_one(&mut *tx)
+    .await?;
+
+    sqlx::query(
+        "INSERT INTO wk_profile (user_id, smart_furigana, highlight_known_kanji)
+         VALUES ($1, TRUE, TRUE)
+         ON CONFLICT (user_id) DO NOTHING",
+    )
+    .bind(created.id)
+    .execute(&mut *tx)
+    .await?;
+
+    sqlx::query(
+        "INSERT INTO oauth_identities (user_id, provider, provider_user_id, email, avatar_url)
+         VALUES ($1, 'google', $2, $3, $4)",
+    )
+    .bind(created.id)
+    .bind(&profile.sub)
+    .bind(&profile.email)
+    .bind(profile.picture.as_deref())
+    .execute(&mut *tx)
+    .await?;
+
+    tx.commit().await?;
+    Ok((created.into(), true))
 }
 
 pub async fn create_session(
@@ -499,6 +655,7 @@ struct SessionUserRow {
     id: i64,
     email: String,
     username: String,
+    avatar_url: Option<String>,
     created_at: DateTime<Utc>,
     csrf_token: String,
     last_seen_at: DateTime<Utc>,
@@ -509,7 +666,7 @@ pub async fn get_session_user(
     session_id_hash: &str,
 ) -> Result<Option<(AuthUserInfo, String)>> {
     let row: Option<SessionUserRow> = sqlx::query_as(
-        "SELECT u.id, u.email, u.username, u.created_at, s.csrf_token, s.last_seen_at
+        "SELECT u.id, u.email, u.username, u.avatar_url, u.created_at, s.csrf_token, s.last_seen_at
          FROM sessions s
          JOIN users u ON u.id = s.user_id
          WHERE s.id = $1 AND s.expires_at > NOW()",
@@ -534,6 +691,7 @@ pub async fn get_session_user(
             id: row.id,
             email: row.email,
             username: row.username,
+            avatar_url: row.avatar_url,
             created_at: row.created_at.to_rfc3339(),
         },
         row.csrf_token,

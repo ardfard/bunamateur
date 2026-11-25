@@ -9,6 +9,7 @@ use bunamateur::{
         AppState, DEFAULT_DATABASE_URL, sanitize_database_url, spawn_wanikani_auto_sync_worker,
     },
     email::{EmailConfig, build_email_sender},
+    oauth::GoogleOAuthConfig,
     routes,
     security::{SecurityConfig, build_cors_layer},
 };
@@ -68,11 +69,13 @@ async fn main() -> anyhow::Result<()> {
     let security = SecurityConfig::from_env(&host)?;
     let email_config = EmailConfig::from_env()?;
     let mailer = build_email_sender(&email_config)?;
+    let google_oauth = GoogleOAuthConfig::from_env(&email_config.app_public_url);
     let cors = build_cors_layer(&security)?;
 
     let state = AppState::connect_with_config(&database_url, cipher, security)
         .await?
-        .with_mailer(mailer, email_config.app_public_url.clone());
+        .with_mailer(mailer, email_config.app_public_url.clone())
+        .with_google_oauth(google_oauth);
     tracing::info!(
         "PostgreSQL database connected, migrated, and seeded ({})",
         sanitize_database_url(&database_url)
@@ -82,7 +85,8 @@ async fn main() -> anyhow::Result<()> {
         cookie_secure = state.security.cookie_secure,
         session_ttl_days = state.security.session_ttl_days,
         email_provider = state.mailer.provider_name(),
-        "Security & email configuration active"
+        google_oauth_enabled = state.google_oauth.is_enabled(),
+        "Security & auth configuration active"
     );
 
     spawn_wanikani_auto_sync_worker(state.clone());

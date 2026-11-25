@@ -1,4 +1,5 @@
 import type {
+  AuthProvidersResponse,
   AuthResponse,
   ConjugationItem,
   DashboardStats,
@@ -75,6 +76,8 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
+  authProviders: () => request<AuthProvidersResponse>('/api/auth/providers'),
+
   authMe: async () => {
     const resp = await request<AuthResponse>('/api/auth/me')
     setCsrfToken(resp.csrf_token)

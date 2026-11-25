@@ -38,7 +38,7 @@ ENCRYPTION_KEY=$(openssl rand -hex 32) \
 
 ## Security & Multi-User Auth
 
-- **Multi-user accounts & sessions**: Argon2id password hashing, SHA-256-hashed database sessions, `HttpOnly` / `SameSite=Lax` / `Secure` session cookies, and synchronizer-token `X-CSRF-Token` validation on all state-changing routes.
+- **Multi-user accounts & sessions**: Argon2id password hashing, Google OAuth 2.0 / OIDC login with PKCE S256 (`GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`) and verified-email account linking, SHA-256-hashed database sessions, `HttpOnly` / `SameSite=Lax` / `Secure` session cookies, and synchronizer-token `X-CSRF-Token` validation on all state-changing routes.
 - **Per-user data scoping**: `user_progress`, `review_logs`, `wk_profile`, and `wk_subjects` are isolated by `user_id`.
 - **Encrypted WaniKani tokens at rest**: `wk_profile.api_token` is encrypted using AES-256-GCM via `ENCRYPTION_KEY` (64 hex chars or 32-byte base64) with per-user AAD binding.
 - **Hardened HTTP layer**: Explicit `ALLOWED_ORIGINS` CORS policy (no wildcard), per-route request body limits (16 KiB auth, 64 KiB API, 256 KiB reading analysis), and per-route IP rate limiting (`auth`, `wanikani`, `general` tiers).

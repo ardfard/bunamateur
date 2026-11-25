@@ -682,5 +682,251 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     let still_ok = client_b.get(format!("{}/auth/me", base)).send().await.unwrap();
     assert_eq!(still_ok.status(), StatusCode::OK);
 
+    // 11. Google OAuth 2.0 + PKCE S256 login & account linking end-to-end against mock Google server
+    use axum::{Form, Json, Router, routing::{get, post}};
+    use std::collections::HashMap;
+    use bunamateur::oauth::GoogleOAuthConfig;
+
+    let mock_google = Router::new()
+        .route(
+            "/token",
+            post(|Form(params): Form<HashMap<String, String>>| async move {
+                assert_eq!(params.get("grant_type").map(String::as_str), Some("authorization_code"));
+                assert!(params.get("code_verifier").map(|v| v.len() >= 43).unwrap_or(false));
+                let tok = match params.get("code").map(String::as_str) {
+                    Some("code-new-user") => "access-new-user",
+                    Some("code-existing-bob") => "access-bob",
+                    _ => "access-invalid",
+                };
+                (StatusCode::OK, Json(json!({ "access_token": tok })))
+            }),
+        )
+        .route(
+            "/userinfo",
+            get(|headers: axum::http::HeaderMap| async move {
+                let auth = headers
+                    .get(header::AUTHORIZATION)
+                    .and_then(|v| v.to_str().ok())
+                    .unwrap_or("");
+                if auth == "Bearer access-bob" {
+                    return Json(json!({
+                        "sub": "google-sub-bob-99",
+                        "email": "bob@example.com",
+                        "email_verified": true,
+                        "name": "Bob Learner",
+                        "picture": "https://lh3.googleusercontent.com/bob.png"
+                    }));
+                }
+                Json(json!({
+                    "sub": "google-sub-hanako-77",
+                    "email": "hanako@gmail.com",
+                    "email_verified": true,
+                    "name": "Hanako Yamada",
+                    "picture": "https://lh3.googleusercontent.com/hanako.png"
+                }))
+            }),
+        );
+
+    let g_listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let g_addr = g_listener.local_addr().unwrap();
+    let g_server = tokio::spawn(async move {
+        axum::serve(g_listener, mock_google).await.unwrap();
+    });
+
+    let oauth_security = SecurityConfig {
+        allowed_origins: vec!["https://app.bunamateur.test".to_string()],
+        cookie_secure: false,
+        session_ttl_days: 7,
+        trust_proxy: false,
+        rate_limits: RateLimitConfig {
+            auth: RateLimitRule {
+                max_requests: 30,
+                window: Duration::from_secs(60),
+            },
+            ..RateLimitConfig::default()
+        },
+    };
+    let oauth_listener = TcpListener::bind("127.0.0.1:0").await.unwrap();
+    let oauth_addr = oauth_listener.local_addr().unwrap();
+    let google_cfg = GoogleOAuthConfig {
+        client_id: Some("mock-google-client-id".to_string()),
+        client_secret: Some("mock-google-secret".to_string()),
+        redirect_uri: format!("http://{}/api/auth/google/callback", oauth_addr),
+        auth_url: format!("http://{}/authorize", g_addr),
+        token_url: format!("http://{}/token", g_addr),
+        userinfo_url: format!("http://{}/userinfo", g_addr),
+    };
+    let oauth_state = AppState::from_pool_with_config(pool.clone(), cipher.clone(), oauth_security)
+        .await
+        .unwrap()
+        .with_google_oauth(google_cfg);
+    let oauth_app = build_test_app(oauth_state);
+    let oauth_server = tokio::spawn(async move {
+        axum::serve(
+            oauth_listener,
+            oauth_app.into_make_service_with_connect_info::<SocketAddr>(),
+        )
+        .await
+        .unwrap();
+    });
+
+    let oauth_base = format!("http://{}/api", oauth_addr);
+    let no_redirect_client = reqwest::Client::builder()
+        .cookie_store(true)
+        .redirect(reqwest::redirect::Policy::none())
+        .build()
+        .unwrap();
+
+    // Providers endpoint reports google: true
+    let providers: Value = no_redirect_client
+        .get(format!("{}/auth/providers", oauth_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(providers["google"], Value::Bool(true));
+
+    // Start Google OAuth -> 307 redirect to Google with state + PKCE S256 + state cookie
+    let start_resp = no_redirect_client
+        .get(format!("{}/auth/google/start", oauth_base))
+        .send()
+        .await
+        .unwrap();
+    assert!(start_resp.status().is_redirection());
+    let location = start_resp
+        .headers()
+        .get(header::LOCATION)
+        .unwrap()
+        .to_str()
+        .unwrap()
+        .to_string();
+    assert!(location.contains("code_challenge_method=S256"));
+    let parsed_url = reqwest::Url::parse(&location).unwrap();
+    let state_param = parsed_url
+        .query_pairs()
+        .find(|(k, _)| k == "state")
+        .map(|(_, v)| v.to_string())
+        .unwrap();
+
+    // Callback with wrong state is rejected
+    let bad_cb = no_redirect_client
+        .get(format!(
+            "{}/auth/google/callback?code=code-new-user&state=tampered",
+            oauth_base
+        ))
+        .send()
+        .await
+        .unwrap();
+    assert!(bad_cb.status().is_redirection());
+    assert_eq!(
+        bad_cb.headers().get(header::LOCATION).unwrap().to_str().unwrap(),
+        "/?auth_error=invalid_state"
+    );
+
+    // Re-start to get fresh state cookie, then complete valid callback for brand-new Google user
+    let start_resp2 = no_redirect_client
+        .get(format!("{}/auth/google/start", oauth_base))
+        .send()
+        .await
+        .unwrap();
+    let loc2 = start_resp2
+        .headers()
+        .get(header::LOCATION)
+        .unwrap()
+        .to_str()
+        .unwrap();
+    let state_param2 = reqwest::Url::parse(loc2)
+        .unwrap()
+        .query_pairs()
+        .find(|(k, _)| k == "state")
+        .map(|(_, v)| v.to_string())
+        .unwrap();
+    assert_ne!(state_param, state_param2);
+
+    let ok_cb = no_redirect_client
+        .get(format!(
+            "{}/auth/google/callback?code=code-new-user&state={}",
+            oauth_base, state_param2
+        ))
+        .send()
+        .await
+        .unwrap();
+    assert!(ok_cb.status().is_redirection());
+    assert_eq!(
+        ok_cb.headers().get(header::LOCATION).unwrap().to_str().unwrap(),
+        "/"
+    );
+
+    // Session cookie issued by Google callback works immediately on /api/auth/me
+    let me_google: Value = no_redirect_client
+        .get(format!("{}/auth/me", oauth_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(me_google["user"]["email"], "hanako@gmail.com");
+    assert_eq!(me_google["user"]["username"], "hanako_yamada");
+    assert_eq!(
+        me_google["user"]["avatar_url"],
+        "https://lh3.googleusercontent.com/hanako.png"
+    );
+
+    // Account linking: Google login with Bob's verified email links to existing User B id!
+    let bob_oauth_client = reqwest::Client::builder()
+        .cookie_store(true)
+        .redirect(reqwest::redirect::Policy::none())
+        .build()
+        .unwrap();
+    let bob_start = bob_oauth_client
+        .get(format!("{}/auth/google/start", oauth_base))
+        .send()
+        .await
+        .unwrap();
+    let bob_state = reqwest::Url::parse(
+        bob_start.headers().get(header::LOCATION).unwrap().to_str().unwrap(),
+    )
+    .unwrap()
+    .query_pairs()
+    .find(|(k, _)| k == "state")
+    .map(|(_, v)| v.to_string())
+    .unwrap();
+    let bob_cb = bob_oauth_client
+        .get(format!(
+            "{}/auth/google/callback?code=code-existing-bob&state={}",
+            oauth_base, bob_state
+        ))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(
+        bob_cb.headers().get(header::LOCATION).unwrap().to_str().unwrap(),
+        "/"
+    );
+    let bob_me: Value = bob_oauth_client
+        .get(format!("{}/auth/me", oauth_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(
+        bob_me["user"]["id"].as_i64(),
+        Some(user_b_id),
+        "verified Google email must link to existing user account"
+    );
+
+    oauth_server.abort();
+    g_server.abort();
     server.abort();
 }

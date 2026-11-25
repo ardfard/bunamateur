@@ -146,7 +146,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           </button>
 
           <div
-            className="hidden lg:flex items-center rounded-full border px-3 py-1 text-xs font-medium"
+            className="hidden lg:flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
             style={{
               borderColor: 'var(--border-subtle)',
               backgroundColor: 'var(--bg-subtle)',
@@ -154,7 +154,15 @@ export const TopNav: React.FC<TopNavProps> = ({
             }}
             title={user.email}
           >
-            {user.username}
+            {user.avatar_url && (
+              <img
+                src={user.avatar_url}
+                alt={user.username}
+                referrerPolicy="no-referrer"
+                className="h-5 w-5 rounded-full object-cover"
+              />
+            )}
+            <span>{user.username}</span>
           </div>
 
           <button
