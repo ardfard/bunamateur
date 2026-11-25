@@ -126,6 +126,9 @@ pub struct SubmitAnswerRequest {
 #[derive(Debug, Clone, Serialize)]
 pub struct SubmitAnswerResponse {
     pub correct: bool,
+    pub almost_right: bool,
+    pub nuance_hint: Option<String>,
+    pub nuance_category: Option<String>,
     pub matched_answer: String,
     pub expected_answer: String,
     pub alt_answers: Vec<String>,
@@ -169,6 +172,99 @@ pub struct SrsTierCount {
     pub count: i32,
 }
 
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct OnboardingState {
+    pub completed: bool,
+    pub preferred_study_path: String,
+    pub placement_jlpt: String,
+    pub daily_goal: i32,
+    pub content_version: i32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct SrsSettings {
+    pub vacation_mode: bool,
+    pub vacation_started_at: Option<String>,
+    pub ghost_intensity: String, // "minimal" | "standard" | "heavy"
+    pub daily_goal: i32,
+    pub preferred_study_path: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct UpdateSrsSettingsRequest {
+    pub vacation_mode: Option<bool>,
+    pub ghost_intensity: Option<String>,
+    pub daily_goal: Option<i32>,
+    pub preferred_study_path: Option<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PlacementQuestion {
+    pub grammar_id: i64,
+    pub slug: String,
+    pub title: String,
+    pub meaning: String,
+    pub jlpt_level: String,
+    pub study_path: String,
+    pub sample_jp: String,
+    pub sample_en: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CompleteOnboardingRequest {
+    pub study_path: String,
+    pub placement_jlpt: String,
+    pub daily_goal: Option<i32>,
+    #[serde(default)]
+    pub known_grammar_ids: Vec<i64>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ContentVersionInfo {
+    pub content_key: String,
+    pub version: i32,
+    pub checksum: String,
+    pub item_count: i32,
+    pub sentence_count: i32,
+    pub applied_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProgressExportRow {
+    pub slug: String,
+    pub title: String,
+    pub jlpt_level: String,
+    pub srs_stage: i32,
+    pub ghost_level: i32,
+    pub correct_count: i32,
+    pub incorrect_count: i32,
+    pub streak: i32,
+    pub next_review_at: Option<String>,
+    pub ghost_due_at: Option<String>,
+    pub user_notes: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ProgressExportPayload {
+    pub exported_at: String,
+    pub version: i32,
+    pub settings: SrsSettings,
+    pub items: Vec<ProgressExportRow>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ImportProgressRequest {
+    pub format: String, // "json" | "csv"
+    pub data: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ImportProgressResponse {
+    pub imported: usize,
+    pub skipped: usize,
+    pub errors: Vec<String>,
+}
+
 #[derive(Debug, Clone, Serialize)]
 pub struct DashboardStats {
     pub reviews_due: i32,
@@ -186,6 +282,8 @@ pub struct DashboardStats {
     pub forecast_24h: Vec<ForecastBucket>,
     pub srs_breakdown: Vec<SrsTierCount>,
     pub wanikani: WaniKaniStatus,
+    pub onboarding: OnboardingState,
+    pub srs_settings: SrsSettings,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -202,6 +300,25 @@ pub struct WaniKaniStatus {
     pub highlight_known_kanji: bool,
     pub last_synced_at: Option<String>,
     pub known_kanji_list: Vec<String>,
+    pub sync_status: String,
+    pub sync_progress_pages: i32,
+    pub sync_progress_items: i32,
+    pub sync_message: String,
+    pub sync_error: Option<String>,
+    pub auto_sync_enabled: bool,
+    pub auto_sync_interval_mins: i32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct WaniKaniSyncStatus {
+    pub sync_status: String,
+    pub sync_progress_pages: i32,
+    pub sync_progress_items: i32,
+    pub sync_message: String,
+    pub sync_error: Option<String>,
+    pub last_synced_at: Option<String>,
+    pub kanji_known: usize,
+    pub vocab_known: usize,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -213,6 +330,8 @@ pub struct WaniKaniConnectRequest {
 pub struct WaniKaniSettingsRequest {
     pub smart_furigana: bool,
     pub highlight_known_kanji: bool,
+    pub auto_sync_enabled: Option<bool>,
+    pub auto_sync_interval_mins: Option<i32>,
 }
 
 #[derive(Debug, Clone, Deserialize)]

@@ -4,12 +4,17 @@ import type {
   DashboardStats,
   GrammarPointDetail,
   GrammarPointSummary,
+  ImportProgressResponse,
+  OnboardingState,
+  PlacementQuestion,
   ReadingAnalyzeResponse,
   ReadingPassage,
   ReviewMode,
   ReviewQueueItem,
+  SrsSettings,
   SubmitAnswerResponse,
   WaniKaniStatus,
+  WaniKaniSyncStatus,
 } from './types'
 
 export class ApiError extends Error {
@@ -102,6 +107,48 @@ export const api = {
 
   getDashboard: () => request<DashboardStats>('/api/dashboard'),
 
+  getPlacementQuestions: () => request<PlacementQuestion[]>('/api/onboarding/placement'),
+
+  completeOnboarding: (payload: {
+    study_path: string
+    placement_jlpt: string
+    daily_goal?: number
+    known_grammar_ids: number[]
+  }) =>
+    request<OnboardingState>('/api/onboarding/complete', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  getSrsSettings: () => request<SrsSettings>('/api/settings/srs'),
+
+  updateSrsSettings: (payload: {
+    vacation_mode?: boolean
+    ghost_intensity?: string
+    daily_goal?: number
+    preferred_study_path?: string
+  }) =>
+    request<SrsSettings>('/api/settings/srs', {
+      method: 'PUT',
+      body: JSON.stringify(payload),
+    }),
+
+  exportProgressText: async (format: 'json' | 'csv'): Promise<string> => {
+    const res = await fetch(`/api/export/progress?format=${format}`, {
+      credentials: 'include',
+    })
+    if (!res.ok) {
+      throw new ApiError(`Export failed (${res.status})`, res.status)
+    }
+    return res.text()
+  },
+
+  importProgress: (format: 'json' | 'csv', data: string) =>
+    request<ImportProgressResponse>('/api/import/progress', {
+      method: 'POST',
+      body: JSON.stringify({ format, data }),
+    }),
+
   getReviews: (mode: ReviewMode, jlpt = 'ALL', limit = 20) =>
     request<ReviewQueueItem[]>(
       `/api/reviews?mode=${encodeURIComponent(mode)}&jlpt=${encodeURIComponent(jlpt)}&limit=${limit}`
@@ -170,14 +217,16 @@ export const api = {
 
   getWaniKaniStatus: () => request<WaniKaniStatus>('/api/wanikani/status'),
 
+  getWaniKaniSyncStatus: () => request<WaniKaniSyncStatus>('/api/wanikani/sync/status'),
+
   connectWaniKani: (api_token: string) =>
     request<WaniKaniStatus>('/api/wanikani/connect', {
       method: 'POST',
       body: JSON.stringify({ api_token }),
     }),
 
-  syncWaniKani: () =>
-    request<WaniKaniStatus>('/api/wanikani/sync', { method: 'POST' }),
+  syncWaniKani: (full = false) =>
+    request<WaniKaniStatus>(`/api/wanikani/sync${full ? '?full=true' : ''}`, { method: 'POST' }),
 
   demoWaniKani: () =>
     request<WaniKaniStatus>('/api/wanikani/demo', { method: 'POST' }),
@@ -185,9 +234,19 @@ export const api = {
   disconnectWaniKani: () =>
     request<WaniKaniStatus>('/api/wanikani/disconnect', { method: 'POST' }),
 
-  updateWaniKaniSettings: (smart_furigana: boolean, highlight_known_kanji: boolean) =>
+  updateWaniKaniSettings: (
+    smart_furigana: boolean,
+    highlight_known_kanji: boolean,
+    auto_sync_enabled?: boolean,
+    auto_sync_interval_mins?: number
+  ) =>
     request<WaniKaniStatus>('/api/wanikani/settings', {
       method: 'PUT',
-      body: JSON.stringify({ smart_furigana, highlight_known_kanji }),
+      body: JSON.stringify({
+        smart_furigana,
+        highlight_known_kanji,
+        auto_sync_enabled,
+        auto_sync_interval_mins,
+      }),
     }),
 }

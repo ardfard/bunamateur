@@ -5,7 +5,9 @@ use axum::{
 };
 use bunamateur::{
     crypto::TokenCipher,
-    db::{AppState, DEFAULT_DATABASE_URL, sanitize_database_url},
+    db::{
+        AppState, DEFAULT_DATABASE_URL, sanitize_database_url, spawn_wanikani_auto_sync_worker,
+    },
     email::{EmailConfig, build_email_sender},
     routes,
     security::{SecurityConfig, build_cors_layer},
@@ -82,6 +84,8 @@ async fn main() -> anyhow::Result<()> {
         email_provider = state.mailer.provider_name(),
         "Security & email configuration active"
     );
+
+    spawn_wanikani_auto_sync_worker(state.clone());
 
     let api = routes::api_router(&state);
     let app = Router::new()

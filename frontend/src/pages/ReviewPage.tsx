@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
+  AlertTriangle,
   ArrowRight,
   CheckCircle2,
   Eye,
+  Flag,
   Ghost,
   Keyboard,
   RotateCcw,
@@ -48,6 +50,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [imeEnabled, setImeEnabled] = useState(true)
   const [showHint, setShowHint] = useState(false)
   const [result, setResult] = useState<SubmitAnswerResponse | null>(null)
+  const [nuanceShakeHint, setNuanceShakeHint] = useState<string | null>(null)
+  const [shaking, setShaking] = useState(false)
+  const [wrappingUp, setWrappingUp] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
 
@@ -57,6 +62,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
     setLoading(true)
     setIndex(0)
     setResult(null)
+    setNuanceShakeHint(null)
+    setWrappingUp(false)
     setInputValue('')
     setShowHint(false)
     setSessionStats({ correct: 0, total: 0 })
@@ -111,6 +118,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         mode: current.mode,
         is_ghost: current.is_ghost,
       })
+
+      // Non-penalizing "almost right" nuance hint: shake input and let user retry immediately
+      if (res.almost_right) {
+        setNuanceShakeHint(res.nuance_hint || res.feedback)
+        setShaking(false)
+        requestAnimationFrame(() => setShaking(true))
+        window.setTimeout(() => setShaking(false), 400)
+        inputRef.current?.focus()
+        return
+      }
+
+      setNuanceShakeHint(null)
       setResult(res)
       setSessionStats((prev) => ({
         correct: prev.correct + (res.correct ? 1 : 0),
@@ -124,9 +143,17 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
 
   const goNext = () => {
     setResult(null)
+    setNuanceShakeHint(null)
     setInputValue('')
     setShowHint(false)
     setIndex((i) => i + 1)
+  }
+
+  const handleWrapUp = () => {
+    if (wrappingUp) return
+    const cap = Math.min(queue.length, index + 5)
+    setQueue((prev) => prev.slice(0, cap))
+    setWrappingUp(true)
   }
 
   const handleUndo = async () => {
@@ -246,6 +273,24 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 </button>
               ))}
             </div>
+
+            {queue.length > 0 && current && (
+              <button
+                type="button"
+                onClick={handleWrapUp}
+                disabled={wrappingUp || queue.length - index <= 1}
+                className="flex items-center gap-1 rounded-full border px-3 py-1 text-[11px] font-semibold transition-colors cursor-pointer disabled:opacity-60"
+                style={{
+                  backgroundColor: wrappingUp ? 'var(--accent-amber-soft)' : 'var(--bg-surface)',
+                  borderColor: wrappingUp ? 'var(--accent-amber)' : 'var(--border-subtle)',
+                  color: wrappingUp ? 'var(--accent-amber)' : 'var(--text-secondary)',
+                }}
+                title="Cap remaining session to at most 5 items so you can wrap up cleanly"
+              >
+                <Flag className="h-3 w-3" />
+                {wrappingUp ? `Wrapping up (${Math.max(0, queue.length - index)} left)` : 'Wrap Up'}
+              </button>
+            )}
 
             {queue.length > 0 && (
               <span className="font-mono-code text-xs" style={{ color: 'var(--text-secondary)' }}>
@@ -443,14 +488,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
               {/* Kana IME Input Form */}
               <form onSubmit={handleSubmit} className="w-full max-w-xl">
                 <div
-                  className="flex items-center gap-2 rounded-xl border-2 px-4 py-2.5 transition-colors"
+                  className={`flex items-center gap-2 rounded-xl border-2 px-4 py-2.5 transition-colors ${shaking ? 'animate-shake' : ''}`}
                   style={{
                     backgroundColor: 'var(--bg-canvas)',
                     borderColor: result
                       ? result.correct
                         ? 'var(--accent-matcha)'
                         : 'var(--accent-vermilion)'
-                      : 'var(--border-subtle)',
+                      : nuanceShakeHint
+                        ? 'var(--accent-amber)'
+                        : 'var(--border-subtle)',
                   }}
                 >
                   <input
@@ -537,6 +584,21 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   </span>
                 </div>
               </form>
+
+              {/* Non-penalizing Almost-Right Nuance Hint Banner */}
+              {nuanceShakeHint && !result && (
+                <div
+                  className="flex w-full max-w-xl items-center gap-2.5 rounded-xl border px-4 py-3 text-left text-sm font-medium"
+                  style={{
+                    backgroundColor: 'var(--accent-amber-soft)',
+                    borderColor: 'var(--accent-amber)',
+                    color: 'var(--accent-amber)',
+                  }}
+                >
+                  <AlertTriangle className="h-4 w-4 shrink-0" />
+                  <span>{nuanceShakeHint}</span>
+                </div>
+              )}
 
               {/* Result Banner */}
               {result && (

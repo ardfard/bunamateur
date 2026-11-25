@@ -1,15 +1,19 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import {
   BookOpen,
+  Download,
   Ghost,
+  Palmtree,
   Play,
   RefreshCw,
   Sparkles,
   Swords,
   BookMarked,
+  Upload,
   Zap,
 } from 'lucide-react'
 import { api } from '../api'
+import { OnboardingPanel } from '../components/OnboardingPanel'
 import type { DashboardStats, PageTab, ReviewMode } from '../types'
 
 interface DashboardPageProps {
@@ -42,6 +46,9 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onRefresh,
 }) => {
   const [syncingDemo, setSyncingDemo] = useState(false)
+  const [updatingSrs, setUpdatingSrs] = useState(false)
+  const [dataMsg, setDataMsg] = useState<string | null>(null)
+  const importInputRef = useRef<HTMLInputElement>(null)
 
   const maxForecast = Math.max(1, ...stats.forecast_24h.map((b) => b.count))
   const totalForecast = stats.forecast_24h.reduce((sum, b) => sum + b.count, 0)
@@ -57,8 +64,104 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     }
   }
 
+  const handleToggleVacation = async () => {
+    setUpdatingSrs(true)
+    try {
+      await api.updateSrsSettings({ vacation_mode: !stats.srs_settings.vacation_mode })
+      onRefresh()
+    } finally {
+      setUpdatingSrs(false)
+    }
+  }
+
+  const handleGhostIntensity = async (intensity: string) => {
+    setUpdatingSrs(true)
+    try {
+      await api.updateSrsSettings({ ghost_intensity: intensity })
+      onRefresh()
+    } finally {
+      setUpdatingSrs(false)
+    }
+  }
+
+  const handleStudyPathChange = async (path: string) => {
+    setUpdatingSrs(true)
+    try {
+      await api.updateSrsSettings({ preferred_study_path: path })
+      onRefresh()
+    } finally {
+      setUpdatingSrs(false)
+    }
+  }
+
+  const handleExport = async (format: 'json' | 'csv') => {
+    setDataMsg(null)
+    try {
+      const content = await api.exportProgressText(format)
+      const blob = new Blob([content], {
+        type: format === 'csv' ? 'text/csv;charset=utf-8' : 'application/json;charset=utf-8',
+      })
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `bunamateur-progress.${format}`
+      a.click()
+      URL.revokeObjectURL(url)
+      setDataMsg(`Exported progress as ${format.toUpperCase()}.`)
+    } catch (err) {
+      setDataMsg(err instanceof Error ? err.message : 'Export failed')
+    }
+  }
+
+  const handleImportFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setDataMsg(null)
+    try {
+      const text = await file.text()
+      const fmt: 'json' | 'csv' = file.name.toLowerCase().endsWith('.csv') ? 'csv' : 'json'
+      const res = await api.importProgress(fmt, text)
+      setDataMsg(`Imported ${res.imported} grammar items (${res.skipped} skipped).`)
+      onRefresh()
+    } catch (err) {
+      setDataMsg(err instanceof Error ? err.message : 'Import failed')
+    } finally {
+      e.target.value = ''
+    }
+  }
+
   return (
     <div className="mx-auto flex max-w-[1360px] flex-col gap-6 px-4 py-8 sm:px-8">
+      {/* Zero-State Onboarding Panel for new accounts */}
+      {!stats.onboarding.completed && <OnboardingPanel onCompleted={onRefresh} />}
+
+      {/* Vacation Mode Banner */}
+      {stats.srs_settings.vacation_mode && (
+        <div
+          className="flex flex-wrap items-center justify-between gap-3 rounded-2xl border px-5 py-3.5 text-sm"
+          style={{
+            backgroundColor: 'var(--accent-amber-soft)',
+            borderColor: 'var(--accent-amber)',
+            color: 'var(--accent-amber)',
+          }}
+        >
+          <div className="flex items-center gap-2 font-semibold">
+            <Palmtree className="h-4 w-4 shrink-0" />
+            <span>
+              Vacation Mode is active — due schedules are paused and your {stats.streak_days}-day streak is protected.
+            </span>
+          </div>
+          <button
+            type="button"
+            disabled={updatingSrs}
+            onClick={handleToggleVacation}
+            className="rounded-lg px-3 py-1.5 text-xs font-bold text-white cursor-pointer"
+            style={{ backgroundColor: 'var(--accent-amber)' }}
+          >
+            Resume Reviews
+          </button>
+        </div>
+      )}
       {/* Hero Study Banner */}
       <section
         className="flex flex-col justify-between gap-6 rounded-2xl border p-6 sm:p-7 lg:flex-row lg:items-center"
@@ -427,6 +530,145 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* SRS Ergonomics & Data Backup */}
+          <div
+            className="flex flex-col gap-3.5 rounded-2xl border p-6"
+            style={{
+              backgroundColor: 'var(--bg-surface)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <div className="flex items-center justify-between">
+              <h2 className="text-base font-bold">SRS Ergonomics &amp; Backup</h2>
+              <span className="font-mono-code text-[11px]" style={{ color: 'var(--text-muted)' }}>
+                Deck v{stats.onboarding.content_version}
+              </span>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <div>
+                <div className="font-semibold">Vacation Mode</div>
+                <div style={{ color: 'var(--text-muted)' }}>
+                  Pauses due reviews &amp; preserves streak
+                </div>
+              </div>
+              <button
+                type="button"
+                disabled={updatingSrs}
+                onClick={handleToggleVacation}
+                className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold cursor-pointer"
+                style={{
+                  backgroundColor: stats.srs_settings.vacation_mode
+                    ? 'var(--accent-amber-soft)'
+                    : 'var(--bg-subtle)',
+                  borderColor: stats.srs_settings.vacation_mode
+                    ? 'var(--accent-amber)'
+                    : 'var(--border-subtle)',
+                  color: stats.srs_settings.vacation_mode
+                    ? 'var(--accent-amber)'
+                    : 'var(--text-secondary)',
+                }}
+              >
+                <Palmtree className="h-3.5 w-3.5" />
+                {stats.srs_settings.vacation_mode ? 'On' : 'Off'}
+              </button>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="font-semibold">Ghost Review Intensity</span>
+              <div
+                className="flex rounded-lg border p-0.5"
+                style={{ backgroundColor: 'var(--bg-canvas)', borderColor: 'var(--border-subtle)' }}
+              >
+                {(['minimal', 'standard', 'heavy'] as const).map((lvl) => {
+                  const active = stats.srs_settings.ghost_intensity === lvl
+                  return (
+                    <button
+                      key={lvl}
+                      type="button"
+                      disabled={updatingSrs}
+                      onClick={() => handleGhostIntensity(lvl)}
+                      className="rounded-md px-2.5 py-1 text-[11px] font-semibold capitalize cursor-pointer"
+                      style={{
+                        backgroundColor: active ? 'var(--accent-vermilion)' : 'transparent',
+                        color: active ? '#ffffff' : 'var(--text-secondary)',
+                      }}
+                    >
+                      {lvl}
+                    </button>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between gap-3 text-xs">
+              <span className="font-semibold">Study Path Priority</span>
+              <select
+                value={stats.srs_settings.preferred_study_path}
+                disabled={updatingSrs}
+                onChange={(e) => handleStudyPathChange(e.target.value)}
+                className="font-mono-code rounded-lg border px-2.5 py-1 text-xs outline-none"
+                style={{
+                  backgroundColor: 'var(--bg-canvas)',
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--text-primary)',
+                }}
+              >
+                {['JLPT Core', 'Genki I', 'Genki II', 'Tobira', 'Quartet'].map((p) => (
+                  <option key={p} value={p}>
+                    {p}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div
+              className="flex flex-wrap items-center gap-2 border-t pt-3"
+              style={{ borderColor: 'var(--border-subtle)' }}
+            >
+              <button
+                type="button"
+                onClick={() => handleExport('json')}
+                className="flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                style={{ borderColor: 'var(--border-subtle)', backgroundColor: 'var(--bg-subtle)' }}
+              >
+                <Download className="h-3.5 w-3.5" />
+                Export JSON
+              </button>
+              <button
+                type="button"
+                onClick={() => handleExport('csv')}
+                className="flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                style={{ borderColor: 'var(--border-subtle)', backgroundColor: 'var(--bg-subtle)' }}
+              >
+                <Download className="h-3.5 w-3.5" />
+                Export CSV
+              </button>
+              <button
+                type="button"
+                onClick={() => importInputRef.current?.click()}
+                className="flex items-center gap-1 rounded-lg border px-2.5 py-1.5 text-xs font-semibold cursor-pointer"
+                style={{ borderColor: 'var(--border-subtle)', backgroundColor: 'var(--bg-subtle)' }}
+              >
+                <Upload className="h-3.5 w-3.5" />
+                Import
+              </button>
+              <input
+                ref={importInputRef}
+                type="file"
+                accept=".json,.csv,application/json,text/csv"
+                onChange={handleImportFile}
+                className="hidden"
+              />
+            </div>
+
+            {dataMsg && (
+              <div className="text-xs font-medium" style={{ color: 'var(--accent-matcha)' }}>
+                {dataMsg}
+              </div>
+            )}
           </div>
 
           {/* Quick Bonus Learning Labs */}

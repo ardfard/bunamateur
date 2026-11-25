@@ -8,7 +8,8 @@ use bunamateur::{
     },
     routes,
     security::{RateLimitConfig, RateLimitRule, SecurityConfig, build_cors_layer},
-    seed_data::{SEED_CONJUGATIONS, SEED_GRAMMAR, SEED_PASSAGES},
+    seed_data::{SEED_CONJUGATIONS, SEED_PASSAGES},
+    seed_data_extra::{CONTENT_SCHEMA_VERSION, all_seed_grammar, sentences_for_grammar},
     wanikani::generate_demo_wanikani_sync,
 };
 use axum::http::{StatusCode, header};
@@ -75,11 +76,15 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     run_migrations(&pool).await.expect("migrations should succeed");
     seed_content(&pool).await.expect("initial seed should succeed");
 
+    let expected_grammar = all_seed_grammar();
+    let expected_sentences: usize = expected_grammar
+        .iter()
+        .map(|g| sentences_for_grammar(g).len())
+        .sum();
     let grammar_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points")
         .fetch_one(&pool)
         .await
         .unwrap();
-    let expected_sentences: usize = SEED_GRAMMAR.iter().map(|g| g.sentences.len()).sum();
     let sentence_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM grammar_sentences")
         .fetch_one(&pool)
         .await
@@ -93,8 +98,10 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .await
         .unwrap();
 
-    assert_eq!(grammar_count as usize, SEED_GRAMMAR.len());
+    assert_eq!(grammar_count as usize, expected_grammar.len());
+    assert!(grammar_count >= 50, "expanded curriculum must have 50+ grammar points");
     assert_eq!(sentence_count as usize, expected_sentences);
+    assert!(sentence_count >= 300, "expanded curriculum must have 6+ sentences per point");
     assert_eq!(passage_count as usize, SEED_PASSAGES.len());
     assert_eq!(conj_count as usize, SEED_CONJUGATIONS.len());
 
@@ -443,12 +450,170 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     let dash_b = compute_dashboard(&pool, user_b_id).await.unwrap();
     assert_eq!(dash_a.total_learned, 1);
     assert_eq!(dash_b.total_learned, 0);
-    assert_eq!(dash_b.lessons_available as usize, SEED_GRAMMAR.len());
+    assert_eq!(dash_b.lessons_available as usize, expected_grammar.len());
+    assert!(!dash_b.onboarding.completed);
 
-    let n4_grammar = list_grammar_summaries(&pool, user_a_id, Some("N4"), None, None)
+    let n4_grammar = list_grammar_summaries(&pool, user_a_id, Some("N4"), None, None, None)
         .await
         .unwrap();
     assert!(!n4_grammar.is_empty());
+
+    // 7b. Verify content version, zero-state onboarding, contextual nuance grading,
+    //     Vacation Mode, Ghost Intensity, and JSON/CSV progress export + import
+    let content_ver: Value = client_a
+        .get(format!("{}/content/version", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(content_ver["version"].as_i64(), Some(CONTENT_SCHEMA_VERSION as i64));
+    assert_eq!(content_ver["item_count"].as_i64(), Some(expected_grammar.len() as i64));
+
+    let placement: Value = client_b
+        .get(format!("{}/onboarding/placement", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert!(placement.as_array().unwrap().len() >= 8);
+
+    let onboarding_done: Value = client_b
+        .post(format!("{}/onboarding/complete", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({
+            "study_path": "Tobira",
+            "placement_jlpt": "N3",
+            "daily_goal": 30,
+            "known_grammar_ids": [first_gid]
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(onboarding_done["completed"], Value::Bool(true));
+    assert_eq!(onboarding_done["preferred_study_path"], "Tobira");
+    assert_eq!(
+        get_grammar_detail(&pool, user_b_id, first_gid).await.unwrap().unwrap().srs_stage,
+        5
+    );
+
+    // Contextual nuance grading: wrong tense on te-iru sentence[0] (present expected, past typed) -> almost_right, no SRS penalty
+    let almost_resp: Value = client_a
+        .post(format!("{}/reviews/submit", base))
+        .header("X-CSRF-Token", &csrf_a)
+        .json(&json!({
+            "grammar_id": first_gid,
+            "sentence_id": sentence_id,
+            "user_input": "ていました",
+            "mode": "review",
+            "is_ghost": false
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(almost_resp["almost_right"], Value::Bool(true));
+    assert_eq!(almost_resp["nuance_category"], "tense");
+    assert!(almost_resp["review_log_id"].is_null());
+    assert_eq!(
+        get_grammar_detail(&pool, user_a_id, first_gid).await.unwrap().unwrap().ghost_level,
+        0,
+        "almost_right must not spawn a ghost or penalize SRS"
+    );
+
+    // Vacation Mode & Ghost Intensity settings
+    let vac_on: Value = client_a
+        .put(format!("{}/settings/srs", base))
+        .header("X-CSRF-Token", &csrf_a)
+        .json(&json!({ "vacation_mode": true, "ghost_intensity": "minimal" }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(vac_on["vacation_mode"], Value::Bool(true));
+    assert_eq!(vac_on["ghost_intensity"], "minimal");
+    assert!(vac_on["vacation_started_at"].is_string());
+
+    let vac_dash = compute_dashboard(&pool, user_a_id).await.unwrap();
+    assert_eq!(vac_dash.reviews_due, 0);
+
+    let vac_off: Value = client_a
+        .put(format!("{}/settings/srs", base))
+        .header("X-CSRF-Token", &csrf_a)
+        .json(&json!({ "vacation_mode": false }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(vac_off["vacation_mode"], Value::Bool(false));
+
+    // Export JSON + CSV from User A and import CSV into User B
+    let exported_json = client_a
+        .get(format!("{}/export/progress?format=json", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+    assert!(exported_json.contains("te-iru"));
+
+    let exported_csv = client_a
+        .get(format!("{}/export/progress?format=csv", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+    assert!(exported_csv.contains("slug,title,jlpt_level"));
+    assert!(exported_csv.contains("te-iru"));
+
+    let import_res: Value = client_b
+        .post(format!("{}/import/progress", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({ "format": "csv", "data": exported_csv }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert!(import_res["imported"].as_u64().unwrap() >= 1);
+    assert_eq!(
+        get_grammar_detail(&pool, user_b_id, first_gid).await.unwrap().unwrap().user_notes,
+        "Alice private note"
+    );
     let lesson_q = build_review_queue(&pool, user_b_id, "lesson", None, 20)
         .await
         .unwrap();

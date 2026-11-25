@@ -6,5 +6,6 @@ pub mod models;
 pub mod routes;
 pub mod security;
 pub mod seed_data;
+pub mod seed_data_extra;
 pub mod srs;
 pub mod wanikani;

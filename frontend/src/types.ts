@@ -95,6 +95,9 @@ export interface ReviewQueueItem {
 
 export interface SubmitAnswerResponse {
   correct: boolean
+  almost_right: boolean
+  nuance_hint: string | null
+  nuance_category: string | null
   matched_answer: string
   expected_answer: string
   alt_answers: string[]
@@ -140,6 +143,57 @@ export interface WaniKaniStatus {
   highlight_known_kanji: boolean
   last_synced_at: string | null
   known_kanji_list: string[]
+  sync_status: 'idle' | 'running' | 'completed' | 'failed' | string
+  sync_progress_pages: number
+  sync_progress_items: number
+  sync_message: string
+  sync_error: string | null
+  auto_sync_enabled: boolean
+  auto_sync_interval_mins: number
+}
+
+export interface WaniKaniSyncStatus {
+  sync_status: string
+  sync_progress_pages: number
+  sync_progress_items: number
+  sync_message: string
+  sync_error: string | null
+  last_synced_at: string | null
+  kanji_known: number
+  vocab_known: number
+}
+
+export interface OnboardingState {
+  completed: boolean
+  preferred_study_path: string
+  placement_jlpt: string
+  daily_goal: number
+  content_version: number
+}
+
+export interface SrsSettings {
+  vacation_mode: boolean
+  vacation_started_at: string | null
+  ghost_intensity: 'minimal' | 'standard' | 'heavy' | string
+  daily_goal: number
+  preferred_study_path: string
+}
+
+export interface PlacementQuestion {
+  grammar_id: number
+  slug: string
+  title: string
+  meaning: string
+  jlpt_level: string
+  study_path: string
+  sample_jp: string
+  sample_en: string
+}
+
+export interface ImportProgressResponse {
+  imported: number
+  skipped: number
+  errors: string[]
 }
 
 export interface DashboardStats {
@@ -158,6 +212,8 @@ export interface DashboardStats {
   forecast_24h: ForecastBucket[]
   srs_breakdown: SrsTierCount[]
   wanikani: WaniKaniStatus
+  onboarding: OnboardingState
+  srs_settings: SrsSettings
 }
 
 export interface DetectedGrammar {

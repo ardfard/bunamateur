@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { CheckCircle2, KeyRound, RefreshCw, Sparkles, Unlink } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { CheckCircle2, Clock, KeyRound, RefreshCw, Sparkles, Unlink } from 'lucide-react'
 import { api } from '../api'
 import type { WaniKaniStatus } from '../types'
 import { RubyText } from '../utils/furigana'
@@ -20,6 +20,25 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
   const [error, setError] = useState<string | null>(null)
   const [successMsg, setSuccessMsg] = useState<string | null>(null)
 
+  // Poll sync progress while a background WaniKani job is running
+  useEffect(() => {
+    if (status.sync_status !== 'running') return
+    const timer = window.setInterval(async () => {
+      try {
+        const prog = await api.getWaniKaniSyncStatus()
+        onUpdated()
+        if (prog.sync_status === 'completed') {
+          setSuccessMsg(prog.sync_message || 'WaniKani sync complete!')
+        } else if (prog.sync_status === 'failed') {
+          setError(prog.sync_error || 'Background WaniKani sync failed')
+        }
+      } catch {
+        // Ignore transient poll hiccup
+      }
+    }, 1500)
+    return () => window.clearInterval(timer)
+  }, [status.sync_status, onUpdated])
+
   const handleConnect = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!token.trim()) return
@@ -30,7 +49,7 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
       const res = await api.connectWaniKani(token.trim())
       setToken('')
       setSuccessMsg(
-        `Connected as ${res.username} (Level ${res.level}) — synced ${res.kanji_known} kanji & ${res.vocab_known} vocab!`
+        `Connected as ${res.username} (Level ${res.level}) — background sync started!`
       )
       onUpdated()
     } catch (err) {
@@ -55,12 +74,12 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
     }
   }
 
-  const handleResync = async () => {
+  const handleResync = async (full = false) => {
     setBusy(true)
     setError(null)
     try {
-      await api.syncWaniKani()
-      setSuccessMsg('WaniKani profile refreshed successfully!')
+      await api.syncWaniKani(full)
+      setSuccessMsg(full ? 'Full WaniKani resync started...' : 'Incremental WaniKani sync started...')
       onUpdated()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Sync failed')
@@ -80,13 +99,25 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
     }
   }
 
-  const toggleSetting = async (field: 'smart_furigana' | 'highlight_known_kanji') => {
+  const toggleSetting = async (field: 'smart_furigana' | 'highlight_known_kanji' | 'auto_sync_enabled') => {
     const nextSmart = field === 'smart_furigana' ? !status.smart_furigana : status.smart_furigana
     const nextHigh =
       field === 'highlight_known_kanji'
         ? !status.highlight_known_kanji
         : status.highlight_known_kanji
-    await api.updateWaniKaniSettings(nextSmart, nextHigh)
+    const nextAuto =
+      field === 'auto_sync_enabled' ? !status.auto_sync_enabled : status.auto_sync_enabled
+    await api.updateWaniKaniSettings(nextSmart, nextHigh, nextAuto, status.auto_sync_interval_mins)
+    onUpdated()
+  }
+
+  const changeAutoSyncInterval = async (mins: number) => {
+    await api.updateWaniKaniSettings(
+      status.smart_furigana,
+      status.highlight_known_kanji,
+      status.auto_sync_enabled,
+      mins
+    )
     onUpdated()
   }
 
@@ -165,16 +196,31 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
           </div>
 
           {status.connected && (
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
-                onClick={handleResync}
-                disabled={busy}
-                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-semibold text-white cursor-pointer"
+                onClick={() => handleResync(false)}
+                disabled={busy || status.sync_status === 'running'}
+                className="flex items-center gap-1.5 rounded-xl px-4 py-2 text-xs font-semibold text-white cursor-pointer disabled:opacity-60"
                 style={{ backgroundColor: 'var(--wk-pink)' }}
               >
-                <RefreshCw className={`h-3.5 w-3.5 ${busy ? 'animate-spin' : ''}`} />
-                Sync Now
+                <RefreshCw
+                  className={`h-3.5 w-3.5 ${busy || status.sync_status === 'running' ? 'animate-spin' : ''}`}
+                />
+                {status.sync_status === 'running' ? 'Syncing...' : 'Sync Now'}
               </button>
+              {!status.is_demo && (
+                <button
+                  onClick={() => handleResync(true)}
+                  disabled={busy || status.sync_status === 'running'}
+                  className="rounded-xl border px-3 py-2 text-xs font-semibold cursor-pointer disabled:opacity-60"
+                  style={{
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  Full Resync
+                </button>
+              )}
               <button
                 onClick={handleDisconnect}
                 disabled={busy}
@@ -190,6 +236,39 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
             </div>
           )}
         </div>
+
+        {/* Live Background Sync Progress / Error Banner */}
+        {status.sync_status === 'running' && (
+          <div
+            className="flex items-center justify-between gap-3 rounded-xl border px-4 py-3 text-xs"
+            style={{
+              backgroundColor: 'var(--wk-pink-soft)',
+              borderColor: 'var(--wk-pink)',
+              color: 'var(--wk-pink)',
+            }}
+          >
+            <div className="flex items-center gap-2 font-semibold">
+              <RefreshCw className="h-3.5 w-3.5 animate-spin shrink-0" />
+              <span>{status.sync_message || 'Syncing WaniKani progress in background...'}</span>
+            </div>
+            <span className="font-mono-code shrink-0">
+              {status.sync_progress_pages} pages • {status.sync_progress_items} items
+            </span>
+          </div>
+        )}
+
+        {status.sync_status === 'failed' && status.sync_error && (
+          <div
+            className="rounded-xl border px-4 py-3 text-xs font-medium"
+            style={{
+              backgroundColor: 'var(--accent-vermilion-soft)',
+              borderColor: 'var(--accent-vermilion)',
+              color: 'var(--accent-vermilion)',
+            }}
+          >
+            Last background sync failed: {status.sync_error}
+          </div>
+        )}
 
         {/* Connect Form */}
         <form onSubmit={handleConnect} className="flex flex-col gap-3 sm:flex-row">
@@ -279,6 +358,48 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
               className="h-5 w-5 accent-pink-600 cursor-pointer"
             />
           </label>
+
+          <div className="border-t pt-3 flex flex-col gap-3" style={{ borderColor: 'var(--border-subtle)' }}>
+            <label className="flex items-center justify-between gap-4 cursor-pointer">
+              <div>
+                <div className="flex items-center gap-1.5 text-sm font-semibold">
+                  <Clock className="h-3.5 w-3.5" style={{ color: 'var(--wk-pink)' }} />
+                  Scheduled Incremental Auto-Sync
+                </div>
+                <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+                  Automatically fetches only updated assignments in the background using ETag &amp; updated_after.
+                </div>
+              </div>
+              <input
+                type="checkbox"
+                checked={status.auto_sync_enabled}
+                onChange={() => toggleSetting('auto_sync_enabled')}
+                className="h-5 w-5 accent-pink-600 cursor-pointer"
+              />
+            </label>
+
+            {status.auto_sync_enabled && (
+              <div className="flex items-center justify-between gap-3 text-xs">
+                <span style={{ color: 'var(--text-secondary)' }}>Auto-sync cadence</span>
+                <select
+                  value={status.auto_sync_interval_mins}
+                  onChange={(e) => changeAutoSyncInterval(Number(e.target.value))}
+                  className="font-mono-code rounded-lg border px-2.5 py-1.5 text-xs outline-none"
+                  style={{
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-primary)',
+                  }}
+                >
+                  <option value={30}>Every 30 min</option>
+                  <option value={60}>Every 1 hour</option>
+                  <option value={180}>Every 3 hours</option>
+                  <option value={360}>Every 6 hours</option>
+                  <option value={1440}>Daily</option>
+                </select>
+              </div>
+            )}
+          </div>
         </div>
 
         <div

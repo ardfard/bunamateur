@@ -4,28 +4,35 @@ use crate::auth::{
     validate_password, validate_username, verify_csrf, verify_password,
 };
 use crate::db::{
-    AppState, CreateUserError, build_review_queue, compute_dashboard, create_session, create_user,
-    delete_session, detect_grammar_in_text, disconnect_wanikani as db_disconnect_wanikani,
-    find_user_by_email, get_grammar_detail, get_sentence_answers, get_user_progress_stages,
-    get_wanikani_credentials, list_conjugations, list_grammar_summaries, list_reading_passages,
-    load_known_kanji, load_wanikani_status, record_review_submission,
-    reset_grammar_progress as db_reset_grammar_progress, save_wanikani_sync,
+    AppState, CreateUserError, build_review_queue, complete_onboarding as db_complete_onboarding,
+    compute_dashboard, create_session, create_user, delete_session, detect_grammar_in_text,
+    disconnect_wanikani as db_disconnect_wanikani, export_user_progress, find_user_by_email,
+    get_content_version, get_grammar_detail, get_placement_questions, get_sentence_answers,
+    get_user_progress_stages, get_user_srs_settings, get_wanikani_credentials,
+    import_user_progress, list_conjugations, list_grammar_summaries, list_reading_passages,
+    load_known_kanji, load_wanikani_status, load_wanikani_sync_status, progress_export_to_csv,
+    record_review_submission, reset_grammar_progress as db_reset_grammar_progress,
+    save_wanikani_sync, save_wanikani_token_and_start_sync, spawn_wanikani_sync_job,
     start_lesson as db_start_lesson, undo_review as db_undo_review,
-    update_grammar_notes as db_update_grammar_notes,
+    update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
     update_wanikani_settings as db_update_wanikani_settings,
 };
 use crate::email::build_welcome_email;
 use crate::models::{
-    AuthResponse, LoginRequest, ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest,
-    StartLessonRequest, SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest,
-    UpdateNotesRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
+    AuthResponse, CompleteOnboardingRequest, ImportProgressRequest, LoginRequest,
+    ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest, StartLessonRequest,
+    SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest,
+    UpdateSrsSettingsRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
 };
 use crate::security::{
     AUTH_BODY_LIMIT_BYTES, DEFAULT_BODY_LIMIT_BYTES, READING_ANALYZE_BODY_LIMIT_BYTES,
     RateLimitTier, rate_limit_middleware,
 };
-use crate::srs::{check_answer, compute_srs_transition, srs_interval_hours, srs_stage_label};
-use crate::wanikani::{compute_kanji_readiness, generate_demo_wanikani_sync, sync_from_wanikani};
+use crate::srs::{
+    GhostIntensity, GradeOutcome, compute_srs_transition_with_intensity, grade_answer,
+    srs_interval_hours, srs_stage_label,
+};
+use crate::wanikani::{WaniKaniClient, compute_kanji_readiness, generate_demo_wanikani_sync};
 use axum::{
     Json, Router,
     extract::{ConnectInfo, DefaultBodyLimit, Path, Query, State},
@@ -63,8 +70,9 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         }));
 
     let reading_limiter = state.rate_limiter.clone();
-    let reading_analyze_routes = Router::new()
+    let large_body_routes = Router::new()
         .route("/reading/analyze", post(analyze_reading))
+        .route("/import/progress", post(import_progress))
         .layer(DefaultBodyLimit::max(READING_ANALYZE_BODY_LIMIT_BYTES))
         .layer(RequestBodyLimitLayer::new(READING_ANALYZE_BODY_LIMIT_BYTES))
         .layer(middleware::from_fn(move |req, next| {
@@ -76,6 +84,11 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         .route("/auth/me", get(auth_me))
         .route("/auth/logout", post(logout))
         .route("/dashboard", get(get_dashboard))
+        .route("/content/version", get(get_curriculum_version))
+        .route("/onboarding/placement", get(get_onboarding_placement))
+        .route("/onboarding/complete", post(complete_onboarding))
+        .route("/settings/srs", get(get_srs_settings).put(update_srs_settings))
+        .route("/export/progress", get(export_progress))
         .route("/reviews", get(get_reviews))
         .route("/reviews/submit", post(submit_review))
         .route("/reviews/undo", post(undo_review))
@@ -87,6 +100,7 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         .route("/reading/passages", get(get_reading_passages))
         .route("/conjugation", get(get_conjugation_items))
         .route("/wanikani/status", get(get_wanikani_status))
+        .route("/wanikani/sync/status", get(get_wanikani_sync_status))
         .route("/wanikani/disconnect", post(disconnect_wanikani))
         .route("/wanikani/settings", put(update_wanikani_settings))
         .layer(DefaultBodyLimit::max(DEFAULT_BODY_LIMIT_BYTES))
@@ -98,7 +112,7 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
     Router::new()
         .merge(auth_public_routes)
         .merge(wk_sync_routes)
-        .merge(reading_analyze_routes)
+        .merge(large_body_routes)
         .merge(general_routes)
 }
 
@@ -331,7 +345,7 @@ async fn submit_review(
         return err;
     }
 
-    let (primary, alts) = match get_sentence_answers(&state.pool, req.sentence_id).await {
+    let (primary, alts, sentence_hint) = match get_sentence_answers(&state.pool, req.sentence_id).await {
         Ok(Some(v)) => v,
         Ok(None) => return err_response(StatusCode::NOT_FOUND, "Sentence not found"),
         Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
@@ -344,9 +358,35 @@ async fn submit_review(
             Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
         };
 
-    let matched = check_answer(&req.user_input, &primary, &alts);
-    let correct = matched.is_some();
+    let grade = grade_answer(&req.user_input, &primary, &alts, &sentence_hint);
     let now = Utc::now();
+
+    // Non-penalizing "almost right" nuance hint (shake input without recording a miss or altering SRS)
+    if let GradeOutcome::AlmostRight { hint, category } = grade {
+        let resp = SubmitAnswerResponse {
+            correct: false,
+            almost_right: true,
+            nuance_hint: Some(hint.clone()),
+            nuance_category: Some(category.to_string()),
+            matched_answer: String::new(),
+            expected_answer: primary,
+            alt_answers: alts,
+            previous_srs_stage: prev_srs,
+            new_srs_stage: prev_srs,
+            new_srs_label: srs_stage_label(prev_srs),
+            next_review_at: None,
+            previous_ghost_level: prev_ghost,
+            new_ghost_level: prev_ghost,
+            feedback: hint,
+            review_log_id: None,
+        };
+        return (StatusCode::OK, Json(json!(resp)));
+    }
+
+    let (correct, matched_answer) = match grade {
+        GradeOutcome::Correct { matched } => (true, matched),
+        GradeOutcome::Incorrect | GradeOutcome::AlmostRight { .. } => (false, String::new()),
+    };
 
     if req.mode == "cram" {
         let feedback = if correct {
@@ -356,7 +396,10 @@ async fn submit_review(
         };
         let resp = SubmitAnswerResponse {
             correct,
-            matched_answer: matched.unwrap_or_default(),
+            almost_right: false,
+            nuance_hint: None,
+            nuance_category: None,
+            matched_answer,
             expected_answer: primary,
             alt_answers: alts,
             previous_srs_stage: prev_srs,
@@ -371,7 +414,19 @@ async fn submit_review(
         return (StatusCode::OK, Json(json!(resp)));
     }
 
-    let transition = compute_srs_transition(prev_srs, prev_ghost, req.is_ghost, correct, now);
+    let ghost_intensity = match get_user_srs_settings(&state.pool, auth.user_id()).await {
+        Ok(s) => GhostIntensity::parse(&s.ghost_intensity),
+        Err(_) => GhostIntensity::Standard,
+    };
+
+    let transition = compute_srs_transition_with_intensity(
+        prev_srs,
+        prev_ghost,
+        req.is_ghost,
+        correct,
+        ghost_intensity,
+        now,
+    );
     let next_review_str = transition.next_review_at.map(|d| d.to_rfc3339());
 
     let log_id = match record_review_submission(
@@ -407,14 +462,17 @@ async fn submit_review(
         format!("Promoted to {}!", srs_stage_label(transition.new_stage))
     } else {
         format!(
-            "Expected 「{}」. Spawned a Ghost Review so you'll lock it in.",
-            primary
+            "Expected 「{}」. Spawned a Level {} Ghost Review so you'll lock it in.",
+            primary, transition.new_ghost_level
         )
     };
 
     let resp = SubmitAnswerResponse {
         correct,
-        matched_answer: matched.unwrap_or_default(),
+        almost_right: false,
+        nuance_hint: None,
+        nuance_category: None,
+        matched_answer,
         expected_answer: primary,
         alt_answers: alts,
         previous_srs_stage: prev_srs,
@@ -482,6 +540,7 @@ struct GrammarQuery {
     jlpt: Option<String>,
     q: Option<String>,
     status: Option<String>,
+    path: Option<String>,
 }
 
 async fn get_grammar_list(
@@ -495,11 +554,137 @@ async fn get_grammar_list(
         q.jlpt.as_deref(),
         q.q.as_deref(),
         q.status.as_deref(),
+        q.path.as_deref(),
     )
     .await
     {
         Ok(items) => (StatusCode::OK, Json(json!(items))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_curriculum_version(
+    State(state): State<AppState>,
+    _auth: AuthUser,
+) -> impl IntoResponse {
+    match get_content_version(&state.pool).await {
+        Ok(Some(v)) => (StatusCode::OK, Json(json!(v))),
+        Ok(None) => err_response(StatusCode::NOT_FOUND, "Content version metadata not found"),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_onboarding_placement(
+    State(state): State<AppState>,
+    _auth: AuthUser,
+) -> impl IntoResponse {
+    match get_placement_questions(&state.pool).await {
+        Ok(items) => (StatusCode::OK, Json(json!(items))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn complete_onboarding(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<CompleteOnboardingRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_complete_onboarding(&state.pool, auth.user_id(), &req).await {
+        Ok(onboarding) => (StatusCode::OK, Json(json!(onboarding))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_srs_settings(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match get_user_srs_settings(&state.pool, auth.user_id()).await {
+        Ok(s) => (StatusCode::OK, Json(json!(s))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn update_srs_settings(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<UpdateSrsSettingsRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_update_srs_settings(&state.pool, auth.user_id(), &req).await {
+        Ok(s) => (StatusCode::OK, Json(json!(s))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+#[derive(Deserialize)]
+struct ExportQuery {
+    format: Option<String>,
+}
+
+async fn export_progress(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Query(q): Query<ExportQuery>,
+) -> Response {
+    let payload = match export_user_progress(&state.pool, auth.user_id()).await {
+        Ok(p) => p,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    let fmt = q.format.as_deref().unwrap_or("json").to_ascii_lowercase();
+    if fmt == "csv" {
+        let csv = progress_export_to_csv(&payload);
+        return (
+            StatusCode::OK,
+            [
+                (header::CONTENT_TYPE, "text/csv; charset=utf-8"),
+                (
+                    header::CONTENT_DISPOSITION,
+                    "attachment; filename=\"bunamateur-progress.csv\"",
+                ),
+            ],
+            csv,
+        )
+            .into_response();
+    }
+
+    let body = serde_json::to_string_pretty(&payload).unwrap_or_else(|_| "{}".to_string());
+    (
+        StatusCode::OK,
+        [
+            (header::CONTENT_TYPE, "application/json; charset=utf-8"),
+            (
+                header::CONTENT_DISPOSITION,
+                "attachment; filename=\"bunamateur-progress.json\"",
+            ),
+        ],
+        body,
+    )
+        .into_response()
+}
+
+async fn import_progress(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<ImportProgressRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match import_user_progress(&state.pool, auth.user_id(), &req.format, &req.data).await {
+        Ok(summary) => (StatusCode::OK, Json(json!(summary))),
+        Err(e) => err_response(StatusCode::BAD_REQUEST, e.to_string()),
     }
 }
 
@@ -611,6 +796,16 @@ async fn get_wanikani_status(State(state): State<AppState>, auth: AuthUser) -> i
     }
 }
 
+async fn get_wanikani_sync_status(
+    State(state): State<AppState>,
+    auth: AuthUser,
+) -> impl IntoResponse {
+    match load_wanikani_sync_status(&state.pool, auth.user_id()).await {
+        Ok(status) => (StatusCode::OK, Json(json!(status))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
 async fn connect_wanikani(
     State(state): State<AppState>,
     auth: AuthUser,
@@ -625,28 +820,49 @@ async fn connect_wanikani(
     if token.is_empty() {
         return err_response(StatusCode::BAD_REQUEST, "API token is required");
     }
-    match sync_from_wanikani(&token).await {
-        Ok(sync_result) => match save_wanikani_sync(
-            &state.pool,
-            &state.cipher,
-            auth.user_id(),
-            Some(&token),
-            false,
-            &sync_result,
-        )
-        .await
-        {
-            Ok(status) => (StatusCode::OK, Json(json!(status))),
-            Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-        },
-        Err(e) => err_response(StatusCode::BAD_GATEWAY, e.to_string()),
+
+    let client = match WaniKaniClient::new(state.wk_api_base_url.clone(), 500) {
+        Ok(c) => c,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
+
+    let (username, level, user_etag) = match client.verify_token(&token).await {
+        Ok(v) => v,
+        Err(e) => return err_response(StatusCode::BAD_GATEWAY, e.to_string()),
+    };
+
+    let status = match save_wanikani_token_and_start_sync(
+        &state.pool,
+        &state.cipher,
+        auth.user_id(),
+        &token,
+        &username,
+        level,
+        user_etag.as_deref(),
+    )
+    .await
+    {
+        Ok(s) => s,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
+
+    if let Err(e) = spawn_wanikani_sync_job(state.clone(), auth.user_id(), true).await {
+        return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string());
     }
+
+    (StatusCode::OK, Json(json!(status)))
+}
+
+#[derive(Deserialize)]
+struct WaniKaniSyncQuery {
+    full: Option<bool>,
 }
 
 async fn resync_wanikani(
     State(state): State<AppState>,
     auth: AuthUser,
     headers: HeaderMap,
+    Query(q): Query<WaniKaniSyncQuery>,
 ) -> impl IntoResponse {
     if let Err(err) = verify_csrf(&headers, &auth) {
         return err;
@@ -675,25 +891,18 @@ async fn resync_wanikani(
         };
     }
 
-    let Some(tok) = token else {
+    if token.is_none() {
         return err_response(StatusCode::BAD_REQUEST, "WaniKani is not connected yet");
-    };
+    }
 
-    match sync_from_wanikani(&tok).await {
-        Ok(sync_result) => match save_wanikani_sync(
-            &state.pool,
-            &state.cipher,
-            auth.user_id(),
-            Some(&tok),
-            false,
-            &sync_result,
-        )
-        .await
-        {
-            Ok(status) => (StatusCode::OK, Json(json!(status))),
-            Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-        },
-        Err(e) => err_response(StatusCode::BAD_GATEWAY, e.to_string()),
+    let force_full = q.full.unwrap_or(false);
+    if let Err(e) = spawn_wanikani_sync_job(state.clone(), auth.user_id(), force_full).await {
+        return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string());
+    }
+
+    match load_wanikani_status(&state.pool, auth.user_id()).await {
+        Ok(status) => (StatusCode::OK, Json(json!(status))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
 }
 
@@ -752,6 +961,8 @@ async fn update_wanikani_settings(
         auth.user_id(),
         req.smart_furigana,
         req.highlight_known_kanji,
+        req.auto_sync_enabled,
+        req.auto_sync_interval_mins,
     )
     .await
     {
