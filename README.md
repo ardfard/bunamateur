@@ -165,7 +165,7 @@ bunx playwright test
 
 ## Docker Deployment
 
-The multi-stage [`Dockerfile`](Dockerfile) builds the frontend with `oven/bun:1.2-alpine`, compiles the release Rust binary with `rust:1.92-bookworm`, and produces a minimal non-root `debian:bookworm-slim` runtime image with a built-in `/healthz` `HEALTHCHECK`.
+The multi-stage [`Dockerfile`](Dockerfile) builds the frontend with `oven/bun:1.4-alpine`, compiles the release Rust binary with `rust:1.92-bookworm`, and produces a minimal non-root `debian:bookworm-slim` runtime image with a built-in `/healthz` `HEALTHCHECK`.
 
 ```bash
 # Build the container image

@@ -73,7 +73,7 @@ jobs:
       - uses: oven-sh/setup-bun@v2
         if: steps.target.outputs.rollback == 'false'
         with:
-          bun-version: '1.2'
+          bun-version: '1.4'
 
       - name: Build frontend
         if: steps.target.outputs.rollback == 'false'

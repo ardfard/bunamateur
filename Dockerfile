@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.7
 
 # Stage 1: Build the React/Vite frontend bundle
-FROM oven/bun:1.2-alpine AS frontend-builder
+FROM oven/bun:1.4-alpine AS frontend-builder
 WORKDIR /app/frontend
 
 COPY frontend/package.json frontend/bun.lock ./
