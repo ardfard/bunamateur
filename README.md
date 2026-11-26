@@ -152,6 +152,21 @@ make test
 make check
 ```
 
+### Build Caching (`kache`)
+Cargo (`Cargo.toml` / `Cargo.lock`) and Bun (`frontend/package.json`) manage dependencies, while **[`kache`](https://github.com/kunobi-ninja/kache)** accelerates Rust & C/C++ compilation with a content-addressed, zero-copy artifact cache:
+
+```bash
+# One-time local setup (configures RUSTC_WRAPPER=kache)
+cargo install kache --locked
+kache init
+
+# Inspect cache hit rate or verify setup (Makefile auto-detects kache when installed)
+make cache-stats
+make cache-doctor
+```
+
+CI and Release workflows automatically use `kunobi-ninja/kache-action@v1` for Rust artifact caching.
+
 ### Playwright End-to-End Tests
 With the server running at `http://127.0.0.1:8080` (or custom `PLAYWRIGHT_BASE_URL`):
 
