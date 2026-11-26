@@ -23,6 +23,22 @@ bd close <id>         # Complete work
 bd dolt push          # Push beads data to remote
 ```
 
+## Version Control (jj)
+
+**ALWAYS use `jj` (Jujutsu)** for version control operations instead of raw `git` commands:
+
+```bash
+jj status               # Inspect working copy changes
+jj diff                 # View diffs
+jj log                  # View commit graph
+jj describe -m "..."    # Set/update change description
+jj commit -m "..."      # Describe current change and start a new one
+jj git fetch            # Fetch from git remote
+jj git push             # Push bookmarks to git remote
+```
+
+If `.jj/` is not yet initialized in a cloned git checkout, initialize it colocated with `jj git init`.
+
 ## Non-Interactive Shell Commands
 
 **ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.

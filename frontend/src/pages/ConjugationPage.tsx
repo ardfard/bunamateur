@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowRight, CheckCircle2, Flame, Swords, Volume2, XCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle2, Flame, Keyboard, Swords, Volume2, XCircle } from 'lucide-react'
 import { api } from '../api'
 import type { ConjugationItem } from '../types'
-import { toHiraganaLive } from '../utils/romaji'
+import { applyImeWithCursor, toKanaLive, type ImeMode } from '../utils/romaji'
 import { speakJapanese } from '../utils/speech'
 
 const FORM_FILTERS = [
@@ -16,15 +16,30 @@ const FORM_FILTERS = [
   ['causative', 'Causative'],
 ]
 
+const IME_CYCLE: ImeMode[] = ['hiragana', 'katakana', 'off']
+
+function getImeLabel(mode: ImeMode): string {
+  switch (mode) {
+    case 'hiragana':
+      return 'あ Hiragana'
+    case 'katakana':
+      return 'ア Katakana'
+    case 'off':
+      return 'ABC Off'
+  }
+}
+
 export const ConjugationPage: React.FC = () => {
   const [formFilter, setFormFilter] = useState('all')
   const [items, setItems] = useState<ConjugationItem[]>([])
   const [idx, setIdx] = useState(0)
   const [input, setInput] = useState('')
+  const [imeMode, setImeMode] = useState<ImeMode>('hiragana')
   const [checked, setChecked] = useState<null | { correct: boolean }>(null)
   const [streak, setStreak] = useState(0)
   const [bestStreak, setBestStreak] = useState(0)
   const inputRef = useRef<HTMLInputElement>(null)
+  const isComposingRef = useRef(false)
 
   useEffect(() => {
     api.getConjugations(formFilter).then((list) => {
@@ -43,16 +58,54 @@ export const ConjugationPage: React.FC = () => {
 
   const current = items[idx % Math.max(1, items.length)]
 
+  const cycleImeMode = () => {
+    setImeMode((prev) => IME_CYCLE[(IME_CYCLE.indexOf(prev) + 1) % IME_CYCLE.length])
+  }
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const raw = e.target.value
+    const nativeComposing = Boolean((e.nativeEvent as InputEvent | undefined)?.isComposing)
+    if (isComposingRef.current || nativeComposing || imeMode === 'off') {
+      setInput(raw)
+      return
+    }
+    const selectionStart = e.target.selectionStart ?? raw.length
+    const { value, cursor } = applyImeWithCursor(raw, selectionStart, imeMode)
+    setInput(value)
+    requestAnimationFrame(() => {
+      inputRef.current?.setSelectionRange(cursor, cursor)
+    })
+  }
+
+  const handleCompositionStart = () => {
+    isComposingRef.current = true
+  }
+
+  const handleCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
+    isComposingRef.current = false
+    const raw = e.currentTarget.value
+    if (imeMode === 'off') {
+      setInput(raw)
+      return
+    }
+    const selectionStart = e.currentTarget.selectionStart ?? raw.length
+    const { value, cursor } = applyImeWithCursor(raw, selectionStart, imeMode)
+    setInput(value)
+    requestAnimationFrame(() => {
+      inputRef.current?.setSelectionRange(cursor, cursor)
+    })
+  }
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    if (!current) return
+    if (!current || isComposingRef.current) return
     if (checked) {
       setChecked(null)
       setInput('')
       setIdx((i) => i + 1)
       return
     }
-    const finalAns = toHiraganaLive(input, true).trim()
+    const finalAns = toKanaLive(input, imeMode, true).trim()
     if (!finalAns) return
     setInput(finalAns)
 
@@ -104,6 +157,7 @@ export const ConjugationPage: React.FC = () => {
         {FORM_FILTERS.map(([val, lbl]) => (
           <button
             key={val}
+            type="button"
             onClick={() => setFormFilter(val)}
             className="rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer"
             style={{
@@ -154,7 +208,7 @@ export const ConjugationPage: React.FC = () => {
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="w-full max-w-md">
+          <form onSubmit={handleSubmit} className="w-full max-w-lg">
             <div
               className="flex items-center gap-2 rounded-xl border-2 px-4 py-2.5"
               style={{
@@ -170,12 +224,45 @@ export const ConjugationPage: React.FC = () => {
                 ref={inputRef}
                 type="text"
                 value={input}
-                onChange={(e) => setInput(toHiraganaLive(e.target.value, false))}
+                onChange={handleInputChange}
+                onCompositionStart={handleCompositionStart}
+                onCompositionEnd={handleCompositionEnd}
                 disabled={Boolean(checked)}
-                placeholder="Type conjugated form (romaji -> kana)..."
+                placeholder={
+                  imeMode === 'hiragana'
+                    ? 'Type conjugated form (romaji -> kana)...'
+                    : imeMode === 'katakana'
+                      ? 'Type romaji -> カタカナ...'
+                      : 'Type Japanese directly (OS IME)...'
+                }
                 className="font-jp w-full bg-transparent text-xl font-semibold outline-none"
                 style={{ color: 'var(--text-primary)' }}
+                autoComplete="off"
+                spellCheck={false}
               />
+              <button
+                type="button"
+                onClick={cycleImeMode}
+                className="font-mono-code shrink-0 flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-semibold cursor-pointer"
+                style={{
+                  backgroundColor:
+                    imeMode === 'hiragana'
+                      ? 'var(--accent-matcha-soft)'
+                      : imeMode === 'katakana'
+                        ? 'var(--accent-indigo-soft)'
+                        : 'var(--bg-subtle)',
+                  color:
+                    imeMode === 'hiragana'
+                      ? 'var(--accent-matcha)'
+                      : imeMode === 'katakana'
+                        ? 'var(--accent-indigo)'
+                        : 'var(--text-muted)',
+                }}
+                title="Cycle built-in IME mode: Hiragana -> Katakana -> Off"
+              >
+                <Keyboard className="h-3.5 w-3.5" />
+                {getImeLabel(imeMode)}
+              </button>
               <button
                 type="submit"
                 className="flex shrink-0 items-center gap-1 rounded-lg px-4 py-2 text-xs font-semibold text-white cursor-pointer"

@@ -1,0 +1,17 @@
+{
+  "name": "BunAmateur (文アマ)",
+  "short_name": "BunAmateur",
+  "description": "Japanese Grammar SRS & WaniKani Companion",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#D64933",
+  "background_color": "#FAF8F5",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

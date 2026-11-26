@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from 'react'
-import { BookMarked, Sparkles, Volume2, Wand2 } from 'lucide-react'
+import { BookMarked, BookOpen, Sparkles, Volume2, Wand2, X } from 'lucide-react'
 import { api } from '../api'
-import type { FuriganaMode, ReadingAnalyzeResponse, ReadingPassage } from '../types'
+import type {
+  AnalyzedToken,
+  FuriganaMode,
+  ReadingAnalyzeResponse,
+  ReadingPassage,
+} from '../types'
 import { RubyText } from '../utils/furigana'
 import { speakJapanese } from '../utils/speech'
 
@@ -10,6 +15,185 @@ interface ReadingLabPageProps {
   knownKanji: Set<string>
   highlightKnown: boolean
   onSelectGrammar: (id: number) => void
+}
+
+interface TokenStreamProps {
+  tokens: AnalyzedToken[]
+  furiganaMode: FuriganaMode
+  knownKanji: Set<string>
+  highlightKnown: boolean
+  selectedToken: AnalyzedToken | null
+  onSelectToken: (token: AnalyzedToken) => void
+}
+
+const InteractiveTokenStream: React.FC<TokenStreamProps> = ({
+  tokens,
+  furiganaMode,
+  knownKanji,
+  highlightKnown,
+  selectedToken,
+  onSelectToken,
+}) => {
+  return (
+    <span className="font-jp leading-[2.3]">
+      {tokens.map((tok, idx) => {
+        const clickable = tok.is_content_word || tok.glosses.length > 0
+        if (!clickable) {
+          return (
+            <span key={idx} className="inline">
+              {tok.surface}
+            </span>
+          )
+        }
+        const isSelected =
+          selectedToken?.surface === tok.surface && selectedToken?.lemma === tok.lemma
+        return (
+          <button
+            key={idx}
+            type="button"
+            onClick={() => onSelectToken(tok)}
+            className="mx-[1px] inline rounded-md px-0.5 transition-colors hover:underline cursor-pointer"
+            style={{
+              backgroundColor: isSelected
+                ? 'var(--accent-indigo-soft)'
+                : tok.wk_known && highlightKnown
+                  ? 'rgba(236, 72, 153, 0.08)'
+                  : 'transparent',
+              outline: isSelected ? '1px solid var(--accent-indigo)' : 'none',
+            }}
+            title={
+              tok.glosses.length > 0
+                ? `${tok.reading} — ${tok.glosses[0]}`
+                : tok.reading
+            }
+          >
+            <RubyText
+              text={tok.ruby}
+              furiganaMode={furiganaMode}
+              knownKanji={knownKanji}
+              highlightKnown={highlightKnown}
+            />
+          </button>
+        )
+      })}
+    </span>
+  )
+}
+
+interface DictionaryInspectorProps {
+  token: AnalyzedToken
+  onClose: () => void
+}
+
+const DictionaryInspector: React.FC<DictionaryInspectorProps> = ({ token, onClose }) => {
+  const showLemma = token.lemma && token.lemma !== token.surface
+  return (
+    <div
+      className="flex flex-col gap-2.5 rounded-xl border p-4 shadow-xs"
+      style={{
+        backgroundColor: 'var(--bg-canvas)',
+        borderColor: 'var(--accent-indigo)',
+      }}
+    >
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-jp text-xl font-bold">{token.surface}</span>
+          {token.reading && token.reading !== token.surface && (
+            <span className="font-jp text-sm" style={{ color: 'var(--text-secondary)' }}>
+              【{token.reading}】
+            </span>
+          )}
+          <span
+            className="font-mono-code rounded-md px-2 py-0.5 text-[11px] font-semibold uppercase"
+            style={{
+              backgroundColor: 'var(--bg-subtle)',
+              color: 'var(--text-secondary)',
+            }}
+          >
+            {token.pos}
+          </span>
+          {token.jlpt && (
+            <span
+              className="font-mono-code rounded-md px-2 py-0.5 text-[11px] font-bold"
+              style={{
+                backgroundColor: 'var(--accent-indigo-soft)',
+                color: 'var(--accent-indigo)',
+              }}
+            >
+              {token.jlpt}
+            </span>
+          )}
+          {token.wk_level !== null && (
+            <span
+              className="font-mono-code rounded-md px-2 py-0.5 text-[11px] font-bold"
+              style={{
+                backgroundColor: 'var(--wk-pink-soft)',
+                color: 'var(--wk-pink)',
+              }}
+            >
+              WK Lv.{token.wk_level}
+              {token.wk_known ? ' • Known' : ''}
+            </span>
+          )}
+          {token.wk_level === null && token.wk_known && (
+            <span
+              className="font-mono-code rounded-md px-2 py-0.5 text-[11px] font-bold"
+              style={{
+                backgroundColor: 'var(--accent-matcha-soft)',
+                color: 'var(--accent-matcha)',
+              }}
+            >
+              Kanji Known in WK
+            </span>
+          )}
+        </div>
+
+        <div className="flex items-center gap-1">
+          <button
+            type="button"
+            onClick={() => speakJapanese(token.surface, 0.9)}
+            className="rounded-lg p-1.5 hover:opacity-75 cursor-pointer"
+            style={{ backgroundColor: 'var(--bg-surface)', color: 'var(--accent-indigo)' }}
+            title="Pronounce word"
+          >
+            <Volume2 className="h-4 w-4" />
+          </button>
+          <button
+            type="button"
+            onClick={onClose}
+            className="rounded-lg p-1.5 hover:opacity-75 cursor-pointer"
+            style={{ backgroundColor: 'var(--bg-surface)', color: 'var(--text-muted)' }}
+            title="Close dictionary card"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+
+      {showLemma && (
+        <div className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+          Dictionary form (lemma):{' '}
+          <span className="font-jp font-bold" style={{ color: 'var(--text-primary)' }}>
+            {token.lemma}
+          </span>
+        </div>
+      )}
+
+      {token.glosses.length > 0 ? (
+        <ol className="list-inside list-decimal space-y-0.5 text-sm">
+          {token.glosses.map((g, idx) => (
+            <li key={idx} style={{ color: 'var(--text-primary)' }}>
+              {g}
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <div className="text-xs italic" style={{ color: 'var(--text-muted)' }}>
+          No embedded JMdict gloss available for this token yet.
+        </div>
+      )}
+    </div>
+  )
 }
 
 export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
@@ -21,11 +205,14 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
   const [passages, setPassages] = useState<ReadingPassage[]>([])
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [showEnglish, setShowEnglish] = useState(true)
+  const [interactivePassage, setInteractivePassage] = useState(true)
+  const [selectedPassageToken, setSelectedPassageToken] = useState<AnalyzedToken | null>(null)
 
   const [customText, setCustomText] = useState(
     '毎日日本語を勉強しているおかげで、少しずつ日本の新聞が読めるようになりました。雨にもかかわらず、公園へ行くつもりです。'
   )
   const [analysis, setAnalysis] = useState<ReadingAnalyzeResponse | null>(null)
+  const [selectedCustomToken, setSelectedCustomToken] = useState<AnalyzedToken | null>(null)
   const [analyzing, setAnalyzing] = useState(false)
 
   useEffect(() => {
@@ -40,6 +227,7 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
   const handleAnalyze = async () => {
     if (!customText.trim()) return
     setAnalyzing(true)
+    setSelectedCustomToken(null)
     try {
       const res = await api.analyzeReading(customText)
       setAnalysis(res)
@@ -58,7 +246,7 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
           </h1>
         </div>
         <p className="mt-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
-          Read graded Japanese passages with WaniKani Smart Furigana, or paste any Japanese text to detect JLPT grammar & unknown kanji.
+          Click any word to inspect JMdict definitions, dictionary lemmas &amp; WaniKani levels, or paste Japanese text for automatic furigana &amp; lemmatized JLPT grammar detection.
         </p>
       </div>
 
@@ -71,7 +259,10 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
               return (
                 <button
                   key={p.id}
-                  onClick={() => setSelectedId(p.id)}
+                  onClick={() => {
+                    setSelectedId(p.id)
+                    setSelectedPassageToken(null)
+                  }}
                   className="flex items-center gap-2 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-colors cursor-pointer"
                   style={{
                     backgroundColor: active ? 'var(--accent-vermilion)' : 'var(--bg-surface)',
@@ -119,7 +310,26 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                   <h2 className="font-jp mt-2 text-lg font-bold">{activePassage.title}</h2>
                 </div>
 
-                <div className="flex items-center gap-2">
+                <div className="flex flex-wrap items-center gap-2">
+                  <button
+                    onClick={() => setInteractivePassage((v) => !v)}
+                    className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold cursor-pointer"
+                    style={{
+                      backgroundColor: interactivePassage
+                        ? 'var(--accent-indigo-soft)'
+                        : 'var(--bg-subtle)',
+                      borderColor: interactivePassage
+                        ? 'var(--accent-indigo)'
+                        : 'var(--border-subtle)',
+                      color: interactivePassage
+                        ? 'var(--accent-indigo)'
+                        : 'var(--text-secondary)',
+                    }}
+                    title="Toggle click-to-inspect JMdict word lookup"
+                  >
+                    <BookOpen className="h-3.5 w-3.5" />
+                    {interactivePassage ? 'JMdict Popover On' : 'Plain Ruby'}
+                  </button>
                   <button
                     onClick={() => speakJapanese(activePassage.content_ruby, 0.88)}
                     className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold cursor-pointer"
@@ -152,13 +362,31 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                   borderColor: 'var(--border-subtle)',
                 }}
               >
-                <RubyText
-                  text={activePassage.content_ruby}
-                  furiganaMode={furiganaMode}
-                  knownKanji={knownKanji}
-                  highlightKnown={highlightKnown}
-                />
+                {interactivePassage && activePassage.tokens && activePassage.tokens.length > 0 ? (
+                  <InteractiveTokenStream
+                    tokens={activePassage.tokens}
+                    furiganaMode={furiganaMode}
+                    knownKanji={knownKanji}
+                    highlightKnown={highlightKnown}
+                    selectedToken={selectedPassageToken}
+                    onSelectToken={setSelectedPassageToken}
+                  />
+                ) : (
+                  <RubyText
+                    text={activePassage.content_ruby}
+                    furiganaMode={furiganaMode}
+                    knownKanji={knownKanji}
+                    highlightKnown={highlightKnown}
+                  />
+                )}
               </div>
+
+              {selectedPassageToken && (
+                <DictionaryInspector
+                  token={selectedPassageToken}
+                  onClose={() => setSelectedPassageToken(null)}
+                />
+              )}
 
               {showEnglish && (
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
@@ -168,7 +396,10 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
 
               {/* Detected Grammar Chips */}
               <div className="flex flex-col gap-2.5">
-                <div className="text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                <div
+                  className="text-xs font-bold uppercase tracking-wider"
+                  style={{ color: 'var(--text-muted)' }}
+                >
                   Detected Grammar Points ({activePassage.detected_grammar.length}) — Click to Inspect
                 </div>
                 <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -185,7 +416,10 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                       <div>
                         <div className="font-jp text-sm font-bold">
                           {dg.title}{' '}
-                          <span className="font-mono-code text-[11px] font-semibold" style={{ color: 'var(--accent-indigo)' }}>
+                          <span
+                            className="font-mono-code text-[11px] font-semibold"
+                            style={{ color: 'var(--accent-indigo)' }}
+                          >
                             ({dg.jlpt_level})
                           </span>
                         </div>
@@ -196,7 +430,8 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                       <span
                         className="font-mono-code shrink-0 text-[11px] font-semibold"
                         style={{
-                          color: dg.srs_stage > 0 ? 'var(--accent-matcha)' : 'var(--accent-vermilion)',
+                          color:
+                            dg.srs_stage > 0 ? 'var(--accent-matcha)' : 'var(--accent-vermilion)',
                         }}
                       >
                         {dg.srs_label}
@@ -224,7 +459,7 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
             </h2>
           </div>
           <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-            Paste a news paragraph, manga dialogue, or diary entry. BunAmateur scans it for JLPT grammar points and checks every kanji against your WaniKani profile.
+            Paste a news paragraph, manga dialogue, or diary entry. Pure-Rust morphological NLP auto-generates furigana, lemmatizes verbs/adjectives for JLPT grammar detection, and provides click-to-inspect JMdict lookups.
           </p>
 
           <textarea
@@ -247,14 +482,20 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
             style={{ backgroundColor: 'var(--accent-indigo)' }}
           >
             <Sparkles className="h-4 w-4" />
-            {analyzing ? 'Analyzing...' : 'Analyze Grammar & WK Kanji'}
+            {analyzing ? 'Tokenizing & Analyzing...' : 'Analyze Auto-Furigana, Grammar & JMdict'}
           </button>
 
           {analysis && (
             <div className="flex flex-col gap-4 pt-2">
               <div className="grid grid-cols-3 gap-2.5">
-                <div className="rounded-xl p-3" style={{ backgroundColor: 'var(--accent-matcha-soft)' }}>
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--accent-matcha)' }}>
+                <div
+                  className="rounded-xl p-3"
+                  style={{ backgroundColor: 'var(--accent-matcha-soft)' }}
+                >
+                  <div
+                    className="font-mono-code text-lg font-bold"
+                    style={{ color: 'var(--accent-matcha)' }}
+                  >
                     {analysis.wk_readiness_pct}%
                   </div>
                   <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
@@ -262,15 +503,24 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                   </div>
                 </div>
                 <div className="rounded-xl p-3" style={{ backgroundColor: 'var(--wk-pink-soft)' }}>
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--wk-pink)' }}>
+                  <div
+                    className="font-mono-code text-lg font-bold"
+                    style={{ color: 'var(--wk-pink)' }}
+                  >
                     {analysis.known_kanji}/{analysis.total_kanji}
                   </div>
                   <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
                     Kanji Known
                   </div>
                 </div>
-                <div className="rounded-xl p-3" style={{ backgroundColor: 'var(--accent-indigo-soft)' }}>
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--accent-indigo)' }}>
+                <div
+                  className="rounded-xl p-3"
+                  style={{ backgroundColor: 'var(--accent-indigo-soft)' }}
+                >
+                  <div
+                    className="font-mono-code text-lg font-bold"
+                    style={{ color: 'var(--accent-indigo)' }}
+                  >
                     {analysis.detected_grammar.length}
                   </div>
                   <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
@@ -278,6 +528,49 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
                   </div>
                 </div>
               </div>
+
+              {/* Interactive Auto-Furigana + JMdict Tokenized View */}
+              {analysis.tokens.length > 0 && (
+                <div className="flex flex-col gap-2">
+                  <div className="flex items-center justify-between">
+                    <div
+                      className="text-xs font-bold uppercase tracking-wider"
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      Auto-Furigana &amp; Interactive Tokens (Click Any Word)
+                    </div>
+                    <span
+                      className="font-mono-code text-[10px]"
+                      style={{ color: 'var(--text-muted)' }}
+                    >
+                      {analysis.tokens.length} tokens
+                    </span>
+                  </div>
+                  <div
+                    className="rounded-xl border p-4 text-base"
+                    style={{
+                      backgroundColor: 'var(--bg-canvas)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
+                  >
+                    <InteractiveTokenStream
+                      tokens={analysis.tokens}
+                      furiganaMode={furiganaMode}
+                      knownKanji={knownKanji}
+                      highlightKnown={highlightKnown}
+                      selectedToken={selectedCustomToken}
+                      onSelectToken={setSelectedCustomToken}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {selectedCustomToken && (
+                <DictionaryInspector
+                  token={selectedCustomToken}
+                  onClose={() => setSelectedCustomToken(null)}
+                />
+              )}
 
               {analysis.unknown_kanji.length > 0 && (
                 <div>
@@ -304,7 +597,7 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
               {analysis.detected_grammar.length > 0 && (
                 <div className="flex flex-col gap-2">
                   <div className="text-xs font-bold" style={{ color: 'var(--text-muted)' }}>
-                    Grammar Found in Text
+                    Grammar Found in Text (Lemmatized)
                   </div>
                   {analysis.detected_grammar.map((dg) => (
                     <button

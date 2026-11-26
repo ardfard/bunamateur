@@ -1,3 +1,4 @@
+use crate::audio::AudioResolution;
 use crate::auth::{
     AuthUser, build_clear_session_cookies, build_session_cookies, dummy_password_check,
     extract_cookie, generate_random_token, hash_password, hash_session_token,
@@ -5,15 +6,16 @@ use crate::auth::{
     verify_password,
 };
 use crate::db::{
-    AppState, CreateUserError, build_review_queue, complete_onboarding as db_complete_onboarding,
-    compute_dashboard, create_session, create_user, delete_session, detect_grammar_in_text,
-    disconnect_wanikani as db_disconnect_wanikani, export_user_progress, find_user_by_email,
-    get_content_version, get_grammar_detail, get_placement_questions, get_sentence_answers,
-    get_user_progress_stages, get_user_srs_settings, get_wanikani_credentials,
-    import_user_progress, list_conjugations, list_grammar_summaries, list_reading_passages,
-    load_known_kanji, load_wanikani_status, load_wanikani_sync_status, progress_export_to_csv,
-    record_review_submission, reset_grammar_progress as db_reset_grammar_progress,
-    save_wanikani_sync, save_wanikani_token_and_start_sync, spawn_wanikani_sync_job,
+    AppState, CreateUserError, analyze_reading_text, build_review_queue,
+    complete_onboarding as db_complete_onboarding, compute_dashboard, create_session, create_user,
+    delete_session, disconnect_wanikani as db_disconnect_wanikani, export_user_progress,
+    find_user_by_email, get_content_version, get_grammar_detail, get_placement_questions,
+    get_sentence_answers, get_sentence_audio_info, get_user_progress_stages,
+    get_user_srs_settings, get_wanikani_credentials, import_user_progress, list_conjugations,
+    list_grammar_summaries, list_reading_passages, load_wanikani_status,
+    load_wanikani_sync_status, ping_database, progress_export_to_csv, record_review_submission,
+    reset_grammar_progress as db_reset_grammar_progress, save_wanikani_sync,
+    save_wanikani_token_and_start_sync, spawn_wanikani_sync_job,
     start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
     update_wanikani_settings as db_update_wanikani_settings, upsert_google_user,
@@ -21,15 +23,16 @@ use crate::db::{
 use crate::email::build_welcome_email;
 use crate::models::{
     AuthProvidersResponse, AuthResponse, CompleteOnboardingRequest, ImportProgressRequest,
-    LoginRequest, ReadingAnalyzeRequest, ReadingAnalyzeResponse, RegisterRequest,
-    StartLessonRequest, SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest,
-    UpdateNotesRequest, UpdateSrsSettingsRequest, WaniKaniConnectRequest, WaniKaniSettingsRequest,
+    LoginRequest, ReadingAnalyzeRequest, RegisterRequest, StartLessonRequest, SubmitAnswerRequest,
+    SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest, UpdateSrsSettingsRequest,
+    WaniKaniConnectRequest, WaniKaniSettingsRequest,
 };
 use crate::oauth::{
     OAUTH_STATE_COOKIE_NAME, build_clear_oauth_state_cookie, build_google_authorize_url,
     build_oauth_state_cookie, exchange_code_for_google_profile, generate_pkce_pair,
     verify_oauth_state_cookie,
 };
+use crate::observability::{PROMETHEUS_CONTENT_TYPE, matches_if_none_match};
 use crate::security::{
     AUTH_BODY_LIMIT_BYTES, DEFAULT_BODY_LIMIT_BYTES, READING_ANALYZE_BODY_LIMIT_BYTES,
     RateLimitTier, rate_limit_middleware,
@@ -38,11 +41,11 @@ use crate::srs::{
     GhostIntensity, GradeOutcome, compute_srs_transition_with_intensity, grade_answer,
     srs_interval_hours, srs_stage_label,
 };
-use crate::wanikani::{WaniKaniClient, compute_kanji_readiness, generate_demo_wanikani_sync};
+use crate::wanikani::{WaniKaniClient, generate_demo_wanikani_sync};
 use axum::{
     Json, Router,
     extract::{ConnectInfo, DefaultBodyLimit, Path, Query, State},
-    http::{Extensions, HeaderMap, StatusCode, header},
+    http::{Extensions, HeaderMap, HeaderValue, StatusCode, header},
     middleware,
     response::{IntoResponse, Redirect, Response},
     routing::{get, post, put},
@@ -51,7 +54,80 @@ use chrono::{Duration, Utc};
 use serde::Deserialize;
 use serde_json::json;
 use std::net::SocketAddr;
+use subtle::ConstantTimeEq;
 use tower_http::limit::RequestBodyLimitLayer;
+
+/// Public operational endpoints mounted at the application root:
+/// `/healthz`, `/readyz`, and `/metrics`.
+pub fn ops_router() -> Router<AppState> {
+    Router::new()
+        .route("/healthz", get(healthz))
+        .route("/readyz", get(readyz))
+        .route("/metrics", get(metrics_handler))
+}
+
+async fn healthz(State(state): State<AppState>) -> impl IntoResponse {
+    (
+        StatusCode::OK,
+        Json(json!({
+            "status": "ok",
+            "service": "bunamateur",
+            "uptime_seconds": state.metrics.uptime_seconds(),
+        })),
+    )
+}
+
+async fn readyz(State(state): State<AppState>) -> impl IntoResponse {
+    match ping_database(&state.pool).await {
+        Ok(()) => (
+            StatusCode::OK,
+            Json(json!({
+                "status": "ready",
+                "database": "ok",
+                "audio_provider": state.audio.config().provider_name(),
+            })),
+        ),
+        Err(e) => {
+            tracing::error!(error = %e, "Readiness check failed");
+            (
+                StatusCode::SERVICE_UNAVAILABLE,
+                Json(json!({
+                    "status": "not_ready",
+                    "database": "error",
+                })),
+            )
+        }
+    }
+}
+
+async fn metrics_handler(State(state): State<AppState>, headers: HeaderMap) -> Response {
+    if let Ok(expected) = std::env::var("METRICS_BEARER_TOKEN") {
+        let trimmed = expected.trim();
+        if !trimmed.is_empty() {
+            let supplied = headers
+                .get(header::AUTHORIZATION)
+                .and_then(|v| v.to_str().ok())
+                .and_then(|s| s.strip_prefix("Bearer "))
+                .unwrap_or("");
+            if supplied.as_bytes().ct_eq(trimmed.as_bytes()).unwrap_u8() == 0 {
+                return (
+                    StatusCode::UNAUTHORIZED,
+                    [(header::WWW_AUTHENTICATE, "Bearer")],
+                    "Unauthorized",
+                )
+                    .into_response();
+            }
+        }
+    }
+
+    let body = state.metrics.render_prometheus();
+    (
+        StatusCode::OK,
+        [(header::CONTENT_TYPE, PROMETHEUS_CONTENT_TYPE)],
+        body,
+    )
+        .into_response()
+}
 
 pub fn api_router(state: &AppState) -> Router<AppState> {
     let auth_limiter = state.rate_limiter.clone();
@@ -107,6 +183,8 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         .route("/grammar/{id}/notes", put(update_grammar_notes))
         .route("/grammar/{id}/reset", post(reset_grammar_progress))
         .route("/reading/passages", get(get_reading_passages))
+        .route("/audio/sentence/{id}", get(get_sentence_audio))
+        .route("/audio/status", get(get_audio_status))
         .route("/conjugation", get(get_conjugation_items))
         .route("/wanikani/status", get(get_wanikani_status))
         .route("/wanikani/sync/status", get(get_wanikani_sync_status))
@@ -221,6 +299,7 @@ async fn login(
         return err_response(StatusCode::UNAUTHORIZED, "Invalid email or password").into_response();
     }
 
+    state.metrics.inc_auth_logins();
     let peer = extensions.get::<ConnectInfo<SocketAddr>>().map(|c| c.0);
     issue_session_response(&state, &headers, peer, user, StatusCode::OK).await
 }
@@ -419,6 +498,7 @@ async fn google_oauth_callback(
         return redirect_with_cleared_oauth_cookie("/?auth_error=google_failed", secure);
     }
 
+    state.metrics.inc_auth_logins();
     let mut resp = Redirect::to("/").into_response();
     let resp_headers = resp.headers_mut();
     if let Ok(clear) = build_clear_oauth_state_cookie(secure) {
@@ -522,6 +602,7 @@ async fn submit_review(
         };
 
     let grade = grade_answer(&req.user_input, &primary, &alts, &sentence_hint);
+    state.metrics.inc_reviews_submitted();
     let now = Utc::now();
 
     // Non-penalizing "almost right" nuance hint (shake input without recording a miss or altering SRS)
@@ -916,24 +997,88 @@ async fn analyze_reading(
         return err;
     }
 
-    let known = match load_known_kanji(&state.pool, auth.user_id()).await {
-        Ok(k) => k,
-        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    state.metrics.inc_nlp_analyses();
+    match analyze_reading_text(&state.pool, auth.user_id(), &req.text).await {
+        Ok(resp) => (StatusCode::OK, Json(json!(resp))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_audio_status(State(state): State<AppState>, _auth: AuthUser) -> impl IntoResponse {
+    (StatusCode::OK, Json(json!(state.audio.cache_status())))
+}
+
+async fn get_sentence_audio(
+    State(state): State<AppState>,
+    _auth: AuthUser,
+    headers: HeaderMap,
+    Path(sentence_id): Path<i64>,
+) -> Response {
+    state.metrics.inc_audio_requests();
+
+    let info = match get_sentence_audio_info(&state.pool, sentence_id).await {
+        Ok(v) => v,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
     };
-    let (known_cnt, total_cnt, pct, unknown) = compute_kanji_readiness(&req.text, &known);
-    let detected = match detect_grammar_in_text(&state.pool, auth.user_id(), &req.text).await {
-        Ok(d) => d,
-        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    let Some((explicit_url, plain_text)) = info else {
+        return err_response(StatusCode::NOT_FOUND, "Sentence not found").into_response();
     };
 
-    let resp = ReadingAnalyzeResponse {
-        total_kanji: total_cnt,
-        known_kanji: known_cnt,
-        unknown_kanji: unknown,
-        wk_readiness_pct: pct,
-        detected_grammar: detected,
-    };
-    (StatusCode::OK, Json(json!(resp)))
+    match state
+        .audio
+        .resolve_sentence_audio(sentence_id, &explicit_url, &plain_text)
+        .await
+    {
+        Ok(AudioResolution::Redirect(url)) => Redirect::temporary(&url).into_response(),
+        Ok(AudioResolution::Bytes {
+            bytes,
+            mime_type,
+            etag,
+            source,
+        }) => {
+            if matches_if_none_match(&headers, &etag) {
+                let mut resp = StatusCode::NOT_MODIFIED.into_response();
+                if let Ok(val) = HeaderValue::from_str(&etag) {
+                    resp.headers_mut().insert(header::ETAG, val);
+                }
+                resp.headers_mut().insert(
+                    header::CACHE_CONTROL,
+                    HeaderValue::from_static("public, max-age=31536000, immutable"),
+                );
+                return resp;
+            }
+
+            let mut resp = (StatusCode::OK, bytes).into_response();
+            let resp_headers = resp.headers_mut();
+            if let Ok(ct) = HeaderValue::from_str(&mime_type) {
+                resp_headers.insert(header::CONTENT_TYPE, ct);
+            }
+            if let Ok(val) = HeaderValue::from_str(&etag) {
+                resp_headers.insert(header::ETAG, val);
+            }
+            resp_headers.insert(
+                header::CACHE_CONTROL,
+                HeaderValue::from_static("public, max-age=31536000, immutable"),
+            );
+            resp_headers.insert("x-audio-source", HeaderValue::from_static(source));
+            resp
+        }
+        Ok(AudioResolution::NotAvailable) => err_response(
+            StatusCode::NOT_FOUND,
+            "No pre-generated sentence audio available; use client Web Speech fallback",
+        )
+        .into_response(),
+        Err(e) => {
+            tracing::warn!(sentence_id, error = %e, "Sentence audio synthesis/lookup failed");
+            err_response(
+                StatusCode::BAD_GATEWAY,
+                "Sentence audio provider failed; use client Web Speech fallback",
+            )
+            .into_response()
+        }
+    }
 }
 
 #[derive(Deserialize)]

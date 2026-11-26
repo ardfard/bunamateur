@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ApiError, api } from './api'
 import { GrammarDetailModal } from './components/GrammarDetailModal'
+import { useToast } from './components/ToastContext'
 import { TopNav } from './components/TopNav'
 import { AuthPage } from './pages/AuthPage'
 import { ConjugationPage } from './pages/ConjugationPage'
@@ -10,15 +11,34 @@ import { ReadingLabPage } from './pages/ReadingLabPage'
 import { ReviewPage } from './pages/ReviewPage'
 import { WaniKaniPage } from './pages/WaniKaniPage'
 import type { AuthUser, DashboardStats, FuriganaMode, PageTab, ReviewMode } from './types'
+import { buildRoutePath, navigateTo, parseRoute } from './utils/router'
+
+function getInitialRoute() {
+  if (typeof window === 'undefined') {
+    return { tab: 'dashboard' as PageTab, grammarSlug: null as string | null, reviewMode: 'review' as ReviewMode }
+  }
+  const parsed = parseRoute(window.location.pathname, window.location.search)
+  return {
+    tab: parsed.tab,
+    grammarSlug: parsed.grammarSlug ?? null,
+    reviewMode: parsed.reviewMode ?? 'review',
+  }
+}
 
 export const App: React.FC = () => {
+  const initialRoute = useMemo(() => getInitialRoute(), [])
+  const { toast } = useToast()
+
   const [user, setUser] = useState<AuthUser | null>(null)
   const [authLoading, setAuthLoading] = useState(true)
-  const [activeTab, setActiveTab] = useState<PageTab>('dashboard')
-  const [reviewMode, setReviewMode] = useState<ReviewMode>('review')
+  const [activeTab, setActiveTab] = useState<PageTab>(initialRoute.tab)
+  const [reviewMode, setReviewMode] = useState<ReviewMode>(initialRoute.reviewMode)
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [selectedGrammarId, setSelectedGrammarId] = useState<number | null>(null)
+  const [pendingGrammarSlug, setPendingGrammarSlug] = useState<string | null>(initialRoute.grammarSlug)
   const [refreshKey, setRefreshKey] = useState(0)
+
+  const slugCacheRef = useRef<Map<string, number>>(new Map())
 
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window === 'undefined') return false
@@ -56,6 +76,72 @@ export const App: React.FC = () => {
     }
   }, [])
 
+  // Sync browser Back/Forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      const route = parseRoute(window.location.pathname, window.location.search)
+      setActiveTab(route.tab)
+      if (route.tab === 'reviews') {
+        setReviewMode(route.reviewMode ?? 'review')
+      }
+      if (route.tab === 'grammar' && route.grammarSlug) {
+        const cachedId = slugCacheRef.current.get(route.grammarSlug)
+        if (cachedId !== undefined) {
+          setSelectedGrammarId(cachedId)
+          setPendingGrammarSlug(null)
+        } else {
+          setPendingGrammarSlug(route.grammarSlug)
+        }
+      } else {
+        setSelectedGrammarId(null)
+        setPendingGrammarSlug(null)
+      }
+    }
+
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
+
+  // Resolve deep-linked /grammar/:slug into grammar ID once authenticated
+  useEffect(() => {
+    if (!user || !pendingGrammarSlug) return
+    let active = true
+
+    const cachedId = slugCacheRef.current.get(pendingGrammarSlug)
+    if (cachedId !== undefined) {
+      setSelectedGrammarId(cachedId)
+      setPendingGrammarSlug(null)
+      return
+    }
+
+    api
+      .getGrammarList()
+      .then((list) => {
+        if (!active) return
+        for (const item of list) {
+          slugCacheRef.current.set(item.slug, item.id)
+        }
+        const match = list.find((item) => item.slug === pendingGrammarSlug)
+        if (match) {
+          setSelectedGrammarId(match.id)
+        } else {
+          toast.error(`Grammar point "${pendingGrammarSlug}" was not found.`)
+          navigateTo(buildRoutePath({ tab: 'grammar', grammarSlug: null }), true)
+        }
+        setPendingGrammarSlug(null)
+      })
+      .catch((e) => {
+        if (!active) return
+        console.error('Failed to resolve grammar slug:', e)
+        toast.error('Failed to load grammar point.')
+        setPendingGrammarSlug(null)
+      })
+
+    return () => {
+      active = false
+    }
+  }, [user, pendingGrammarSlug, toast])
+
   const loadStats = useCallback(async () => {
     if (!user) return
     try {
@@ -71,8 +157,9 @@ export const App: React.FC = () => {
         return
       }
       console.error('Failed to load dashboard:', e)
+      toast.error('Could not refresh dashboard stats.')
     }
-  }, [user])
+  }, [user, toast])
 
   useEffect(() => {
     if (user) {
@@ -87,6 +174,43 @@ export const App: React.FC = () => {
     setRefreshKey((k) => k + 1)
   }, [loadStats])
 
+  const handleNavigate = useCallback((tab: PageTab) => {
+    setActiveTab(tab)
+    setSelectedGrammarId(null)
+    setPendingGrammarSlug(null)
+    navigateTo(buildRoutePath({ tab }))
+  }, [])
+
+  const handleStartSession = useCallback((mode: ReviewMode) => {
+    setReviewMode(mode)
+    setActiveTab('reviews')
+    setSelectedGrammarId(null)
+    setPendingGrammarSlug(null)
+    navigateTo(buildRoutePath({ tab: 'reviews', reviewMode: mode }))
+  }, [])
+
+  const handleReviewModeChange = useCallback((mode: ReviewMode) => {
+    setReviewMode(mode)
+    navigateTo(buildRoutePath({ tab: 'reviews', reviewMode: mode }), true)
+  }, [])
+
+  const handleSelectGrammar = useCallback((id: number, slug?: string) => {
+    setSelectedGrammarId(id)
+    setPendingGrammarSlug(null)
+    if (slug) {
+      slugCacheRef.current.set(slug, id)
+      navigateTo(buildRoutePath({ tab: 'grammar', grammarSlug: slug }))
+    }
+  }, [])
+
+  const handleCloseGrammarModal = useCallback(() => {
+    setSelectedGrammarId(null)
+    setPendingGrammarSlug(null)
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/grammar/')) {
+      navigateTo(buildRoutePath({ tab: 'grammar', grammarSlug: null }))
+    }
+  }, [])
+
   const handleLogout = useCallback(async () => {
     try {
       await api.logout()
@@ -96,17 +220,15 @@ export const App: React.FC = () => {
     setUser(null)
     setStats(null)
     setSelectedGrammarId(null)
+    setPendingGrammarSlug(null)
     setActiveTab('dashboard')
-  }, [])
+    navigateTo('/', true)
+    toast.info('Signed out.')
+  }, [toast])
 
   const knownKanji = useMemo(() => {
     return new Set(stats?.wanikani.known_kanji_list || [])
   }, [stats])
-
-  const handleStartSession = (mode: ReviewMode) => {
-    setReviewMode(mode)
-    setActiveTab('reviews')
-  }
 
   if (authLoading) {
     return (
@@ -126,7 +248,10 @@ export const App: React.FC = () => {
         onToggleDark={() => setDarkMode((d) => !d)}
         onAuthenticated={(u) => {
           setUser(u)
-          setActiveTab('dashboard')
+          const route = parseRoute(window.location.pathname, window.location.search)
+          setActiveTab(route.tab)
+          if (route.reviewMode) setReviewMode(route.reviewMode)
+          if (route.grammarSlug) setPendingGrammarSlug(route.grammarSlug)
         }}
       />
     )
@@ -136,7 +261,7 @@ export const App: React.FC = () => {
     <div className="min-h-screen flex flex-col">
       <TopNav
         activeTab={activeTab}
-        onNavigate={setActiveTab}
+        onNavigate={handleNavigate}
         reviewsDue={stats?.reviews_due ?? 0}
         streakDays={stats?.streak_days ?? 0}
         wanikani={stats?.wanikani ?? null}
@@ -151,7 +276,7 @@ export const App: React.FC = () => {
           <DashboardPage
             stats={stats}
             onStartSession={handleStartSession}
-            onNavigate={setActiveTab}
+            onNavigate={handleNavigate}
             onRefresh={handleRefreshAll}
           />
         )}
@@ -159,6 +284,7 @@ export const App: React.FC = () => {
         {activeTab === 'reviews' && (
           <ReviewPage
             initialMode={reviewMode}
+            onModeChange={handleReviewModeChange}
             furiganaMode={furiganaMode}
             onChangeFuriganaMode={setFuriganaMode}
             knownKanji={knownKanji}
@@ -169,7 +295,7 @@ export const App: React.FC = () => {
 
         {activeTab === 'grammar' && (
           <GrammarPage
-            onSelectGrammar={setSelectedGrammarId}
+            onSelectGrammar={handleSelectGrammar}
             refreshKey={refreshKey}
           />
         )}
@@ -181,7 +307,7 @@ export const App: React.FC = () => {
             furiganaMode={furiganaMode}
             knownKanji={knownKanji}
             highlightKnown={stats?.wanikani.highlight_known_kanji ?? true}
-            onSelectGrammar={setSelectedGrammarId}
+            onSelectGrammar={handleSelectGrammar}
           />
         )}
 
@@ -196,7 +322,7 @@ export const App: React.FC = () => {
 
       <GrammarDetailModal
         grammarId={selectedGrammarId}
-        onClose={() => setSelectedGrammarId(null)}
+        onClose={handleCloseGrammarModal}
         onChanged={handleRefreshAll}
         furiganaMode={furiganaMode}
         knownKanji={knownKanji}

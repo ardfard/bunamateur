@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   AlertTriangle,
   ArrowRight,
@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { api } from '../api'
+import { useToast } from '../components/ToastContext'
 import type {
   FuriganaMode,
   ReviewMode,
@@ -20,11 +21,12 @@ import type {
   SubmitAnswerResponse,
 } from '../types'
 import { RubyText } from '../utils/furigana'
-import { toHiraganaLive } from '../utils/romaji'
-import { speakJapanese } from '../utils/speech'
+import { applyImeWithCursor, toKanaLive, type ImeMode } from '../utils/romaji'
+import { playSentenceAudio } from '../utils/speech'
 
 interface ReviewPageProps {
   initialMode: ReviewMode
+  onModeChange?: (mode: ReviewMode) => void
   furiganaMode: FuriganaMode
   onChangeFuriganaMode: (m: FuriganaMode) => void
   knownKanji: Set<string>
@@ -32,14 +34,31 @@ interface ReviewPageProps {
   onSessionComplete: () => void
 }
 
+const IME_CYCLE: ImeMode[] = ['hiragana', 'katakana', 'off']
+const FURIGANA_CYCLE: FuriganaMode[] = ['smart', 'all', 'none']
+
+function getImeLabel(mode: ImeMode): string {
+  switch (mode) {
+    case 'hiragana':
+      return 'あ Hiragana'
+    case 'katakana':
+      return 'ア Katakana'
+    case 'off':
+      return 'ABC Off'
+  }
+}
+
 export const ReviewPage: React.FC<ReviewPageProps> = ({
   initialMode,
+  onModeChange,
   furiganaMode,
   onChangeFuriganaMode,
   knownKanji,
   highlightKnown,
   onSessionComplete,
 }) => {
+  const { toast } = useToast()
+
   const [mode, setMode] = useState<ReviewMode>(initialMode)
   const [jlptFilter, setJlptFilter] = useState('ALL')
   const [queue, setQueue] = useState<ReviewQueueItem[]>([])
@@ -47,7 +66,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [loading, setLoading] = useState(true)
 
   const [inputValue, setInputValue] = useState('')
-  const [imeEnabled, setImeEnabled] = useState(true)
+  const [imeMode, setImeMode] = useState<ImeMode>('hiragana')
   const [showHint, setShowHint] = useState(false)
   const [result, setResult] = useState<SubmitAnswerResponse | null>(null)
   const [nuanceShakeHint, setNuanceShakeHint] = useState<string | null>(null)
@@ -57,31 +76,46 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
 
   const inputRef = useRef<HTMLInputElement>(null)
+  const isComposingRef = useRef(false)
 
-  const loadQueue = async (m: ReviewMode, jlpt: string) => {
-    setLoading(true)
-    setIndex(0)
-    setResult(null)
-    setNuanceShakeHint(null)
-    setWrappingUp(false)
-    setInputValue('')
-    setShowHint(false)
-    setSessionStats({ correct: 0, total: 0 })
-    try {
-      const items = await api.getReviews(m, jlpt, 20)
-      setQueue(items)
-    } finally {
-      setLoading(false)
-    }
-  }
+  const selectMode = useCallback(
+    (nextMode: ReviewMode) => {
+      setMode(nextMode)
+      onModeChange?.(nextMode)
+    },
+    [onModeChange]
+  )
+
+  const loadQueue = useCallback(
+    async (m: ReviewMode, jlpt: string) => {
+      setLoading(true)
+      setIndex(0)
+      setResult(null)
+      setNuanceShakeHint(null)
+      setWrappingUp(false)
+      setInputValue('')
+      setShowHint(false)
+      setSessionStats({ correct: 0, total: 0 })
+      try {
+        const items = await api.getReviews(m, jlpt, 20)
+        setQueue(items)
+      } catch {
+        toast.error('Failed to load review queue.')
+        setQueue([])
+      } finally {
+        setLoading(false)
+      }
+    },
+    [toast]
+  )
 
   useEffect(() => {
     setMode(initialMode)
   }, [initialMode])
 
   useEffect(() => {
-    loadQueue(mode, jlptFilter)
-  }, [mode, jlptFilter])
+    void loadQueue(mode, jlptFilter)
+  }, [mode, jlptFilter, loadQueue])
 
   useEffect(() => {
     if (!result && !loading) {
@@ -91,21 +125,62 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
 
   const current = queue[index]
 
+  const cycleImeMode = () => {
+    setImeMode((prev) => IME_CYCLE[(IME_CYCLE.indexOf(prev) + 1) % IME_CYCLE.length])
+  }
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const raw = e.target.value
-    setInputValue(imeEnabled ? toHiraganaLive(raw, false) : raw)
+    const nativeComposing = Boolean((e.nativeEvent as InputEvent | undefined)?.isComposing)
+    if (isComposingRef.current || nativeComposing || imeMode === 'off') {
+      setInputValue(raw)
+      return
+    }
+    const selectionStart = e.target.selectionStart ?? raw.length
+    const { value, cursor } = applyImeWithCursor(raw, selectionStart, imeMode)
+    setInputValue(value)
+    requestAnimationFrame(() => {
+      inputRef.current?.setSelectionRange(cursor, cursor)
+    })
   }
+
+  const handleCompositionStart = () => {
+    isComposingRef.current = true
+  }
+
+  const handleCompositionEnd = (e: React.CompositionEvent<HTMLInputElement>) => {
+    isComposingRef.current = false
+    const raw = e.currentTarget.value
+    if (imeMode === 'off') {
+      setInputValue(raw)
+      return
+    }
+    const selectionStart = e.currentTarget.selectionStart ?? raw.length
+    const { value, cursor } = applyImeWithCursor(raw, selectionStart, imeMode)
+    setInputValue(value)
+    requestAnimationFrame(() => {
+      inputRef.current?.setSelectionRange(cursor, cursor)
+    })
+  }
+
+  const goNext = useCallback(() => {
+    setResult(null)
+    setNuanceShakeHint(null)
+    setInputValue('')
+    setShowHint(false)
+    setIndex((i) => i + 1)
+  }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!current || submitting) return
+    if (!current || submitting || isComposingRef.current) return
 
     if (result) {
       goNext()
       return
     }
 
-    const finalInput = imeEnabled ? toHiraganaLive(inputValue, true) : inputValue
+    const finalInput = toKanaLive(inputValue, imeMode, true)
     if (!finalInput.trim()) return
 
     setInputValue(finalInput)
@@ -136,43 +211,116 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         total: prev.total + 1,
       }))
       onSessionComplete()
+    } catch {
+      toast.error('Failed to submit answer. Please try again.')
     } finally {
       setSubmitting(false)
     }
   }
 
-  const goNext = () => {
-    setResult(null)
-    setNuanceShakeHint(null)
-    setInputValue('')
-    setShowHint(false)
-    setIndex((i) => i + 1)
-  }
-
   const handleWrapUp = () => {
     if (wrappingUp) return
     const cap = Math.min(queue.length, index + 5)
+    const remaining = Math.max(0, cap - index)
     setQueue((prev) => prev.slice(0, cap))
     setWrappingUp(true)
+    toast.info(`Wrap-up activated: ${remaining} item${remaining === 1 ? '' : 's'} remaining.`)
   }
 
-  const handleUndo = async () => {
+  const handleUndo = useCallback(async () => {
     if (!current || !result) return
-    await api.undoReview({
-      grammar_id: current.grammar_id,
-      previous_srs_stage: result.previous_srs_stage,
-      previous_ghost_level: result.previous_ghost_level,
-      review_log_id: result.review_log_id,
-    })
-    setSessionStats((prev) => ({
-      correct: Math.max(0, prev.correct - (result.correct ? 1 : 0)),
-      total: Math.max(0, prev.total - 1),
-    }))
-    setResult(null)
-    setInputValue('')
-    onSessionComplete()
-    setTimeout(() => inputRef.current?.focus(), 30)
-  }
+    try {
+      await api.undoReview({
+        grammar_id: current.grammar_id,
+        previous_srs_stage: result.previous_srs_stage,
+        previous_ghost_level: result.previous_ghost_level,
+        review_log_id: result.review_log_id,
+      })
+      setSessionStats((prev) => ({
+        correct: Math.max(0, prev.correct - (result.correct ? 1 : 0)),
+        total: Math.max(0, prev.total - 1),
+      }))
+      setResult(null)
+      setInputValue('')
+      onSessionComplete()
+      toast.info('Review undone — give it another try.')
+      setTimeout(() => inputRef.current?.focus(), 30)
+    } catch {
+      toast.error('Could not undo the last review.')
+    }
+  }, [current, result, onSessionComplete, toast])
+
+  // Global keyboard shortcuts for review ergonomics
+  useEffect(() => {
+    if (!current || loading) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.isComposing || isComposingRef.current) return
+
+      const target = e.target as HTMLElement | null
+      const tag = target?.tagName
+      const inInput =
+        tag === 'INPUT' ||
+        tag === 'TEXTAREA' ||
+        tag === 'SELECT' ||
+        Boolean(target?.isContentEditable)
+
+      const fullSentence = `${current.jp_before}${current.answer}${current.jp_after}`
+
+      // Audio: Ctrl+Space / Alt+Space anywhere, or bare Space when result is shown or input not focused
+      if (e.code === 'Space' || e.key === ' ') {
+        const modAudio = (e.ctrlKey || e.altKey) && !e.metaKey
+        const bareAudio = !e.ctrlKey && !e.altKey && !e.metaKey && !e.shiftKey && (!inInput || Boolean(result))
+        if (modAudio || bareAudio) {
+          e.preventDefault()
+          void playSentenceAudio(current.sentence_id, fullSentence, 1.0)
+          return
+        }
+      }
+
+      // Hint toggle: Alt+A anywhere, or bare A when not typing in input and before result
+      if (e.code === 'KeyA' || e.key.toLowerCase() === 'a') {
+        const altA = e.altKey && !e.ctrlKey && !e.metaKey
+        const bareA = !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && !inInput
+        if ((altA || bareA) && !result) {
+          e.preventDefault()
+          setShowHint((h) => !h)
+          return
+        }
+      }
+
+      // Furigana cycle: Alt+F anywhere, or bare F when not typing in input or result is shown
+      if (e.code === 'KeyF' || e.key.toLowerCase() === 'f') {
+        const altF = e.altKey && !e.ctrlKey && !e.metaKey
+        const bareF = !e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey && (!inInput || Boolean(result))
+        if (altF || bareF) {
+          e.preventDefault()
+          const nextMode =
+            FURIGANA_CYCLE[(FURIGANA_CYCLE.indexOf(furiganaMode) + 1) % FURIGANA_CYCLE.length]
+          onChangeFuriganaMode(nextMode)
+          return
+        }
+      }
+
+      // Backspace: Undo & Retry when an incorrect non-cram result is shown
+      if (e.key === 'Backspace' && result && !result.correct && current.mode !== 'cram') {
+        if (!inInput || (target as HTMLInputElement).disabled) {
+          e.preventDefault()
+          void handleUndo()
+          return
+        }
+      }
+
+      // Enter: Advance to next card when result is shown (even when input is disabled/blurred)
+      if (e.key === 'Enter' && result && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        e.preventDefault()
+        goNext()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [current, loading, result, furiganaMode, onChangeFuriganaMode, handleUndo, goNext])
 
   const progressPct = queue.length > 0 ? Math.min(100, Math.round((index / queue.length) * 100)) : 0
   const sessionAcc =
@@ -202,7 +350,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
             ).map(([m, label]) => (
               <button
                 key={m}
-                onClick={() => setMode(m)}
+                type="button"
+                onClick={() => selectMode(m)}
                 className="rounded-full border px-3.5 py-1.5 text-xs font-semibold transition-colors cursor-pointer"
                 style={{
                   backgroundColor: mode === m ? 'var(--accent-vermilion)' : 'var(--bg-surface)',
@@ -252,6 +401,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
               ).map(([fm, lbl]) => (
                 <button
                   key={fm}
+                  type="button"
                   onClick={() => onChangeFuriganaMode(fm)}
                   className="rounded-full px-2.5 py-1 transition-colors cursor-pointer"
                   style={{
@@ -331,14 +481,16 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
             </p>
             <div className="flex flex-wrap justify-center gap-3 pt-2">
               <button
-                onClick={() => setMode('lesson')}
+                type="button"
+                onClick={() => selectMode('lesson')}
                 className="rounded-xl px-5 py-2.5 text-sm font-semibold text-white cursor-pointer"
                 style={{ backgroundColor: 'var(--accent-indigo)' }}
               >
                 Learn New Grammar
               </button>
               <button
-                onClick={() => setMode('cram')}
+                type="button"
+                onClick={() => selectMode('cram')}
                 className="rounded-xl border px-5 py-2.5 text-sm font-semibold cursor-pointer"
                 style={{
                   backgroundColor: 'var(--bg-subtle)',
@@ -392,7 +544,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <button
                   type="button"
                   onClick={() =>
-                    speakJapanese(`${current.jp_before}${current.answer}${current.jp_after}`, 0.95)
+                    void playSentenceAudio(
+                      current.sentence_id,
+                      `${current.jp_before}${current.answer}${current.jp_after}`,
+                      1.0
+                    )
                   }
                   className="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-medium cursor-pointer"
                   style={{
@@ -400,7 +556,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     borderColor: 'var(--border-subtle)',
                     color: 'var(--text-secondary)',
                   }}
-                  title="Play Japanese Audio"
+                  title="Play Japanese Audio (Space / Ctrl+Space)"
                 >
                   <Volume2 className="h-3.5 w-3.5" />
                   Listen
@@ -408,7 +564,11 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <button
                   type="button"
                   onClick={() =>
-                    speakJapanese(`${current.jp_before}${current.answer}${current.jp_after}`, 0.72)
+                    void playSentenceAudio(
+                      current.sentence_id,
+                      `${current.jp_before}${current.answer}${current.jp_after}`,
+                      0.72
+                    )
                   }
                   className="font-mono-code rounded-lg border px-2.5 py-1.5 text-xs font-medium cursor-pointer"
                   style={{
@@ -505,11 +665,15 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     type="text"
                     value={inputValue}
                     onChange={handleInputChange}
+                    onCompositionStart={handleCompositionStart}
+                    onCompositionEnd={handleCompositionEnd}
                     disabled={Boolean(result)}
                     placeholder={
-                      imeEnabled
+                      imeMode === 'hiragana'
                         ? 'Type romaji (e.g. noni -> のに) or kana...'
-                        : 'Type Japanese directly...'
+                        : imeMode === 'katakana'
+                          ? 'Type romaji -> カタカナ...'
+                          : 'Type Japanese directly (OS IME)...'
                     }
                     className="font-jp w-full bg-transparent text-xl font-semibold outline-none"
                     style={{ color: 'var(--text-primary)' }}
@@ -519,16 +683,26 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
 
                   <button
                     type="button"
-                    onClick={() => setImeEnabled((v) => !v)}
+                    onClick={cycleImeMode}
                     className="font-mono-code shrink-0 flex items-center gap-1 rounded-lg px-2.5 py-1.5 text-[11px] font-semibold cursor-pointer"
                     style={{
-                      backgroundColor: imeEnabled ? 'var(--accent-matcha-soft)' : 'var(--bg-subtle)',
-                      color: imeEnabled ? 'var(--accent-matcha)' : 'var(--text-muted)',
+                      backgroundColor:
+                        imeMode === 'hiragana'
+                          ? 'var(--accent-matcha-soft)'
+                          : imeMode === 'katakana'
+                            ? 'var(--accent-indigo-soft)'
+                            : 'var(--bg-subtle)',
+                      color:
+                        imeMode === 'hiragana'
+                          ? 'var(--accent-matcha)'
+                          : imeMode === 'katakana'
+                            ? 'var(--accent-indigo)'
+                            : 'var(--text-muted)',
                     }}
-                    title="Toggle Built-in Romaji -> Hiragana IME"
+                    title="Cycle built-in IME mode: Hiragana -> Katakana -> Off"
                   >
                     <Keyboard className="h-3.5 w-3.5" />
-                    {imeEnabled ? 'あ IME' : 'ABC'}
+                    {getImeLabel(imeMode)}
                   </button>
 
                   <button
@@ -570,7 +744,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                     {result && !result.correct && current.mode !== 'cram' && (
                       <button
                         type="button"
-                        onClick={handleUndo}
+                        onClick={() => void handleUndo()}
                         className="flex items-center gap-1 font-semibold hover:underline cursor-pointer"
                         style={{ color: 'var(--accent-amber)' }}
                       >
@@ -671,6 +845,87 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 )}
               </div>
             )}
+
+            {/* Keyboard Shortcut Legend Strip */}
+            <div
+              className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 rounded-xl border px-4 py-2.5 text-[11px]"
+              style={{
+                backgroundColor: 'var(--bg-surface)',
+                borderColor: 'var(--border-subtle)',
+                color: 'var(--text-muted)',
+              }}
+              aria-label="Keyboard shortcuts"
+            >
+              <span className="flex items-center gap-1.5">
+                <kbd
+                  className="font-mono-code rounded border px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  Enter
+                </kbd>
+                Check/Next
+              </span>
+              <span aria-hidden="true">•</span>
+              <span className="flex items-center gap-1.5">
+                <kbd
+                  className="font-mono-code rounded border px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  Space
+                </kbd>
+                Audio
+              </span>
+              <span aria-hidden="true">•</span>
+              <span className="flex items-center gap-1.5">
+                <kbd
+                  className="font-mono-code rounded border px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  A
+                </kbd>
+                Hint
+              </span>
+              <span aria-hidden="true">•</span>
+              <span className="flex items-center gap-1.5">
+                <kbd
+                  className="font-mono-code rounded border px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  F
+                </kbd>
+                Furigana
+              </span>
+              <span aria-hidden="true">•</span>
+              <span className="flex items-center gap-1.5">
+                <kbd
+                  className="font-mono-code rounded border px-1.5 py-0.5 text-[10px] font-semibold"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  Backspace
+                </kbd>
+                Undo
+              </span>
+            </div>
           </>
         )}
       </div>

@@ -4,7 +4,7 @@ import { api } from '../api'
 import type { GrammarPointSummary } from '../types'
 
 interface GrammarPageProps {
-  onSelectGrammar: (id: number) => void
+  onSelectGrammar: (id: number, slug?: string) => void
   refreshKey: number
 }
 
@@ -128,7 +128,7 @@ export const GrammarPage: React.FC<GrammarPageProps> = ({
           {items.map((g) => (
             <button
               key={g.id}
-              onClick={() => onSelectGrammar(g.id)}
+              onClick={() => onSelectGrammar(g.id, g.slug)}
               className="group flex flex-col justify-between gap-3 rounded-2xl border p-5 text-left transition-all hover:-translate-y-0.5 cursor-pointer"
               style={{
                 backgroundColor: 'var(--bg-surface)',

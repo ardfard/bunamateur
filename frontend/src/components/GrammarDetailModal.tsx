@@ -3,7 +3,8 @@ import { BookOpen, RotateCcw, Save, Volume2, X, AlertTriangle, GitCompare } from
 import { api } from '../api'
 import type { FuriganaMode, GrammarPointDetail } from '../types'
 import { RubyText } from '../utils/furigana'
-import { speakJapanese } from '../utils/speech'
+import { playSentenceAudio } from '../utils/speech'
+import { useToast } from './ToastContext'
 
 interface GrammarDetailModalProps {
   grammarId: number | null
@@ -22,6 +23,7 @@ export const GrammarDetailModal: React.FC<GrammarDetailModalProps> = ({
   knownKanji,
   highlightKnown,
 }) => {
+  const { toast } = useToast()
   const [detail, setDetail] = useState<GrammarPointDetail | null>(null)
   const [notes, setNotes] = useState('')
   const [saving, setSaving] = useState(false)
@@ -37,34 +39,53 @@ export const GrammarDetailModal: React.FC<GrammarDetailModalProps> = ({
         setDetail(d)
         setNotes(d.user_notes || '')
       })
+      .catch(() => {
+        toast.error('Failed to load grammar details.')
+      })
       .finally(() => setLoading(false))
-  }, [grammarId])
+  }, [grammarId, toast])
 
   if (!grammarId) return null
 
   const handleSaveNotes = async () => {
     if (!detail) return
     setSaving(true)
-    await api.saveGrammarNotes(detail.id, notes)
-    setSaving(false)
-    setSavedToast(true)
-    setTimeout(() => setSavedToast(false), 1800)
+    try {
+      await api.saveGrammarNotes(detail.id, notes)
+      setSavedToast(true)
+      toast.success('Personal study notes saved.')
+      setTimeout(() => setSavedToast(false), 1800)
+    } catch {
+      toast.error('Failed to save study notes.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const handleEnroll = async () => {
     if (!detail) return
-    await api.startLesson(detail.id)
-    const updated = await api.getGrammarDetail(detail.id)
-    setDetail(updated)
-    onChanged()
+    try {
+      await api.startLesson(detail.id)
+      const updated = await api.getGrammarDetail(detail.id)
+      setDetail(updated)
+      onChanged()
+      toast.success(`Added "${detail.title}" to your review queue.`)
+    } catch {
+      toast.error('Could not add grammar point to review queue.')
+    }
   }
 
   const handleReset = async () => {
     if (!detail) return
-    await api.resetGrammarProgress(detail.id)
-    const updated = await api.getGrammarDetail(detail.id)
-    setDetail(updated)
-    onChanged()
+    try {
+      await api.resetGrammarProgress(detail.id)
+      const updated = await api.getGrammarDetail(detail.id)
+      setDetail(updated)
+      onChanged()
+      toast.info(`Reset SRS progress for "${detail.title}".`)
+    } catch {
+      toast.error('Could not reset SRS progress.')
+    }
   }
 
   return (
@@ -256,13 +277,14 @@ export const GrammarDetailModal: React.FC<GrammarDetailModalProps> = ({
                         />
                       </div>
                       <button
-                        onClick={() => speakJapanese(fullMarkup)}
+                        type="button"
+                        onClick={() => void playSentenceAudio(s.id, fullMarkup, 1.0)}
                         className="shrink-0 rounded-lg p-2 transition-colors hover:opacity-80 cursor-pointer"
                         style={{
                           backgroundColor: 'var(--bg-surface)',
                           color: 'var(--accent-indigo)',
                         }}
-                        title="Listen (Japanese TTS)"
+                        title="Listen (Japanese Audio)"
                       >
                         <Volume2 className="h-4 w-4" />
                       </button>

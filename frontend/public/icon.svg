@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="BunAmateur Hanko Icon">
+  <rect width="512" height="512" rx="112" fill="#D64933" />
+  <rect
+    x="28"
+    y="28"
+    width="456"
+    height="456"
+    rx="88"
+    fill="none"
+    stroke="#FAF8F5"
+    stroke-opacity="0.28"
+    stroke-width="14"
+  />
+  <text
+    x="256"
+    y="354"
+    text-anchor="middle"
+    fill="#FAF8F5"
+    font-family="'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif"
+    font-size="300"
+    font-weight="700"
+  >
+    文
+  </text>
+</svg>

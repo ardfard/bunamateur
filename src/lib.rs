@@ -1,9 +1,12 @@
+pub mod audio;
 pub mod auth;
 pub mod crypto;
 pub mod db;
 pub mod email;
 pub mod models;
+pub mod nlp;
 pub mod oauth;
+pub mod observability;
 pub mod routes;
 pub mod security;
 pub mod seed_data;

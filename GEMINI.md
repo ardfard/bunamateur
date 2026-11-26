@@ -74,4 +74,4 @@ _Add a brief overview of your project architecture_
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+- **Version Control**: Always use `jj` (Jujutsu) for VCS operations (`jj status`, `jj diff`, `jj log`, `jj describe`, `jj commit`, `jj git push`) instead of raw `git` commands. Initialize colocated `jj` with `jj git init` if `.jj/` is not yet present.

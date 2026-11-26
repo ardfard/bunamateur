@@ -1,6 +1,7 @@
 import React from 'react'
 import { Flame, LogOut, Moon, Sun } from 'lucide-react'
 import type { AuthUser, PageTab, WaniKaniStatus } from '../types'
+import { buildRoutePath } from '../utils/router'
 
 interface TopNavProps {
   activeTab: PageTab
@@ -34,6 +35,21 @@ export const TopNav: React.FC<TopNavProps> = ({
   darkMode,
   onToggleDark,
 }) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: PageTab) => {
+    if (
+      e.defaultPrevented ||
+      e.button !== 0 ||
+      e.metaKey ||
+      e.ctrlKey ||
+      e.shiftKey ||
+      e.altKey
+    ) {
+      return
+    }
+    e.preventDefault()
+    onNavigate(tab)
+  }
+
   return (
     <header
       className="sticky top-0 z-30 w-full border-b transition-colors"
@@ -44,9 +60,11 @@ export const TopNav: React.FC<TopNavProps> = ({
     >
       <div className="mx-auto flex h-[68px] max-w-[1360px] items-center justify-between px-4 sm:px-8">
         {/* Brand Hanko + Wordmark */}
-        <button
-          onClick={() => onNavigate('dashboard')}
-          className="flex items-center gap-3 cursor-pointer"
+        <a
+          href={buildRoutePath({ tab: 'dashboard' })}
+          onClick={(e) => handleNavClick(e, 'dashboard')}
+          className="flex items-center gap-3 cursor-pointer no-underline"
+          style={{ color: 'inherit' }}
         >
           <div
             className="flex h-[34px] w-[34px] items-center justify-center rounded-lg font-jp text-lg font-bold text-white shadow-xs"
@@ -65,17 +83,19 @@ export const TopNav: React.FC<TopNavProps> = ({
               文アマ • SRS
             </span>
           </div>
-        </button>
+        </a>
 
         {/* Center Navigation */}
-        <nav className="hidden items-center gap-1 md:flex">
+        <nav className="hidden items-center gap-1 md:flex" aria-label="Primary">
           {NAV_ITEMS.map((item) => {
             const active = activeTab === item.id
             return (
-              <button
+              <a
                 key={item.id}
-                onClick={() => onNavigate(item.id)}
-                className="relative flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors cursor-pointer"
+                href={buildRoutePath({ tab: item.id })}
+                onClick={(e) => handleNavClick(e, item.id)}
+                aria-current={active ? 'page' : undefined}
+                className="relative flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-medium transition-colors cursor-pointer no-underline"
                 style={{
                   color: active ? 'var(--accent-vermilion)' : 'var(--text-secondary)',
                   backgroundColor: active ? 'var(--accent-vermilion-soft)' : 'transparent',
@@ -91,16 +111,17 @@ export const TopNav: React.FC<TopNavProps> = ({
                     {reviewsDue}
                   </span>
                 )}
-              </button>
+              </a>
             )
           })}
         </nav>
 
         {/* Right Status Pills */}
         <div className="flex items-center gap-2.5">
-          <button
-            onClick={() => onNavigate('wanikani')}
-            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-opacity hover:opacity-85 cursor-pointer"
+          <a
+            href={buildRoutePath({ tab: 'wanikani' })}
+            onClick={(e) => handleNavClick(e, 'wanikani')}
+            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-opacity hover:opacity-85 cursor-pointer no-underline"
             style={{
               backgroundColor: wanikani?.connected ? 'var(--wk-pink-soft)' : 'var(--bg-subtle)',
               color: wanikani?.connected ? 'var(--wk-pink)' : 'var(--text-secondary)',
@@ -118,7 +139,7 @@ export const TopNav: React.FC<TopNavProps> = ({
                 ? `WK Lv.${wanikani.level} Synced`
                 : 'Connect WaniKani'}
             </span>
-          </button>
+          </a>
 
           <div
             className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono-code text-xs font-semibold"
@@ -133,6 +154,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={onToggleDark}
             className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors cursor-pointer"
             style={{
@@ -166,6 +188,7 @@ export const TopNav: React.FC<TopNavProps> = ({
           </div>
 
           <button
+            type="button"
             onClick={onLogout}
             className="flex h-9 w-9 items-center justify-center rounded-lg border transition-colors cursor-pointer"
             style={{
@@ -188,17 +211,19 @@ export const TopNav: React.FC<TopNavProps> = ({
         {NAV_ITEMS.map((item) => {
           const active = activeTab === item.id
           return (
-            <button
+            <a
               key={item.id}
-              onClick={() => onNavigate(item.id)}
-              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer"
+              href={buildRoutePath({ tab: item.id })}
+              onClick={(e) => handleNavClick(e, item.id)}
+              aria-current={active ? 'page' : undefined}
+              className="shrink-0 rounded-md px-3 py-1.5 text-xs font-medium cursor-pointer no-underline"
               style={{
                 color: active ? 'var(--accent-vermilion)' : 'var(--text-secondary)',
                 backgroundColor: active ? 'var(--accent-vermilion-soft)' : 'transparent',
               }}
             >
               {item.label}
-            </button>
+            </a>
           )
         })}
       </div>

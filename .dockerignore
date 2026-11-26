@@ -1,0 +1,28 @@
+# Build artifacts & dependencies
+target/
+frontend/node_modules/
+frontend/dist/
+frontend/tsconfig.tsbuildinfo
+
+# Version control & issue tracking
+.git/
+.gitignore
+.beads/
+.beads.gate.lock
+
+# Secrets & local runtime data
+.env
+.env.*
+!.env.example
+data/
+
+# Editor, OS & agent metadata
+.DS_Store
+*.log
+.agents/
+.claude/
+.codex/
+.cursor/
+.gemini/
+design/
+tests/

@@ -1,3 +1,4 @@
+use crate::nlp::AnalyzedToken;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -360,6 +361,7 @@ pub struct ReadingPassage {
     pub english: String,
     pub wk_readiness_pct: u8,
     pub detected_grammar: Vec<DetectedGrammar>,
+    pub tokens: Vec<AnalyzedToken>,
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -378,13 +380,16 @@ pub struct DetectedGrammar {
     pub matched_token: String,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct ReadingAnalyzeResponse {
     pub total_kanji: usize,
     pub known_kanji: usize,
     pub unknown_kanji: Vec<String>,
     pub wk_readiness_pct: u8,
     pub detected_grammar: Vec<DetectedGrammar>,
+    pub tokens: Vec<AnalyzedToken>,
+    pub annotated_ruby: String,
+    pub analyzer_engine: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

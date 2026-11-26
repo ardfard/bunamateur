@@ -50,8 +50,14 @@ async fn reset_and_connect_test_db() -> PgPool {
 fn build_test_app(state: AppState) -> axum::Router {
     let cors = build_cors_layer(&state.security).expect("valid test CORS config");
     let api = routes::api_router(&state);
+    let ops = routes::ops_router();
+    let metrics = state.metrics.clone();
     axum::Router::new()
+        .merge(ops)
         .nest("/api", api)
+        .layer(axum::middleware::from_fn(move |req, next| {
+            bunamateur::observability::metrics_middleware(metrics.clone(), req, next)
+        }))
         .layer(cors)
         .with_state(state)
 }
@@ -925,6 +931,87 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         Some(user_b_id),
         "verified Google email must link to existing user account"
     );
+
+    // 13. P2 Observability (/healthz, /readyz, /metrics), Pure-Rust NLP, and Audio endpoints
+    let root_base = format!("http://{}", addr);
+    let health_resp: Value = client_b
+        .get(format!("{}/healthz", root_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(health_resp["status"], "ok");
+
+    let ready_resp: Value = client_b
+        .get(format!("{}/readyz", root_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(ready_resp["status"], "ready");
+    assert_eq!(ready_resp["database"], "ok");
+
+    // NLP reading analysis returns tokens, auto-furigana ruby, and lemmatized grammar hits
+    let nlp_resp: Value = client_b
+        .post(format!("{}/reading/analyze", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({
+            "text": "毎日日本語を勉強しているおかげで、少しずつ日本の新聞が読めるようになりました。"
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert!(
+        !nlp_resp["tokens"].as_array().unwrap().is_empty(),
+        "NLP analysis must return interactive tokens"
+    );
+    assert!(
+        nlp_resp["annotated_ruby"]
+            .as_str()
+            .unwrap()
+            .contains("[毎日|まいにち]")
+    );
+    assert!(!nlp_resp["detected_grammar"].as_array().unwrap().is_empty());
+
+    // Sentence audio returns 404 when no cached/generated asset is present (triggering client fallback)
+    let first_sentence_id: i64 = sqlx::query_scalar("SELECT id FROM grammar_sentences ORDER BY id LIMIT 1")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    let audio_miss = client_b
+        .get(format!("{}/audio/sentence/{}", base, first_sentence_id))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(audio_miss.status(), StatusCode::NOT_FOUND);
+
+    // /metrics exposes Prometheus counters including recorded HTTP requests & NLP analyses
+    let metrics_text = client_b
+        .get(format!("{}/metrics", root_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+    assert!(metrics_text.contains("http_requests_total"));
+    assert!(metrics_text.contains("bunamateur_nlp_analyses_total"));
+    assert!(metrics_text.contains("bunamateur_audio_requests_total"));
 
     oauth_server.abort();
     g_server.abort();

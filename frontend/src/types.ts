@@ -231,6 +231,19 @@ export interface DetectedGrammar {
   matched_token: string
 }
 
+export interface AnalyzedToken {
+  surface: string
+  lemma: string
+  reading: string
+  pos: string
+  glosses: string[]
+  jlpt: string | null
+  ruby: string
+  wk_level: number | null
+  wk_known: boolean
+  is_content_word: boolean
+}
+
 export interface ReadingPassage {
   id: number
   title: string
@@ -240,6 +253,7 @@ export interface ReadingPassage {
   english: string
   wk_readiness_pct: number
   detected_grammar: DetectedGrammar[]
+  tokens: AnalyzedToken[]
 }
 
 export interface ReadingAnalyzeResponse {
@@ -248,6 +262,9 @@ export interface ReadingAnalyzeResponse {
   unknown_kanji: string[]
   wk_readiness_pct: number
   detected_grammar: DetectedGrammar[]
+  tokens: AnalyzedToken[]
+  annotated_ruby: string
+  analyzer_engine: string
 }
 
 export interface ConjugationItem {

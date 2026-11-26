@@ -1,3 +1,4 @@
+use crate::audio::{AudioConfig, AudioService};
 use crate::crypto::TokenCipher;
 use crate::email::{
     DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
@@ -6,10 +7,15 @@ use crate::models::{
     AuthUserInfo, CompleteOnboardingRequest, ConjugationItem, ContentVersionInfo, DashboardStats,
     DetectedGrammar, ForecastBucket, GrammarPointDetail, GrammarPointSummary, GrammarSentence,
     ImportProgressResponse, JlptProgress, OnboardingState, PlacementQuestion,
-    ProgressExportPayload, ProgressExportRow, ReadingPassage, ReviewQueueItem, SrsSettings,
-    SrsTierCount, UpdateSrsSettingsRequest, WaniKaniStatus, WaniKaniSyncStatus,
+    ProgressExportPayload, ProgressExportRow, ReadingAnalyzeResponse, ReadingPassage,
+    ReviewQueueItem, SrsSettings, SrsTierCount, UpdateSrsSettingsRequest, WaniKaniStatus,
+    WaniKaniSyncStatus,
+};
+use crate::nlp::{
+    NlpAnalysis, WkSubjectLookup, analyze_japanese_text, match_pattern_against_analysis,
 };
 use crate::oauth::{GoogleOAuthConfig, GoogleProfile, derive_username_base};
+use crate::observability::MetricsRegistry;
 use crate::security::{RateLimiter, SecurityConfig};
 use crate::seed_data::{SEED_CONJUGATIONS, SEED_PASSAGES};
 use crate::seed_data_extra::{CONTENT_SCHEMA_VERSION, all_seed_grammar, sentences_for_grammar};
@@ -39,6 +45,8 @@ pub struct AppState {
     pub google_oauth: GoogleOAuthConfig,
     pub wk_api_base_url: String,
     pub wk_sync_inflight: Arc<tokio::sync::Mutex<HashSet<i64>>>,
+    pub audio: AudioService,
+    pub metrics: MetricsRegistry,
 }
 
 impl AppState {
@@ -101,6 +109,8 @@ impl AppState {
             google_oauth: GoogleOAuthConfig::default(),
             wk_api_base_url,
             wk_sync_inflight: Arc::new(tokio::sync::Mutex::new(HashSet::new())),
+            audio: AudioService::new(AudioConfig::from_env()),
+            metrics: MetricsRegistry::new(),
         })
     }
 
@@ -119,6 +129,21 @@ impl AppState {
         self.wk_api_base_url = url;
         self
     }
+
+    pub fn with_audio(mut self, audio: AudioService) -> Self {
+        self.audio = audio;
+        self
+    }
+
+    pub fn with_metrics(mut self, metrics: MetricsRegistry) -> Self {
+        self.metrics = metrics;
+        self
+    }
+}
+
+pub async fn ping_database(pool: &PgPool) -> Result<()> {
+    let _: i32 = sqlx::query_scalar("SELECT 1").fetch_one(pool).await?;
+    Ok(())
 }
 
 /// Redacts any password embedded in a PostgreSQL connection URL before logging.
@@ -2025,14 +2050,47 @@ async fn load_grammar_match_rows(pool: &PgPool, user_id: i64) -> Result<Vec<Gram
     Ok(rows)
 }
 
-fn match_grammar_patterns(rows: &[GrammarMatchRow], text: &str) -> Vec<DetectedGrammar> {
-    let plain = strip_ruby_markup(text);
+#[derive(FromRow)]
+struct WkSubjectLookupRow {
+    subject_type: String,
+    characters: String,
+    level: i32,
+}
+
+pub async fn load_wk_subject_lookup(pool: &PgPool, user_id: i64) -> Result<WkSubjectLookup> {
+    let rows: Vec<WkSubjectLookupRow> = sqlx::query_as(
+        "SELECT subject_type, characters, level
+         FROM wk_subjects
+         WHERE user_id = $1",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+
+    let mut lookup = WkSubjectLookup::default();
+    for row in rows {
+        if row.subject_type == "kanji" {
+            lookup.known_kanji.insert(row.characters.clone());
+            lookup.kanji_levels.insert(row.characters, row.level);
+        } else if row.subject_type == "vocabulary" {
+            lookup.vocab_levels.insert(row.characters, row.level);
+        }
+    }
+    Ok(lookup)
+}
+
+fn match_grammar_patterns(
+    rows: &[GrammarMatchRow],
+    plain: &str,
+    analysis: &NlpAnalysis,
+) -> Vec<DetectedGrammar> {
     let mut found = Vec::new();
     for row in rows {
         if let Some(matched) = row
             .match_patterns
             .iter()
-            .find(|pat| !pat.is_empty() && plain.contains(pat.as_str()))
+            .filter(|pat| !pat.is_empty())
+            .find_map(|pat| match_pattern_against_analysis(pat.as_str(), plain, analysis))
         {
             found.push(DetectedGrammar {
                 grammar_id: row.id,
@@ -2041,7 +2099,7 @@ fn match_grammar_patterns(rows: &[GrammarMatchRow], text: &str) -> Vec<DetectedG
                 jlpt_level: row.jlpt_level.clone(),
                 srs_stage: row.srs_stage,
                 srs_label: srs_stage_label(row.srs_stage),
-                matched_token: matched.clone(),
+                matched_token: matched,
             });
         }
     }
@@ -2054,7 +2112,58 @@ pub async fn detect_grammar_in_text(
     text: &str,
 ) -> Result<Vec<DetectedGrammar>> {
     let rows = load_grammar_match_rows(pool, user_id).await?;
-    Ok(match_grammar_patterns(&rows, text))
+    let wk = load_wk_subject_lookup(pool, user_id).await?;
+    let plain = strip_ruby_markup(text);
+    let analysis = analyze_japanese_text(&plain, &wk);
+    Ok(match_grammar_patterns(&rows, &plain, &analysis))
+}
+
+fn known_kanji_chars(set: &HashSet<String>) -> HashSet<char> {
+    set.iter().filter_map(|s| s.chars().next()).collect()
+}
+
+pub async fn analyze_reading_text(
+    pool: &PgPool,
+    user_id: i64,
+    text: &str,
+) -> Result<ReadingAnalyzeResponse> {
+    let wk = load_wk_subject_lookup(pool, user_id).await?;
+    let known_chars = known_kanji_chars(&wk.known_kanji);
+    let grammar_rows = load_grammar_match_rows(pool, user_id).await?;
+    let plain = strip_ruby_markup(text);
+    let (known_cnt, total_cnt, pct, unknown) = compute_kanji_readiness(&plain, &known_chars);
+    let analysis = analyze_japanese_text(&plain, &wk);
+    let detected = match_grammar_patterns(&grammar_rows, &plain, &analysis);
+
+    Ok(ReadingAnalyzeResponse {
+        total_kanji: total_cnt,
+        known_kanji: known_cnt,
+        unknown_kanji: unknown,
+        wk_readiness_pct: pct,
+        detected_grammar: detected,
+        tokens: analysis.tokens,
+        annotated_ruby: analysis.annotated_ruby,
+        analyzer_engine: analysis.analyzer_engine,
+    })
+}
+
+pub async fn get_sentence_audio_info(
+    pool: &PgPool,
+    sentence_id: i64,
+) -> Result<Option<(String, String)>> {
+    let row: Option<(String, String, String, String)> = sqlx::query_as(
+        "SELECT COALESCE(audio_url, ''), jp_before, answer, jp_after
+         FROM grammar_sentences
+         WHERE id = $1",
+    )
+    .bind(sentence_id)
+    .fetch_optional(pool)
+    .await?;
+
+    Ok(row.map(|(audio_url, before, answer, after)| {
+        let full = format!("{}{}{}", before, answer, after);
+        (audio_url, strip_ruby_markup(&full))
+    }))
 }
 
 #[derive(FromRow)]
@@ -2068,7 +2177,8 @@ struct ReadingPassageRow {
 }
 
 pub async fn list_reading_passages(pool: &PgPool, user_id: i64) -> Result<Vec<ReadingPassage>> {
-    let known_kanji = load_known_kanji(pool, user_id).await?;
+    let wk = load_wk_subject_lookup(pool, user_id).await?;
+    let known_chars = known_kanji_chars(&wk.known_kanji);
     let grammar_rows = load_grammar_match_rows(pool, user_id).await?;
 
     let rows: Vec<ReadingPassageRow> = sqlx::query_as(
@@ -2081,8 +2191,10 @@ pub async fn list_reading_passages(pool: &PgPool, user_id: i64) -> Result<Vec<Re
 
     let mut out = Vec::with_capacity(rows.len());
     for row in rows {
-        let (_, _, wk_pct, _) = compute_kanji_readiness(&row.content_ruby, &known_kanji);
-        let detected = match_grammar_patterns(&grammar_rows, &row.content_ruby);
+        let plain = strip_ruby_markup(&row.content_ruby);
+        let (_, _, wk_pct, _) = compute_kanji_readiness(&plain, &known_chars);
+        let analysis = analyze_japanese_text(&plain, &wk);
+        let detected = match_grammar_patterns(&grammar_rows, &plain, &analysis);
         out.push(ReadingPassage {
             id: row.id,
             title: row.title,
@@ -2092,6 +2204,7 @@ pub async fn list_reading_passages(pool: &PgPool, user_id: i64) -> Result<Vec<Re
             english: row.english,
             wk_readiness_pct: wk_pct,
             detected_grammar: detected,
+            tokens: analysis.tokens,
         });
     }
     Ok(out)
