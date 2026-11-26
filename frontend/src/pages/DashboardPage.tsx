@@ -14,6 +14,7 @@ import {
 } from 'lucide-react'
 import { api } from '../api'
 import { OnboardingPanel } from '../components/OnboardingPanel'
+import { StudyAnalyticsPanel } from '../components/StudyAnalyticsPanel'
 import type { DashboardStats, PageTab, ReviewMode } from '../types'
 
 interface DashboardPageProps {
@@ -21,6 +22,7 @@ interface DashboardPageProps {
   onStartSession: (mode: ReviewMode) => void
   onNavigate: (tab: PageTab) => void
   onRefresh: () => void
+  onSelectGrammar?: (id: number) => void
 }
 
 const JLPT_COLORS: Record<string, string> = {
@@ -44,6 +46,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onStartSession,
   onNavigate,
   onRefresh,
+  onSelectGrammar,
 }) => {
   const [syncingDemo, setSyncingDemo] = useState(false)
   const [updatingSrs, setUpdatingSrs] = useState(false)
@@ -531,7 +534,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               ))}
             </div>
           </div>
+        </div>
+      </section>
 
+      {/* Study Analytics & Retention (90 Days) */}
+      <StudyAnalyticsPanel onSelectGrammar={onSelectGrammar} onStartSession={onStartSession} />
+
+      {/* Lower Two-Column Section: SRS Ergonomics & Backup + Bonus Learning Labs */}
+      <section className="grid grid-cols-1 gap-6 lg:grid-cols-12">
+        <div className="lg:col-span-7">
           {/* SRS Ergonomics & Data Backup */}
           <div
             className="flex flex-col gap-3.5 rounded-2xl border p-6"
@@ -670,10 +681,11 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               </div>
             )}
           </div>
+        </div>
 
-          {/* Quick Bonus Learning Labs */}
-          <div className="grid grid-cols-2 gap-3">
-            <button
+        {/* Quick Bonus Learning Labs */}
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:col-span-5 lg:grid-cols-1">
+          <button
               onClick={() => onNavigate('conjugation')}
               className="flex flex-col gap-1 rounded-2xl border p-4 text-left transition-colors hover:opacity-90 cursor-pointer"
               style={{
@@ -705,7 +717,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 Analyze passages for grammar & WK kanji coverage
               </span>
             </button>
-          </div>
         </div>
       </section>
     </div>

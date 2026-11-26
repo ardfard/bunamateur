@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flame, LogOut, Moon, Sun } from 'lucide-react'
+import { Flame, LogOut, Moon, Settings, Sun } from 'lucide-react'
 import type { AuthUser, PageTab, WaniKaniStatus } from '../types'
 import { buildRoutePath } from '../utils/router'
 
@@ -13,6 +13,7 @@ interface TopNavProps {
   onLogout: () => void
   darkMode: boolean
   onToggleDark: () => void
+  onOpenAccount?: () => void
 }
 
 const NAV_ITEMS: { id: PageTab; label: string }[] = [
@@ -34,6 +35,7 @@ export const TopNav: React.FC<TopNavProps> = ({
   onLogout,
   darkMode,
   onToggleDark,
+  onOpenAccount,
 }) => {
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, tab: PageTab) => {
     if (
@@ -167,25 +169,45 @@ export const TopNav: React.FC<TopNavProps> = ({
             {darkMode ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
 
-          <div
-            className="hidden lg:flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium"
+          <button
+            type="button"
+            onClick={() => onOpenAccount?.()}
+            className="hidden lg:flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-opacity hover:opacity-80 cursor-pointer"
             style={{
               borderColor: 'var(--border-subtle)',
               backgroundColor: 'var(--bg-subtle)',
               color: 'var(--text-secondary)',
             }}
-            title={user.email}
+            title={`Account Settings (${user.email})`}
+            aria-label={`Open account settings for ${user.username}`}
           >
-            {user.avatar_url && (
+            {user.avatar_url ? (
               <img
                 src={user.avatar_url}
                 alt={user.username}
                 referrerPolicy="no-referrer"
                 className="h-5 w-5 rounded-full object-cover"
               />
+            ) : (
+              <Settings className="h-3.5 w-3.5" style={{ color: 'var(--text-muted)' }} />
             )}
             <span>{user.username}</span>
-          </div>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => onOpenAccount?.()}
+            className="flex lg:hidden h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:opacity-85 cursor-pointer"
+            style={{
+              borderColor: 'var(--border-subtle)',
+              backgroundColor: 'var(--bg-subtle)',
+              color: 'var(--text-secondary)',
+            }}
+            title={`Account Settings (${user.username})`}
+            aria-label="Account Settings"
+          >
+            <Settings className="h-4 w-4" />
+          </button>
 
           <button
             type="button"

@@ -4,11 +4,13 @@ use crate::email::{
     DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
 };
 use crate::models::{
-    AuthUserInfo, CompleteOnboardingRequest, ConjugationItem, ContentVersionInfo, DashboardStats,
-    DetectedGrammar, ForecastBucket, GrammarPointDetail, GrammarPointSummary, GrammarSentence,
-    ImportProgressResponse, JlptProgress, OnboardingState, PlacementQuestion,
-    ProgressExportPayload, ProgressExportRow, ReadingAnalyzeResponse, ReadingPassage,
-    ReviewQueueItem, SrsSettings, SrsTierCount, UpdateSrsSettingsRequest, WaniKaniStatus,
+    AccountProfileResponse, AccountSessionInfo, AuthUserInfo, CompleteOnboardingRequest,
+    ConjugationItem, ContentVersionInfo, DailyActivityPoint, DashboardStats, DetectedGrammar,
+    ForecastBucket, GrammarPointDetail, GrammarPointSummary, GrammarSentence,
+    ImportProgressResponse, JlptAccuracyRow, JlptProgress, LeechGrammarItem, OnboardingState,
+    PlacementQuestion, ProgressExportPayload, ProgressExportRow, ReadingAnalyzeResponse,
+    ReadingPassage, ReviewQueueItem, SaveVocabBookmarkRequest, SrsSettings, SrsTierCount,
+    StudyAnalyticsResponse, UpdateSrsSettingsRequest, VocabBookmark, WaniKaniStatus,
     WaniKaniSyncStatus,
 };
 use crate::nlp::{
@@ -3124,4 +3126,617 @@ pub async fn compute_dashboard(pool: &PgPool, user_id: i64) -> Result<DashboardS
         onboarding,
         srs_settings,
     })
+}
+
+// ---------------------------------------------------------------------------
+// v0.2 Password Reset, Account Security & Active Sessions
+// ---------------------------------------------------------------------------
+
+pub async fn create_password_reset_token(
+    pool: &PgPool,
+    user_id: i64,
+    token_hash: &str,
+    expires_at: DateTime<Utc>,
+) -> Result<()> {
+    sqlx::query(
+        "DELETE FROM password_reset_tokens
+         WHERE user_id = $1 AND (used_at IS NOT NULL OR expires_at < NOW())",
+    )
+    .bind(user_id)
+    .execute(pool)
+    .await?;
+
+    sqlx::query(
+        "INSERT INTO password_reset_tokens (token_hash, user_id, expires_at)
+         VALUES ($1, $2, $3)",
+    )
+    .bind(token_hash)
+    .bind(user_id)
+    .bind(expires_at)
+    .execute(pool)
+    .await?;
+    Ok(())
+}
+
+/// Validates and consumes a single-use password reset token, updates the user's password hash,
+/// and invalidates all existing sessions for that user.
+pub async fn consume_password_reset_token(
+    pool: &PgPool,
+    token_hash: &str,
+    new_password_hash: &str,
+) -> Result<Option<i64>> {
+    let mut tx = pool.begin().await?;
+    let user_id: Option<i64> = sqlx::query_scalar(
+        "SELECT user_id
+         FROM password_reset_tokens
+         WHERE token_hash = $1 AND used_at IS NULL AND expires_at > NOW()
+         FOR UPDATE",
+    )
+    .bind(token_hash)
+    .fetch_optional(&mut *tx)
+    .await?;
+
+    let Some(uid) = user_id else {
+        tx.rollback().await?;
+        return Ok(None);
+    };
+
+    sqlx::query("UPDATE password_reset_tokens SET used_at = NOW() WHERE token_hash = $1")
+        .bind(token_hash)
+        .execute(&mut *tx)
+        .await?;
+
+    sqlx::query("UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2")
+        .bind(new_password_hash)
+        .bind(uid)
+        .execute(&mut *tx)
+        .await?;
+
+    sqlx::query("DELETE FROM sessions WHERE user_id = $1")
+        .bind(uid)
+        .execute(&mut *tx)
+        .await?;
+
+    tx.commit().await?;
+    Ok(Some(uid))
+}
+
+#[derive(FromRow)]
+struct AccountUserRow {
+    id: i64,
+    email: String,
+    username: String,
+    avatar_url: Option<String>,
+    password_hash: String,
+    created_at: DateTime<Utc>,
+}
+
+pub async fn get_account_profile(
+    pool: &PgPool,
+    user_id: i64,
+) -> Result<Option<AccountProfileResponse>> {
+    let row: Option<AccountUserRow> = sqlx::query_as(
+        "SELECT id, email, username, avatar_url, password_hash, created_at
+         FROM users
+         WHERE id = $1",
+    )
+    .bind(user_id)
+    .fetch_optional(pool)
+    .await?;
+
+    let Some(u) = row else {
+        return Ok(None);
+    };
+
+    let google_linked: bool = sqlx::query_scalar(
+        "SELECT EXISTS(
+             SELECT 1 FROM oauth_identities
+             WHERE user_id = $1 AND provider = 'google'
+         )",
+    )
+    .bind(user_id)
+    .fetch_one(pool)
+    .await?;
+
+    let active_sessions: i64 = sqlx::query_scalar(
+        "SELECT COUNT(*) FROM sessions WHERE user_id = $1 AND expires_at > NOW()",
+    )
+    .bind(user_id)
+    .fetch_one(pool)
+    .await?;
+
+    let has_password = !u.password_hash.starts_with('!');
+    Ok(Some(AccountProfileResponse {
+        user: AuthUserInfo {
+            id: u.id,
+            email: u.email,
+            username: u.username,
+            avatar_url: u.avatar_url,
+            created_at: u.created_at.to_rfc3339(),
+        },
+        has_password,
+        google_linked,
+        active_sessions: active_sessions.max(0) as usize,
+    }))
+}
+
+pub async fn update_user_username(
+    pool: &PgPool,
+    user_id: i64,
+    new_username: &str,
+) -> std::result::Result<AccountProfileResponse, CreateUserError> {
+    let res = sqlx::query(
+        "UPDATE users
+         SET username = $1, updated_at = NOW()
+         WHERE id = $2",
+    )
+    .bind(new_username)
+    .bind(user_id)
+    .execute(pool)
+    .await;
+
+    if let Err(err) = res {
+        if let Some(db_err) = err.as_database_error()
+            && db_err.code().as_deref() == Some("23505")
+        {
+            return Err(CreateUserError::UsernameTaken);
+        }
+        return Err(CreateUserError::Other(err.into()));
+    }
+
+    match get_account_profile(pool, user_id).await {
+        Ok(Some(profile)) => Ok(profile),
+        Ok(None) => Err(CreateUserError::Other(anyhow::anyhow!("User not found"))),
+        Err(e) => Err(CreateUserError::Other(e)),
+    }
+}
+
+pub async fn get_user_password_hash(pool: &PgPool, user_id: i64) -> Result<Option<String>> {
+    let hash: Option<String> = sqlx::query_scalar("SELECT password_hash FROM users WHERE id = $1")
+        .bind(user_id)
+        .fetch_optional(pool)
+        .await?;
+    Ok(hash)
+}
+
+pub async fn update_user_password_hash(
+    pool: &PgPool,
+    user_id: i64,
+    new_hash: &str,
+    keep_session_id: Option<&str>,
+) -> Result<()> {
+    sqlx::query("UPDATE users SET password_hash = $1, updated_at = NOW() WHERE id = $2")
+        .bind(new_hash)
+        .bind(user_id)
+        .execute(pool)
+        .await?;
+
+    if let Some(current_sid) = keep_session_id {
+        sqlx::query("DELETE FROM sessions WHERE user_id = $1 AND id <> $2")
+            .bind(user_id)
+            .bind(current_sid)
+            .execute(pool)
+            .await?;
+    }
+    Ok(())
+}
+
+#[derive(FromRow)]
+struct SessionRow {
+    id: String,
+    user_agent: Option<String>,
+    ip_address: Option<String>,
+    created_at: DateTime<Utc>,
+    last_seen_at: DateTime<Utc>,
+    expires_at: DateTime<Utc>,
+}
+
+pub async fn list_user_sessions(
+    pool: &PgPool,
+    user_id: i64,
+    current_session_id: &str,
+) -> Result<Vec<AccountSessionInfo>> {
+    let rows: Vec<SessionRow> = sqlx::query_as(
+        "SELECT id, user_agent, ip_address, created_at, last_seen_at, expires_at
+         FROM sessions
+         WHERE user_id = $1 AND expires_at > NOW()
+         ORDER BY last_seen_at DESC",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+
+    Ok(rows
+        .into_iter()
+        .map(|r| AccountSessionInfo {
+            is_current: r.id == current_session_id,
+            id: r.id,
+            user_agent: r.user_agent,
+            ip_address: r.ip_address,
+            created_at: r.created_at.to_rfc3339(),
+            last_seen_at: r.last_seen_at.to_rfc3339(),
+            expires_at: r.expires_at.to_rfc3339(),
+        })
+        .collect())
+}
+
+pub async fn revoke_user_session(pool: &PgPool, user_id: i64, session_id: &str) -> Result<bool> {
+    let res = sqlx::query("DELETE FROM sessions WHERE user_id = $1 AND id = $2")
+        .bind(user_id)
+        .bind(session_id)
+        .execute(pool)
+        .await?;
+    Ok(res.rows_affected() > 0)
+}
+
+pub async fn revoke_other_user_sessions(
+    pool: &PgPool,
+    user_id: i64,
+    current_session_id: &str,
+) -> Result<u64> {
+    let res = sqlx::query("DELETE FROM sessions WHERE user_id = $1 AND id <> $2")
+        .bind(user_id)
+        .bind(current_session_id)
+        .execute(pool)
+        .await?;
+    Ok(res.rows_affected())
+}
+
+// ---------------------------------------------------------------------------
+// v0.2 Study Analytics & Retention Intelligence
+// ---------------------------------------------------------------------------
+
+pub fn review_intensity_bucket(count: i32) -> u8 {
+    match count {
+        i32::MIN..=0 => 0,
+        1..=4 => 1,
+        5..=14 => 2,
+        15..=29 => 3,
+        _ => 4,
+    }
+}
+
+pub fn compute_longest_streak(sorted_unique_dates: &[NaiveDate]) -> i32 {
+    if sorted_unique_dates.is_empty() {
+        return 0;
+    }
+    let mut best = 1;
+    let mut cur = 1;
+    for pair in sorted_unique_dates.windows(2) {
+        if pair[1] == pair[0] + Duration::days(1) {
+            cur += 1;
+            if cur > best {
+                best = cur;
+            }
+        } else if pair[1] > pair[0] {
+            cur = 1;
+        }
+    }
+    best
+}
+
+pub async fn compute_study_analytics(
+    pool: &PgPool,
+    user_id: i64,
+    days: i32,
+) -> Result<StudyAnalyticsResponse> {
+    let window_days = days.clamp(14, 365);
+    let today = Utc::now().date_naive();
+    let start_date = today - Duration::days((window_days - 1) as i64);
+
+    // 1. Daily heatmap aggregation within window
+    let daily_rows: Vec<(NaiveDate, i64, i64)> = sqlx::query_as(
+        "SELECT (reviewed_at AT TIME ZONE 'UTC')::date AS day,
+                COUNT(*) AS total,
+                COALESCE(SUM(CASE WHEN correct THEN 1 ELSE 0 END), 0) AS correct
+         FROM review_logs
+         WHERE user_id = $1
+           AND (reviewed_at AT TIME ZONE 'UTC')::date >= $2
+         GROUP BY day
+         ORDER BY day ASC",
+    )
+    .bind(user_id)
+    .bind(start_date)
+    .fetch_all(pool)
+    .await?;
+
+    let mut daily_map: HashMap<NaiveDate, (i32, i32)> = HashMap::new();
+    for (day, total, correct) in daily_rows {
+        daily_map.insert(day, (total as i32, correct as i32));
+    }
+
+    let mut heatmap = Vec::with_capacity(window_days as usize);
+    let mut active_days_in_window = 0i32;
+    for offset in 0..window_days {
+        let d = start_date + Duration::days(offset as i64);
+        let (total, correct) = daily_map.get(&d).copied().unwrap_or((0, 0));
+        if total > 0 {
+            active_days_in_window += 1;
+        }
+        let accuracy_pct = if total > 0 {
+            ((correct as f64 / total as f64) * 100.0).round() as u8
+        } else {
+            0
+        };
+        heatmap.push(DailyActivityPoint {
+            date: d.format("%Y-%m-%d").to_string(),
+            total_reviews: total,
+            correct_reviews: correct,
+            accuracy_pct,
+            intensity: review_intensity_bucket(total),
+        });
+    }
+
+    // 2. All-time totals + longest streak
+    let (all_time_total, all_time_correct): (i64, i64) = sqlx::query_as(
+        "SELECT COUNT(*),
+                COALESCE(SUM(CASE WHEN correct THEN 1 ELSE 0 END), 0)
+         FROM review_logs
+         WHERE user_id = $1",
+    )
+    .bind(user_id)
+    .fetch_one(pool)
+    .await?;
+
+    let overall_accuracy_pct = if all_time_total > 0 {
+        ((all_time_correct as f64 / all_time_total as f64) * 100.0).round() as u8
+    } else {
+        100
+    };
+
+    let all_dates: Vec<NaiveDate> = sqlx::query_scalar(
+        "SELECT DISTINCT (reviewed_at AT TIME ZONE 'UTC')::date AS day
+         FROM review_logs
+         WHERE user_id = $1
+         ORDER BY day ASC",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+    let longest_streak_days = compute_longest_streak(&all_dates);
+
+    // 3. Accuracy by JLPT level
+    let jlpt_rows: Vec<(String, i64, i64)> = sqlx::query_as(
+        "SELECT g.jlpt_level,
+                COUNT(r.id) AS total,
+                COALESCE(SUM(CASE WHEN r.correct THEN 1 ELSE 0 END), 0) AS correct
+         FROM review_logs r
+         JOIN grammar_points g ON g.id = r.grammar_id
+         WHERE r.user_id = $1
+         GROUP BY g.jlpt_level",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+    let mut jlpt_map: HashMap<String, (i32, i32)> = HashMap::new();
+    for (lvl, total, correct) in jlpt_rows {
+        jlpt_map.insert(lvl, (total as i32, correct as i32));
+    }
+
+    let mut accuracy_by_jlpt = Vec::with_capacity(5);
+    for lvl in ["N5", "N4", "N3", "N2", "N1"] {
+        let (reviews, correct) = jlpt_map.get(lvl).copied().unwrap_or((0, 0));
+        let accuracy_pct = if reviews > 0 {
+            ((correct as f64 / reviews as f64) * 100.0).round() as u8
+        } else {
+            0
+        };
+        accuracy_by_jlpt.push(JlptAccuracyRow {
+            jlpt_level: lvl.to_string(),
+            reviews,
+            correct,
+            accuracy_pct,
+        });
+    }
+
+    // 4. Top Leeches (frequently missed grammar items)
+    #[derive(FromRow)]
+    struct LeechRow {
+        grammar_id: i64,
+        slug: String,
+        title: String,
+        meaning: String,
+        jlpt_level: String,
+        incorrect_count: i32,
+        correct_count: i32,
+        ghost_level: i32,
+    }
+
+    let leech_rows: Vec<LeechRow> = sqlx::query_as(
+        "SELECT g.id AS grammar_id, g.slug, g.title, g.meaning, g.jlpt_level,
+                p.incorrect_count, p.correct_count, p.ghost_level
+         FROM user_progress p
+         JOIN grammar_points g ON g.id = p.grammar_id
+         WHERE p.user_id = $1
+           AND (p.incorrect_count >= 2 OR p.ghost_level > 0)
+         ORDER BY (p.incorrect_count::double precision / GREATEST(1, p.correct_count + p.incorrect_count)) DESC,
+                  p.incorrect_count DESC,
+                  p.ghost_level DESC
+         LIMIT 8",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+
+    let top_leeches = leech_rows
+        .into_iter()
+        .map(|r| {
+            let total = r.correct_count + r.incorrect_count;
+            let accuracy_pct = if total > 0 {
+                ((r.correct_count as f64 / total as f64) * 100.0).round() as u8
+            } else {
+                0
+            };
+            LeechGrammarItem {
+                grammar_id: r.grammar_id,
+                slug: r.slug,
+                title: r.title,
+                meaning: r.meaning,
+                jlpt_level: r.jlpt_level,
+                incorrect_count: r.incorrect_count,
+                correct_count: r.correct_count,
+                accuracy_pct,
+                ghost_level: r.ghost_level,
+            }
+        })
+        .collect();
+
+    Ok(StudyAnalyticsResponse {
+        days: window_days,
+        total_reviews_all_time: all_time_total as i32,
+        overall_accuracy_pct,
+        longest_streak_days,
+        active_days_in_window,
+        heatmap,
+        accuracy_by_jlpt,
+        top_leeches,
+    })
+}
+
+// ---------------------------------------------------------------------------
+// v0.2 Reading Lab Personal Vocabulary Deck & Anki TSV Export
+// ---------------------------------------------------------------------------
+
+#[derive(FromRow)]
+struct VocabBookmarkRow {
+    id: i64,
+    surface: String,
+    lemma: String,
+    reading: String,
+    pos: String,
+    glosses_json: serde_json::Value,
+    jlpt: Option<String>,
+    wk_level: Option<i32>,
+    context_sentence: String,
+    created_at: DateTime<Utc>,
+}
+
+impl From<VocabBookmarkRow> for VocabBookmark {
+    fn from(r: VocabBookmarkRow) -> Self {
+        let glosses: Vec<String> = serde_json::from_value(r.glosses_json).unwrap_or_default();
+        Self {
+            id: r.id,
+            surface: r.surface,
+            lemma: r.lemma,
+            reading: r.reading,
+            pos: r.pos,
+            glosses,
+            jlpt: r.jlpt,
+            wk_level: r.wk_level,
+            context_sentence: r.context_sentence,
+            created_at: r.created_at.to_rfc3339(),
+        }
+    }
+}
+
+pub async fn list_vocab_bookmarks(pool: &PgPool, user_id: i64) -> Result<Vec<VocabBookmark>> {
+    let rows: Vec<VocabBookmarkRow> = sqlx::query_as(
+        "SELECT id, surface, lemma, reading, pos, glosses_json, jlpt, wk_level, context_sentence, created_at
+         FROM user_vocab_bookmarks
+         WHERE user_id = $1
+         ORDER BY created_at DESC",
+    )
+    .bind(user_id)
+    .fetch_all(pool)
+    .await?;
+
+    Ok(rows.into_iter().map(VocabBookmark::from).collect())
+}
+
+pub async fn upsert_vocab_bookmark(
+    pool: &PgPool,
+    user_id: i64,
+    req: &SaveVocabBookmarkRequest,
+) -> Result<VocabBookmark> {
+    let surface = req.surface.trim();
+    let lemma = if req.lemma.trim().is_empty() {
+        surface
+    } else {
+        req.lemma.trim()
+    };
+    if surface.is_empty() || lemma.is_empty() {
+        anyhow::bail!("Vocabulary word surface and lemma cannot be empty");
+    }
+
+    let glosses_json = serde_json::to_value(&req.glosses)?;
+    let context: String = req
+        .context_sentence
+        .as_deref()
+        .unwrap_or("")
+        .trim()
+        .chars()
+        .take(300)
+        .collect();
+
+    let row: VocabBookmarkRow = sqlx::query_as(
+        "INSERT INTO user_vocab_bookmarks
+            (user_id, surface, lemma, reading, pos, glosses_json, jlpt, wk_level, context_sentence)
+         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+         ON CONFLICT (user_id, lemma) DO UPDATE SET
+            surface = EXCLUDED.surface,
+            reading = EXCLUDED.reading,
+            pos = EXCLUDED.pos,
+            glosses_json = EXCLUDED.glosses_json,
+            jlpt = COALESCE(EXCLUDED.jlpt, user_vocab_bookmarks.jlpt),
+            wk_level = COALESCE(EXCLUDED.wk_level, user_vocab_bookmarks.wk_level),
+            context_sentence = CASE
+                WHEN EXCLUDED.context_sentence <> '' THEN EXCLUDED.context_sentence
+                ELSE user_vocab_bookmarks.context_sentence
+            END,
+            created_at = NOW()
+         RETURNING id, surface, lemma, reading, pos, glosses_json, jlpt, wk_level, context_sentence, created_at",
+    )
+    .bind(user_id)
+    .bind(surface)
+    .bind(lemma)
+    .bind(req.reading.trim())
+    .bind(req.pos.trim())
+    .bind(glosses_json)
+    .bind(req.jlpt.as_deref().map(str::trim).filter(|s| !s.is_empty()))
+    .bind(req.wk_level)
+    .bind(&context)
+    .fetch_one(pool)
+    .await?;
+
+    Ok(VocabBookmark::from(row))
+}
+
+pub async fn delete_vocab_bookmark(
+    pool: &PgPool,
+    user_id: i64,
+    bookmark_id: i64,
+) -> Result<bool> {
+    let res = sqlx::query("DELETE FROM user_vocab_bookmarks WHERE user_id = $1 AND id = $2")
+        .bind(user_id)
+        .bind(bookmark_id)
+        .execute(pool)
+        .await?;
+    Ok(res.rows_affected() > 0)
+}
+
+fn sanitize_tsv_cell(raw: &str) -> String {
+    raw.replace(['\t', '\r', '\n'], " ").trim().to_string()
+}
+
+/// Formats saved Reading Lab vocabulary bookmarks as an Anki-ready UTF-8 TSV deck.
+pub fn vocab_bookmarks_to_anki_tsv(items: &[VocabBookmark]) -> String {
+    let mut out = String::from(
+        "#separator:tab\n#html:false\n#columns:Word\tReading\tMeaning\tPOS\tJLPT\tWaniKani\tContext\n",
+    );
+    for item in items {
+        let word = sanitize_tsv_cell(&item.lemma);
+        let reading = sanitize_tsv_cell(&item.reading);
+        let meaning = sanitize_tsv_cell(&item.glosses.join("; "));
+        let pos = sanitize_tsv_cell(&item.pos);
+        let jlpt = item.jlpt.as_deref().map(sanitize_tsv_cell).unwrap_or_default();
+        let wk = item
+            .wk_level
+            .map(|l| format!("WK Lv.{}", l))
+            .unwrap_or_default();
+        let ctx = sanitize_tsv_cell(&item.context_sentence);
+        out.push_str(&format!(
+            "{word}\t{reading}\t{meaning}\t{pos}\t{jlpt}\t{wk}\t{ctx}\n"
+        ));
+    }
+    out
 }

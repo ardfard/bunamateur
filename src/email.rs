@@ -349,6 +349,38 @@ pub fn build_welcome_email(to: &str, username: &str, app_url: &str) -> EmailMess
     }
 }
 
+/// Builds a password-reset email containing a single-use expiring link.
+pub fn build_password_reset_email(to: &str, username: &str, reset_url: &str) -> EmailMessage {
+    let safe_user = escape_html(username);
+    let safe_url = escape_html(reset_url);
+
+    let text = format!(
+        "Hi {username},\n\n\
+         We received a request to reset your BunAmateur (文アマ) password.\n\
+         Open the link below within 60 minutes to choose a new password:\n\
+         {reset_url}\n\n\
+         If you didn't request this, you can safely ignore this email — your password will stay unchanged.\n\
+         — BunAmateur"
+    );
+
+    let html = format!(
+        "<div style=\"font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #1c1917;\">\
+         <h2 style=\"color: #d94436;\">Reset your BunAmateur password</h2>\
+         <p>Hi {safe_user}, we received a request to reset your password. Click below within 60 minutes to set a new one:</p>\
+         <p style=\"margin: 24px 0;\"><a href=\"{safe_url}\" style=\"background: #d94436; color: #ffffff; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600;\">Reset Password</a></p>\
+         <p style=\"color: #78716c; font-size: 13px;\">If you did not request a password reset, you can safely ignore this email.</p>\
+         </div>"
+    );
+
+    EmailMessage {
+        to: to.to_string(),
+        subject: "Reset your BunAmateur (文アマ) password".to_string(),
+        text,
+        html: Some(html),
+        reply_to: None,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

@@ -407,3 +407,118 @@ pub struct ConjugationItem {
     pub example_jp: String,
     pub example_en: String,
 }
+
+// ---------------------------------------------------------------------------
+// v0.2 Account Lifecycle, Study Analytics & Vocabulary Deck Models
+// ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ForgotPasswordRequest {
+    pub email: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ResetPasswordRequest {
+    pub token: String,
+    pub new_password: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct UpdateProfileRequest {
+    pub username: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ChangePasswordRequest {
+    pub current_password: Option<String>,
+    pub new_password: String,
+    pub revoke_other_sessions: Option<bool>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AccountSessionInfo {
+    pub id: String,
+    pub is_current: bool,
+    pub user_agent: Option<String>,
+    pub ip_address: Option<String>,
+    pub created_at: String,
+    pub last_seen_at: String,
+    pub expires_at: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct AccountProfileResponse {
+    pub user: AuthUserInfo,
+    pub has_password: bool,
+    pub google_linked: bool,
+    pub active_sessions: usize,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct DailyActivityPoint {
+    pub date: String,
+    pub total_reviews: i32,
+    pub correct_reviews: i32,
+    pub accuracy_pct: u8,
+    pub intensity: u8, // 0..=4
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct JlptAccuracyRow {
+    pub jlpt_level: String,
+    pub reviews: i32,
+    pub correct: i32,
+    pub accuracy_pct: u8,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct LeechGrammarItem {
+    pub grammar_id: i64,
+    pub slug: String,
+    pub title: String,
+    pub meaning: String,
+    pub jlpt_level: String,
+    pub incorrect_count: i32,
+    pub correct_count: i32,
+    pub accuracy_pct: u8,
+    pub ghost_level: i32,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct StudyAnalyticsResponse {
+    pub days: i32,
+    pub total_reviews_all_time: i32,
+    pub overall_accuracy_pct: u8,
+    pub longest_streak_days: i32,
+    pub active_days_in_window: i32,
+    pub heatmap: Vec<DailyActivityPoint>,
+    pub accuracy_by_jlpt: Vec<JlptAccuracyRow>,
+    pub top_leeches: Vec<LeechGrammarItem>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct VocabBookmark {
+    pub id: i64,
+    pub surface: String,
+    pub lemma: String,
+    pub reading: String,
+    pub pos: String,
+    pub glosses: Vec<String>,
+    pub jlpt: Option<String>,
+    pub wk_level: Option<i32>,
+    pub context_sentence: String,
+    pub created_at: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct SaveVocabBookmarkRequest {
+    pub surface: String,
+    pub lemma: String,
+    pub reading: String,
+    pub pos: String,
+    #[serde(default)]
+    pub glosses: Vec<String>,
+    pub jlpt: Option<String>,
+    pub wk_level: Option<i32>,
+    pub context_sentence: Option<String>,
+}

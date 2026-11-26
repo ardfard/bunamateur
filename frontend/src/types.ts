@@ -285,3 +285,71 @@ export interface ConjugationItem {
 export type PageTab = 'dashboard' | 'reviews' | 'grammar' | 'conjugation' | 'reading' | 'wanikani'
 export type ReviewMode = 'review' | 'lesson' | 'cram' | 'ghost'
 export type FuriganaMode = 'smart' | 'all' | 'none'
+
+export interface AccountSessionInfo {
+  id: string
+  is_current: boolean
+  user_agent: string | null
+  ip_address: string | null
+  created_at: string
+  last_seen_at: string
+  expires_at: string
+}
+
+export interface AccountProfileResponse {
+  user: AuthUser
+  has_password: boolean
+  google_linked: boolean
+  active_sessions: number
+}
+
+export interface DailyActivityPoint {
+  date: string
+  total_reviews: number
+  correct_reviews: number
+  accuracy_pct: number
+  intensity: number
+}
+
+export interface JlptAccuracyRow {
+  jlpt_level: string
+  reviews: number
+  correct: number
+  accuracy_pct: number
+}
+
+export interface LeechGrammarItem {
+  grammar_id: number
+  slug: string
+  title: string
+  meaning: string
+  jlpt_level: string
+  incorrect_count: number
+  correct_count: number
+  accuracy_pct: number
+  ghost_level: number
+}
+
+export interface StudyAnalyticsResponse {
+  days: number
+  total_reviews_all_time: number
+  overall_accuracy_pct: number
+  longest_streak_days: number
+  active_days_in_window: number
+  heatmap: DailyActivityPoint[]
+  accuracy_by_jlpt: JlptAccuracyRow[]
+  top_leeches: LeechGrammarItem[]
+}
+
+export interface VocabBookmark {
+  id: number
+  surface: string
+  lemma: string
+  reading: string
+  pos: string
+  glosses: string[]
+  jlpt: string | null
+  wk_level: number | null
+  context_sentence: string
+  created_at: string
+}

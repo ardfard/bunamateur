@@ -1,4 +1,6 @@
 import type {
+  AccountProfileResponse,
+  AccountSessionInfo,
   AuthProvidersResponse,
   AuthResponse,
   ConjugationItem,
@@ -13,7 +15,9 @@ import type {
   ReviewMode,
   ReviewQueueItem,
   SrsSettings,
+  StudyAnalyticsResponse,
   SubmitAnswerResponse,
+  VocabBookmark,
   WaniKaniStatus,
   WaniKaniSyncStatus,
 } from './types'
@@ -252,4 +256,84 @@ export const api = {
         auto_sync_interval_mins,
       }),
     }),
+
+  // v0.2 Account Lifecycle & Security
+  forgotPassword: (email: string) =>
+    request<{ ok: boolean; message: string }>('/api/auth/forgot-password', {
+      method: 'POST',
+      body: JSON.stringify({ email }),
+    }),
+
+  resetPassword: (token: string, new_password: string) =>
+    request<{ ok: boolean; message: string }>('/api/auth/reset-password', {
+      method: 'POST',
+      body: JSON.stringify({ token, new_password }),
+    }),
+
+  getAccountProfile: () => request<AccountProfileResponse>('/api/account/profile'),
+
+  updateAccountProfile: (username: string) =>
+    request<AccountProfileResponse>('/api/account/profile', {
+      method: 'PUT',
+      body: JSON.stringify({ username }),
+    }),
+
+  changePassword: (payload: {
+    current_password?: string
+    new_password: string
+    revoke_other_sessions?: boolean
+  }) =>
+    request<{ ok: boolean; message: string }>('/api/account/change-password', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  getAccountSessions: () => request<AccountSessionInfo[]>('/api/account/sessions'),
+
+  revokeSession: (id: string) =>
+    request<{ ok: boolean }>(`/api/account/sessions/${encodeURIComponent(id)}`, {
+      method: 'DELETE',
+    }),
+
+  revokeOtherSessions: () =>
+    request<{ ok: boolean; revoked: number }>('/api/account/sessions/revoke-others', {
+      method: 'POST',
+    }),
+
+  // v0.2 Study Analytics
+  getStudyAnalytics: (days = 91) =>
+    request<StudyAnalyticsResponse>(`/api/analytics/study?days=${days}`),
+
+  // v0.2 Reading Lab Personal Vocabulary Deck
+  getVocabBookmarks: () => request<VocabBookmark[]>('/api/vocab/bookmarks'),
+
+  saveVocabBookmark: (payload: {
+    surface: string
+    lemma: string
+    reading: string
+    pos: string
+    glosses: string[]
+    jlpt?: string | null
+    wk_level?: number | null
+    context_sentence?: string
+  }) =>
+    request<VocabBookmark>('/api/vocab/bookmarks', {
+      method: 'POST',
+      body: JSON.stringify(payload),
+    }),
+
+  deleteVocabBookmark: (id: number) =>
+    request<{ ok: boolean }>(`/api/vocab/bookmarks/${id}`, {
+      method: 'DELETE',
+    }),
+
+  exportVocabBookmarksText: async (format: 'anki' | 'json'): Promise<string> => {
+    const res = await fetch(`/api/vocab/bookmarks/export?format=${format}`, {
+      credentials: 'include',
+    })
+    if (!res.ok) {
+      throw new ApiError(`Vocab export failed (${res.status})`, res.status)
+    }
+    return res.text()
+  },
 }

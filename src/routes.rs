@@ -7,25 +7,32 @@ use crate::auth::{
 };
 use crate::db::{
     AppState, CreateUserError, analyze_reading_text, build_review_queue,
-    complete_onboarding as db_complete_onboarding, compute_dashboard, create_session, create_user,
-    delete_session, disconnect_wanikani as db_disconnect_wanikani, export_user_progress,
-    find_user_by_email, get_content_version, get_grammar_detail, get_placement_questions,
-    get_sentence_answers, get_sentence_audio_info, get_user_progress_stages,
-    get_user_srs_settings, get_wanikani_credentials, import_user_progress, list_conjugations,
-    list_grammar_summaries, list_reading_passages, load_wanikani_status,
-    load_wanikani_sync_status, ping_database, progress_export_to_csv, record_review_submission,
-    reset_grammar_progress as db_reset_grammar_progress, save_wanikani_sync,
-    save_wanikani_token_and_start_sync, spawn_wanikani_sync_job,
-    start_lesson as db_start_lesson, undo_review as db_undo_review,
+    complete_onboarding as db_complete_onboarding, compute_dashboard, compute_study_analytics,
+    consume_password_reset_token, create_password_reset_token, create_session, create_user,
+    delete_session, delete_vocab_bookmark as db_delete_vocab_bookmark,
+    disconnect_wanikani as db_disconnect_wanikani, export_user_progress, find_user_by_email,
+    get_account_profile as db_get_account_profile, get_content_version, get_grammar_detail,
+    get_placement_questions, get_sentence_answers, get_sentence_audio_info, get_user_password_hash,
+    get_user_progress_stages, get_user_srs_settings, get_wanikani_credentials,
+    import_user_progress, list_conjugations, list_grammar_summaries, list_reading_passages,
+    list_user_sessions, list_vocab_bookmarks, load_wanikani_status, load_wanikani_sync_status,
+    ping_database, progress_export_to_csv, record_review_submission,
+    reset_grammar_progress as db_reset_grammar_progress, revoke_other_user_sessions,
+    revoke_user_session, save_wanikani_sync, save_wanikani_token_and_start_sync,
+    spawn_wanikani_sync_job, start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
+    update_user_password_hash, update_user_username,
     update_wanikani_settings as db_update_wanikani_settings, upsert_google_user,
+    upsert_vocab_bookmark, vocab_bookmarks_to_anki_tsv,
 };
-use crate::email::build_welcome_email;
+use crate::email::{build_password_reset_email, build_welcome_email};
 use crate::models::{
-    AuthProvidersResponse, AuthResponse, CompleteOnboardingRequest, ImportProgressRequest,
-    LoginRequest, ReadingAnalyzeRequest, RegisterRequest, StartLessonRequest, SubmitAnswerRequest,
-    SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest, UpdateSrsSettingsRequest,
-    WaniKaniConnectRequest, WaniKaniSettingsRequest,
+    AuthProvidersResponse, AuthResponse, ChangePasswordRequest, CompleteOnboardingRequest,
+    ForgotPasswordRequest, ImportProgressRequest, LoginRequest, ReadingAnalyzeRequest,
+    RegisterRequest, ResetPasswordRequest, SaveVocabBookmarkRequest, StartLessonRequest,
+    SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest,
+    UpdateProfileRequest, UpdateSrsSettingsRequest, WaniKaniConnectRequest,
+    WaniKaniSettingsRequest,
 };
 use crate::oauth::{
     OAUTH_STATE_COOKIE_NAME, build_clear_oauth_state_cookie, build_google_authorize_url,
@@ -48,7 +55,7 @@ use axum::{
     http::{Extensions, HeaderMap, HeaderValue, StatusCode, header},
     middleware,
     response::{IntoResponse, Redirect, Response},
-    routing::{get, post, put},
+    routing::{delete, get, post, put},
 };
 use chrono::{Duration, Utc};
 use serde::Deserialize;
@@ -134,6 +141,8 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
     let auth_public_routes = Router::new()
         .route("/auth/register", post(register))
         .route("/auth/login", post(login))
+        .route("/auth/forgot-password", post(forgot_password))
+        .route("/auth/reset-password", post(reset_password))
         .route("/auth/google/start", get(google_oauth_start))
         .route("/auth/google/callback", get(google_oauth_callback))
         .layer(DefaultBodyLimit::max(AUTH_BODY_LIMIT_BYTES))
@@ -168,7 +177,16 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         .route("/auth/providers", get(auth_providers))
         .route("/auth/me", get(auth_me))
         .route("/auth/logout", post(logout))
+        .route("/account/profile", get(get_account_profile).put(update_account_profile))
+        .route("/account/change-password", post(change_account_password))
+        .route("/account/sessions", get(get_account_sessions))
+        .route("/account/sessions/revoke-others", post(revoke_other_sessions))
+        .route("/account/sessions/{id}", delete(revoke_single_session))
         .route("/dashboard", get(get_dashboard))
+        .route("/analytics/study", get(get_study_analytics))
+        .route("/vocab/bookmarks", get(get_vocab_bookmarks).post(save_vocab_bookmark))
+        .route("/vocab/bookmarks/export", get(export_vocab_bookmarks))
+        .route("/vocab/bookmarks/{id}", delete(delete_vocab_bookmark))
         .route("/content/version", get(get_curriculum_version))
         .route("/onboarding/placement", get(get_onboarding_placement))
         .route("/onboarding/complete", post(complete_onboarding))
@@ -1277,4 +1295,336 @@ async fn update_wanikani_settings(
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
+}
+
+// ---------------------------------------------------------------------------
+// v0.2 Password Reset, Account Security & Active Sessions
+// ---------------------------------------------------------------------------
+
+async fn forgot_password(
+    State(state): State<AppState>,
+    Json(req): Json<ForgotPasswordRequest>,
+) -> impl IntoResponse {
+    const GENERIC_MSG: &str =
+        "If an account matches that email, we have sent password reset instructions.";
+
+    let Ok(email) = normalize_and_validate_email(&req.email) else {
+        return (StatusCode::OK, Json(json!({ "ok": true, "message": GENERIC_MSG })));
+    };
+
+    if let Ok(Some((user, _))) = find_user_by_email(&state.pool, &email).await {
+        let raw_token = generate_random_token();
+        let token_hash = hash_session_token(&raw_token);
+        let expires_at = Utc::now() + Duration::minutes(60);
+
+        if let Err(e) =
+            create_password_reset_token(&state.pool, user.id, &token_hash, expires_at).await
+        {
+            tracing::error!(error = %e, "Failed to persist password reset token");
+        } else {
+            let reset_url = format!(
+                "{}/reset-password?token={}",
+                state.app_public_url.trim_end_matches('/'),
+                raw_token
+            );
+            let msg = build_password_reset_email(&user.email, &user.username, &reset_url);
+            let mailer = state.mailer.clone();
+            tokio::spawn(async move {
+                match mailer.send(msg).await {
+                    Ok(res) => tracing::info!(
+                        provider = res.provider,
+                        message_id = ?res.message_id,
+                        "Password reset email dispatched"
+                    ),
+                    Err(e) => tracing::warn!(
+                        provider = mailer.provider_name(),
+                        error = %e,
+                        "Failed to dispatch password reset email"
+                    ),
+                }
+            });
+        }
+    }
+
+    (StatusCode::OK, Json(json!({ "ok": true, "message": GENERIC_MSG })))
+}
+
+async fn reset_password(
+    State(state): State<AppState>,
+    Json(req): Json<ResetPasswordRequest>,
+) -> impl IntoResponse {
+    let raw_token = req.token.trim();
+    if raw_token.len() < 16 {
+        return err_response(StatusCode::BAD_REQUEST, "Invalid or expired password reset token");
+    }
+    if let Err(e) = validate_password(&req.new_password) {
+        return err_response(StatusCode::BAD_REQUEST, e.to_string());
+    }
+
+    let new_hash = match hash_password(req.new_password).await {
+        Ok(h) => h,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
+    let token_hash = hash_session_token(raw_token);
+
+    match consume_password_reset_token(&state.pool, &token_hash, &new_hash).await {
+        Ok(Some(_)) => (
+            StatusCode::OK,
+            Json(json!({
+                "ok": true,
+                "message": "Your password has been reset. Please sign in with your new password."
+            })),
+        ),
+        Ok(None) => err_response(
+            StatusCode::BAD_REQUEST,
+            "This password reset link is invalid or has expired",
+        ),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_account_profile(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match db_get_account_profile(&state.pool, auth.user_id()).await {
+        Ok(Some(profile)) => (StatusCode::OK, Json(json!(profile))),
+        Ok(None) => err_response(StatusCode::NOT_FOUND, "Account not found"),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn update_account_profile(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<UpdateProfileRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    let username = match validate_username(&req.username) {
+        Ok(u) => u,
+        Err(e) => return err_response(StatusCode::BAD_REQUEST, e.to_string()),
+    };
+
+    match update_user_username(&state.pool, auth.user_id(), &username).await {
+        Ok(profile) => (StatusCode::OK, Json(json!(profile))),
+        Err(CreateUserError::UsernameTaken) => {
+            err_response(StatusCode::CONFLICT, "That username is already taken")
+        }
+        Err(CreateUserError::EmailTaken) => {
+            err_response(StatusCode::CONFLICT, "Email conflict")
+        }
+        Err(CreateUserError::Other(e)) => {
+            err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string())
+        }
+    }
+}
+
+async fn change_account_password(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<ChangePasswordRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    if let Err(e) = validate_password(&req.new_password) {
+        return err_response(StatusCode::BAD_REQUEST, e.to_string());
+    }
+
+    let existing_hash = match get_user_password_hash(&state.pool, auth.user_id()).await {
+        Ok(Some(h)) => h,
+        Ok(None) => return err_response(StatusCode::NOT_FOUND, "Account not found"),
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
+
+    let has_password = !existing_hash.starts_with('!');
+    if has_password {
+        let Some(cur_pw) = req.current_password.filter(|s| !s.is_empty()) else {
+            return err_response(StatusCode::BAD_REQUEST, "Current password is required");
+        };
+        if !verify_password(cur_pw, existing_hash).await {
+            return err_response(StatusCode::UNAUTHORIZED, "Current password is incorrect");
+        }
+    }
+
+    let new_hash = match hash_password(req.new_password).await {
+        Ok(h) => h,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
+
+    let keep_session = if req.revoke_other_sessions.unwrap_or(true) {
+        Some(auth.session_id_hash.as_str())
+    } else {
+        None
+    };
+
+    match update_user_password_hash(&state.pool, auth.user_id(), &new_hash, keep_session).await {
+        Ok(()) => (
+            StatusCode::OK,
+            Json(json!({
+                "ok": true,
+                "message": "Password updated successfully."
+            })),
+        ),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_account_sessions(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match list_user_sessions(&state.pool, auth.user_id(), &auth.session_id_hash).await {
+        Ok(list) => (StatusCode::OK, Json(json!(list))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn revoke_single_session(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Path(session_id): Path<String>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    if session_id == auth.session_id_hash {
+        return err_response(
+            StatusCode::BAD_REQUEST,
+            "Use Sign Out to terminate your current session",
+        );
+    }
+
+    match revoke_user_session(&state.pool, auth.user_id(), &session_id).await {
+        Ok(true) => (StatusCode::OK, Json(json!({ "ok": true }))),
+        Ok(false) => err_response(StatusCode::NOT_FOUND, "Session not found"),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn revoke_other_sessions(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match revoke_other_user_sessions(&state.pool, auth.user_id(), &auth.session_id_hash).await {
+        Ok(revoked) => (StatusCode::OK, Json(json!({ "ok": true, "revoked": revoked }))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+// ---------------------------------------------------------------------------
+// v0.2 Study Analytics & Reading Lab Vocab Deck
+// ---------------------------------------------------------------------------
+
+#[derive(Deserialize)]
+struct AnalyticsQuery {
+    days: Option<i32>,
+}
+
+async fn get_study_analytics(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Query(q): Query<AnalyticsQuery>,
+) -> impl IntoResponse {
+    let days = q.days.unwrap_or(91);
+    match compute_study_analytics(&state.pool, auth.user_id(), days).await {
+        Ok(analytics) => (StatusCode::OK, Json(json!(analytics))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn get_vocab_bookmarks(State(state): State<AppState>, auth: AuthUser) -> impl IntoResponse {
+    match list_vocab_bookmarks(&state.pool, auth.user_id()).await {
+        Ok(items) => (StatusCode::OK, Json(json!(items))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn save_vocab_bookmark(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Json(req): Json<SaveVocabBookmarkRequest>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match upsert_vocab_bookmark(&state.pool, auth.user_id(), &req).await {
+        Ok(item) => (StatusCode::OK, Json(json!(item))),
+        Err(e) => err_response(StatusCode::BAD_REQUEST, e.to_string()),
+    }
+}
+
+async fn delete_vocab_bookmark(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+    Path(id): Path<i64>,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_delete_vocab_bookmark(&state.pool, auth.user_id(), id).await {
+        Ok(true) => (StatusCode::OK, Json(json!({ "ok": true }))),
+        Ok(false) => err_response(StatusCode::NOT_FOUND, "Bookmark not found"),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+#[derive(Deserialize)]
+struct VocabExportQuery {
+    format: Option<String>,
+}
+
+async fn export_vocab_bookmarks(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    Query(q): Query<VocabExportQuery>,
+) -> Response {
+    let items = match list_vocab_bookmarks(&state.pool, auth.user_id()).await {
+        Ok(v) => v,
+        Err(e) => {
+            return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()).into_response();
+        }
+    };
+
+    let fmt = q.format.as_deref().unwrap_or("anki").to_ascii_lowercase();
+    if fmt == "json" {
+        let body = serde_json::to_string_pretty(&items).unwrap_or_else(|_| "[]".to_string());
+        return (
+            StatusCode::OK,
+            [
+                (header::CONTENT_TYPE, "application/json; charset=utf-8"),
+                (
+                    header::CONTENT_DISPOSITION,
+                    "attachment; filename=\"bunamateur-vocab.json\"",
+                ),
+            ],
+            body,
+        )
+            .into_response();
+    }
+
+    let tsv = vocab_bookmarks_to_anki_tsv(&items);
+    (
+        StatusCode::OK,
+        [
+            (header::CONTENT_TYPE, "text/tab-separated-values; charset=utf-8"),
+            (
+                header::CONTENT_DISPOSITION,
+                "attachment; filename=\"bunamateur-vocab-anki.tsv\"",
+            ),
+        ],
+        tsv,
+    )
+        .into_response()
 }

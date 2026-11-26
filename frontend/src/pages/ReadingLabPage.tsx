@@ -1,11 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { BookMarked, BookOpen, Sparkles, Volume2, Wand2, X } from 'lucide-react'
+import React, { useEffect, useMemo, useState } from 'react'
+import {
+  Bookmark,
+  BookmarkPlus,
+  BookMarked,
+  BookOpen,
+  Check,
+  Download,
+  FileJson,
+  Search,
+  Sparkles,
+  Trash2,
+  Volume2,
+  Wand2,
+  X,
+} from 'lucide-react'
 import { api } from '../api'
+import { useToast } from '../components/ToastContext'
 import type {
   AnalyzedToken,
   FuriganaMode,
   ReadingAnalyzeResponse,
   ReadingPassage,
+  VocabBookmark,
 } from '../types'
 import { RubyText } from '../utils/furigana'
 import { speakJapanese } from '../utils/speech'
@@ -82,10 +98,19 @@ const InteractiveTokenStream: React.FC<TokenStreamProps> = ({
 
 interface DictionaryInspectorProps {
   token: AnalyzedToken
+  isSaved: boolean
+  saving: boolean
+  onSave: (token: AnalyzedToken) => void
   onClose: () => void
 }
 
-const DictionaryInspector: React.FC<DictionaryInspectorProps> = ({ token, onClose }) => {
+const DictionaryInspector: React.FC<DictionaryInspectorProps> = ({
+  token,
+  isSaved,
+  saving,
+  onSave,
+  onClose,
+}) => {
   const showLemma = token.lemma && token.lemma !== token.surface
   return (
     <div
@@ -95,7 +120,7 @@ const DictionaryInspector: React.FC<DictionaryInspectorProps> = ({ token, onClos
         borderColor: 'var(--accent-indigo)',
       }}
     >
-      <div className="flex items-start justify-between gap-2">
+      <div className="flex flex-wrap items-start justify-between gap-2">
         <div className="flex flex-wrap items-center gap-2">
           <span className="font-jp text-xl font-bold">{token.surface}</span>
           {token.reading && token.reading !== token.surface && (
@@ -148,7 +173,31 @@ const DictionaryInspector: React.FC<DictionaryInspectorProps> = ({ token, onClos
           )}
         </div>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1.5">
+          {isSaved ? (
+            <span
+              className="inline-flex items-center gap-1 rounded-lg px-2.5 py-1 text-xs font-semibold"
+              style={{
+                backgroundColor: 'var(--accent-matcha-soft)',
+                color: 'var(--accent-matcha)',
+              }}
+            >
+              <Check className="h-3.5 w-3.5" />
+              Saved ✓
+            </span>
+          ) : (
+            <button
+              type="button"
+              onClick={() => onSave(token)}
+              disabled={saving}
+              className="inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-60 cursor-pointer"
+              style={{ backgroundColor: 'var(--accent-matcha)' }}
+              title="Save word to your personal vocabulary deck"
+            >
+              <BookmarkPlus className="h-3.5 w-3.5" />
+              {saving ? 'Saving...' : 'Save to Vocab Deck'}
+            </button>
+          )}
           <button
             type="button"
             onClick={() => speakJapanese(token.surface, 0.9)}
@@ -202,6 +251,7 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
   highlightKnown,
   onSelectGrammar,
 }) => {
+  const { toast } = useToast()
   const [passages, setPassages] = useState<ReadingPassage[]>([])
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [showEnglish, setShowEnglish] = useState(true)
@@ -215,14 +265,126 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
   const [selectedCustomToken, setSelectedCustomToken] = useState<AnalyzedToken | null>(null)
   const [analyzing, setAnalyzing] = useState(false)
 
+  const [bookmarks, setBookmarks] = useState<VocabBookmark[]>([])
+  const [loadingBookmarks, setLoadingBookmarks] = useState(true)
+  const [savingLemma, setSavingLemma] = useState<string | null>(null)
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+  const [exportingFormat, setExportingFormat] = useState<'anki' | 'json' | null>(null)
+  const [vocabSearch, setVocabSearch] = useState('')
+
   useEffect(() => {
     api.getReadingPassages().then((list) => {
       setPassages(list)
       if (list.length > 0) setSelectedId(list[0].id)
     })
+    api
+      .getVocabBookmarks()
+      .then((list) => setBookmarks(list))
+      .catch(() => {})
+      .finally(() => setLoadingBookmarks(false))
   }, [])
 
   const activePassage = passages.find((p) => p.id === selectedId) || passages[0]
+
+  const savedLemmas = useMemo(() => {
+    const set = new Set<string>()
+    for (const b of bookmarks) {
+      if (b.lemma) set.add(b.lemma)
+      else if (b.surface) set.add(b.surface)
+    }
+    return set
+  }, [bookmarks])
+
+  const filteredBookmarks = useMemo(() => {
+    const q = vocabSearch.trim().toLowerCase()
+    if (!q) return bookmarks
+    return bookmarks.filter((b) => {
+      if (b.surface.toLowerCase().includes(q)) return true
+      if (b.lemma.toLowerCase().includes(q)) return true
+      if (b.reading.toLowerCase().includes(q)) return true
+      if (b.glosses.some((g) => g.toLowerCase().includes(q))) return true
+      return false
+    })
+  }, [bookmarks, vocabSearch])
+
+  const isTokenSaved = (token: AnalyzedToken) =>
+    savedLemmas.has(token.lemma || token.surface)
+
+  const handleSaveToken = async (token: AnalyzedToken, contextSentence: string) => {
+    const lemmaKey = token.lemma || token.surface
+    if (!lemmaKey) return
+    setSavingLemma(lemmaKey)
+    try {
+      const saved = await api.saveVocabBookmark({
+        surface: token.surface,
+        lemma: lemmaKey,
+        reading: token.reading,
+        pos: token.pos,
+        glosses: token.glosses,
+        jlpt: token.jlpt,
+        wk_level: token.wk_level,
+        context_sentence: contextSentence,
+      })
+      setBookmarks((prev) => {
+        const filtered = prev.filter((b) => b.id !== saved.id && b.lemma !== saved.lemma)
+        return [saved, ...filtered]
+      })
+      toast.success(`Saved "${saved.surface}" to your Vocab Deck.`)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to save vocabulary word.')
+    } finally {
+      setSavingLemma(null)
+    }
+  }
+
+  const handleDeleteBookmark = async (bookmark: VocabBookmark) => {
+    setDeletingId(bookmark.id)
+    try {
+      await api.deleteVocabBookmark(bookmark.id)
+      setBookmarks((prev) => prev.filter((b) => b.id !== bookmark.id))
+      toast.info(`Removed "${bookmark.surface}" from your Vocab Deck.`)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to remove vocabulary word.')
+    } finally {
+      setDeletingId(null)
+    }
+  }
+
+  const handleExportVocab = async (format: 'anki' | 'json') => {
+    setExportingFormat(format)
+    try {
+      const content = await api.exportVocabBookmarksText(format)
+      const blob = new Blob([content], {
+        type:
+          format === 'anki'
+            ? 'text/tab-separated-values;charset=utf-8'
+            : 'application/json;charset=utf-8',
+      })
+      const filename =
+        format === 'anki' ? 'bunamateur-vocab-anki.tsv' : 'bunamateur-vocab.json'
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = filename
+      a.click()
+      URL.revokeObjectURL(url)
+      toast.success(
+        format === 'anki'
+          ? `Exported ${bookmarks.length} words to Anki TSV (${filename}).`
+          : `Exported ${bookmarks.length} words as JSON (${filename}).`
+      )
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Failed to export vocabulary deck.')
+    } finally {
+      setExportingFormat(null)
+    }
+  }
+
+  const customContextSnippet = useMemo(() => {
+    const cleaned = customText.trim().replace(/\s+/g, ' ')
+    if (cleaned.length <= 120) return cleaned
+    return `${cleaned.slice(0, 120)}…`
+  }, [customText])
 
   const handleAnalyze = async () => {
     if (!customText.trim()) return
@@ -384,6 +546,11 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
               {selectedPassageToken && (
                 <DictionaryInspector
                   token={selectedPassageToken}
+                  isSaved={isTokenSaved(selectedPassageToken)}
+                  saving={
+                    savingLemma === (selectedPassageToken.lemma || selectedPassageToken.surface)
+                  }
+                  onSave={(tok) => handleSaveToken(tok, activePassage.title)}
                   onClose={() => setSelectedPassageToken(null)}
                 />
               )}
@@ -568,6 +735,11 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
               {selectedCustomToken && (
                 <DictionaryInspector
                   token={selectedCustomToken}
+                  isSaved={isTokenSaved(selectedCustomToken)}
+                  saving={
+                    savingLemma === (selectedCustomToken.lemma || selectedCustomToken.surface)
+                  }
+                  onSave={(tok) => handleSaveToken(tok, customContextSnippet)}
                   onClose={() => setSelectedCustomToken(null)}
                 />
               )}
@@ -621,6 +793,276 @@ export const ReadingLabPage: React.FC<ReadingLabPageProps> = ({
           )}
         </div>
       </div>
+
+      {/* Personal Saved Vocabulary Deck & 1-Click Anki Export */}
+      <section
+        className="flex flex-col gap-5 rounded-2xl border p-6"
+        style={{
+          backgroundColor: 'var(--bg-surface)',
+          borderColor: 'var(--border-subtle)',
+        }}
+      >
+        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex flex-col gap-1">
+            <div className="flex flex-wrap items-center gap-2.5">
+              <Bookmark className="h-5 w-5" style={{ color: 'var(--accent-indigo)' }} />
+              <h2 className="text-lg font-bold tracking-tight">My Saved Vocab Deck</h2>
+              <span
+                className="font-mono-code rounded-full px-2.5 py-0.5 text-xs font-bold"
+                style={{
+                  backgroundColor: 'var(--accent-indigo-soft)',
+                  color: 'var(--accent-indigo)',
+                }}
+              >
+                {bookmarks.length} {bookmarks.length === 1 ? 'word' : 'words'}
+              </span>
+            </div>
+            <p className="text-xs" style={{ color: 'var(--text-secondary)' }}>
+              Words bookmarked from curated passages and custom text analysis — ready for 1-click Anki import.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="relative min-w-[210px] flex-1 sm:flex-initial">
+              <Search
+                className="pointer-events-none absolute top-1/2 left-3 h-3.5 w-3.5 -translate-y-1/2"
+                style={{ color: 'var(--text-muted)' }}
+              />
+              <input
+                type="text"
+                value={vocabSearch}
+                onChange={(e) => setVocabSearch(e.target.value)}
+                placeholder="Filter surface, reading, gloss..."
+                className="w-full rounded-xl border py-1.5 pr-8 pl-8 text-xs outline-none"
+                style={{
+                  backgroundColor: 'var(--bg-canvas)',
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--text-primary)',
+                }}
+              />
+              {vocabSearch && (
+                <button
+                  type="button"
+                  onClick={() => setVocabSearch('')}
+                  className="absolute top-1/2 right-2 -translate-y-1/2 rounded p-0.5 hover:opacity-75 cursor-pointer"
+                  style={{ color: 'var(--text-muted)' }}
+                  aria-label="Clear vocabulary search"
+                >
+                  <X className="h-3.5 w-3.5" />
+                </button>
+              )}
+            </div>
+
+            <button
+              type="button"
+              onClick={() => handleExportVocab('anki')}
+              disabled={bookmarks.length === 0 || exportingFormat !== null}
+              className="inline-flex items-center gap-1.5 rounded-xl px-3.5 py-1.5 text-xs font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 cursor-pointer"
+              style={{ backgroundColor: 'var(--accent-indigo)' }}
+            >
+              <Download className="h-3.5 w-3.5" />
+              {exportingFormat === 'anki' ? 'Exporting...' : 'Export Anki (.tsv)'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => handleExportVocab('json')}
+              disabled={bookmarks.length === 0 || exportingFormat !== null}
+              className="inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-1.5 text-xs font-semibold transition-opacity hover:opacity-85 disabled:opacity-50 cursor-pointer"
+              style={{
+                backgroundColor: 'var(--bg-subtle)',
+                borderColor: 'var(--border-subtle)',
+                color: 'var(--text-primary)',
+              }}
+            >
+              <FileJson className="h-3.5 w-3.5" />
+              {exportingFormat === 'json' ? 'Exporting...' : 'Export JSON'}
+            </button>
+          </div>
+        </div>
+
+        {loadingBookmarks ? (
+          <div
+            className="rounded-xl border border-dashed px-6 py-10 text-center text-sm"
+            style={{
+              backgroundColor: 'var(--bg-canvas)',
+              borderColor: 'var(--border-subtle)',
+              color: 'var(--text-muted)',
+            }}
+          >
+            Loading your saved vocabulary deck...
+          </div>
+        ) : bookmarks.length === 0 ? (
+          <div
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed px-6 py-10 text-center"
+            style={{
+              backgroundColor: 'var(--bg-canvas)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <BookmarkPlus className="h-7 w-7" style={{ color: 'var(--text-muted)' }} />
+            <p className="max-w-lg text-sm" style={{ color: 'var(--text-secondary)' }}>
+              Click any Japanese word in a reading passage or analyzed text above and hit &apos;Save to Vocab Deck&apos; to build your personal Anki study deck.
+            </p>
+          </div>
+        ) : filteredBookmarks.length === 0 ? (
+          <div
+            className="flex flex-col items-center justify-center gap-2 rounded-xl border border-dashed px-6 py-8 text-center"
+            style={{
+              backgroundColor: 'var(--bg-canvas)',
+              borderColor: 'var(--border-subtle)',
+            }}
+          >
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
+              No saved words match &ldquo;{vocabSearch}&rdquo;.
+            </p>
+            <button
+              type="button"
+              onClick={() => setVocabSearch('')}
+              className="rounded-lg border px-3 py-1 text-xs font-semibold hover:opacity-80 cursor-pointer"
+              style={{
+                borderColor: 'var(--border-subtle)',
+                color: 'var(--accent-indigo)',
+              }}
+            >
+              Clear filter
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+            {filteredBookmarks.map((b) => {
+              const showLemma = b.lemma && b.lemma !== b.surface
+              const showReading = b.reading && b.reading !== b.surface
+              return (
+                <div
+                  key={b.id}
+                  className="flex flex-col justify-between gap-2.5 rounded-xl border p-4 transition-colors"
+                  style={{
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
+                        <span className="font-jp text-lg font-bold">{b.surface}</span>
+                        {showReading && (
+                          <span
+                            className="font-jp text-xs"
+                            style={{ color: 'var(--text-secondary)' }}
+                          >
+                            【{b.reading}】
+                          </span>
+                        )}
+                        {showLemma && (
+                          <span
+                            className="font-jp text-xs"
+                            style={{ color: 'var(--text-muted)' }}
+                          >
+                            ({b.lemma})
+                          </span>
+                        )}
+                      </div>
+
+                      <div className="flex shrink-0 items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => speakJapanese(b.surface, 0.9)}
+                          className="rounded-lg p-1.5 transition-opacity hover:opacity-75 cursor-pointer"
+                          style={{
+                            backgroundColor: 'var(--bg-surface)',
+                            color: 'var(--accent-indigo)',
+                          }}
+                          title={`Pronounce ${b.surface}`}
+                          aria-label={`Pronounce ${b.surface}`}
+                        >
+                          <Volume2 className="h-3.5 w-3.5" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => handleDeleteBookmark(b)}
+                          disabled={deletingId === b.id}
+                          className="rounded-lg p-1.5 transition-opacity hover:opacity-75 disabled:opacity-50 cursor-pointer"
+                          style={{
+                            backgroundColor: 'var(--bg-surface)',
+                            color: 'var(--accent-vermilion)',
+                          }}
+                          title={`Remove ${b.surface} from Vocab Deck`}
+                          aria-label={`Remove ${b.surface} from Vocab Deck`}
+                        >
+                          <Trash2 className="h-3.5 w-3.5" />
+                        </button>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {b.pos && (
+                        <span
+                          className="font-mono-code rounded-md px-1.5 py-0.5 text-[10px] font-semibold uppercase"
+                          style={{
+                            backgroundColor: 'var(--bg-subtle)',
+                            color: 'var(--text-secondary)',
+                          }}
+                        >
+                          {b.pos}
+                        </span>
+                      )}
+                      {b.jlpt && (
+                        <span
+                          className="font-mono-code rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                          style={{
+                            backgroundColor: 'var(--accent-indigo-soft)',
+                            color: 'var(--accent-indigo)',
+                          }}
+                        >
+                          {b.jlpt}
+                        </span>
+                      )}
+                      {b.wk_level !== null && (
+                        <span
+                          className="font-mono-code rounded-md px-1.5 py-0.5 text-[10px] font-bold"
+                          style={{
+                            backgroundColor: 'var(--wk-pink-soft)',
+                            color: 'var(--wk-pink)',
+                          }}
+                        >
+                          WK Lv.{b.wk_level}
+                        </span>
+                      )}
+                    </div>
+
+                    {b.glosses.length > 0 ? (
+                      <p
+                        className="text-xs leading-relaxed"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        {b.glosses.join('; ')}
+                      </p>
+                    ) : (
+                      <p className="text-xs italic" style={{ color: 'var(--text-muted)' }}>
+                        No English gloss recorded.
+                      </p>
+                    )}
+                  </div>
+
+                  {b.context_sentence && (
+                    <div
+                      className="font-jp truncate rounded-lg px-2.5 py-1.5 text-[11px]"
+                      style={{
+                        backgroundColor: 'var(--bg-subtle)',
+                        color: 'var(--text-secondary)',
+                      }}
+                      title={b.context_sentence}
+                    >
+                      {b.context_sentence}
+                    </div>
+                  )}
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </section>
     </div>
   )
 }

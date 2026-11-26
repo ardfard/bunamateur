@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ApiError, api } from './api'
+import { AccountSettingsModal } from './components/AccountSettingsModal'
 import { GrammarDetailModal } from './components/GrammarDetailModal'
 import { useToast } from './components/ToastContext'
 import { TopNav } from './components/TopNav'
@@ -36,6 +37,7 @@ export const App: React.FC = () => {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [selectedGrammarId, setSelectedGrammarId] = useState<number | null>(null)
   const [pendingGrammarSlug, setPendingGrammarSlug] = useState<string | null>(initialRoute.grammarSlug)
+  const [accountModalOpen, setAccountModalOpen] = useState(false)
   const [refreshKey, setRefreshKey] = useState(0)
 
   const slugCacheRef = useRef<Map<string, number>>(new Map())
@@ -219,6 +221,7 @@ export const App: React.FC = () => {
     }
     setUser(null)
     setStats(null)
+    setAccountModalOpen(false)
     setSelectedGrammarId(null)
     setPendingGrammarSlug(null)
     setActiveTab('dashboard')
@@ -266,6 +269,7 @@ export const App: React.FC = () => {
         streakDays={stats?.streak_days ?? 0}
         wanikani={stats?.wanikani ?? null}
         user={user}
+        onOpenAccount={() => setAccountModalOpen(true)}
         onLogout={handleLogout}
         darkMode={darkMode}
         onToggleDark={() => setDarkMode((d) => !d)}
@@ -277,6 +281,7 @@ export const App: React.FC = () => {
             stats={stats}
             onStartSession={handleStartSession}
             onNavigate={handleNavigate}
+            onSelectGrammar={handleSelectGrammar}
             onRefresh={handleRefreshAll}
           />
         )}
@@ -327,6 +332,12 @@ export const App: React.FC = () => {
         furiganaMode={furiganaMode}
         knownKanji={knownKanji}
         highlightKnown={stats?.wanikani.highlight_known_kanji ?? true}
+      />
+
+      <AccountSettingsModal
+        open={accountModalOpen}
+        onClose={() => setAccountModalOpen(false)}
+        onUserUpdated={(updatedUser) => setUser(updatedUser)}
       />
     </div>
   )

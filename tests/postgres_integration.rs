@@ -1013,6 +1013,180 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     assert!(metrics_text.contains("bunamateur_nlp_analyses_total"));
     assert!(metrics_text.contains("bunamateur_audio_requests_total"));
 
+    // 14. v0.2 Account Security, Study Analytics & Reading Lab Personal Vocab Deck
+    // Account profile + username update
+    let profile: Value = client_b
+        .get(format!("{}/account/profile", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(profile["has_password"], true);
+    assert!(profile["active_sessions"].as_u64().unwrap() >= 1);
+
+    let updated_profile: Value = client_b
+        .put(format!("{}/account/profile", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({ "username": "bob_renamed" }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(updated_profile["user"]["username"], "bob_renamed");
+
+    // Active sessions list + revoke others
+    let sessions: Vec<Value> = client_b
+        .get(format!("{}/account/sessions", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert!(sessions.iter().any(|s| s["is_current"] == true));
+
+    let revoke_others: Value = client_b
+        .post(format!("{}/account/sessions/revoke-others", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(revoke_others["ok"], true);
+
+    // Forgot-password never enumerates emails (returns 200 for unknown email; uses oauth_base whose auth bucket wasn't exhausted in step 6)
+    let forgot_unknown: Value = client_b
+        .post(format!("{}/auth/forgot-password", oauth_base))
+        .json(&json!({ "email": "nonexistent@example.com" }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(forgot_unknown["ok"], true);
+
+    // Password reset token consumption updates password and invalidates old sessions
+    let raw_reset_token = bunamateur::auth::generate_random_token();
+    let reset_hash = bunamateur::auth::hash_session_token(&raw_reset_token);
+    bunamateur::db::create_password_reset_token(
+        &pool,
+        user_a_id,
+        &reset_hash,
+        chrono::Utc::now() + chrono::Duration::minutes(30),
+    )
+    .await
+    .unwrap();
+    let reset_ok: Value = client_a
+        .post(format!("{}/auth/reset-password", oauth_base))
+        .json(&json!({
+            "token": raw_reset_token,
+            "new_password": "new-super-secret-pass-99"
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(reset_ok["ok"], true);
+
+    // Reusing the same reset token must fail with 400
+    let reset_reuse = client_a
+        .post(format!("{}/auth/reset-password", oauth_base))
+        .json(&json!({
+            "token": raw_reset_token,
+            "new_password": "another-secret-pass-99"
+        }))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(reset_reuse.status(), StatusCode::BAD_REQUEST);
+
+    // Study analytics returns 91-day heatmap and JLPT N5-N1 rows
+    let analytics: Value = client_b
+        .get(format!("{}/analytics/study?days=91", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(analytics["days"], 91);
+    assert_eq!(analytics["heatmap"].as_array().unwrap().len(), 91);
+    assert_eq!(analytics["accuracy_by_jlpt"].as_array().unwrap().len(), 5);
+
+    // Reading Lab personal vocabulary deck: save, list, Anki TSV export, delete
+    let saved_vocab: Value = client_b
+        .post(format!("{}/vocab/bookmarks", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({
+            "surface": "読める",
+            "lemma": "読む",
+            "reading": "よむ",
+            "pos": "verb",
+            "glosses": ["to read"],
+            "jlpt": "N5",
+            "wk_level": 10,
+            "context_sentence": "新聞が読めるようになりました。"
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    let bookmark_id = saved_vocab["id"].as_i64().unwrap();
+    assert_eq!(saved_vocab["lemma"], "読む");
+
+    let anki_tsv = client_b
+        .get(format!("{}/vocab/bookmarks/export?format=anki", base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .text()
+        .await
+        .unwrap();
+    assert!(anki_tsv.contains("#separator:tab"));
+    assert!(anki_tsv.contains("読む\tよむ\tto read"));
+
+    let del_vocab: Value = client_b
+        .delete(format!("{}/vocab/bookmarks/{}", base, bookmark_id))
+        .header("X-CSRF-Token", &csrf_b)
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(del_vocab["ok"], true);
+
     oauth_server.abort();
     g_server.abort();
     server.abort();

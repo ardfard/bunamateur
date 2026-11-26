@@ -14,6 +14,9 @@ use axum::{
 use bunamateur::{
     audio::{AudioConfig, AudioProviderKind, AudioResolution, AudioService, compute_audio_hash},
     crypto::TokenCipher,
+    db::{compute_longest_streak, review_intensity_bucket, vocab_bookmarks_to_anki_tsv},
+    email::build_password_reset_email,
+    models::VocabBookmark,
     nlp::{WkSubjectLookup, analyze_japanese_text, match_pattern_against_analysis},
     observability::{
         MetricsRegistry, PROMETHEUS_CONTENT_TYPE, accepts_gzip, compute_weak_etag, gzip_compress,
@@ -431,4 +434,67 @@ fn test_crypto_and_srs_nuance_grading_end_to_end() {
         Utc::now(),
     );
     assert_eq!(transition.new_ghost_level, 4);
+}
+
+#[test]
+fn test_v02_password_reset_email_analytics_and_anki_tsv_export() {
+    // 1. Password reset email escapes HTML and preserves reset URL
+    let msg = build_password_reset_email(
+        "learner@example.com",
+        "Hana <N3>",
+        "https://bunamateur.app/reset-password?token=abc123&src=mail",
+    );
+    assert_eq!(msg.to, "learner@example.com");
+    assert!(msg.subject.to_lowercase().contains("reset"));
+    assert!(msg.text.contains("https://bunamateur.app/reset-password?token=abc123&src=mail"));
+    let html = msg.html.expect("HTML body should be populated");
+    assert!(html.contains("Hana &lt;N3&gt;"));
+    assert!(html.contains("token=abc123&amp;src=mail"));
+
+    // 2. Longest streak and heatmap intensity bucketing
+    use chrono::NaiveDate;
+    let d = |y, m, day| NaiveDate::from_ymd_opt(y, m, day).unwrap();
+    assert_eq!(compute_longest_streak(&[]), 0);
+    assert_eq!(
+        compute_longest_streak(&[
+            d(2026, 1, 1),
+            d(2026, 1, 2),
+            d(2026, 1, 5),
+            d(2026, 1, 6),
+            d(2026, 1, 7),
+            d(2026, 1, 8),
+        ]),
+        4
+    );
+    assert_eq!(review_intensity_bucket(0), 0);
+    assert_eq!(review_intensity_bucket(3), 1);
+    assert_eq!(review_intensity_bucket(10), 2);
+    assert_eq!(review_intensity_bucket(20), 3);
+    assert_eq!(review_intensity_bucket(45), 4);
+
+    // 3. Anki TSV export sanitizes tabs & newlines cleanly
+    let bookmarks = vec![VocabBookmark {
+        id: 1,
+        surface: "読める".to_string(),
+        lemma: "読む".to_string(),
+        reading: "よむ".to_string(),
+        pos: "verb".to_string(),
+        glosses: vec!["to read".to_string(), "to recite".to_string()],
+        jlpt: Some("N5".to_string()),
+        wk_level: Some(10),
+        context_sentence: "新聞が\t読める\nようになりました。".to_string(),
+        created_at: "2026-11-26T00:00:00Z".to_string(),
+    }];
+    let tsv = vocab_bookmarks_to_anki_tsv(&bookmarks);
+    assert!(tsv.starts_with("#separator:tab\n"));
+    let data_line = tsv.lines().last().unwrap();
+    let cols: Vec<&str> = data_line.split('\t').collect();
+    assert_eq!(cols.len(), 7);
+    assert_eq!(cols[0], "読む");
+    assert_eq!(cols[1], "よむ");
+    assert_eq!(cols[2], "to read; to recite");
+    assert_eq!(cols[3], "verb");
+    assert_eq!(cols[4], "N5");
+    assert_eq!(cols[5], "WK Lv.10");
+    assert!(!cols[6].contains('\n'));
 }

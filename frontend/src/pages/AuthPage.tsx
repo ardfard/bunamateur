@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Lock, Mail, Moon, ShieldCheck, Sun, User } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, KeyRound, Lock, Mail, Moon, ShieldCheck, Sun, User } from 'lucide-react'
 import { api } from '../api'
 import type { AuthUser } from '../types'
 
@@ -8,6 +8,8 @@ interface AuthPageProps {
   onToggleDark: () => void
   onAuthenticated: (user: AuthUser) => void
 }
+
+type AuthMode = 'login' | 'register' | 'forgot' | 'reset'
 
 const OAUTH_ERROR_MESSAGES: Record<string, string> = {
   google_not_configured:
@@ -22,10 +24,16 @@ export const AuthPage: React.FC<AuthPageProps> = ({
   onToggleDark,
   onAuthenticated,
 }) => {
-  const [mode, setMode] = useState<'login' | 'register'>('login')
+  const [mode, setMode] = useState<AuthMode>('login')
   const [email, setEmail] = useState('')
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [resetToken, setResetToken] = useState('')
+  const [tokenAutoFilled, setTokenAutoFilled] = useState(false)
+  const [newPassword, setNewPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [forgotSent, setForgotSent] = useState(false)
+  const [notice, setNotice] = useState<string | null>(null)
   const [busy, setBusy] = useState(false)
   const [googleEnabled, setGoogleEnabled] = useState<boolean | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -38,6 +46,20 @@ export const AuthPage: React.FC<AuthPageProps> = ({
 
     if (typeof window !== 'undefined') {
       const params = new URLSearchParams(window.location.search)
+      const isResetPath =
+        window.location.pathname === '/reset-password' ||
+        window.location.pathname.startsWith('/reset-password/')
+      const urlResetToken = params.get('reset_token') || (isResetPath ? params.get('token') : null)
+
+      if (urlResetToken && urlResetToken.trim()) {
+        setResetToken(urlResetToken.trim())
+        setTokenAutoFilled(true)
+        setMode('reset')
+      } else if (isResetPath) {
+        setTokenAutoFilled(false)
+        setMode('reset')
+      }
+
       const authErr = params.get('auth_error')
       if (authErr) {
         setError(OAUTH_ERROR_MESSAGES[authErr] || 'Sign-in failed. Please try again.')
@@ -49,11 +71,59 @@ export const AuthPage: React.FC<AuthPageProps> = ({
     }
   }, [])
 
+  const switchToLogin = (nextNotice?: string) => {
+    setMode('login')
+    setError(null)
+    setForgotSent(false)
+    setNotice(nextNotice ?? null)
+    if (typeof window !== 'undefined' && window.location.pathname.startsWith('/reset-password')) {
+      window.history.replaceState({}, '', '/')
+    }
+  }
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setBusy(true)
     setError(null)
+    setNotice(null)
     try {
+      if (mode === 'forgot') {
+        const resp = await api.forgotPassword(email.trim())
+        setForgotSent(true)
+        setNotice(
+          resp.message ||
+            "If an account matches that email, we've sent a password reset link. Please check your inbox."
+        )
+        return
+      }
+
+      if (mode === 'reset') {
+        if (!resetToken.trim()) {
+          setError('Please enter your password reset token.')
+          return
+        }
+        if (newPassword.length < 8) {
+          setError('New password must be at least 8 characters.')
+          return
+        }
+        if (newPassword !== confirmPassword) {
+          setError('Passwords do not match.')
+          return
+        }
+        const resp = await api.resetPassword(resetToken.trim(), newPassword)
+        if (typeof window !== 'undefined') {
+          window.history.replaceState({}, '', '/')
+        }
+        setResetToken('')
+        setTokenAutoFilled(false)
+        setNewPassword('')
+        setConfirmPassword('')
+        setPassword('')
+        setMode('login')
+        setNotice(resp.message || 'Your password has been reset. You can now sign in.')
+        return
+      }
+
       const resp =
         mode === 'register'
           ? await api.register({ email: email.trim(), username: username.trim(), password })
@@ -116,39 +186,74 @@ export const AuthPage: React.FC<AuthPageProps> = ({
           </div>
         </div>
 
-        <div
-          className="grid grid-cols-2 gap-1 rounded-xl p-1 mb-5"
-          style={{ backgroundColor: 'var(--bg-subtle)' }}
-        >
-          <button
-            type="button"
-            onClick={() => {
-              setMode('login')
-              setError(null)
-            }}
-            className="rounded-lg py-2 text-xs font-semibold transition-colors cursor-pointer"
+        {(mode === 'login' || mode === 'register') && (
+          <div
+            className="grid grid-cols-2 gap-1 rounded-xl p-1 mb-5"
+            style={{ backgroundColor: 'var(--bg-subtle)' }}
+          >
+            <button
+              type="button"
+              onClick={() => {
+                setMode('login')
+                setError(null)
+              }}
+              className="rounded-lg py-2 text-xs font-semibold transition-colors cursor-pointer"
+              style={{
+                backgroundColor: mode === 'login' ? 'var(--bg-surface)' : 'transparent',
+                color: mode === 'login' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              }}
+            >
+              Sign In
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setMode('register')
+                setError(null)
+                setNotice(null)
+              }}
+              className="rounded-lg py-2 text-xs font-semibold transition-colors cursor-pointer"
+              style={{
+                backgroundColor: mode === 'register' ? 'var(--bg-surface)' : 'transparent',
+                color: mode === 'register' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              }}
+            >
+              Create Account
+            </button>
+          </div>
+        )}
+
+        {mode === 'forgot' && (
+          <div className="mb-5">
+            <h2 className="text-base font-bold tracking-tight">Reset your password</h2>
+            <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              Enter the email address associated with your account and we&apos;ll send you a reset link.
+            </p>
+          </div>
+        )}
+
+        {mode === 'reset' && (
+          <div className="mb-5">
+            <h2 className="text-base font-bold tracking-tight">Set a new password</h2>
+            <p className="mt-1 text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+              Choose a strong password of at least 8 characters to regain access to your account.
+            </p>
+          </div>
+        )}
+
+        {notice && (
+          <div
+            className="mb-4 flex items-start gap-2 rounded-xl border px-3.5 py-2.5 text-xs font-medium leading-relaxed"
             style={{
-              backgroundColor: mode === 'login' ? 'var(--bg-surface)' : 'transparent',
-              color: mode === 'login' ? 'var(--text-primary)' : 'var(--text-secondary)',
+              backgroundColor: 'var(--accent-matcha-soft)',
+              borderColor: 'var(--accent-matcha)',
+              color: 'var(--accent-matcha)',
             }}
           >
-            Sign In
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setMode('register')
-              setError(null)
-            }}
-            className="rounded-lg py-2 text-xs font-semibold transition-colors cursor-pointer"
-            style={{
-              backgroundColor: mode === 'register' ? 'var(--bg-surface)' : 'transparent',
-              color: mode === 'register' ? 'var(--text-primary)' : 'var(--text-secondary)',
-            }}
-          >
-            Create Account
-          </button>
-        </div>
+            <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" />
+            <span>{notice}</span>
+          </div>
+        )}
 
         {error && (
           <div
@@ -163,77 +268,144 @@ export const AuthPage: React.FC<AuthPageProps> = ({
           </div>
         )}
 
-        {/* Continue with Google (OAuth 2.0 + PKCE S256) */}
-        <button
-          type="button"
-          onClick={handleGoogleLogin}
-          disabled={busy}
-          className="flex w-full items-center justify-center gap-2.5 rounded-xl border py-2.5 text-sm font-semibold transition-colors hover:opacity-90 disabled:opacity-50 cursor-pointer"
-          style={{
-            backgroundColor: 'var(--bg-canvas)',
-            borderColor: 'var(--border-subtle)',
-            color: 'var(--text-primary)',
-          }}
-        >
-          <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              fill="#4285F4"
-              d="M23.49 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.26-2.08 3.56-5.15 3.56-8.86z"
-            />
-            <path
-              fill="#34A853"
-              d="M12 24c3.24 0 5.95-1.07 7.93-2.9l-3.87-3c-1.07.72-2.45 1.15-4.06 1.15-3.12 0-5.77-2.11-6.71-4.95H1.29v3.1A12 12 0 0 0 12 24z"
-            />
-            <path
-              fill="#FBBC05"
-              d="M5.29 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.29a12 12 0 0 0 0 10.8l4-3.1z"
-            />
-            <path
-              fill="#EA4335"
-              d="M12 4.75c1.76 0 3.34.61 4.58 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.29 6.6l4 3.1c.94-2.84 3.59-4.95 6.71-4.95z"
-            />
-          </svg>
-          <span>Continue with Google</span>
-        </button>
-
-        <div className="my-4 flex items-center gap-3">
-          <div className="h-px flex-1" style={{ backgroundColor: 'var(--border-subtle)' }} />
-          <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-            or email
-          </span>
-          <div className="h-px flex-1" style={{ backgroundColor: 'var(--border-subtle)' }} />
-        </div>
-
-        <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
-          <div>
-            <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
-              Email
-            </label>
-            <div
-              className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+        {(mode === 'login' || mode === 'register') && (
+          <>
+            {/* Continue with Google (OAuth 2.0 + PKCE S256) */}
+            <button
+              type="button"
+              onClick={handleGoogleLogin}
+              disabled={busy}
+              className="flex w-full items-center justify-center gap-2.5 rounded-xl border py-2.5 text-sm font-semibold transition-colors hover:opacity-90 disabled:opacity-50 cursor-pointer"
               style={{
                 backgroundColor: 'var(--bg-canvas)',
                 borderColor: 'var(--border-subtle)',
+                color: 'var(--text-primary)',
               }}
             >
-              <Mail className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
-              <input
-                type="email"
-                required
-                autoComplete="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                className="w-full bg-transparent text-sm outline-none"
-                style={{ color: 'var(--text-primary)' }}
-              />
-            </div>
-          </div>
+              <svg className="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  fill="#4285F4"
+                  d="M23.49 12.27c0-.79-.07-1.54-.2-2.27H12v4.51h6.45a5.52 5.52 0 0 1-2.39 3.62v3h3.87c2.26-2.08 3.56-5.15 3.56-8.86z"
+                />
+                <path
+                  fill="#34A853"
+                  d="M12 24c3.24 0 5.95-1.07 7.93-2.9l-3.87-3c-1.07.72-2.45 1.15-4.06 1.15-3.12 0-5.77-2.11-6.71-4.95H1.29v3.1A12 12 0 0 0 12 24z"
+                />
+                <path
+                  fill="#FBBC05"
+                  d="M5.29 14.3a7.2 7.2 0 0 1 0-4.6V6.6H1.29a12 12 0 0 0 0 10.8l4-3.1z"
+                />
+                <path
+                  fill="#EA4335"
+                  d="M12 4.75c1.76 0 3.34.61 4.58 1.8l3.44-3.44C17.95 1.19 15.24 0 12 0A12 12 0 0 0 1.29 6.6l4 3.1c.94-2.84 3.59-4.95 6.71-4.95z"
+                />
+              </svg>
+              <span>Continue with Google</span>
+            </button>
 
-          {mode === 'register' && (
+            <div className="my-4 flex items-center gap-3">
+              <div className="h-px flex-1" style={{ backgroundColor: 'var(--border-subtle)' }} />
+              <span className="text-[11px] font-medium uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                or email
+              </span>
+              <div className="h-px flex-1" style={{ backgroundColor: 'var(--border-subtle)' }} />
+            </div>
+          </>
+        )}
+
+        {mode === 'forgot' ? (
+          forgotSent ? (
+            <button
+              type="button"
+              onClick={() => switchToLogin()}
+              className="mt-1 flex w-full items-center justify-center gap-2 rounded-xl border py-2.5 text-sm font-semibold transition-colors hover:opacity-90 cursor-pointer"
+              style={{
+                backgroundColor: 'var(--bg-canvas)',
+                borderColor: 'var(--border-subtle)',
+                color: 'var(--text-primary)',
+              }}
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span>Back to Sign In</span>
+            </button>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                  Email
+                </label>
+                <div
+                  className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  <Mail className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                  <input
+                    type="email"
+                    required
+                    autoComplete="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="you@example.com"
+                    className="w-full bg-transparent text-sm outline-none"
+                    style={{ color: 'var(--text-primary)' }}
+                  />
+                </div>
+              </div>
+
+              <button
+                type="submit"
+                disabled={busy}
+                className="mt-2 rounded-xl py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 cursor-pointer"
+                style={{ backgroundColor: 'var(--accent-vermilion)' }}
+              >
+                {busy ? 'Sending reset link...' : 'Send Reset Link'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => switchToLogin()}
+                className="flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-opacity hover:opacity-80 cursor-pointer"
+                style={{ color: 'var(--text-secondary)' }}
+              >
+                <ArrowLeft className="h-3.5 w-3.5" />
+                <span>Back to Sign In</span>
+              </button>
+            </form>
+          )
+        ) : mode === 'reset' ? (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+            {!tokenAutoFilled && (
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                  Reset Token
+                </label>
+                <div
+                  className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  <KeyRound className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                  <input
+                    type="text"
+                    required
+                    value={resetToken}
+                    onChange={(e) => setResetToken(e.target.value)}
+                    placeholder="Paste your reset token"
+                    className="w-full bg-transparent font-mono-code text-xs outline-none"
+                    style={{ color: 'var(--text-primary)' }}
+                  />
+                </div>
+              </div>
+            )}
+
             <div>
               <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
-                Username
+                New Password
               </label>
               <div
                 className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
@@ -242,64 +414,181 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                   borderColor: 'var(--border-subtle)',
                 }}
               >
-                <User className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                <Lock className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
                 <input
-                  type="text"
+                  type="password"
                   required
-                  minLength={2}
-                  maxLength={32}
-                  autoComplete="username"
-                  value={username}
-                  onChange={(e) => setUsername(e.target.value)}
-                  placeholder="akira_jp"
+                  minLength={8}
+                  autoComplete="new-password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  placeholder="At least 8 characters"
                   className="w-full bg-transparent text-sm outline-none"
                   style={{ color: 'var(--text-primary)' }}
                 />
               </div>
             </div>
-          )}
 
-          <div>
-            <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
-              Password
-            </label>
-            <div
-              className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
-              style={{
-                backgroundColor: 'var(--bg-canvas)',
-                borderColor: 'var(--border-subtle)',
-              }}
-            >
-              <Lock className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
-              <input
-                type="password"
-                required
-                minLength={8}
-                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="At least 8 characters"
-                className="w-full bg-transparent text-sm outline-none"
-                style={{ color: 'var(--text-primary)' }}
-              />
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                Confirm New Password
+              </label>
+              <div
+                className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                style={{
+                  backgroundColor: 'var(--bg-canvas)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                <Lock className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete="new-password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Re-enter new password"
+                  className="w-full bg-transparent text-sm outline-none"
+                  style={{ color: 'var(--text-primary)' }}
+                />
+              </div>
             </div>
-          </div>
 
-          <button
-            type="submit"
-            disabled={busy}
-            className="mt-2 rounded-xl py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 cursor-pointer"
-            style={{ backgroundColor: 'var(--accent-vermilion)' }}
-          >
-            {busy
-              ? mode === 'register'
-                ? 'Creating account...'
-                : 'Signing in...'
-              : mode === 'register'
-                ? 'Create Account'
-                : 'Sign In'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={busy}
+              className="mt-2 rounded-xl py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 cursor-pointer"
+              style={{ backgroundColor: 'var(--accent-vermilion)' }}
+            >
+              {busy ? 'Updating password...' : 'Set New Password'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => switchToLogin()}
+              className="flex items-center justify-center gap-1.5 py-1.5 text-xs font-semibold transition-opacity hover:opacity-80 cursor-pointer"
+              style={{ color: 'var(--text-secondary)' }}
+            >
+              <ArrowLeft className="h-3.5 w-3.5" />
+              <span>Back to Sign In</span>
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleSubmit} className="flex flex-col gap-3.5">
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                Email
+              </label>
+              <div
+                className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                style={{
+                  backgroundColor: 'var(--bg-canvas)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                <Mail className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                <input
+                  type="email"
+                  required
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@example.com"
+                  className="w-full bg-transparent text-sm outline-none"
+                  style={{ color: 'var(--text-primary)' }}
+                />
+              </div>
+            </div>
+
+            {mode === 'register' && (
+              <div>
+                <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                  Username
+                </label>
+                <div
+                  className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                  style={{
+                    backgroundColor: 'var(--bg-canvas)',
+                    borderColor: 'var(--border-subtle)',
+                  }}
+                >
+                  <User className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                  <input
+                    type="text"
+                    required
+                    minLength={2}
+                    maxLength={32}
+                    autoComplete="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="akira_jp"
+                    className="w-full bg-transparent text-sm outline-none"
+                    style={{ color: 'var(--text-primary)' }}
+                  />
+                </div>
+              </div>
+            )}
+
+            <div>
+              <label className="mb-1.5 block text-xs font-semibold" style={{ color: 'var(--text-secondary)' }}>
+                Password
+              </label>
+              <div
+                className="flex items-center gap-2.5 rounded-xl border px-3.5 py-2.5"
+                style={{
+                  backgroundColor: 'var(--bg-canvas)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                <Lock className="h-4 w-4 shrink-0" style={{ color: 'var(--text-muted)' }} />
+                <input
+                  type="password"
+                  required
+                  minLength={8}
+                  autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="At least 8 characters"
+                  className="w-full bg-transparent text-sm outline-none"
+                  style={{ color: 'var(--text-primary)' }}
+                />
+              </div>
+              {mode === 'login' && (
+                <div className="mt-1.5 flex justify-end">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMode('forgot')
+                      setError(null)
+                      setNotice(null)
+                      setForgotSent(false)
+                    }}
+                    className="text-xs font-medium transition-opacity hover:opacity-80 cursor-pointer"
+                    style={{ color: 'var(--accent-indigo)' }}
+                  >
+                    Forgot password?
+                  </button>
+                </div>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              disabled={busy}
+              className="mt-2 rounded-xl py-2.5 text-sm font-semibold text-white transition-opacity hover:opacity-90 disabled:opacity-50 cursor-pointer"
+              style={{ backgroundColor: 'var(--accent-vermilion)' }}
+            >
+              {busy
+                ? mode === 'register'
+                  ? 'Creating account...'
+                  : 'Signing in...'
+                : mode === 'register'
+                  ? 'Create Account'
+                  : 'Sign In'}
+            </button>
+          </form>
+        )}
 
         <div
           className="mt-5 flex items-center gap-2 rounded-xl px-3 py-2 text-[11px]"
