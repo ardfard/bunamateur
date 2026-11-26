@@ -1,0 +1,27 @@
+[Unit]
+Description=BunAmateur (文アマ) — Japanese grammar SRS
+After=network.target postgresql.service
+Wants=postgresql.service
+
+[Service]
+Type=simple
+User=ardfard
+Group=ardfard
+
+# `current` is a symlink into releases/<sha>; rollback = flip symlink + restart.
+WorkingDirectory=/opt/bunamateur/current
+ExecStart=/opt/bunamateur/current/bunamateur
+EnvironmentFile=/opt/bunamateur/.env
+
+Restart=always
+RestartSec=10
+LimitNOFILE=65535
+MemoryMax=384M
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=yes
+
+[Install]
+WantedBy=multi-user.target
