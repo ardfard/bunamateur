@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ArrowLeft, CheckCircle2, KeyRound, Lock, Mail, Moon, ShieldCheck, Sun, User } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, KeyRound, Lock, Mail, Moon, Sun, User } from 'lucide-react'
 import { api } from '../api'
 import type { AuthUser } from '../types'
 
@@ -589,17 +589,6 @@ export const AuthPage: React.FC<AuthPageProps> = ({
             </button>
           </form>
         )}
-
-        <div
-          className="mt-5 flex items-center gap-2 rounded-xl px-3 py-2 text-[11px]"
-          style={{
-            backgroundColor: 'var(--bg-subtle)',
-            color: 'var(--text-muted)',
-          }}
-        >
-          <ShieldCheck className="h-3.5 w-3.5 shrink-0" style={{ color: 'var(--accent-matcha)' }} />
-          <span>Google OAuth (PKCE), Argon2id passwords, HTTP-only sessions, CSRF &amp; AES-256-GCM WaniKani encryption.</span>
-        </div>
       </div>
     </div>
   )
