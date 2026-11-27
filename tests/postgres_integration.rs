@@ -528,7 +528,18 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .json()
         .await
         .unwrap();
-    assert!(placement.as_array().unwrap().len() >= 8);
+    let placement_items = placement.as_array().unwrap();
+    assert_eq!(placement_items.len(), 12);
+    let placement_levels: Vec<&str> = placement_items
+        .iter()
+        .map(|item| item["jlpt_level"].as_str().unwrap())
+        .collect();
+    for required_level in ["N5", "N4", "N3", "N2", "N1"] {
+        assert!(
+            placement_levels.contains(&required_level),
+            "placement questions must include {required_level}: {placement_levels:?}"
+        );
+    }
 
     let onboarding_done: Value = client_b
         .post(format!("{}/onboarding/complete", base))
@@ -553,6 +564,51 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         get_grammar_detail(&pool, user_b_id, first_gid).await.unwrap().unwrap().srs_stage,
         5
     );
+
+    // Reset onboarding with valid CSRF -> completed becomes false while preserving prefs
+    let onboarding_reset_missing_csrf = client_b
+        .post(format!("{}/onboarding/reset", base))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(onboarding_reset_missing_csrf.status(), StatusCode::FORBIDDEN);
+
+    let onboarding_reset: Value = client_b
+        .post(format!("{}/onboarding/reset", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(onboarding_reset["completed"], Value::Bool(false));
+    assert_eq!(onboarding_reset["preferred_study_path"], "Tobira");
+    assert_eq!(onboarding_reset["placement_jlpt"], "N3");
+    assert_eq!(onboarding_reset["daily_goal"], 30);
+
+    // Re-completing onboarding restores completed: true
+    let onboarding_recompleted: Value = client_b
+        .post(format!("{}/onboarding/complete", base))
+        .header("X-CSRF-Token", &csrf_b)
+        .json(&json!({
+            "study_path": "Tobira",
+            "placement_jlpt": "N3",
+            "daily_goal": 30,
+            "known_grammar_ids": [first_gid]
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(onboarding_recompleted["completed"], Value::Bool(true));
+    assert_eq!(onboarding_recompleted["preferred_study_path"], "Tobira");
 
     // Contextual nuance grading: wrong tense on te-iru sentence[0] (present expected, past typed) -> almost_right, no SRS penalty
     let almost_resp: Value = client_a

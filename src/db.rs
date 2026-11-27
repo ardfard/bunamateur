@@ -2325,7 +2325,7 @@ struct PlacementRow {
     english: String,
 }
 
-/// Returns a curated 10-question diagnostic placement check spanning N5 to N2.
+/// Returns a curated 12-question diagnostic placement check spanning N5 to N1.
 pub async fn get_placement_questions(pool: &PgPool) -> Result<Vec<PlacementQuestion>> {
     let slugs = [
         "te-iru",
@@ -2338,6 +2338,8 @@ pub async fn get_placement_questions(pool: &PgPool) -> Result<Vec<PlacementQuest
         "wake-dewa-nai",
         "ni-mo-kakawarazu",
         "wake-niwa-ikanai",
+        "zaru-o-enai",
+        "ni-kagirazu",
     ];
 
     let rows: Vec<PlacementRow> = sqlx::query_as(
@@ -2346,7 +2348,7 @@ pub async fn get_placement_questions(pool: &PgPool) -> Result<Vec<PlacementQuest
          FROM grammar_points g
          JOIN grammar_sentences s ON s.grammar_id = g.id AND s.position = 0
          WHERE g.slug = ANY($1)
-         ORDER BY CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END, g.id",
+         ORDER BY CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 WHEN 'N1' THEN 5 ELSE 6 END, g.id",
     )
     .bind(&slugs[..])
     .fetch_all(pool)
@@ -2365,6 +2367,27 @@ pub async fn get_placement_questions(pool: &PgPool) -> Result<Vec<PlacementQuest
             sample_en: r.english,
         })
         .collect())
+}
+
+pub async fn reset_onboarding(pool: &PgPool, user_id: i64) -> Result<OnboardingState> {
+    sqlx::query(
+        "UPDATE users
+         SET onboarding_completed = FALSE,
+             updated_at = NOW()
+         WHERE id = $1",
+    )
+    .bind(user_id)
+    .execute(pool)
+    .await?;
+
+    let prefs = load_user_prefs(pool, user_id).await?;
+    Ok(OnboardingState {
+        completed: false,
+        preferred_study_path: prefs.preferred_study_path,
+        placement_jlpt: prefs.placement_jlpt,
+        daily_goal: prefs.daily_goal,
+        content_version: CONTENT_SCHEMA_VERSION,
+    })
 }
 
 pub async fn complete_onboarding(

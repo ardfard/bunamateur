@@ -11,7 +11,6 @@ import {
   Zap,
 } from 'lucide-react'
 import { api } from '../api'
-import { OnboardingPanel } from '../components/OnboardingPanel'
 import { StudyAnalyticsPanel } from '../components/StudyAnalyticsPanel'
 import type { DashboardStats, PageTab, ReviewMode } from '../types'
 
@@ -122,9 +121,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
 
   return (
     <div className="mx-auto flex max-w-[1360px] flex-col gap-6 px-4 py-8 sm:px-8">
-      {/* Zero-State Onboarding Panel for new accounts */}
-      {!stats.onboarding.completed && <OnboardingPanel onCompleted={onRefresh} />}
-
       {/* Vacation Mode Banner */}
       {stats.srs_settings.vacation_mode && (
         <div

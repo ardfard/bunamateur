@@ -127,6 +127,11 @@ export const api = {
       body: JSON.stringify(payload),
     }),
 
+  resetOnboarding: () =>
+    request<OnboardingState>('/api/onboarding/reset', {
+      method: 'POST',
+    }),
+
   getSrsSettings: () => request<SrsSettings>('/api/settings/srs'),
 
   updateSrsSettings: (payload: {

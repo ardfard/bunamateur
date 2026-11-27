@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   CheckCircle2,
+  Compass,
   KeyRound,
   Languages,
   Laptop,
@@ -35,6 +36,7 @@ interface AccountSettingsModalProps {
   wanikaniStatus?: WaniKaniStatus | null
   knownKanji?: Set<string>
   onWaniKaniUpdated?: () => void
+  onRestartOnboarding?: () => Promise<void> | void
 }
 
 function parseUserAgent(ua: string | null): { label: string; isMobile: boolean } {
@@ -108,6 +110,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   wanikaniStatus,
   knownKanji,
   onWaniKaniUpdated,
+  onRestartOnboarding,
 }) => {
   const { toast } = useToast()
   const [tab, setTab] = useState<SettingsTab>(initialTab ?? 'profile')
@@ -140,6 +143,9 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   // Email verification state
   const [resendingVerification, setResendingVerification] = useState(false)
   const [resendCooldown, setResendCooldown] = useState(0)
+
+  // Onboarding restart state
+  const [restartingOnboarding, setRestartingOnboarding] = useState(false)
 
   const wkStatus = wanikaniStatus ?? fallbackWkStatus
 
@@ -274,6 +280,22 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
       toast.error(msg)
     } finally {
       setSavingProfile(false)
+    }
+  }
+
+  const handleRestartOnboarding = async () => {
+    if (restartingOnboarding) return
+    setRestartingOnboarding(true)
+    try {
+      await api.resetOnboarding()
+      toast.info('Onboarding reset — launching setup wizard.')
+      onClose()
+      await onRestartOnboarding?.()
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to reset onboarding wizard.'
+      toast.error(msg)
+    } finally {
+      setRestartingOnboarding(false)
     }
   }
 
@@ -741,6 +763,46 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                       </button>
                     </div>
                   </form>
+
+                  {/* Study Setup Card */}
+                  <div
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 rounded-xl border p-4"
+                    style={{
+                      backgroundColor: 'var(--bg-canvas)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div
+                        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+                        style={{
+                          backgroundColor: 'var(--accent-indigo-soft)',
+                          color: 'var(--accent-indigo)',
+                        }}
+                      >
+                        <Compass className="h-4 w-4" />
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold">Study Setup</div>
+                        <p className="mt-0.5 text-[11px] leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                          Revisit your study path, daily goal, JLPT placement check, and WaniKani link.
+                        </p>
+                      </div>
+                    </div>
+                    <button
+                      type="button"
+                      disabled={restartingOnboarding}
+                      onClick={() => void handleRestartOnboarding()}
+                      className="shrink-0 rounded-xl border px-3.5 py-2 text-xs font-semibold transition-opacity hover:opacity-85 disabled:opacity-50 cursor-pointer"
+                      style={{
+                        borderColor: 'var(--border-subtle)',
+                        backgroundColor: 'var(--bg-surface)',
+                        color: 'var(--text-primary)',
+                      }}
+                    >
+                      {restartingOnboarding ? 'Launching...' : 'Re-run Onboarding Wizard'}
+                    </button>
+                  </div>
                 </div>
               )}
 

@@ -3,6 +3,7 @@ import { ApiError, api } from './api'
 import { AccountSettingsModal, type SettingsTab } from './components/AccountSettingsModal'
 import { EmailVerificationBanner } from './components/EmailVerificationBanner'
 import { GrammarDetailModal } from './components/GrammarDetailModal'
+import { OnboardingWizard } from './components/OnboardingWizard'
 import { useToast } from './components/ToastContext'
 import { TopNav } from './components/TopNav'
 import { AuthPage } from './pages/AuthPage'
@@ -211,8 +212,8 @@ export const App: React.FC = () => {
     }
   }, [user, loadStats])
 
-  const handleRefreshAll = useCallback(() => {
-    loadStats()
+  const handleRefreshAll = useCallback(async () => {
+    await loadStats()
     setRefreshKey((k) => k + 1)
   }, [loadStats])
 
@@ -246,6 +247,19 @@ export const App: React.FC = () => {
     setPendingGrammarSlug(null)
     navigateTo(buildRoutePath({ tab: 'reviews', reviewMode: mode }))
   }, [])
+
+  const handleOnboardingCompleted = useCallback(
+    async (nextAction: 'lesson' | 'dashboard') => {
+      await loadStats()
+      setRefreshKey((k) => k + 1)
+      if (nextAction === 'lesson') {
+        handleStartSession('lesson')
+      } else {
+        handleNavigate('dashboard')
+      }
+    },
+    [loadStats, handleStartSession, handleNavigate]
+  )
 
   const handleReviewModeChange = useCallback((mode: ReviewMode) => {
     setReviewMode(mode)
@@ -318,6 +332,19 @@ export const App: React.FC = () => {
           if (route.reviewMode) setReviewMode(route.reviewMode)
           if (route.grammarSlug) setPendingGrammarSlug(route.grammarSlug)
         }}
+      />
+    )
+  }
+
+  if (user && stats && !stats.onboarding.completed) {
+    return (
+      <OnboardingWizard
+        user={user}
+        stats={stats}
+        darkMode={darkMode}
+        onToggleDark={() => setDarkMode((d) => !d)}
+        onCompleted={handleOnboardingCompleted}
+        onWaniKaniConnected={handleRefreshAll}
       />
     )
   }
@@ -406,6 +433,7 @@ export const App: React.FC = () => {
         wanikaniStatus={stats?.wanikani ?? null}
         knownKanji={knownKanji}
         onWaniKaniUpdated={handleRefreshAll}
+        onRestartOnboarding={handleRefreshAll}
       />
     </div>
   )

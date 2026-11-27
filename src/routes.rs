@@ -18,7 +18,8 @@ use crate::db::{
     import_user_progress, list_conjugations, list_grammar_summaries, list_reading_passages,
     list_user_sessions, list_vocab_bookmarks, load_wanikani_status, load_wanikani_sync_status,
     ping_database, progress_export_to_csv, record_review_submission,
-    reset_grammar_progress as db_reset_grammar_progress, revoke_other_user_sessions,
+    reset_grammar_progress as db_reset_grammar_progress,
+    reset_onboarding as db_reset_onboarding, revoke_other_user_sessions,
     revoke_user_session, save_wanikani_token_and_start_sync,
     spawn_wanikani_sync_job, start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
@@ -194,6 +195,7 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
         .route("/content/version", get(get_curriculum_version))
         .route("/onboarding/placement", get(get_onboarding_placement))
         .route("/onboarding/complete", post(complete_onboarding))
+        .route("/onboarding/reset", post(reset_onboarding))
         .route("/settings/srs", get(get_srs_settings).put(update_srs_settings))
         .route("/export/progress", get(export_progress))
         .route("/reviews", get(get_reviews))
@@ -877,6 +879,21 @@ async fn complete_onboarding(
     }
 
     match db_complete_onboarding(&state.pool, auth.user_id(), &req).await {
+        Ok(onboarding) => (StatusCode::OK, Json(json!(onboarding))),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn reset_onboarding(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    match db_reset_onboarding(&state.pool, auth.user_id()).await {
         Ok(onboarding) => (StatusCode::OK, Json(json!(onboarding))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
