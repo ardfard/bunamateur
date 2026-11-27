@@ -13,6 +13,7 @@ import {
   Sparkles,
 } from 'lucide-react'
 import { api } from '../api'
+import { LessonContent } from '../components/LessonContent'
 import { useToast } from '../components/ToastContext'
 import type {
   FuriganaMode,
@@ -21,6 +22,12 @@ import type {
   SubmitAnswerResponse,
 } from '../types'
 import { RubyText } from '../utils/furigana'
+import {
+  initialLessonStep,
+  lessonStepLabel,
+  nextLessonStep,
+  type LessonStep,
+} from '../utils/lessonSteps'
 import { applyImeWithCursor, toKanaLive, type ImeMode } from '../utils/romaji'
 import { playSentenceAudio } from '../utils/speech'
 
@@ -75,6 +82,8 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [wrappingUp, setWrappingUp] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [sessionStats, setSessionStats] = useState({ correct: 0, total: 0 })
+  const [lessonStep, setLessonStep] = useState<LessonStep>('cloze')
+  const [checkPicks, setCheckPicks] = useState<Record<number, number>>({})
 
   const inputRef = useRef<HTMLInputElement>(null)
   const isComposingRef = useRef(false)
@@ -120,12 +129,30 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   }, [mode, jlptFilter, loadQueue])
 
   useEffect(() => {
-    if (!result && !loading) {
+    if (!result && !loading && lessonStep === 'cloze') {
       inputRef.current?.focus()
     }
-  }, [index, result, loading])
+  }, [index, result, loading, lessonStep])
 
   const current = queue[index]
+  const hasRichLesson = Boolean(current?.mode === 'lesson' && current.lesson)
+  const inLessonPreCloze = hasRichLesson && lessonStep !== 'cloze'
+  const checksForStep = current?.lesson?.checks.slice(0, 3) ?? []
+  const allChecksAnswered =
+    checksForStep.length === 0 ||
+    checksForStep.every((_, i) => typeof checkPicks[i] === 'number')
+
+  // Reset Learn New step when the active queue card changes (not on wrap-up slice)
+  const activeCardKey = current
+    ? `${current.grammar_id}:${current.sentence_id}:${current.mode}:${Boolean(current.lesson)}`
+    : ''
+  useEffect(() => {
+    if (!current) return
+    setLessonStep(initialLessonStep(current.mode === 'lesson' && Boolean(current.lesson)))
+    setCheckPicks({})
+    // activeCardKey encodes the card identity we care about
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index, activeCardKey])
 
   const cycleImeMode = () => {
     setImeMode((prev) => IME_CYCLE[(IME_CYCLE.indexOf(prev) + 1) % IME_CYCLE.length])
@@ -533,7 +560,9 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       color: 'var(--accent-indigo)',
                     }}
                   >
-                    New Lesson — Study Structure Below, Then Type!
+                    {hasRichLesson
+                      ? 'New Lesson — Read, then practice'
+                      : 'New Lesson — Study Structure Below, Then Type!'}
                   </span>
                 )}
                 <span
@@ -590,7 +619,90 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
               </div>
             </div>
 
+            {/* Rich lesson pre-cloze steps (Learn New with lesson payload) */}
+            {inLessonPreCloze && current.lesson && (
+              <div
+                className="flex flex-col gap-6 rounded-2xl border px-5 py-7 sm:px-8"
+                style={{
+                  backgroundColor: 'var(--bg-surface)',
+                  borderColor: 'var(--border-subtle)',
+                }}
+              >
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h2 className="font-jp text-2xl font-bold">
+                    {current.title}{' '}
+                    <span className="font-sans text-base font-medium" style={{ color: 'var(--text-secondary)' }}>
+                      — {current.lesson.meaning || current.meaning}
+                    </span>
+                  </h2>
+                  <span
+                    className="font-mono-code rounded-md px-2.5 py-1 text-xs font-semibold"
+                    style={{
+                      backgroundColor: 'var(--bg-subtle)',
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
+                    {lessonStepLabel(lessonStep)}
+                  </span>
+                </div>
+
+                {lessonStep === 'read' && (
+                  <LessonContent
+                    lesson={current.lesson}
+                    mode="read"
+                    furiganaMode={furiganaMode}
+                    knownKanji={knownKanji}
+                    highlightKnown={highlightKnown}
+                  />
+                )}
+                {lessonStep === 'examples' && (
+                  <LessonContent
+                    lesson={current.lesson}
+                    mode="examples"
+                    exampleLimit={4}
+                    furiganaMode={furiganaMode}
+                    knownKanji={knownKanji}
+                    highlightKnown={highlightKnown}
+                  />
+                )}
+                {lessonStep === 'checks' && (
+                  <LessonContent
+                    lesson={current.lesson}
+                    mode="checks"
+                    checkLimit={3}
+                    checkPicks={checkPicks}
+                    onCheckPick={(checkIndex, optionIndex) =>
+                      setCheckPicks((prev) =>
+                        typeof prev[checkIndex] === 'number'
+                          ? prev
+                          : { ...prev, [checkIndex]: optionIndex }
+                      )
+                    }
+                    furiganaMode={furiganaMode}
+                    knownKanji={knownKanji}
+                    highlightKnown={highlightKnown}
+                  />
+                )}
+
+                <div className="flex justify-end pt-1">
+                  <button
+                    type="button"
+                    disabled={lessonStep === 'checks' && !allChecksAnswered}
+                    onClick={() => {
+                      const next = nextLessonStep(lessonStep)
+                      if (next) setLessonStep(next)
+                    }}
+                    className="flex items-center gap-1.5 rounded-lg px-5 py-2.5 text-sm font-semibold text-white cursor-pointer disabled:cursor-not-allowed disabled:opacity-50"
+                    style={{ backgroundColor: 'var(--accent-indigo)' }}
+                  >
+                    Continue <ArrowRight className="h-4 w-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* Cloze Question Card */}
+            {!inLessonPreCloze && (
             <div
               className="flex flex-col items-center gap-6 rounded-2xl border px-6 py-10 text-center sm:px-12"
               style={{
@@ -808,8 +920,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 </div>
               )}
 
-              {/* Miss explanation: caution + sentence nuance note */}
-              {result && !result.correct && (current.caution || current.nuance_note) && (
+              {/* Miss explanation: caution + sentence nuance note (+ lesson mistakes) */}
+              {result &&
+                !result.correct &&
+                (current.caution ||
+                  current.nuance_note ||
+                  (current.mistakes && current.mistakes.length > 0)) && (
                 <div
                   className="w-full max-w-xl rounded-xl border px-4 py-3 text-left text-sm leading-relaxed"
                   style={{
@@ -830,12 +946,51 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                       {current.nuance_note}
                     </p>
                   )}
+                  {current.mistakes && current.mistakes.length > 0 && (
+                    <div
+                      className={
+                        current.caution || current.nuance_note ? 'mt-3 flex flex-col gap-2.5' : 'flex flex-col gap-2.5'
+                      }
+                    >
+                      <strong style={{ color: 'var(--text-primary)' }}>Common mistakes:</strong>
+                      {current.mistakes.map((m, i) => (
+                        <div key={i} className="flex flex-col gap-1">
+                          <div className="flex flex-wrap items-start gap-x-3 gap-y-1 font-jp text-base leading-loose">
+                            <span style={{ color: 'var(--accent-vermilion)' }}>
+                              ✗{' '}
+                              <RubyText
+                                text={m.wrong_ruby}
+                                furiganaMode={furiganaMode}
+                                knownKanji={knownKanji}
+                                highlightKnown={highlightKnown}
+                              />
+                            </span>
+                            <span style={{ color: 'var(--accent-matcha)' }}>
+                              ✓{' '}
+                              <RubyText
+                                text={m.right_ruby}
+                                furiganaMode={furiganaMode}
+                                knownKanji={knownKanji}
+                                highlightKnown={highlightKnown}
+                              />
+                            </span>
+                          </div>
+                          <p className="text-xs leading-relaxed" style={{ color: 'var(--text-muted)' }}>
+                            {m.why}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>
+            )}
 
-            {/* Grammar Breakdown Drawer (always shown in Lesson mode, or after answering / hint) */}
-            {(result || current.mode === 'lesson' || showHint) && (
+            {/* Grammar Breakdown Drawer (lesson without rich content, or after answering / hint) */}
+            {(result ||
+              showHint ||
+              (current.mode === 'lesson' && (!hasRichLesson || lessonStep === 'cloze'))) && (
               <div
                 className="flex flex-col gap-3 rounded-2xl border p-6"
                 style={{

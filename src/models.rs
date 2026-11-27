@@ -1,3 +1,4 @@
+use crate::lesson::{GrammarLesson, LessonMistake};
 use crate::nlp::AnalyzedToken;
 use serde::{Deserialize, Serialize};
 
@@ -95,6 +96,9 @@ pub struct GrammarPointDetail {
     pub wk_readiness_pct: u8,
     pub wk_known_kanji: usize,
     pub wk_total_kanji: usize,
+    /// Rich lesson when seeded; `None` falls back to short nuance/caution fields.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lesson: Option<GrammarLesson>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -121,6 +125,12 @@ pub struct ReviewQueueItem {
     pub is_ghost: bool,
     pub ghost_level: i32,
     pub mode: String, // "review" | "lesson" | "cram"
+    /// Rich lesson for Learn New pre-cloze flow; optional.
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub lesson: Option<GrammarLesson>,
+    /// Convenience copy of lesson mistakes for post-miss feedback (also inside `lesson`).
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub mistakes: Vec<LessonMistake>,
 }
 
 #[derive(Debug, Clone, Deserialize)]

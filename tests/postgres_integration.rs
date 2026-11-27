@@ -111,6 +111,46 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     assert_eq!(passage_count as usize, SEED_PASSAGES.len());
     assert_eq!(conj_count as usize, SEED_CONJUGATIONS.len());
 
+    // Rich lessons seeded for sample slugs; others remain NULL (short-field fallback).
+    let lesson_count: i64 =
+        sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE lesson IS NOT NULL")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(lesson_count, 2);
+    let te_iru_gist: Option<String> = sqlx::query_scalar(
+        "SELECT lesson->>'gist' FROM grammar_points WHERE slug = 'te-iru'",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert!(
+        te_iru_gist
+            .as_deref()
+            .unwrap_or("")
+            .contains("て-form"),
+        "te-iru lesson gist should be seeded: {te_iru_gist:?}"
+    );
+    let koto_mistakes: Option<i32> = sqlx::query_scalar(
+        "SELECT jsonb_array_length(lesson->'mistakes') FROM grammar_points WHERE slug = 'koto-ni-suru'",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert!(
+        koto_mistakes.unwrap_or(0) >= 2,
+        "koto-ni-suru lesson should include common mistakes"
+    );
+
+    // Points without a lesson file stay on the short-field fallback.
+    let null_lesson: Option<bool> = sqlx::query_scalar(
+        "SELECT lesson IS NULL FROM grammar_points WHERE slug = 'tsumori'",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert_eq!(null_lesson, Some(true));
+
     // 2. Start HTTP server with strict CORS, body limits, and deterministic rate limits
     let cipher = TokenCipher::from_key_str(TEST_ENCRYPTION_KEY).unwrap();
     let security = SecurityConfig {
@@ -719,6 +759,36 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .await
         .unwrap();
     assert!(!lesson_q.is_empty());
+    let te_iru_card = lesson_q.iter().find(|item| item.grammar_id == first_gid);
+    if let Some(card) = te_iru_card {
+        assert!(card.lesson.is_some(), "Learn New queue should include te-iru lesson payload");
+        assert!(
+            !card.mistakes.is_empty(),
+            "te-iru queue card should surface lesson mistakes for post-miss UI"
+        );
+    }
+    let te_detail = get_grammar_detail(&pool, user_b_id, first_gid)
+        .await
+        .unwrap()
+        .expect("te-iru detail");
+    assert!(te_detail.lesson.is_some());
+    let http_detail: Value = client_b
+        .get(format!("{}/grammar/{}", base, first_gid))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert!(http_detail.get("lesson").is_some());
+    assert!(
+        http_detail["lesson"]["examples"]
+            .as_array()
+            .map(|a| a.len() >= 8)
+            .unwrap_or(false)
+    );
     let passages = list_reading_passages(&pool, user_a_id).await.unwrap();
     assert_eq!(passages.len(), SEED_PASSAGES.len());
     let detected = detect_grammar_in_text(&pool, user_a_id, "雨が降ったのに、ピクニックに行きました。")
