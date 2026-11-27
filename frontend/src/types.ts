@@ -3,6 +3,7 @@ export interface AuthUser {
   email: string
   username: string
   avatar_url?: string | null
+  email_verified: boolean
   created_at: string
 }
 
@@ -137,7 +138,6 @@ export interface SrsTierCount {
 
 export interface WaniKaniStatus {
   connected: boolean
-  is_demo: boolean
   username: string | null
   level: number
   kanji_known: number

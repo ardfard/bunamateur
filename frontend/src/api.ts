@@ -235,9 +235,6 @@ export const api = {
   syncWaniKani: (full = false) =>
     request<WaniKaniStatus>(`/api/wanikani/sync${full ? '?full=true' : ''}`, { method: 'POST' }),
 
-  demoWaniKani: () =>
-    request<WaniKaniStatus>('/api/wanikani/demo', { method: 'POST' }),
-
   disconnectWaniKani: () =>
     request<WaniKaniStatus>('/api/wanikani/disconnect', { method: 'POST' }),
 
@@ -269,6 +266,18 @@ export const api = {
       method: 'POST',
       body: JSON.stringify({ token, new_password }),
     }),
+
+  verifyEmail: (token: string) =>
+    request<{ ok: boolean; message: string }>('/api/auth/verify-email', {
+      method: 'POST',
+      body: JSON.stringify({ token }),
+    }),
+
+  resendVerificationEmail: () =>
+    request<{ ok: boolean; already_verified: boolean; message: string }>(
+      '/api/auth/resend-verification',
+      { method: 'POST' }
+    ),
 
   getAccountProfile: () => request<AccountProfileResponse>('/api/account/profile'),
 

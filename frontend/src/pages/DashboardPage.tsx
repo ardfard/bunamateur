@@ -5,8 +5,6 @@ import {
   Ghost,
   Palmtree,
   Play,
-  RefreshCw,
-  Sparkles,
   Swords,
   BookMarked,
   Upload,
@@ -48,7 +46,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onRefresh,
   onSelectGrammar,
 }) => {
-  const [syncingDemo, setSyncingDemo] = useState(false)
   const [updatingSrs, setUpdatingSrs] = useState(false)
   const [dataMsg, setDataMsg] = useState<string | null>(null)
   const importInputRef = useRef<HTMLInputElement>(null)
@@ -56,16 +53,6 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   const maxForecast = Math.max(1, ...stats.forecast_24h.map((b) => b.count))
   const totalForecast = stats.forecast_24h.reduce((sum, b) => sum + b.count, 0)
   const goalPct = Math.min(100, Math.round((stats.today_reviews / Math.max(1, stats.daily_goal)) * 100))
-
-  const handleQuickDemoWK = async () => {
-    setSyncingDemo(true)
-    try {
-      await api.demoWaniKani()
-      onRefresh()
-    } finally {
-      setSyncingDemo(false)
-    }
-  }
 
   const handleToggleVacation = async () => {
     setUpdatingSrs(true)
@@ -193,10 +180,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               </>
             ) : (
               'All caught up on reviews! Start a new lesson or drill in Cram Mode.'
-            )}{' '}
-            {stats.wanikani.connected
-              ? `WaniKani Smart Furigana is auto-hiding ${stats.wanikani.kanji_known} mastered kanji.`
-              : 'Connect WaniKani to auto-hide furigana on kanji you already know.'}
+            )}
           </p>
         </div>
 
@@ -277,15 +261,15 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           }
         />
         <MetricCard
-          label="WaniKani Kanji"
-          badge={stats.wanikani.connected ? `Lv. ${stats.wanikani.level}` : 'Not linked'}
-          badgeColor="var(--wk-pink)"
-          value={stats.wanikani.connected ? String(stats.wanikani.kanji_known) : '—'}
-          sub={
-            stats.wanikani.connected
-              ? 'Auto-hiding mastered furigana'
-              : 'Link token or try Demo Lv.14'
+          label="Study Streak"
+          badge={stats.today_reviews >= stats.daily_goal ? 'Goal Met' : `${goalPct}% today`}
+          badgeColor={
+            stats.today_reviews >= stats.daily_goal
+              ? 'var(--accent-matcha)'
+              : 'var(--accent-amber)'
           }
+          value={`${stats.streak_days}d`}
+          sub={`Today: ${stats.today_reviews} / ${stats.daily_goal} daily goal`}
         />
       </section>
 
@@ -402,107 +386,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           </div>
         </div>
 
-        {/* Right Column (5/12): WaniKani Hub + SRS Distribution + Study Tools */}
+        {/* Right Column (5/12): SRS Distribution */}
         <div className="flex flex-col gap-6 lg:col-span-5">
-          {/* WaniKani Hub Card */}
-          <div
-            className="flex flex-col gap-4 rounded-2xl border p-6"
-            style={{
-              backgroundColor: 'var(--bg-surface)',
-              borderColor: stats.wanikani.connected ? 'var(--wk-pink)' : 'var(--border-subtle)',
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <h2 className="text-base font-bold">WaniKani Integration</h2>
-              {stats.wanikani.connected ? (
-                <span
-                  className="font-mono-code rounded-full px-2.5 py-1 text-[11px] font-bold text-white"
-                  style={{ backgroundColor: 'var(--wk-pink)' }}
-                >
-                  Level {stats.wanikani.level}
-                </span>
-              ) : (
-                <span
-                  className="font-mono-code rounded-full px-2.5 py-1 text-[11px] font-semibold"
-                  style={{ backgroundColor: 'var(--bg-subtle)', color: 'var(--text-muted)' }}
-                >
-                  Disconnected
-                </span>
-              )}
-            </div>
-
-            <p className="text-xs leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-              {stats.wanikani.connected
-                ? `Synced as ${stats.wanikani.username || 'Learner'}. Smart Furigana automatically hides readings on kanji you have passed (Guru+) in WaniKani.`
-                : 'Sync your WaniKani API v2 token to automatically hide furigana on mastered kanji and unlock Kanji Readiness scores across all grammar sentences.'}
-            </p>
-
-            {stats.wanikani.connected ? (
-              <div className="grid grid-cols-3 gap-2.5">
-                <div
-                  className="rounded-xl p-3"
-                  style={{ backgroundColor: 'var(--wk-pink-soft)' }}
-                >
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--wk-pink)' }}>
-                    {stats.wanikani.kanji_known}
-                  </div>
-                  <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
-                    Kanji Known
-                  </div>
-                </div>
-                <div
-                  className="rounded-xl p-3"
-                  style={{ backgroundColor: 'var(--wk-purple-soft)' }}
-                >
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--wk-purple)' }}>
-                    {stats.wanikani.vocab_known}
-                  </div>
-                  <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
-                    Vocab Known
-                  </div>
-                </div>
-                <div
-                  className="rounded-xl p-3"
-                  style={{ backgroundColor: 'var(--accent-amber-soft)' }}
-                >
-                  <div className="font-mono-code text-lg font-bold" style={{ color: 'var(--accent-amber)' }}>
-                    {stats.wanikani.wk_reviews_available}
-                  </div>
-                  <div className="text-[11px]" style={{ color: 'var(--text-secondary)' }}>
-                    WK Reviews
-                  </div>
-                </div>
-              </div>
-            ) : (
-              <div className="flex flex-wrap gap-2.5">
-                <button
-                  onClick={() => onNavigate('wanikani')}
-                  className="flex-1 rounded-xl px-4 py-2.5 text-xs font-semibold text-white cursor-pointer"
-                  style={{ backgroundColor: 'var(--wk-pink)' }}
-                >
-                  Connect API v2 Token
-                </button>
-                <button
-                  onClick={handleQuickDemoWK}
-                  disabled={syncingDemo}
-                  className="flex items-center gap-1.5 rounded-xl border px-3.5 py-2.5 text-xs font-semibold cursor-pointer"
-                  style={{
-                    borderColor: 'var(--wk-pink)',
-                    color: 'var(--wk-pink)',
-                    backgroundColor: 'var(--wk-pink-soft)',
-                  }}
-                >
-                  {syncingDemo ? (
-                    <RefreshCw className="h-3.5 w-3.5 animate-spin" />
-                  ) : (
-                    <Sparkles className="h-3.5 w-3.5" />
-                  )}
-                  Try Demo Lv.14
-                </button>
-              </div>
-            )}
-          </div>
-
           {/* SRS Distribution */}
           <div
             className="flex flex-col gap-3.5 rounded-2xl border p-6"

@@ -8,7 +8,8 @@ use crate::auth::{
 use crate::db::{
     AppState, CreateUserError, analyze_reading_text, build_review_queue,
     complete_onboarding as db_complete_onboarding, compute_dashboard, compute_study_analytics,
-    consume_password_reset_token, create_password_reset_token, create_session, create_user,
+    consume_email_verification_token, consume_password_reset_token,
+    create_email_verification_token, create_password_reset_token, create_session, create_user,
     delete_session, delete_vocab_bookmark as db_delete_vocab_bookmark,
     disconnect_wanikani as db_disconnect_wanikani, export_user_progress, find_user_by_email,
     get_account_profile as db_get_account_profile, get_content_version, get_grammar_detail,
@@ -18,20 +19,22 @@ use crate::db::{
     list_user_sessions, list_vocab_bookmarks, load_wanikani_status, load_wanikani_sync_status,
     ping_database, progress_export_to_csv, record_review_submission,
     reset_grammar_progress as db_reset_grammar_progress, revoke_other_user_sessions,
-    revoke_user_session, save_wanikani_sync, save_wanikani_token_and_start_sync,
+    revoke_user_session, save_wanikani_token_and_start_sync,
     spawn_wanikani_sync_job, start_lesson as db_start_lesson, undo_review as db_undo_review,
     update_grammar_notes as db_update_grammar_notes, update_srs_settings as db_update_srs_settings,
     update_user_password_hash, update_user_username,
     update_wanikani_settings as db_update_wanikani_settings, upsert_google_user,
     upsert_vocab_bookmark, vocab_bookmarks_to_anki_tsv,
 };
-use crate::email::{build_password_reset_email, build_welcome_email};
+use crate::email::{
+    build_email_verification_email, build_password_reset_email, build_welcome_email,
+};
 use crate::models::{
     AuthProvidersResponse, AuthResponse, ChangePasswordRequest, CompleteOnboardingRequest,
     ForgotPasswordRequest, ImportProgressRequest, LoginRequest, ReadingAnalyzeRequest,
     RegisterRequest, ResetPasswordRequest, SaveVocabBookmarkRequest, StartLessonRequest,
     SubmitAnswerRequest, SubmitAnswerResponse, UndoReviewRequest, UpdateNotesRequest,
-    UpdateProfileRequest, UpdateSrsSettingsRequest, WaniKaniConnectRequest,
+    UpdateProfileRequest, UpdateSrsSettingsRequest, VerifyEmailRequest, WaniKaniConnectRequest,
     WaniKaniSettingsRequest,
 };
 use crate::oauth::{
@@ -48,7 +51,7 @@ use crate::srs::{
     GhostIntensity, GradeOutcome, compute_srs_transition_with_intensity, grade_answer,
     srs_interval_hours, srs_stage_label,
 };
-use crate::wanikani::{WaniKaniClient, generate_demo_wanikani_sync};
+use crate::wanikani::WaniKaniClient;
 use axum::{
     Json, Router,
     extract::{ConnectInfo, DefaultBodyLimit, Path, Query, State},
@@ -141,6 +144,8 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
     let auth_public_routes = Router::new()
         .route("/auth/register", post(register))
         .route("/auth/login", post(login))
+        .route("/auth/verify-email", post(verify_email))
+        .route("/auth/resend-verification", post(resend_verification))
         .route("/auth/forgot-password", post(forgot_password))
         .route("/auth/reset-password", post(reset_password))
         .route("/auth/google/start", get(google_oauth_start))
@@ -155,7 +160,6 @@ pub fn api_router(state: &AppState) -> Router<AppState> {
     let wk_sync_routes = Router::new()
         .route("/wanikani/connect", post(connect_wanikani))
         .route("/wanikani/sync", post(resync_wanikani))
-        .route("/wanikani/demo", post(demo_wanikani))
         .layer(DefaultBodyLimit::max(DEFAULT_BODY_LIMIT_BYTES))
         .layer(RequestBodyLimitLayer::new(DEFAULT_BODY_LIMIT_BYTES))
         .layer(middleware::from_fn(move |req, next| {
@@ -267,23 +271,39 @@ async fn register(
         }
     };
 
-    // Send welcome email asynchronously through the pluggable EmailSender interface
-    let mailer = state.mailer.clone();
-    let welcome_msg = build_welcome_email(&user.email, &user.username, &state.app_public_url);
-    tokio::spawn(async move {
-        match mailer.send(welcome_msg).await {
-            Ok(res) => tracing::info!(
-                provider = res.provider,
-                message_id = ?res.message_id,
-                "Welcome email dispatched"
-            ),
-            Err(e) => tracing::warn!(
-                provider = mailer.provider_name(),
-                error = %e,
-                "Failed to dispatch welcome email"
-            ),
-        }
-    });
+    // Soft email verification: create a 24h verification token and dispatch verification email
+    // asynchronously while signing the user in immediately.
+    let raw_verify_token = generate_random_token();
+    let verify_token_hash = hash_session_token(&raw_verify_token);
+    let verify_expires_at = Utc::now() + Duration::hours(24);
+    if let Err(e) =
+        create_email_verification_token(&state.pool, user.id, &verify_token_hash, verify_expires_at)
+            .await
+    {
+        tracing::error!(error = %e, "Failed to persist email verification token on registration");
+    } else {
+        let verify_url = format!(
+            "{}/verify-email?token={}",
+            state.app_public_url.trim_end_matches('/'),
+            raw_verify_token
+        );
+        let mailer = state.mailer.clone();
+        let verify_msg = build_email_verification_email(&user.email, &user.username, &verify_url);
+        tokio::spawn(async move {
+            match mailer.send(verify_msg).await {
+                Ok(res) => tracing::info!(
+                    provider = res.provider,
+                    message_id = ?res.message_id,
+                    "Email verification email dispatched"
+                ),
+                Err(e) => tracing::warn!(
+                    provider = mailer.provider_name(),
+                    error = %e,
+                    "Failed to dispatch email verification email"
+                ),
+            }
+        });
+    }
 
     let peer = extensions.get::<ConnectInfo<SocketAddr>>().map(|c| c.0);
     issue_session_response(&state, &headers, peer, user, StatusCode::CREATED).await
@@ -1194,28 +1214,10 @@ async fn resync_wanikani(
         return err;
     }
 
-    let (token, is_demo) =
-        match get_wanikani_credentials(&state.pool, &state.cipher, auth.user_id()).await {
-            Ok(v) => v,
-            Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-        };
-
-    if is_demo {
-        let demo = generate_demo_wanikani_sync();
-        return match save_wanikani_sync(
-            &state.pool,
-            &state.cipher,
-            auth.user_id(),
-            None,
-            true,
-            &demo,
-        )
-        .await
-        {
-            Ok(status) => (StatusCode::OK, Json(json!(status))),
-            Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-        };
-    }
+    let token = match get_wanikani_credentials(&state.pool, &state.cipher, auth.user_id()).await {
+        Ok(v) => v,
+        Err(e) => return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    };
 
     if token.is_none() {
         return err_response(StatusCode::BAD_REQUEST, "WaniKani is not connected yet");
@@ -1227,31 +1229,6 @@ async fn resync_wanikani(
     }
 
     match load_wanikani_status(&state.pool, auth.user_id()).await {
-        Ok(status) => (StatusCode::OK, Json(json!(status))),
-        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
-    }
-}
-
-async fn demo_wanikani(
-    State(state): State<AppState>,
-    auth: AuthUser,
-    headers: HeaderMap,
-) -> impl IntoResponse {
-    if let Err(err) = verify_csrf(&headers, &auth) {
-        return err;
-    }
-
-    let demo = generate_demo_wanikani_sync();
-    match save_wanikani_sync(
-        &state.pool,
-        &state.cipher,
-        auth.user_id(),
-        None,
-        true,
-        &demo,
-    )
-    .await
-    {
         Ok(status) => (StatusCode::OK, Json(json!(status))),
         Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
     }
@@ -1298,8 +1275,96 @@ async fn update_wanikani_settings(
 }
 
 // ---------------------------------------------------------------------------
-// v0.2 Password Reset, Account Security & Active Sessions
+// v0.2 Email Verification, Password Reset, Account Security & Active Sessions
 // ---------------------------------------------------------------------------
+
+async fn verify_email(
+    State(state): State<AppState>,
+    Json(req): Json<VerifyEmailRequest>,
+) -> impl IntoResponse {
+    let raw_token = req.token.trim();
+    if raw_token.len() < 16 {
+        return err_response(StatusCode::BAD_REQUEST, "Invalid or expired verification token");
+    }
+
+    let token_hash = hash_session_token(raw_token);
+    match consume_email_verification_token(&state.pool, &token_hash).await {
+        Ok(Some(_)) => (
+            StatusCode::OK,
+            Json(json!({
+                "ok": true,
+                "message": "Your email address has been verified!"
+            })),
+        ),
+        Ok(None) => err_response(
+            StatusCode::BAD_REQUEST,
+            "This verification link is invalid or has expired",
+        ),
+        Err(e) => err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string()),
+    }
+}
+
+async fn resend_verification(
+    State(state): State<AppState>,
+    auth: AuthUser,
+    headers: HeaderMap,
+) -> impl IntoResponse {
+    if let Err(err) = verify_csrf(&headers, &auth) {
+        return err;
+    }
+
+    if auth.user.email_verified {
+        return (
+            StatusCode::OK,
+            Json(json!({
+                "ok": true,
+                "already_verified": true,
+                "message": "Your email address is already verified."
+            })),
+        );
+    }
+
+    let raw_token = generate_random_token();
+    let token_hash = hash_session_token(&raw_token);
+    let expires_at = Utc::now() + Duration::hours(24);
+
+    if let Err(e) =
+        create_email_verification_token(&state.pool, auth.user_id(), &token_hash, expires_at).await
+    {
+        return err_response(StatusCode::INTERNAL_SERVER_ERROR, e.to_string());
+    }
+
+    let verify_url = format!(
+        "{}/verify-email?token={}",
+        state.app_public_url.trim_end_matches('/'),
+        raw_token
+    );
+    let msg = build_email_verification_email(&auth.user.email, &auth.user.username, &verify_url);
+    let mailer = state.mailer.clone();
+    tokio::spawn(async move {
+        match mailer.send(msg).await {
+            Ok(res) => tracing::info!(
+                provider = res.provider,
+                message_id = ?res.message_id,
+                "Verification email re-dispatched"
+            ),
+            Err(e) => tracing::warn!(
+                provider = mailer.provider_name(),
+                error = %e,
+                "Failed to re-dispatch verification email"
+            ),
+        }
+    });
+
+    (
+        StatusCode::OK,
+        Json(json!({
+            "ok": true,
+            "already_verified": false,
+            "message": "Verification email sent! Please check your inbox."
+        })),
+    )
+}
 
 async fn forgot_password(
     State(state): State<AppState>,

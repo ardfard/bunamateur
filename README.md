@@ -25,9 +25,8 @@ A **Bunpro-inspired Japanese grammar SRS & immersion companion** built with a **
 - **Top leeches repair list** highlighting stubborn grammar points for focused review.
 
 ### WaniKani API v2 Integration & Conjugation Dojo
-- **WaniKani Sync**: Connects directly via the Rust backend (`reqwest` + `rustls`) to `https://api.wanikani.com/v2` (`/user`, `/summary`, `/assignments`, `/subjects`) with background sync status tracking.
+- **WaniKani Sync**: Configured under **Account Settings → WaniKani**, connecting directly via the Rust backend (`reqwest` + `rustls`) to `https://api.wanikani.com/v2` (`/user`, `/summary`, `/assignments`, `/subjects`) with background sync status tracking.
 - **Smart Furigana & Kanji Readiness %**: Automatically hides furigana above kanji passed (Guru+) in WaniKani while preserving readings on unlearned kanji (hover any kanji to peek), and computes Kanji Readiness % across grammar points and passages.
-- **1-click Demo Lv.14 Sync**: Try Smart Furigana and WaniKani level badges immediately without an API token.
 - **Conjugation Dojo (活用道場)**: High-speed verb & adjective conjugation drills (`て`, `ない`, `た`, Potential, `ば`, Passive, Causative) with streak tracking and instant grammar rules.
 
 ### Frontend Polish & PWA

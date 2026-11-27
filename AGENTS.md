@@ -27,6 +27,10 @@ bd close <id>         # Complete work
 bd dolt push          # Push beads data to remote
 ```
 
+## Delegation
+
+**ALWAYS delegate implementation tasks to subagents** (`invoke_subagent`), splitting work across disjoint file boundaries in parallel when possible, while the coordinator defines shared contracts, reviews results, and runs final verification.
+
 ## Version Control (jj)
 
 **ALWAYS use `jj` (Jujutsu)** for version control operations instead of raw `git` commands:

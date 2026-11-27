@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { CheckCircle2, Clock, KeyRound, RefreshCw, Sparkles, Unlink } from 'lucide-react'
+import { CheckCircle2, Clock, KeyRound, RefreshCw, Unlink } from 'lucide-react'
 import { api } from '../api'
 import type { WaniKaniStatus } from '../types'
 import { RubyText } from '../utils/furigana'
@@ -8,12 +8,14 @@ interface WaniKaniPageProps {
   status: WaniKaniStatus
   knownKanji: Set<string>
   onUpdated: () => void
+  embedded?: boolean
 }
 
 export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
   status,
   knownKanji,
   onUpdated,
+  embedded = false,
 }) => {
   const [token, setToken] = useState('')
   const [busy, setBusy] = useState(false)
@@ -54,21 +56,6 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
       onUpdated()
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to connect WaniKani')
-    } finally {
-      setBusy(false)
-    }
-  }
-
-  const handleDemo = async () => {
-    setBusy(true)
-    setError(null)
-    setSuccessMsg(null)
-    try {
-      const res = await api.demoWaniKani()
-      setSuccessMsg(
-        `Demo WaniKani Level ${res.level} activated with ${res.kanji_known} mastered kanji!`
-      )
-      onUpdated()
     } finally {
       setBusy(false)
     }
@@ -122,13 +109,21 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
   }
 
   return (
-    <div className="mx-auto flex max-w-[1040px] flex-col gap-6 px-4 py-8 sm:px-8">
-      <div>
-        <h1 className="text-2xl font-bold tracking-tight">WaniKani API v2 Integration</h1>
-        <p className="mt-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
-          Sync your WaniKani kanji & vocabulary directly through the Rust backend. BunAmateur uses your Guru+ kanji to power Smart Furigana and Kanji Readiness scores.
-        </p>
-      </div>
+    <div
+      className={
+        embedded
+          ? 'flex flex-col gap-5'
+          : 'mx-auto flex max-w-[1040px] flex-col gap-6 px-4 py-8 sm:px-8'
+      }
+    >
+      {!embedded && (
+        <div>
+          <h1 className="text-2xl font-bold tracking-tight">WaniKani API v2 Integration</h1>
+          <p className="mt-1 text-sm" style={{ color: 'var(--text-secondary)' }}>
+            Sync your WaniKani kanji & vocabulary directly through the Rust backend. BunAmateur uses your Guru+ kanji to power Smart Furigana and Kanji Readiness scores.
+          </p>
+        </div>
+      )}
 
       {error && (
         <div
@@ -179,14 +174,6 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
                   Level {status.level}
                 </span>
               )}
-              {status.is_demo && (
-                <span
-                  className="font-mono-code rounded-full px-2.5 py-0.5 text-[11px] font-semibold"
-                  style={{ backgroundColor: 'var(--accent-amber-soft)', color: 'var(--accent-amber)' }}
-                >
-                  Demo Mode
-                </span>
-              )}
             </div>
             {status.last_synced_at && (
               <p className="font-mono-code mt-1 text-xs" style={{ color: 'var(--text-muted)' }}>
@@ -208,19 +195,17 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
                 />
                 {status.sync_status === 'running' ? 'Syncing...' : 'Sync Now'}
               </button>
-              {!status.is_demo && (
-                <button
-                  onClick={() => handleResync(true)}
-                  disabled={busy || status.sync_status === 'running'}
-                  className="rounded-xl border px-3 py-2 text-xs font-semibold cursor-pointer disabled:opacity-60"
-                  style={{
-                    borderColor: 'var(--border-subtle)',
-                    color: 'var(--text-secondary)',
-                  }}
-                >
-                  Full Resync
-                </button>
-              )}
+              <button
+                onClick={() => handleResync(true)}
+                disabled={busy || status.sync_status === 'running'}
+                className="rounded-xl border px-3 py-2 text-xs font-semibold cursor-pointer disabled:opacity-60"
+                style={{
+                  borderColor: 'var(--border-subtle)',
+                  color: 'var(--text-secondary)',
+                }}
+              >
+                Full Resync
+              </button>
               <button
                 onClick={handleDisconnect}
                 disabled={busy}
@@ -296,20 +281,6 @@ export const WaniKaniPage: React.FC<WaniKaniPageProps> = ({
             style={{ backgroundColor: 'var(--wk-pink)' }}
           >
             {busy ? 'Syncing...' : 'Connect & Sync'}
-          </button>
-          <button
-            type="button"
-            onClick={handleDemo}
-            disabled={busy}
-            className="flex items-center justify-center gap-1.5 rounded-xl border px-4 py-2.5 text-sm font-semibold cursor-pointer"
-            style={{
-              borderColor: 'var(--wk-pink)',
-              backgroundColor: 'var(--wk-pink-soft)',
-              color: 'var(--wk-pink)',
-            }}
-          >
-            <Sparkles className="h-4 w-4" />
-            Try Demo Lv.14
           </button>
         </form>
 

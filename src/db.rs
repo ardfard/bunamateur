@@ -403,6 +403,7 @@ struct UserRow {
     email: String,
     username: String,
     avatar_url: Option<String>,
+    email_verified_at: Option<DateTime<Utc>>,
     created_at: DateTime<Utc>,
 }
 
@@ -413,6 +414,7 @@ impl From<UserRow> for AuthUserInfo {
             email: r.email,
             username: r.username,
             avatar_url: r.avatar_url,
+            email_verified: r.email_verified_at.is_some(),
             created_at: r.created_at.to_rfc3339(),
         }
     }
@@ -429,7 +431,7 @@ pub async fn create_user(
     let row: UserRow = match sqlx::query_as(
         "INSERT INTO users (email, username, password_hash)
          VALUES ($1, $2, $3)
-         RETURNING id, email, username, avatar_url, created_at",
+         RETURNING id, email, username, avatar_url, email_verified_at, created_at",
     )
     .bind(email)
     .bind(username)
@@ -471,6 +473,7 @@ struct UserWithPasswordRow {
     email: String,
     username: String,
     avatar_url: Option<String>,
+    email_verified_at: Option<DateTime<Utc>>,
     password_hash: String,
     created_at: DateTime<Utc>,
 }
@@ -480,7 +483,7 @@ pub async fn find_user_by_email(
     email: &str,
 ) -> Result<Option<(AuthUserInfo, String)>> {
     let row: Option<UserWithPasswordRow> = sqlx::query_as(
-        "SELECT id, email, username, avatar_url, password_hash, created_at
+        "SELECT id, email, username, avatar_url, email_verified_at, password_hash, created_at
          FROM users
          WHERE LOWER(email) = LOWER($1)",
     )
@@ -495,6 +498,7 @@ pub async fn find_user_by_email(
                 email: r.email,
                 username: r.username,
                 avatar_url: r.avatar_url,
+                email_verified: r.email_verified_at.is_some(),
                 created_at: r.created_at.to_rfc3339(),
             },
             r.password_hash,
@@ -512,7 +516,7 @@ pub async fn upsert_google_user(
 
     // 1. Existing linked Google identity
     let existing_linked: Option<UserRow> = sqlx::query_as(
-        "SELECT u.id, u.email, u.username, u.avatar_url, u.created_at
+        "SELECT u.id, u.email, u.username, u.avatar_url, u.email_verified_at, u.created_at
          FROM oauth_identities o
          JOIN users u ON u.id = o.user_id
          WHERE o.provider = 'google' AND o.provider_user_id = $1",
@@ -521,7 +525,7 @@ pub async fn upsert_google_user(
     .fetch_optional(&mut *tx)
     .await?;
 
-    if let Some(mut user) = existing_linked {
+    if let Some(user) = existing_linked {
         sqlx::query(
             "UPDATE oauth_identities
              SET email = $2, avatar_url = $3, updated_at = NOW()
@@ -533,26 +537,26 @@ pub async fn upsert_google_user(
         .execute(&mut *tx)
         .await?;
 
-        if let Some(pic) = &profile.picture {
-            sqlx::query(
-                "UPDATE users SET avatar_url = COALESCE(avatar_url, $2), updated_at = NOW() WHERE id = $1",
-            )
-            .bind(user.id)
-            .bind(pic)
-            .execute(&mut *tx)
-            .await?;
-            if user.avatar_url.is_none() {
-                user.avatar_url = Some(pic.clone());
-            }
-        }
+        let updated: UserRow = sqlx::query_as(
+            "UPDATE users
+             SET avatar_url = COALESCE(avatar_url, $2),
+                 email_verified_at = COALESCE(email_verified_at, NOW()),
+                 updated_at = NOW()
+             WHERE id = $1
+             RETURNING id, email, username, avatar_url, email_verified_at, created_at",
+        )
+        .bind(user.id)
+        .bind(profile.picture.as_deref())
+        .fetch_one(&mut *tx)
+        .await?;
 
         tx.commit().await?;
-        return Ok((user.into(), false));
+        return Ok((updated.into(), false));
     }
 
     // 2. Existing user with matching verified email -> link Google identity seamlessly
     let existing_by_email: Option<UserRow> = sqlx::query_as(
-        "SELECT id, email, username, avatar_url, created_at
+        "SELECT id, email, username, avatar_url, email_verified_at, created_at
          FROM users
          WHERE LOWER(email) = LOWER($1)",
     )
@@ -560,7 +564,7 @@ pub async fn upsert_google_user(
     .fetch_optional(&mut *tx)
     .await?;
 
-    if let Some(mut user) = existing_by_email {
+    if let Some(user) = existing_by_email {
         sqlx::query(
             "INSERT INTO oauth_identities (user_id, provider, provider_user_id, email, avatar_url)
              VALUES ($1, 'google', $2, $3, $4)
@@ -577,19 +581,21 @@ pub async fn upsert_google_user(
         .execute(&mut *tx)
         .await?;
 
-        if let Some(pic) = &profile.picture
-            && user.avatar_url.is_none()
-        {
-            sqlx::query("UPDATE users SET avatar_url = $2, updated_at = NOW() WHERE id = $1")
-                .bind(user.id)
-                .bind(pic)
-                .execute(&mut *tx)
-                .await?;
-            user.avatar_url = Some(pic.clone());
-        }
+        let updated: UserRow = sqlx::query_as(
+            "UPDATE users
+             SET avatar_url = COALESCE(avatar_url, $2),
+                 email_verified_at = COALESCE(email_verified_at, NOW()),
+                 updated_at = NOW()
+             WHERE id = $1
+             RETURNING id, email, username, avatar_url, email_verified_at, created_at",
+        )
+        .bind(user.id)
+        .bind(profile.picture.as_deref())
+        .fetch_one(&mut *tx)
+        .await?;
 
         tx.commit().await?;
-        return Ok((user.into(), false));
+        return Ok((updated.into(), false));
     }
 
     // 3. Brand-new Google user: pick a unique sanitized username
@@ -612,9 +618,9 @@ pub async fn upsert_google_user(
     }
 
     let created: UserRow = sqlx::query_as(
-        "INSERT INTO users (email, username, password_hash, avatar_url)
-         VALUES ($1, $2, '!oauth-google', $3)
-         RETURNING id, email, username, avatar_url, created_at",
+        "INSERT INTO users (email, username, password_hash, avatar_url, email_verified_at)
+         VALUES ($1, $2, '!oauth-google', $3, NOW())
+         RETURNING id, email, username, avatar_url, email_verified_at, created_at",
     )
     .bind(&profile.email)
     .bind(&chosen_username)
@@ -683,6 +689,7 @@ struct SessionUserRow {
     email: String,
     username: String,
     avatar_url: Option<String>,
+    email_verified_at: Option<DateTime<Utc>>,
     created_at: DateTime<Utc>,
     csrf_token: String,
     last_seen_at: DateTime<Utc>,
@@ -693,7 +700,7 @@ pub async fn get_session_user(
     session_id_hash: &str,
 ) -> Result<Option<(AuthUserInfo, String)>> {
     let row: Option<SessionUserRow> = sqlx::query_as(
-        "SELECT u.id, u.email, u.username, u.avatar_url, u.created_at, s.csrf_token, s.last_seen_at
+        "SELECT u.id, u.email, u.username, u.avatar_url, u.email_verified_at, u.created_at, s.csrf_token, s.last_seen_at
          FROM sessions s
          JOIN users u ON u.id = s.user_id
          WHERE s.id = $1 AND s.expires_at > NOW()",
@@ -719,6 +726,7 @@ pub async fn get_session_user(
             email: row.email,
             username: row.username,
             avatar_url: row.avatar_url,
+            email_verified: row.email_verified_at.is_some(),
             created_at: row.created_at.to_rfc3339(),
         },
         row.csrf_token,
@@ -764,7 +772,6 @@ pub async fn load_known_kanji(pool: &PgPool, user_id: i64) -> Result<HashSet<cha
 #[derive(FromRow)]
 struct WkProfileRow {
     api_token: Option<String>,
-    is_demo: bool,
     username: Option<String>,
     level: i32,
     lessons_available: i32,
@@ -783,7 +790,7 @@ struct WkProfileRow {
 
 pub async fn load_wanikani_status(pool: &PgPool, user_id: i64) -> Result<WaniKaniStatus> {
     let profile: Option<WkProfileRow> = sqlx::query_as(
-        "SELECT api_token, is_demo, username, level, lessons_available, reviews_available,
+        "SELECT api_token, username, level, lessons_available, reviews_available,
                 smart_furigana, highlight_known_kanji, last_synced_at,
                 sync_status, sync_progress_pages, sync_progress_items, sync_message, sync_error,
                 auto_sync_enabled, auto_sync_interval_mins
@@ -797,7 +804,6 @@ pub async fn load_wanikani_status(pool: &PgPool, user_id: i64) -> Result<WaniKan
     let Some(profile) = profile else {
         return Ok(WaniKaniStatus {
             connected: false,
-            is_demo: false,
             username: None,
             level: 0,
             kanji_known: 0,
@@ -842,11 +848,10 @@ pub async fn load_wanikani_status(pool: &PgPool, user_id: i64) -> Result<WaniKan
     .fetch_all(pool)
     .await?;
 
-    let connected = profile.api_token.is_some() || profile.is_demo;
+    let connected = profile.api_token.is_some();
 
     Ok(WaniKaniStatus {
         connected,
-        is_demo: profile.is_demo,
         username: profile.username,
         level: profile.level,
         kanji_known: kanji_known as usize,
@@ -1027,18 +1032,13 @@ pub async fn spawn_wanikani_sync_job(state: AppState, user_id: i64, force_full: 
         }
     }
 
-    let (token_opt, is_demo) = match get_wanikani_credentials(&state.pool, &state.cipher, user_id).await {
+    let token_opt = match get_wanikani_credentials(&state.pool, &state.cipher, user_id).await {
         Ok(v) => v,
         Err(e) => {
             state.wk_sync_inflight.lock().await.remove(&user_id);
             return Err(e);
         }
     };
-
-    if is_demo {
-        state.wk_sync_inflight.lock().await.remove(&user_id);
-        return Ok(false);
-    }
 
     let Some(api_token) = token_opt else {
         state.wk_sync_inflight.lock().await.remove(&user_id);
@@ -1089,7 +1089,6 @@ pub async fn spawn_wanikani_sync_job(state: AppState, user_id: i64, force_full: 
                 &state.cipher,
                 user_id,
                 Some(&api_token),
-                false,
                 &sync_result,
             )
             .await?;
@@ -1150,23 +1149,18 @@ pub async fn get_wanikani_credentials(
     pool: &PgPool,
     cipher: &TokenCipher,
     user_id: i64,
-) -> Result<(Option<String>, bool)> {
-    let row: Option<(Option<String>, bool)> =
-        sqlx::query_as("SELECT api_token, is_demo FROM wk_profile WHERE user_id = $1")
+) -> Result<Option<String>> {
+    let row: Option<Option<String>> =
+        sqlx::query_scalar("SELECT api_token FROM wk_profile WHERE user_id = $1")
             .bind(user_id)
             .fetch_optional(pool)
             .await?;
 
-    let Some((stored_token, is_demo)) = row else {
-        return Ok((None, false));
+    let Some(Some(enc)) = row else {
+        return Ok(None);
     };
 
-    let decrypted = match stored_token {
-        Some(enc) => Some(cipher.decrypt_for_user(user_id, &enc)?),
-        None => None,
-    };
-
-    Ok((decrypted, is_demo))
+    Ok(Some(cipher.decrypt_for_user(user_id, &enc)?))
 }
 
 pub async fn save_wanikani_sync(
@@ -1174,7 +1168,6 @@ pub async fn save_wanikani_sync(
     cipher: &TokenCipher,
     user_id: i64,
     api_token: Option<&str>,
-    is_demo: bool,
     sync: &WaniKaniSyncResult,
 ) -> Result<WaniKaniStatus> {
     let encrypted_token = match api_token {
@@ -1201,11 +1194,11 @@ pub async fn save_wanikani_sync(
               sync_status, sync_progress_items, sync_message, sync_error,
               user_etag, summary_etag, assignments_updated_after, assignments_etag,
               subjects_updated_after, subjects_etag)
-         VALUES ($1, $2, $3, $4, $5, $6, $7, TRUE, TRUE, $8,
-                 'completed', $9, $10, NULL, $11, $12, $13, $14, $15, $16)
+         VALUES ($1, $2, FALSE, $3, $4, $5, $6, TRUE, TRUE, $7,
+                 'completed', $8, $9, NULL, $10, $11, $12, $13, $14, $15)
          ON CONFLICT (user_id) DO UPDATE SET
              api_token = EXCLUDED.api_token,
-             is_demo = EXCLUDED.is_demo,
+             is_demo = FALSE,
              username = EXCLUDED.username,
              level = EXCLUDED.level,
              lessons_available = EXCLUDED.lessons_available,
@@ -1224,7 +1217,6 @@ pub async fn save_wanikani_sync(
     )
     .bind(user_id)
     .bind(encrypted_token.as_deref())
-    .bind(is_demo)
     .bind(&sync.username)
     .bind(sync.level)
     .bind(sync.lessons_available)
@@ -3201,12 +3193,79 @@ pub async fn consume_password_reset_token(
     Ok(Some(uid))
 }
 
+pub async fn create_email_verification_token(
+    pool: &PgPool,
+    user_id: i64,
+    token_hash: &str,
+    expires_at: DateTime<Utc>,
+) -> Result<()> {
+    sqlx::query(
+        "DELETE FROM email_verification_tokens
+         WHERE user_id = $1 AND (used_at IS NOT NULL OR expires_at < NOW())",
+    )
+    .bind(user_id)
+    .execute(pool)
+    .await?;
+
+    sqlx::query(
+        "INSERT INTO email_verification_tokens (token_hash, user_id, expires_at)
+         VALUES ($1, $2, $3)",
+    )
+    .bind(token_hash)
+    .bind(user_id)
+    .bind(expires_at)
+    .execute(pool)
+    .await?;
+    Ok(())
+}
+
+/// Validates and consumes a single-use email verification token and marks the user's email verified.
+pub async fn consume_email_verification_token(
+    pool: &PgPool,
+    token_hash: &str,
+) -> Result<Option<i64>> {
+    let mut tx = pool.begin().await?;
+    let user_id: Option<i64> = sqlx::query_scalar(
+        "SELECT user_id
+         FROM email_verification_tokens
+         WHERE token_hash = $1 AND used_at IS NULL AND expires_at > NOW()
+         FOR UPDATE",
+    )
+    .bind(token_hash)
+    .fetch_optional(&mut *tx)
+    .await?;
+
+    let Some(uid) = user_id else {
+        tx.rollback().await?;
+        return Ok(None);
+    };
+
+    sqlx::query("UPDATE email_verification_tokens SET used_at = NOW() WHERE token_hash = $1")
+        .bind(token_hash)
+        .execute(&mut *tx)
+        .await?;
+
+    sqlx::query(
+        "UPDATE users
+         SET email_verified_at = COALESCE(email_verified_at, NOW()),
+             updated_at = NOW()
+         WHERE id = $1",
+    )
+    .bind(uid)
+    .execute(&mut *tx)
+    .await?;
+
+    tx.commit().await?;
+    Ok(Some(uid))
+}
+
 #[derive(FromRow)]
 struct AccountUserRow {
     id: i64,
     email: String,
     username: String,
     avatar_url: Option<String>,
+    email_verified_at: Option<DateTime<Utc>>,
     password_hash: String,
     created_at: DateTime<Utc>,
 }
@@ -3216,7 +3275,7 @@ pub async fn get_account_profile(
     user_id: i64,
 ) -> Result<Option<AccountProfileResponse>> {
     let row: Option<AccountUserRow> = sqlx::query_as(
-        "SELECT id, email, username, avatar_url, password_hash, created_at
+        "SELECT id, email, username, avatar_url, email_verified_at, password_hash, created_at
          FROM users
          WHERE id = $1",
     )
@@ -3252,6 +3311,7 @@ pub async fn get_account_profile(
             email: u.email,
             username: u.username,
             avatar_url: u.avatar_url,
+            email_verified: u.email_verified_at.is_some(),
             created_at: u.created_at.to_rfc3339(),
         },
         has_password,

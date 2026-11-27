@@ -10,7 +10,7 @@ use bunamateur::{
     security::{RateLimitConfig, RateLimitRule, SecurityConfig, build_cors_layer},
     seed_data::{SEED_CONJUGATIONS, SEED_PASSAGES},
     seed_data_extra::{CONTENT_SCHEMA_VERSION, all_seed_grammar, sentences_for_grammar},
-    wanikani::generate_demo_wanikani_sync,
+    wanikani::WaniKaniSyncResult,
 };
 use axum::http::{StatusCode, header};
 use serde_json::{Value, json};
@@ -223,6 +223,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     let reg_a: Value = reg_a_raw.json().await.unwrap();
     let user_a_id = reg_a["user"]["id"].as_i64().unwrap();
     let csrf_a = reg_a["csrf_token"].as_str().unwrap().to_string();
+    assert_eq!(reg_a["user"]["email_verified"], Value::Bool(false));
 
     // Duplicate email rejected with 409
     let dup = anon
@@ -257,56 +258,95 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     let user_b_id = reg_b["user"]["id"].as_i64().unwrap();
     let csrf_b = reg_b["csrf_token"].as_str().unwrap().to_string();
     assert_ne!(user_a_id, user_b_id);
+    assert_eq!(reg_b["user"]["email_verified"], Value::Bool(false));
 
-    // 4. Verify CSRF protection on mutating endpoints
+    // 4. Verify CSRF protection on mutating endpoints & removal of demo endpoint
     let missing_csrf = client_a
-        .post(format!("{}/wanikani/demo", base))
+        .put(format!("{}/wanikani/settings", base))
+        .json(&json!({
+            "smart_furigana": true,
+            "highlight_known_kanji": true
+        }))
         .send()
         .await
         .unwrap();
     assert_eq!(missing_csrf.status(), StatusCode::FORBIDDEN);
 
     let wrong_csrf = client_a
-        .post(format!("{}/wanikani/demo", base))
+        .put(format!("{}/wanikani/settings", base))
         .header("X-CSRF-Token", "not-the-real-token")
+        .json(&json!({
+            "smart_furigana": true,
+            "highlight_known_kanji": true
+        }))
         .send()
         .await
         .unwrap();
     assert_eq!(wrong_csrf.status(), StatusCode::FORBIDDEN);
 
-    // With valid CSRF token, User A activates WaniKani demo
-    let wk_a: Value = client_a
+    let valid_settings = client_a
+        .put(format!("{}/wanikani/settings", base))
+        .header("X-CSRF-Token", &csrf_a)
+        .json(&json!({
+            "smart_furigana": true,
+            "highlight_known_kanji": false
+        }))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(valid_settings.status(), StatusCode::OK);
+    let wk_settings_json: Value = valid_settings.json().await.unwrap();
+    assert_eq!(wk_settings_json["smart_furigana"], Value::Bool(true));
+    assert_eq!(wk_settings_json["highlight_known_kanji"], Value::Bool(false));
+
+    let removed_demo = client_a
         .post(format!("{}/wanikani/demo", base))
         .header("X-CSRF-Token", &csrf_a)
         .send()
         .await
-        .unwrap()
-        .error_for_status()
-        .unwrap()
-        .json()
-        .await
         .unwrap();
-    assert_eq!(wk_a["connected"], Value::Bool(true));
-    assert!(wk_a["kanji_known"].as_u64().unwrap() > 100);
+    assert_eq!(removed_demo.status(), StatusCode::NOT_FOUND);
+
+    // 5. Verify WaniKani api_token is encrypted at rest with AES-256-GCM + user_id AAD
+    //    and multi-user isolation holds
+    let sample_sync = WaniKaniSyncResult {
+        username: "alice_wk".to_string(),
+        level: 10,
+        lessons_available: 4,
+        reviews_available: 12,
+        subjects: vec![
+            (1001, "kanji".to_string(), "日".to_string(), 2, 8),
+            (1002, "kanji".to_string(), "本".to_string(), 2, 8),
+            (1003, "kanji".to_string(), "語".to_string(), 10, 6),
+            (1004, "kanji".to_string(), "学".to_string(), 5, 7),
+            (1005, "kanji".to_string(), "生".to_string(), 3, 8),
+        ],
+        removed_subject_ids: Vec::new(),
+        is_incremental: false,
+        user_etag: None,
+        summary_etag: None,
+        assignments_updated_after: None,
+        assignments_etag: None,
+        subjects_updated_after: None,
+        subjects_etag: None,
+    };
+    let secret_wk_token = "wk-v2-live-secret-token-xyz987";
+    let wk_a = save_wanikani_sync(
+        &pool,
+        &cipher,
+        user_a_id,
+        Some(secret_wk_token),
+        &sample_sync,
+    )
+    .await
+    .unwrap();
+    assert!(wk_a.connected);
+    assert_eq!(wk_a.kanji_known, 5);
 
     // User B must remain disconnected and have 0 synced kanji (multi-user isolation!)
     let wk_b = load_wanikani_status(&pool, user_b_id).await.unwrap();
     assert!(!wk_b.connected);
     assert_eq!(wk_b.kanji_known, 0);
-
-    // 5. Verify WaniKani api_token is encrypted at rest with AES-256-GCM + user_id AAD
-    let demo_sync = generate_demo_wanikani_sync();
-    let secret_wk_token = "wk-v2-live-secret-token-xyz987";
-    save_wanikani_sync(
-        &pool,
-        &cipher,
-        user_a_id,
-        Some(secret_wk_token),
-        false,
-        &demo_sync,
-    )
-    .await
-    .unwrap();
 
     let raw_stored: String =
         sqlx::query_scalar("SELECT api_token FROM wk_profile WHERE user_id = $1")
@@ -320,11 +360,10 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         "plaintext WaniKani token must never be stored in DB"
     );
 
-    let (decrypted, is_demo) = get_wanikani_credentials(&pool, &cipher, user_a_id)
+    let decrypted = get_wanikani_credentials(&pool, &cipher, user_a_id)
         .await
         .unwrap();
     assert_eq!(decrypted.as_deref(), Some(secret_wk_token));
-    assert!(!is_demo);
     assert!(
         cipher.decrypt_for_user(user_b_id, &raw_stored).is_err(),
         "encrypted token must be bound to owning user_id via AAD"
@@ -880,6 +919,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .unwrap();
     assert_eq!(me_google["user"]["email"], "hanako@gmail.com");
     assert_eq!(me_google["user"]["username"], "hanako_yamada");
+    assert_eq!(me_google["user"]["email_verified"], Value::Bool(true));
     assert_eq!(
         me_google["user"]["avatar_url"],
         "https://lh3.googleusercontent.com/hanako.png"
@@ -930,6 +970,11 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         bob_me["user"]["id"].as_i64(),
         Some(user_b_id),
         "verified Google email must link to existing user account"
+    );
+    assert_eq!(
+        bob_me["user"]["email_verified"],
+        Value::Bool(true),
+        "linking a verified Google account must mark user email verified"
     );
 
     // 13. P2 Observability (/healthz, /readyz, /metrics), Pure-Rust NLP, and Audio endpoints
@@ -1120,6 +1165,101 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .await
         .unwrap();
     assert_eq!(reset_reuse.status(), StatusCode::BAD_REQUEST);
+
+    // 14b. Soft Email Verification end-to-end flow for User A (unverified after registration)
+    let login_a2: Value = client_a
+        .post(format!("{}/auth/login", oauth_base))
+        .json(&json!({
+            "email": "alice@example.com",
+            "password": "new-super-secret-pass-99"
+        }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(login_a2["user"]["email_verified"], Value::Bool(false));
+    let csrf_a2 = login_a2["csrf_token"].as_str().unwrap().to_string();
+
+    // Resend verification returns 200 and creates a fresh verification token
+    let resend_resp: Value = client_a
+        .post(format!("{}/auth/resend-verification", oauth_base))
+        .header("X-CSRF-Token", &csrf_a2)
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(resend_resp["ok"], Value::Bool(true));
+    assert_eq!(resend_resp["already_verified"], Value::Bool(false));
+
+    // Create a known verification token, consume via POST /api/auth/verify-email
+    let raw_verify_token = bunamateur::auth::generate_random_token();
+    let verify_hash = bunamateur::auth::hash_session_token(&raw_verify_token);
+    bunamateur::db::create_email_verification_token(
+        &pool,
+        user_a_id,
+        &verify_hash,
+        chrono::Utc::now() + chrono::Duration::hours(24),
+    )
+    .await
+    .unwrap();
+
+    let verify_ok: Value = anon
+        .post(format!("{}/auth/verify-email", oauth_base))
+        .json(&json!({ "token": raw_verify_token }))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(verify_ok["ok"], Value::Bool(true));
+
+    // /api/auth/me now reports email_verified == true
+    let me_a_verified: Value = client_a
+        .get(format!("{}/auth/me", oauth_base))
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(me_a_verified["user"]["email_verified"], Value::Bool(true));
+
+    // Resending after verification reports already_verified == true
+    let resend_already: Value = client_a
+        .post(format!("{}/auth/resend-verification", oauth_base))
+        .header("X-CSRF-Token", &csrf_a2)
+        .send()
+        .await
+        .unwrap()
+        .error_for_status()
+        .unwrap()
+        .json()
+        .await
+        .unwrap();
+    assert_eq!(resend_already["ok"], Value::Bool(true));
+    assert_eq!(resend_already["already_verified"], Value::Bool(true));
+
+    // Reusing the same verification token must fail with 400
+    let verify_reuse = anon
+        .post(format!("{}/auth/verify-email", oauth_base))
+        .json(&json!({ "token": raw_verify_token }))
+        .send()
+        .await
+        .unwrap();
+    assert_eq!(verify_reuse.status(), StatusCode::BAD_REQUEST);
 
     // Study analytics returns 91-day heatmap and JLPT N5-N1 rows
     let analytics: Value = client_b

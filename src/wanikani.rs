@@ -637,48 +637,6 @@ pub async fn sync_from_wanikani(api_token: &str) -> Result<WaniKaniSyncResult> {
         .await
 }
 
-/// Demo WaniKani Level 14 sync so users can experience Smart Furigana immediately without an API token.
-pub fn generate_demo_wanikani_sync() -> WaniKaniSyncResult {
-    let demo_kanji = "一二三四五六七八九十百千万上下左右中大小山川田人口目耳手足力女男子学生先生年先月火水木金土日毎時分半今何前後午間週来行帰出入見聞読書話言買売飲食立休座歩走起寝働作使思知考教習勉強漢字符文言葉名国京都会社店駅電車道車家室部屋学校友父母兄姉妹家族私自彼彼女方人達天気雨雪風雲空海花木林森犬猫鳥魚肉茶酒飯朝昼晩夜春秋冬新古高安長短多小少早遅明暗広狭近遠強弱重軽暑寒暖涼好悪正楽面白忙静賑有名親切便利元気病気薬病院医者体頭顔声心気持味色白黒赤青黄緑映画音楽写真歌旅行地図切符空港飛行機ホテル予約料理皿箸砂糖塩野菜果物牛乳卵パン米仕事会社員部長社長会議資料電話携帯メール手紙箱袋鍵傘時計財布眼鏡服靴帽子買物払値段円無料必要大切簡単難問題質問答試験合格練習準備約束計画決予定開始終了続止変直治手伝助待送届受取貸借返忘覚思い出落拾壊消点開閉乗降渡曲進戻着出発到着参加出席欠席経験趣味運動水泳野球散歩掃除洗濯運転紹介説明相談連絡報告確認注意危険安全規則禁止許可理由原因結果目的方法意味関係影響変化成長努力成功失敗応援感謝挨拶";
-
-    let mut subjects = Vec::new();
-    let mut id_counter: i64 = 1000;
-    for (idx, ch) in demo_kanji.chars().enumerate() {
-        let lvl = ((idx / 24) as i32 + 1).min(14);
-        let srs = if lvl <= 8 { 8 } else if lvl <= 12 { 6 } else { 5 };
-        subjects.push((id_counter, "kanji".to_string(), ch.to_string(), lvl, srs));
-        id_counter += 1;
-    }
-
-    let demo_vocab = [
-        "日本語", "毎日", "勉強", "漢字", "新聞", "電車", "会社", "友達", "天気", "雨",
-        "映画", "音楽", "旅行", "料理", "仕事", "試験", "練習", "約束", "計画", "経験",
-        "趣味", "運動", "散歩", "掃除", "説明", "相談", "連絡", "確認", "注意", "安全",
-        "理由", "結果", "目的", "意味", "関係", "努力", "成功", "感謝", "学校", "先生",
-    ];
-    for (idx, v) in demo_vocab.iter().enumerate() {
-        let lvl = ((idx / 3) as i32 + 1).min(14);
-        subjects.push((id_counter, "vocabulary".to_string(), (*v).to_string(), lvl, 6));
-        id_counter += 1;
-    }
-
-    WaniKaniSyncResult {
-        username: "DemoLearner (WK Lv.14)".to_string(),
-        level: 14,
-        lessons_available: 12,
-        reviews_available: 34,
-        subjects,
-        removed_subject_ids: Vec::new(),
-        is_incremental: false,
-        user_etag: None,
-        summary_etag: None,
-        assignments_updated_after: None,
-        assignments_etag: None,
-        subjects_updated_after: None,
-        subjects_etag: None,
-    }
-}
-
 pub fn is_kanji(c: char) -> bool {
     ('\u{4E00}'..='\u{9FFF}').contains(&c) || ('\u{3400}'..='\u{4DBF}').contains(&c)
 }

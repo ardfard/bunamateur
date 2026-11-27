@@ -7,6 +7,8 @@ pub struct AuthUserInfo {
     pub email: String,
     pub username: String,
     pub avatar_url: Option<String>,
+    #[serde(default)]
+    pub email_verified: bool,
     pub created_at: String,
 }
 
@@ -296,7 +298,6 @@ pub struct DashboardStats {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WaniKaniStatus {
     pub connected: bool,
-    pub is_demo: bool,
     pub username: Option<String>,
     pub level: i32,
     pub kanji_known: usize,
@@ -411,6 +412,11 @@ pub struct ConjugationItem {
 // ---------------------------------------------------------------------------
 // v0.2 Account Lifecycle, Study Analytics & Vocabulary Deck Models
 // ---------------------------------------------------------------------------
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct VerifyEmailRequest {
+    pub token: String,
+}
 
 #[derive(Debug, Clone, Deserialize)]
 pub struct ForgotPasswordRequest {

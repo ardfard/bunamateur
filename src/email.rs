@@ -381,6 +381,38 @@ pub fn build_password_reset_email(to: &str, username: &str, reset_url: &str) -> 
     }
 }
 
+/// Builds a welcome + email verification message containing a single-use 24-hour link.
+pub fn build_email_verification_email(to: &str, username: &str, verify_url: &str) -> EmailMessage {
+    let safe_user = escape_html(username);
+    let safe_url = escape_html(verify_url);
+
+    let text = format!(
+        "Welcome to BunAmateur (文アマ), {username}!\n\n\
+         Your Japanese grammar SRS account is ready. Please confirm your email address \
+         by opening the link below within 24 hours:\n\
+         {verify_url}\n\n\
+         If you didn't create a BunAmateur account, you can safely ignore this email.\n\
+         — BunAmateur"
+    );
+
+    let html = format!(
+        "<div style=\"font-family: system-ui, -apple-system, sans-serif; max-width: 520px; margin: 0 auto; color: #1c1917;\">\
+         <h2 style=\"color: #d94436;\">Welcome to BunAmateur (文アマ), {safe_user}!</h2>\
+         <p>Your Japanese grammar SRS account is ready. Please verify your email address within 24 hours so we can keep your account secure and send password recovery emails if needed:</p>\
+         <p style=\"margin: 24px 0;\"><a href=\"{safe_url}\" style=\"background: #d94436; color: #ffffff; padding: 10px 18px; border-radius: 8px; text-decoration: none; font-weight: 600;\">Verify Email Address</a></p>\
+         <p style=\"color: #78716c; font-size: 13px;\">This link expires in 24 hours. If you did not create a BunAmateur account, you can safely ignore this email.</p>\
+         </div>"
+    );
+
+    EmailMessage {
+        to: to.to_string(),
+        subject: "Verify your BunAmateur (文アマ) email address".to_string(),
+        text,
+        html: Some(html),
+        reply_to: None,
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

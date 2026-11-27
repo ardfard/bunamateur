@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import {
   CheckCircle2,
   KeyRound,
+  Languages,
   Laptop,
   Lock,
   LogOut,
+  Mail,
   Monitor,
   Shield,
   ShieldCheck,
@@ -14,16 +16,26 @@ import {
   X,
 } from 'lucide-react'
 import { api } from '../api'
-import type { AccountProfileResponse, AccountSessionInfo, AuthUser } from '../types'
+import { WaniKaniPage } from '../pages/WaniKaniPage'
+import type {
+  AccountProfileResponse,
+  AccountSessionInfo,
+  AuthUser,
+  WaniKaniStatus,
+} from '../types'
 import { useToast } from './ToastContext'
+
+export type SettingsTab = 'profile' | 'password' | 'sessions' | 'wanikani'
 
 interface AccountSettingsModalProps {
   open: boolean
+  initialTab?: SettingsTab
   onClose: () => void
   onUserUpdated: (user: AuthUser) => void
+  wanikaniStatus?: WaniKaniStatus | null
+  knownKanji?: Set<string>
+  onWaniKaniUpdated?: () => void
 }
-
-type SettingsTab = 'profile' | 'password' | 'sessions'
 
 function parseUserAgent(ua: string | null): { label: string; isMobile: boolean } {
   if (!ua || !ua.trim()) {
@@ -90,16 +102,23 @@ function formatRelativeTime(iso: string): string {
 
 export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   open,
+  initialTab,
   onClose,
   onUserUpdated,
+  wanikaniStatus,
+  knownKanji,
+  onWaniKaniUpdated,
 }) => {
   const { toast } = useToast()
-  const [tab, setTab] = useState<SettingsTab>('profile')
+  const [tab, setTab] = useState<SettingsTab>(initialTab ?? 'profile')
   const [loading, setLoading] = useState(false)
   const [loadError, setLoadError] = useState<string | null>(null)
 
   const [profile, setProfile] = useState<AccountProfileResponse | null>(null)
   const [sessions, setSessions] = useState<AccountSessionInfo[]>([])
+  const [fallbackWkStatus, setFallbackWkStatus] = useState<WaniKaniStatus | null>(null)
+  const [loadingWk, setLoadingWk] = useState(false)
+  const [wkError, setWkError] = useState<string | null>(null)
 
   // Profile form state
   const [username, setUsername] = useState('')
@@ -117,6 +136,17 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   // Sessions action state
   const [revokingId, setRevokingId] = useState<string | null>(null)
   const [revokingAll, setRevokingAll] = useState(false)
+
+  // Email verification state
+  const [resendingVerification, setResendingVerification] = useState(false)
+  const [resendCooldown, setResendCooldown] = useState(0)
+
+  const wkStatus = wanikaniStatus ?? fallbackWkStatus
+
+  const resolvedKnownKanji = useMemo(
+    () => knownKanji ?? new Set(wkStatus?.known_kanji_list ?? []),
+    [knownKanji, wkStatus]
+  )
 
   const loadAccountData = useCallback(async () => {
     setLoading(true)
@@ -138,6 +168,32 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
     }
   }, [toast])
 
+  const loadFallbackWaniKani = useCallback(async () => {
+    setLoadingWk(true)
+    setWkError(null)
+    try {
+      const resp = await api.getWaniKaniStatus()
+      setFallbackWkStatus(resp)
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to load WaniKani status.'
+      setWkError(msg)
+    } finally {
+      setLoadingWk(false)
+    }
+  }, [])
+
+  const handleWkUpdated = useCallback(() => {
+    onWaniKaniUpdated?.()
+    if (!wanikaniStatus) {
+      void loadFallbackWaniKani()
+    }
+  }, [onWaniKaniUpdated, wanikaniStatus, loadFallbackWaniKani])
+
+  useEffect(() => {
+    if (!open) return
+    setTab(initialTab ?? 'profile')
+  }, [open, initialTab])
+
   useEffect(() => {
     if (!open) return
     setProfileError(null)
@@ -150,6 +206,11 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   }, [open, loadAccountData])
 
   useEffect(() => {
+    if (!open || wanikaniStatus) return
+    void loadFallbackWaniKani()
+  }, [open, wanikaniStatus, loadFallbackWaniKani])
+
+  useEffect(() => {
     if (!open) return
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -160,7 +221,37 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [open, onClose])
 
+  useEffect(() => {
+    if (resendCooldown <= 0) return
+    const timer = window.setTimeout(() => {
+      setResendCooldown((prev) => Math.max(0, prev - 1))
+    }, 1000)
+    return () => window.clearTimeout(timer)
+  }, [resendCooldown])
+
   if (!open) return null
+
+  const handleResendVerification = async () => {
+    if (!profile || resendingVerification || resendCooldown > 0) return
+    setResendingVerification(true)
+    try {
+      const res = await api.resendVerificationEmail()
+      if (res.already_verified) {
+        toast.success(res.message || 'Your email is already verified.')
+        const updatedUser: AuthUser = { ...profile.user, email_verified: true }
+        setProfile((prev) => (prev ? { ...prev, user: updatedUser } : prev))
+        onUserUpdated(updatedUser)
+      } else {
+        toast.success(res.message || 'Verification email sent. Please check your inbox.')
+        setResendCooldown(30)
+      }
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Failed to send verification email.'
+      toast.error(msg)
+    } finally {
+      setResendingVerification(false)
+    }
+  }
 
   const handleSaveProfile = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -272,7 +363,13 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
   const otherSessionCount = sessions.filter((s) => !s.is_current).length
   const usernameChanged = profile ? username.trim() !== profile.user.username : false
 
-  const tabs: { id: SettingsTab; label: string; icon: React.ReactNode; badge?: number }[] = [
+  const tabs: {
+    id: SettingsTab
+    label: string
+    icon: React.ReactNode
+    badge?: number
+    dotColor?: string
+  }[] = [
     { id: 'profile', label: 'Profile', icon: <User className="h-3.5 w-3.5" /> },
     { id: 'password', label: 'Password', icon: <KeyRound className="h-3.5 w-3.5" /> },
     {
@@ -280,6 +377,12 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
       label: 'Active Sessions',
       icon: <Monitor className="h-3.5 w-3.5" />,
       badge: sessions.length > 0 ? sessions.length : profile?.active_sessions,
+    },
+    {
+      id: 'wanikani',
+      label: 'WaniKani',
+      icon: <Languages className="h-3.5 w-3.5" />,
+      dotColor: wkStatus?.connected ? 'var(--wk-pink)' : undefined,
     },
   ]
 
@@ -292,7 +395,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
       aria-labelledby="account-settings-title"
     >
       <div
-        className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-2xl border p-6 sm:p-7 shadow-2xl"
+        className={`max-h-[90vh] w-full ${tab === 'wanikani' ? 'max-w-3xl' : 'max-w-2xl'} overflow-y-auto rounded-2xl border p-6 sm:p-7 shadow-2xl transition-[max-width] duration-200`}
         style={{
           backgroundColor: 'var(--bg-surface)',
           borderColor: 'var(--border-subtle)',
@@ -316,7 +419,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                 Account &amp; Security
               </h2>
               <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
-                Manage your profile, password, and active device sessions.
+                Manage your profile, password, active device sessions, and WaniKani integration.
               </p>
             </div>
           </div>
@@ -337,7 +440,7 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
 
         {/* Tab Strip */}
         <div
-          className="mt-5 grid grid-cols-3 gap-1 rounded-xl p-1"
+          className="mt-5 grid grid-cols-2 sm:grid-cols-4 gap-1 rounded-xl p-1"
           style={{ backgroundColor: 'var(--bg-subtle)' }}
           role="tablist"
         >
@@ -369,6 +472,13 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                     {item.badge}
                   </span>
                 )}
+                {item.dotColor && (
+                  <span
+                    className="h-2 w-2 rounded-full shrink-0"
+                    style={{ backgroundColor: item.dotColor }}
+                    title="Connected"
+                  />
+                )}
               </button>
             )
           })}
@@ -376,7 +486,40 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
 
         {/* Body */}
         <div className="mt-6">
-          {loading ? (
+          {tab === 'wanikani' ? (
+            wkStatus ? (
+              <WaniKaniPage
+                embedded
+                status={wkStatus}
+                knownKanji={resolvedKnownKanji}
+                onUpdated={handleWkUpdated}
+              />
+            ) : loadingWk ? (
+              <div className="py-12 text-center text-sm" style={{ color: 'var(--text-muted)' }}>
+                Loading WaniKani settings...
+              </div>
+            ) : (
+              <div
+                className="rounded-xl border p-5 text-center"
+                style={{
+                  backgroundColor: 'var(--accent-vermilion-soft)',
+                  borderColor: 'var(--accent-vermilion)',
+                }}
+              >
+                <p className="text-sm font-medium" style={{ color: 'var(--accent-vermilion)' }}>
+                  {wkError || 'Unable to load WaniKani status.'}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => void loadFallbackWaniKani()}
+                  className="mt-3 rounded-lg px-3.5 py-1.5 text-xs font-semibold text-white cursor-pointer"
+                  style={{ backgroundColor: 'var(--accent-vermilion)' }}
+                >
+                  Retry
+                </button>
+              </div>
+            )
+          ) : loading ? (
             <div className="py-12 text-center text-sm" style={{ color: 'var(--text-muted)' }}>
               Loading account settings...
             </div>
@@ -442,6 +585,49 @@ export const AccountSettingsModal: React.FC<AccountSettingsModalProps> = ({
                     </div>
 
                     <div className="flex flex-wrap items-center gap-2">
+                      {profile.user.email_verified ? (
+                        <span
+                          className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
+                          style={{
+                            backgroundColor: 'var(--accent-matcha-soft)',
+                            color: 'var(--accent-matcha)',
+                          }}
+                        >
+                          <CheckCircle2 className="h-3.5 w-3.5" />
+                          Email Verified
+                        </span>
+                      ) : (
+                        <>
+                          <span
+                            className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
+                            style={{
+                              backgroundColor: 'var(--accent-amber-soft)',
+                              color: 'var(--accent-amber)',
+                            }}
+                          >
+                            <Mail className="h-3.5 w-3.5" />
+                            Email Unverified
+                          </span>
+                          <button
+                            type="button"
+                            onClick={() => void handleResendVerification()}
+                            disabled={resendingVerification || resendCooldown > 0}
+                            className="inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-[11px] font-semibold transition-opacity hover:opacity-85 disabled:opacity-50 cursor-pointer"
+                            style={{
+                              backgroundColor: 'var(--bg-surface)',
+                              borderColor: 'var(--accent-amber)',
+                              color: 'var(--accent-amber)',
+                            }}
+                          >
+                            {resendingVerification
+                              ? 'Sending...'
+                              : resendCooldown > 0
+                                ? `Resend in ${resendCooldown}s`
+                                : 'Resend verification'}
+                          </button>
+                        </>
+                      )}
+
                       <span
                         className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-semibold"
                         style={{

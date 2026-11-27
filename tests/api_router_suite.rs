@@ -15,7 +15,7 @@ use bunamateur::{
     audio::{AudioConfig, AudioProviderKind, AudioResolution, AudioService, compute_audio_hash},
     crypto::TokenCipher,
     db::{compute_longest_streak, review_intensity_bucket, vocab_bookmarks_to_anki_tsv},
-    email::build_password_reset_email,
+    email::{build_email_verification_email, build_password_reset_email},
     models::VocabBookmark,
     nlp::{WkSubjectLookup, analyze_japanese_text, match_pattern_against_analysis},
     observability::{
@@ -497,4 +497,24 @@ fn test_v02_password_reset_email_analytics_and_anki_tsv_export() {
     assert_eq!(cols[4], "N5");
     assert_eq!(cols[5], "WK Lv.10");
     assert!(!cols[6].contains('\n'));
+}
+
+#[test]
+fn test_email_verification_email_escapes_html_and_preserves_url() {
+    let msg = build_email_verification_email(
+        "sakura@example.com",
+        "Sakura <N4> & \"Friends\"",
+        "https://bunamateur.app/verify-email?token=verify_tok_123&ref=signup",
+    );
+    assert_eq!(msg.to, "sakura@example.com");
+    assert!(msg.subject.to_lowercase().contains("verify"));
+    assert!(
+        msg.text
+            .contains("https://bunamateur.app/verify-email?token=verify_tok_123&ref=signup")
+    );
+    assert!(msg.text.contains("24 hours"));
+    let html = msg.html.expect("HTML body should be populated");
+    assert!(html.contains("Sakura &lt;N4&gt; &amp; &quot;Friends&quot;"));
+    assert!(html.contains("token=verify_tok_123&amp;ref=signup"));
+    assert!(html.contains("24 hours"));
 }

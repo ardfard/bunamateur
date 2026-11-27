@@ -2,6 +2,7 @@ import React from 'react'
 import { Flame, LogOut, Moon, Settings, Sun } from 'lucide-react'
 import type { AuthUser, PageTab, WaniKaniStatus } from '../types'
 import { buildRoutePath } from '../utils/router'
+import type { SettingsTab } from './AccountSettingsModal'
 
 interface TopNavProps {
   activeTab: PageTab
@@ -13,7 +14,7 @@ interface TopNavProps {
   onLogout: () => void
   darkMode: boolean
   onToggleDark: () => void
-  onOpenAccount?: () => void
+  onOpenAccount?: (tab?: SettingsTab) => void
 }
 
 const NAV_ITEMS: { id: PageTab; label: string }[] = [
@@ -22,7 +23,6 @@ const NAV_ITEMS: { id: PageTab; label: string }[] = [
   { id: 'grammar', label: 'Grammar' },
   { id: 'conjugation', label: 'Conjugation' },
   { id: 'reading', label: 'Reading Lab' },
-  { id: 'wanikani', label: 'WaniKani' },
 ]
 
 export const TopNav: React.FC<TopNavProps> = ({
@@ -120,28 +120,24 @@ export const TopNav: React.FC<TopNavProps> = ({
 
         {/* Right Status Pills */}
         <div className="flex items-center gap-2.5">
-          <a
-            href={buildRoutePath({ tab: 'wanikani' })}
-            onClick={(e) => handleNavClick(e, 'wanikani')}
-            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-opacity hover:opacity-85 cursor-pointer no-underline"
-            style={{
-              backgroundColor: wanikani?.connected ? 'var(--wk-pink-soft)' : 'var(--bg-subtle)',
-              color: wanikani?.connected ? 'var(--wk-pink)' : 'var(--text-secondary)',
-            }}
-            title="WaniKani Integration Settings"
-          >
-            <span
-              className="h-2 w-2 rounded-full"
+          {wanikani?.connected && (
+            <button
+              type="button"
+              onClick={() => onOpenAccount?.('wanikani')}
+              className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-opacity hover:opacity-85 cursor-pointer"
               style={{
-                backgroundColor: wanikani?.connected ? 'var(--wk-pink)' : 'var(--text-muted)',
+                backgroundColor: 'var(--wk-pink-soft)',
+                color: 'var(--wk-pink)',
               }}
-            />
-            <span>
-              {wanikani?.connected
-                ? `WK Lv.${wanikani.level} Synced`
-                : 'Connect WaniKani'}
-            </span>
-          </a>
+              title="WaniKani Integration Settings"
+            >
+              <span
+                className="h-2 w-2 rounded-full"
+                style={{ backgroundColor: 'var(--wk-pink)' }}
+              />
+              <span>WK Lv.{wanikani.level}</span>
+            </button>
+          )}
 
           <div
             className="hidden sm:flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono-code text-xs font-semibold"
@@ -171,7 +167,7 @@ export const TopNav: React.FC<TopNavProps> = ({
 
           <button
             type="button"
-            onClick={() => onOpenAccount?.()}
+            onClick={() => onOpenAccount?.('profile')}
             className="hidden lg:flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs font-medium transition-opacity hover:opacity-80 cursor-pointer"
             style={{
               borderColor: 'var(--border-subtle)',
@@ -196,7 +192,7 @@ export const TopNav: React.FC<TopNavProps> = ({
 
           <button
             type="button"
-            onClick={() => onOpenAccount?.()}
+            onClick={() => onOpenAccount?.('profile')}
             className="flex lg:hidden h-9 w-9 items-center justify-center rounded-lg border transition-colors hover:opacity-85 cursor-pointer"
             style={{
               borderColor: 'var(--border-subtle)',
