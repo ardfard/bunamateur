@@ -49,8 +49,8 @@ use crate::security::{
     RateLimitTier, rate_limit_middleware,
 };
 use crate::srs::{
-    GhostIntensity, GradeOutcome, compute_srs_transition_with_intensity, grade_answer,
-    srs_interval_hours, srs_stage_label,
+    GhostIntensity, GradeOutcome, MAX_NEAR_MISS_RETRIES, compute_srs_transition_with_intensity,
+    grade_answer, srs_interval_hours, srs_stage_label,
 };
 use crate::wanikani::WaniKaniClient;
 use axum::{
@@ -645,8 +645,10 @@ async fn submit_review(
     state.metrics.inc_reviews_submitted();
     let now = Utc::now();
 
-    // Non-penalizing "almost right" nuance hint (shake input without recording a miss or altering SRS)
-    if let GradeOutcome::AlmostRight { hint, category } = grade {
+    // Free-retry AlmostRight only while under the near-miss cap; then treat as a miss.
+    if let GradeOutcome::AlmostRight { hint, category } = &grade
+        && req.near_miss_attempts < MAX_NEAR_MISS_RETRIES
+    {
         let resp = SubmitAnswerResponse {
             correct: false,
             almost_right: true,
@@ -661,7 +663,7 @@ async fn submit_review(
             next_review_at: None,
             previous_ghost_level: prev_ghost,
             new_ghost_level: prev_ghost,
-            feedback: hint,
+            feedback: hint.clone(),
             review_log_id: None,
         };
         return (StatusCode::OK, Json(json!(resp)));

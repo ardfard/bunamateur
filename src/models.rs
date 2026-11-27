@@ -130,6 +130,9 @@ pub struct SubmitAnswerRequest {
     pub user_input: String,
     pub mode: String, // "review" | "lesson" | "cram"
     pub is_ghost: bool,
+    /// How many AlmostRight free retries the client already got for this card.
+    #[serde(default)]
+    pub near_miss_attempts: u32,
 }
 
 #[derive(Debug, Clone, Serialize)]

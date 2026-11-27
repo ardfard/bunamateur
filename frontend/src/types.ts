@@ -99,6 +99,16 @@ export interface ReviewQueueItem {
   mode: 'review' | 'lesson' | 'cram'
 }
 
+export interface SubmitAnswerRequest {
+  grammar_id: number
+  sentence_id: number
+  user_input: string
+  mode: string
+  is_ghost: boolean
+  /** AlmostRight free retries already received for this card this review. */
+  near_miss_attempts: number
+}
+
 export interface SubmitAnswerResponse {
   correct: boolean
   almost_right: boolean
