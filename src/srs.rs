@@ -1,4 +1,43 @@
 use chrono::{DateTime, Duration, Utc};
+use std::collections::HashSet;
+use std::sync::OnceLock;
+
+/// Max non-penalizing near-miss retries before a miss counts (enforced by routes).
+pub const MAX_NEAR_MISS_RETRIES: u32 = 2;
+
+/// Grammar-kanji → kana folds (longest match first) so mixed kanji/kana answers compare equal.
+const KANJI_TO_KANA: &[(&str, &str)] = &[
+    ("上手", "じょうず"),
+    ("下手", "へた"),
+    ("一方", "いっぽう"),
+    ("関わ", "かかわ"),
+    ("お陰", "おかげ"),
+    ("所為", "せい"),
+    ("違い", "ちがい"),
+    ("違", "ちが"),
+    ("思", "おも"),
+    ("得", "え"),
+    ("比", "くら"),
+    ("堪", "たえ"),
+    ("耐", "たえ"),
+    ("問", "と"),
+    ("限", "かぎ"),
+    ("対", "たい"),
+    ("代", "か"),
+    ("方", "ほう"),
+    ("後", "あと"),
+    ("前", "まえ"),
+    ("内", "うち"),
+    ("構", "かま"),
+    ("訳", "わけ"),
+    ("関", "かか"),
+];
+
+/// Particles / grammatical morphemes — a 1-char edit involving these is not a "typo".
+const PARTICLE_MORPHEMES: &[char] = &[
+    'を', 'が', 'に', 'で', 'と', 'へ', 'は', 'も', 'の', 'や', 'か', 'ね', 'よ', 'わ', 'ば', 'て',
+    'た', 'だ', 'な',
+];
 
 /// Bunpro-inspired 12-stage SRS intervals.
 /// Stage 0 = New/Unlearned, Stage 12 = Burned (Mastered).
@@ -163,9 +202,35 @@ pub fn compute_srs_transition_with_intensity(
     }
 }
 
+fn fold_kanji_to_kana(s: &str) -> String {
+    let chars: Vec<char> = s.chars().collect();
+    let mut out = String::with_capacity(s.len());
+    let mut i = 0;
+    while i < chars.len() {
+        let mut matched = false;
+        for &(kanji, kana) in KANJI_TO_KANA {
+            let kchars: Vec<char> = kanji.chars().collect();
+            let len = kchars.len();
+            if i + len <= chars.len() && chars[i..i + len] == kchars[..] {
+                out.push_str(kana);
+                i += len;
+                matched = true;
+                break;
+            }
+        }
+        if !matched {
+            out.push(chars[i]);
+            i += 1;
+        }
+    }
+    out
+}
+
 /// Normalize Japanese answer text for forgiving yet accurate grading.
+/// Strips whitespace/punctuation, folds katakana→hiragana, lowercases, then
+/// maps known grammar-kanji into kana so と思います and とおもいます match.
 pub fn normalize_jp(input: &str) -> String {
-    input
+    let stripped: String = input
         .trim()
         .chars()
         .filter(|c| {
@@ -185,7 +250,15 @@ pub fn normalize_jp(input: &str) -> String {
             }
         })
         .collect::<String>()
-        .to_lowercase()
+        .to_lowercase();
+    fold_kanji_to_kana(&stripped)
+}
+
+/// True iff `normalize_jp(answer)` contains no residual CJK kanji (U+4E00–U+9FFF).
+pub fn has_kana_equivalent_path(answer: &str) -> bool {
+    !normalize_jp(answer)
+        .chars()
+        .any(|c| ('\u{4e00}'..='\u{9fff}').contains(&c))
 }
 
 pub fn check_answer(user_input: &str, primary: &str, alts: &[String]) -> Option<String> {
@@ -366,137 +439,137 @@ const CONFUSABLE_GRAMMAR: &[(&str, &str, &str)] = &[
     (
         "のに",
         "ても",
-        "「ても」 is hypothetical ('even if'), whereas this sentence contrasts an actual fact — try 「のに」 or check the nuance!",
+        "Close contrast family: one is hypothetical ('even if'), the other marks an actual unexpected fact.",
     ),
     (
         "のに",
         "けど",
-        "「けど」 is a soft neutral 'but'; this sentence expects a stronger unexpected contrast.",
+        "Close contrast family: one is a soft neutral 'but', the other carries stronger surprise.",
     ),
     (
         "のに",
         "にもかかわらず",
-        "Close! Check the formality level between 「のに」 and 「にもかかわらず」.",
+        "Close contrast family: check everyday vs heavier/formal unexpected-contrast wording.",
     ),
     (
         "のに",
         "ものの",
-        "Close! 「ものの」 is a calm formal concession, while 「のに」 carries stronger surprise/contrast.",
+        "Close concession family: one is calm/formal, the other carries stronger surprise/contrast.",
     ),
     (
         "ために",
         "ように",
-        "Close! 「ために」 pairs with volitional goals/causes, while 「ように」 pairs with potential/non-volitional outcomes.",
+        "Close purpose/result family: one pairs with volitional goals, the other with potential/non-volitional outcomes.",
     ),
     (
         "おかげで",
         "せいで",
-        "Opposite polarity! 「おかげで」 is for positive gratitude, while 「せいで」 blames a negative result.",
+        "Opposite cause polarity: one marks positive gratitude, the other blames a negative result.",
     ),
     (
         "から",
         "ので",
-        "Close! Both mean 'because' — check whether the sentence wants 「から」 or softer 「ので」.",
+        "Both mean 'because' — check whether this sentence wants a more direct or a softer/objective reason.",
     ),
     (
         "たら",
         "ば",
-        "Close conditional! Check the conjugation/nuance between 「たら」 and 「ば」.",
+        "Close conditional pair — check conjugation and nuance for this sentence.",
     ),
     (
         "たら",
         "なら",
-        "Close conditional! 「なら」 picks up a contextual assumption, whereas 「たら」 focuses on completion.",
+        "Close conditional pair: one picks up a contextual assumption, the other focuses on completion.",
     ),
     (
         "ば",
         "なら",
-        "Close conditional! Check whether this context calls for 「ば」 or 「なら」.",
+        "Close conditional pair — check which assumption/condition shape this sentence needs.",
     ),
     (
         "てはいけない",
         "なくてもいい",
-        "Watch the meaning: 「てはいけない」 = must NOT, while 「なくてもいい」 = don't have to!",
+        "Opposite obligation sense: one means must NOT, the other means don't have to.",
     ),
     (
         "ことにする",
         "ことになる",
-        "Close! 「ことにする」 is a personal decision, while 「ことになる」 is an external/scheduled decision.",
+        "Close decision family: personal decision vs external/scheduled decision.",
     ),
     (
         "ことにした",
         "ことになった",
-        "Close! 「ことにした」 = I decided, while 「ことになった」 = it was decided externally.",
+        "Close decision family: 'I decided' vs 'it was decided externally'.",
     ),
     (
         "ことにしました",
         "ことになりました",
-        "Close! 「ことにしました」 = I decided, while 「ことになりました」 = it was decided externally.",
+        "Close decision family: 'I decided' vs 'it was decided externally'.",
     ),
     (
         "そうだ",
         "ようだ",
-        "Close conjecture! 「そうだ」 (hearsay) vs 「ようだ」 (direct sensory impression).",
+        "Close conjecture family: hearsay vs direct sensory impression.",
     ),
     (
         "そうです",
         "ようです",
-        "Close conjecture! 「そうです」 (hearsay) vs 「ようです」 (direct impression).",
+        "Close conjecture family: hearsay vs direct impression.",
     ),
     (
         "てみる",
         "ておく",
-        "Close auxiliary verb! 「てみる」 = try doing, while 「ておく」 = do in advance.",
+        "Close auxiliary pair: try doing vs do in advance.",
     ),
     (
         "ておく",
         "てしまう",
-        "Close auxiliary verb! 「ておく」 = do in advance, while 「てしまう」 = finish completely / regret.",
+        "Close auxiliary pair: do in advance vs finish completely / regret.",
     ),
     (
         "について",
         "に対して",
-        "Close! 「について」 = about a topic, while 「に対して」 = directed toward / in contrast to.",
+        "Close particle pair: about a topic vs directed toward / in contrast to.",
     ),
     (
         "について",
         "にとって",
-        "Close! 「について」 = about a topic, while 「にとって」 = from someone's standpoint.",
+        "Close particle pair: about a topic vs from someone's standpoint.",
     ),
     (
         "に対して",
         "にとって",
-        "Close! 「に対して」 = toward/against, while 「にとって」 = for someone's perspective.",
+        "Close particle pair: toward/against vs for someone's perspective.",
     ),
     (
         "前に",
         "あとで",
-        "Opposite timeline! 「前に」 = before (dictionary form), 「あとで」 = after (た-form).",
+        "Opposite timeline: before vs after — check the verb form this sentence needs.",
     ),
     (
         "わけではない",
         "わけにはいかない",
-        "Close! 「わけではない」 = it's not that..., while 「わけにはいかない」 = cannot afford to...",
+        "Close わけ family: 'it's not that...' vs 'cannot afford to...'.",
     ),
     (
         "わけではありません",
         "わけにはいきません",
-        "Close! 「わけではありません」 = it's not that..., while 「わけにはいきません」 = cannot afford to...",
+        "Close わけ family: 'it's not that...' vs 'cannot afford to...'.",
     ),
     (
         "ばかり",
         "だけ",
-        "Close! 「ばかり」 implies 'nothing but / just did', distinct from neutral 「だけ」.",
+        "Close limiter family: 'nothing but / just did' vs a more neutral 'only'.",
     ),
     (
         "うちに",
         "間に",
-        "Close! 「うちに」 emphasizes acting before a state changes.",
+        "Close time-window pair: one emphasizes acting before a state changes.",
     ),
     (
         "にかかわらず",
         "にもかかわらず",
-        "Watch the も! 「にもかかわらず」 = despite, while 「にかかわらず」 = regardless of.",
+        "Watch the も: 'despite' and 'regardless of' are different grammar points.",
     ),
 ];
 
@@ -551,6 +624,102 @@ fn levenshtein_chars(a: &str, b: &str) -> usize {
         std::mem::swap(&mut prev, &mut curr);
     }
     prev[bv.len()]
+}
+
+fn is_particle_morpheme(c: char) -> bool {
+    PARTICLE_MORPHEMES.contains(&c)
+}
+
+/// Characters involved in a single Levenshtein edit (substitution → both chars;
+/// insert/delete → the one inserted/deleted char). `None` if not distance-1.
+fn distance1_edit_chars(a: &str, b: &str) -> Option<Vec<char>> {
+    let av: Vec<char> = a.chars().collect();
+    let bv: Vec<char> = b.chars().collect();
+    let (al, bl) = (av.len(), bv.len());
+
+    if al == bl {
+        let mut diffs = Vec::new();
+        for i in 0..al {
+            if av[i] != bv[i] {
+                diffs.push(av[i]);
+                diffs.push(bv[i]);
+            }
+        }
+        return if diffs.len() == 2 { Some(diffs) } else { None };
+    }
+
+    // Ensure `shorter`/`longer` so we only handle insertion into the shorter.
+    let (shorter, longer) = if al + 1 == bl {
+        (&av, &bv)
+    } else if bl + 1 == al {
+        (&bv, &av)
+    } else {
+        return None;
+    };
+
+    let mut i = 0;
+    let mut j = 0;
+    let mut inserted: Option<char> = None;
+    while i < shorter.len() && j < longer.len() {
+        if shorter[i] == longer[j] {
+            i += 1;
+            j += 1;
+        } else if inserted.is_none() {
+            inserted = Some(longer[j]);
+            j += 1;
+        } else {
+            return None;
+        }
+    }
+    if j < longer.len() {
+        if inserted.is_some() {
+            return None;
+        }
+        inserted = Some(longer[j]);
+    }
+    inserted.map(|c| vec![c])
+}
+
+fn curriculum_accepted_forms() -> &'static HashSet<String> {
+    static FORMS: OnceLock<HashSet<String>> = OnceLock::new();
+    FORMS.get_or_init(|| {
+        let mut set = HashSet::new();
+        for g in crate::seed_data_extra::all_seed_grammar() {
+            for pat in g.match_patterns {
+                let n = normalize_jp(pat);
+                if !n.is_empty() {
+                    set.insert(n);
+                }
+            }
+            for s in crate::seed_data_extra::sentences_for_grammar(g) {
+                let n = normalize_jp(s.answer);
+                if !n.is_empty() {
+                    set.insert(n);
+                }
+                for alt in s.alt_answers {
+                    let n = normalize_jp(alt);
+                    if !n.is_empty() {
+                        set.insert(n);
+                    }
+                }
+            }
+        }
+        set
+    })
+}
+
+fn is_other_curriculum_form(norm_in: &str, targets: &[String]) -> bool {
+    if targets.iter().any(|t| t == norm_in) {
+        return false;
+    }
+    curriculum_accepted_forms().contains(norm_in)
+}
+
+fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
+    let Some(edit_chars) = distance1_edit_chars(norm_in, target) else {
+        return true; // not a clean distance-1 edit → treat as restricted
+    };
+    edit_chars.iter().any(|&c| is_particle_morpheme(c))
 }
 
 /// Grades a learner's answer with contextual nuance detection (politeness/register, tense,
@@ -635,16 +804,21 @@ pub fn grade_answer(
     }
 
     // 5. Minor 1-character kana typo on answers of length >= 3
-    if norm_in.chars().count() >= 3
-        && targets
-            .iter()
-            .any(|t| t.chars().count() >= 3 && levenshtein_chars(&norm_in, t) == 1)
-    {
-        return GradeOutcome::AlmostRight {
-            hint: "Almost! Looks like a small typo — double-check your kana and try again."
-                .to_string(),
-            category: "typo",
-        };
+    // Skip when the edit touches a particle/morpheme, or when the input is a valid
+    // accepted form of a *different* grammar point in the curriculum.
+    if norm_in.chars().count() >= 3 && !is_other_curriculum_form(&norm_in, &targets) {
+        let typo_hit = targets.iter().any(|t| {
+            t.chars().count() >= 3
+                && levenshtein_chars(&norm_in, t) == 1
+                && !is_restricted_typo(&norm_in, t)
+        });
+        if typo_hit {
+            return GradeOutcome::AlmostRight {
+                hint: "Almost! Looks like a small typo — double-check your kana and try again."
+                    .to_string(),
+                category: "typo",
+            };
+        }
     }
 
     GradeOutcome::Incorrect
@@ -740,5 +914,155 @@ mod tests {
             grade_answer("まちがい", "ています", &[], "polite"),
             GradeOutcome::Incorrect
         );
+    }
+
+    #[test]
+    fn test_kana_kanji_equivalence_positives() {
+        assert!(matches!(
+            grade_answer("とおもいます", "と思います", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("にちがいない", "に違いない", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("ざるをえなかった", "ざるを得なかった", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("いっぽうだ", "一方だ", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("のがじょうずだった", "のが上手だった", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("にくらべ", "に比べ", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+    }
+
+    #[test]
+    fn test_ni_kakawarazu_vs_ni_mo_kakawarazu_stay_distinct() {
+        // も must remain — these are different grammar points.
+        assert!(!matches!(
+            grade_answer("にかかわらず", "にもかかわらず", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(!matches!(
+            grade_answer("にもかかわらず", "にかかわらず", &[], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        // Confusable synonym near-miss is OK
+        match grade_answer("にかかわらず", "にもかかわらず", &[], "") {
+            GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "synonym"),
+            other => panic!("expected synonym AlmostRight, got {:?}", other),
+        }
+    }
+
+    #[test]
+    fn test_typo_bucket_rejects_particle_and_cross_grammar_edits() {
+        // Particle/morpheme single-char diffs → Incorrect (not typo)
+        assert_eq!(
+            grade_answer("ものを", "ものの", &[], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("あとに", "あとで", &[], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ていますか", "ています", &[], ""),
+            GradeOutcome::Incorrect
+        );
+
+        // True kana typo still works
+        match grade_answer("ていむす", "ています", &[], "") {
+            GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "typo"),
+            other => panic!("expected typo AlmostRight, got {:?}", other),
+        }
+
+        // Wrong grammar form — not Correct
+        assert!(!matches!(
+            grade_answer("てみたい", "てみます", &["てみる".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+    }
+
+    #[test]
+    fn test_near_miss_messages_do_not_leak_target() {
+        for &(g1, g2, note) in CONFUSABLE_GRAMMAR {
+            assert!(
+                !note.contains("try 「") && !note.contains(" — try "),
+                "confusable note must not tell the learner what to type: {}",
+                note
+            );
+            // Do not quote either confusable surface form — that leaks the answer family.
+            assert!(
+                !note.contains(g1) && !note.contains(g2),
+                "confusable note must not quote either form ({} / {}): {}",
+                g1,
+                g2,
+                note
+            );
+        }
+    }
+
+    #[test]
+    fn test_has_kana_equivalent_path_and_max_retries_export() {
+        assert!(has_kana_equivalent_path("と思います"));
+        assert!(has_kana_equivalent_path("とおもいます"));
+        assert!(has_kana_equivalent_path("一方だ"));
+        assert_eq!(MAX_NEAR_MISS_RETRIES, 2);
+        // Unmapped content kanji (食) remains after normalize → false
+        assert!(!has_kana_equivalent_path("食べている"));
+    }
+
+    #[test]
+    fn test_every_seeded_sentence_grades_correct_including_kana_fold() {
+        for g in crate::seed_data_extra::all_seed_grammar() {
+            for s in crate::seed_data_extra::sentences_for_grammar(g) {
+                let alts: Vec<String> = s.alt_answers.iter().map(|a| (*a).to_string()).collect();
+
+                match grade_answer(s.answer, s.answer, &alts, s.hint) {
+                    GradeOutcome::Correct { .. } => {}
+                    other => panic!(
+                        "primary failed for {}: answer={} got {:?}",
+                        g.slug, s.answer, other
+                    ),
+                }
+
+                let kana = normalize_jp(s.answer);
+                if kana != normalize_jp("") {
+                    match grade_answer(&kana, s.answer, &alts, s.hint) {
+                        GradeOutcome::Correct { .. } => {}
+                        other => panic!(
+                            "kana-fold primary failed for {}: answer={} kana={} got {:?}",
+                            g.slug, s.answer, kana, other
+                        ),
+                    }
+                }
+
+                for alt in s.alt_answers {
+                    match grade_answer(alt, s.answer, &alts, s.hint) {
+                        GradeOutcome::Correct { .. } => {}
+                        other => panic!(
+                            "alt failed for {}: alt={} primary={} got {:?}",
+                            g.slug, alt, s.answer, other
+                        ),
+                    }
+                    let alt_kana = normalize_jp(alt);
+                    match grade_answer(&alt_kana, s.answer, &alts, s.hint) {
+                        GradeOutcome::Correct { .. } => {}
+                        other => panic!(
+                            "kana-fold alt failed for {}: alt={} kana={} got {:?}",
+                            g.slug, alt, alt_kana, other
+                        ),
+                    }
+                }
+            }
+        }
     }
 }

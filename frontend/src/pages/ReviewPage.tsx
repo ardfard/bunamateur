@@ -70,6 +70,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const [showHint, setShowHint] = useState(false)
   const [result, setResult] = useState<SubmitAnswerResponse | null>(null)
   const [nuanceShakeHint, setNuanceShakeHint] = useState<string | null>(null)
+  const [nearMissAttempts, setNearMissAttempts] = useState(0)
   const [shaking, setShaking] = useState(false)
   const [wrappingUp, setWrappingUp] = useState(false)
   const [submitting, setSubmitting] = useState(false)
@@ -92,6 +93,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       setIndex(0)
       setResult(null)
       setNuanceShakeHint(null)
+      setNearMissAttempts(0)
       setWrappingUp(false)
       setInputValue('')
       setShowHint(false)
@@ -166,6 +168,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const goNext = useCallback(() => {
     setResult(null)
     setNuanceShakeHint(null)
+    setNearMissAttempts(0)
     setInputValue('')
     setShowHint(false)
     setIndex((i) => i + 1)
@@ -192,10 +195,12 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         user_input: finalInput,
         mode: current.mode,
         is_ghost: current.is_ghost,
+        near_miss_attempts: nearMissAttempts,
       })
 
       // Non-penalizing "almost right" nuance hint: shake input and let user retry immediately
       if (res.almost_right) {
+        setNearMissAttempts((n) => n + 1)
         setNuanceShakeHint(res.nuance_hint || res.feedback)
         setShaking(false)
         requestAnimationFrame(() => setShaking(true))
@@ -205,6 +210,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
       }
 
       setNuanceShakeHint(null)
+      setNearMissAttempts(0)
       setResult(res)
       setSessionStats((prev) => ({
         correct: prev.correct + (res.correct ? 1 : 0),
@@ -241,6 +247,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
         total: Math.max(0, prev.total - 1),
       }))
       setResult(null)
+      setNearMissAttempts(0)
       setInputValue('')
       onSessionComplete()
       toast.info('Review undone — give it another try.')
@@ -800,6 +807,31 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   )}
                 </div>
               )}
+
+              {/* Miss explanation: caution + sentence nuance note */}
+              {result && !result.correct && (current.caution || current.nuance_note) && (
+                <div
+                  className="w-full max-w-xl rounded-xl border px-4 py-3 text-left text-sm leading-relaxed"
+                  style={{
+                    backgroundColor: 'var(--bg-subtle)',
+                    borderColor: 'var(--border-subtle)',
+                    color: 'var(--text-secondary)',
+                  }}
+                >
+                  {current.caution && (
+                    <p>
+                      <strong style={{ color: 'var(--text-primary)' }}>Watch out:</strong>{' '}
+                      {current.caution}
+                    </p>
+                  )}
+                  {current.nuance_note && (
+                    <p className={current.caution ? 'mt-1.5' : undefined}>
+                      <strong style={{ color: 'var(--text-primary)' }}>Sentence note:</strong>{' '}
+                      {current.nuance_note}
+                    </p>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Grammar Breakdown Drawer (always shown in Lesson mode, or after answering / hint) */}
@@ -828,6 +860,18 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                 <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
                   {current.nuance}
                 </p>
+                {current.caution && (
+                  <div
+                    className="rounded-xl p-3 text-xs leading-relaxed"
+                    style={{
+                      backgroundColor: 'var(--accent-vermilion-soft)',
+                      color: 'var(--text-secondary)',
+                    }}
+                  >
+                    <strong style={{ color: 'var(--accent-vermilion)' }}>Caution:</strong>{' '}
+                    {current.caution}
+                  </div>
+                )}
                 <div
                   className="rounded-xl p-3 text-xs leading-relaxed"
                   style={{

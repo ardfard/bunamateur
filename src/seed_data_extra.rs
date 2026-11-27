@@ -3786,6 +3786,7 @@ pub fn sentences_for_grammar(g: &'static SeedGrammar) -> Vec<&'static SeedSenten
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::srs::has_kana_equivalent_path;
     use std::collections::HashSet;
 
     #[test]
@@ -3803,6 +3804,28 @@ mod tests {
                 g.slug,
                 sents.len()
             );
+        }
+    }
+
+    #[test]
+    fn every_accepted_answer_and_alt_has_kana_equivalent_path() {
+        for g in all_seed_grammar() {
+            for s in sentences_for_grammar(g) {
+                assert!(
+                    has_kana_equivalent_path(s.answer),
+                    "answer lacks kana path for {}: {:?}",
+                    g.slug,
+                    s.answer
+                );
+                for alt in s.alt_answers {
+                    assert!(
+                        has_kana_equivalent_path(alt),
+                        "alt lacks kana path for {}: {:?}",
+                        g.slug,
+                        alt
+                    );
+                }
+            }
         }
     }
 }

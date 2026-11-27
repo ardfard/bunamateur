@@ -16,6 +16,7 @@ import type {
   ReviewQueueItem,
   SrsSettings,
   StudyAnalyticsResponse,
+  SubmitAnswerRequest,
   SubmitAnswerResponse,
   VocabBookmark,
   WaniKaniStatus,
@@ -166,13 +167,7 @@ export const api = {
       `/api/reviews?mode=${encodeURIComponent(mode)}&jlpt=${encodeURIComponent(jlpt)}&limit=${limit}`
     ),
 
-  submitReview: (payload: {
-    grammar_id: number
-    sentence_id: number
-    user_input: string
-    mode: string
-    is_ghost: boolean
-  }) =>
+  submitReview: (payload: SubmitAnswerRequest) =>
     request<SubmitAnswerResponse>('/api/reviews/submit', {
       method: 'POST',
       body: JSON.stringify(payload),
