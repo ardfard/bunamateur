@@ -2,7 +2,8 @@
 # One-time (idempotent) provisioning of the dalang VM for BunAmateur.
 #
 # Creates /opt/bunamateur/{releases,.env}, a PostgreSQL role + database,
-# the systemd unit, and the cloudflared ingress rule for 文.ngublag.com.
+# the systemd unit, and cloudflared ingress rules for 文.ngublag.com (primary)
+# and bun.ngublag.com (alias).
 # Safe to re-run: existing secrets in /opt/bunamateur/.env are never rotated.
 #
 # Usage: ./deploy/bootstrap-server.sh [user@host]
@@ -17,7 +18,10 @@ ssh -o BatchMode=yes "$host" bash -s <<'EOF'
 set -euo pipefail
 root=/opt/bunamateur
 port=8040
-hostname=xn--7dv.ngublag.com   # 文.ngublag.com (IDNA / punycode)
+hostname=xn--7dv.ngublag.com   # 文.ngublag.com (IDNA / punycode): primary, used in email links
+aliases=(bun.ngublag.com)      # extra hostnames that serve the same site
+hostnames=("$hostname" "${aliases[@]}")
+origins=$(printf 'https://%s,' "${hostnames[@]}"); origins=${origins%,}
 ingress=/etc/cloudflared/config.yml
 
 sudo install -d -o ardfard -g ardfard -m 755 "$root" "$root/releases"
@@ -43,7 +47,7 @@ PORT=$port
 DATABASE_URL=postgres://bunamateur:$db_pass@127.0.0.1:5432/bunamateur
 ENCRYPTION_KEY=$enc_key
 APP_PUBLIC_URL=https://$hostname
-ALLOWED_ORIGINS=https://$hostname
+ALLOWED_ORIGINS=$origins
 COOKIE_SECURE=true
 # cloudflared on loopback is the only client; it sets X-Forwarded-For.
 TRUST_PROXY=true
@@ -63,6 +67,13 @@ ensure() { grep -q "^$1=" "$root/.env" || { echo "$1=$2" >> "$root/.env"; echo "
 ensure LOG_FORMAT json
 # /metrics is public behind the tunnel unless this is set.
 ensure METRICS_BEARER_TOKEN "$(openssl rand -hex 24)"
+# Every served hostname must be an allowed origin, or CORS/CSRF rejects it.
+for h in "${hostnames[@]}"; do
+  if ! grep -qE "^ALLOWED_ORIGINS=(.*,)?https://$h(,|$)" "$root/.env"; then
+    sed -i "s|^ALLOWED_ORIGINS=\\(.*\\)|ALLOWED_ORIGINS=\\1,https://$h|" "$root/.env"
+    echo "added https://$h to ALLOWED_ORIGINS"
+  fi
+done
 
 # --- systemd ----------------------------------------------------------------
 sudo install -m 644 /tmp/bunamateur.service /etc/systemd/system/bunamateur.service
@@ -71,14 +82,20 @@ sudo systemctl daemon-reload
 sudo systemctl enable bunamateur >/dev/null
 
 # --- cloudflared ingress ----------------------------------------------------
-if ! sudo grep -q "hostname: $hostname" "$ingress"; then
-  sudo cp "$ingress" "$ingress.bak.$(date +%Y%m%d%H%M%S)"
-  # Insert before the catch-all 404 rule (must stay last).
-  sudo sed -i "s|^  - service: http_status:404|  - hostname: $hostname\n    service: http://127.0.0.1:$port\n  - service: http_status:404|" "$ingress"
+changed=false
+for h in "${hostnames[@]}"; do
+  if ! sudo grep -q "hostname: $h$" "$ingress"; then
+    $changed || sudo cp "$ingress" "$ingress.bak.$(date +%Y%m%d%H%M%S)"
+    # Insert before the catch-all 404 rule (must stay last).
+    sudo sed -i "s|^  - service: http_status:404|  - hostname: $h\n    service: http://127.0.0.1:$port\n  - service: http_status:404|" "$ingress"
+    echo "added $h -> 127.0.0.1:$port to cloudflared ingress"
+    changed=true
+  else
+    echo "cloudflared ingress for $h already present"
+  fi
+done
+if $changed; then
   sudo cloudflared tunnel --config "$ingress" ingress validate
   sudo systemctl restart cloudflared
-  echo "added $hostname -> 127.0.0.1:$port to cloudflared ingress"
-else
-  echo "cloudflared ingress for $hostname already present"
 fi
 EOF

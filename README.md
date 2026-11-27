@@ -206,7 +206,7 @@ docker run --rm -p 8080:8080 \
 
 - **Pipeline**: [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml) starts after the `CI` workflow succeeds on `main`. It builds a release binary on ubuntu-24.04 (glibc matches the VM), joins the tailnet as `tag:ci` (`TS_OAUTH_SECRET` repo secret), and runs `deploy/deploy.sh` against `ardfard@dalang`.
 - **Server layout**: `/opt/bunamateur/releases/<sha>`, with `current` as a symlink to the live one. Env lives in `/opt/bunamateur/.env` and the unit is `bunamateur.service` on `127.0.0.1:8040`. Postgres DB and role are both `bunamateur`.
-- **Ingress**: the existing `cloudflared` tunnel `dalang` maps `xn--7dv.ngublag.com` (文.ngublag.com) to `127.0.0.1:8040`. The DNS record is a proxied CNAME to `<tunnel-id>.cfargotunnel.com`.
+- **Ingress**: the existing `cloudflared` tunnel `dalang` maps `xn--7dv.ngublag.com` (文.ngublag.com, the primary domain used in email links) and the alias `bun.ngublag.com` to `127.0.0.1:8040`. Both DNS records are proxied CNAMEs to `<tunnel-id>.cfargotunnel.com`, and both hostnames are listed in `ALLOWED_ORIGINS`. To add another alias, add it to `aliases` in `deploy/bootstrap-server.sh`, re-run the script, create the DNS record, and restart the service.
 - **First-time setup** (idempotent): `./deploy/bootstrap-server.sh`
 - **Manual deploy**: build a glibc ≤ 2.39 binary, then run `./deploy/deploy.sh <binary> <sha>`. If the health check fails, the script restores the previous release.
 - **Rollback**: `./deploy/deploy.sh --rollback <sha>`, or run the Deploy workflow manually with `rollback_to`.
