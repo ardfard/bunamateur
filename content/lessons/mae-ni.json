@@ -29,7 +29,7 @@
         "[食事|しょくじ]の前に / [会議|かいぎ]の前に"
       ]
     ],
-    "note": "Always dictionary (non-past) form before 前に — even if the main sentence is past (勉強しました / 閉めた). The general noun pattern is Nの前に. Some everyday nouns also form compounds without の (食事前、授業前、テスト前) — both 食事の前に and 食事前に are fine."
+    "note": "Always dictionary (non-past) form before 前に — even if the main sentence is past (勉強しました / 閉めた). The general noun pattern is Nの前に. Some everyday nouns also form compounds without の (食事前、授業前) — both 食事の前に and 食事前に are fine."
   },
   "explanation": "前に attaches to a dictionary-form verb or to a noun with の and means the main action happens before that point. The key trap is tense: 日本へ来る前に少し日本語を勉強しました keeps 来る in dictionary form even though the studying is past — *来た前に is wrong. Everyday routines use the same shape: 寝る前に歯を磨きます. With nouns, the general pattern is Nの前に (会議の前に資料を確認しました). Some common nouns also form compounds without の (食事前に手を洗う / 授業前) — those compounds are natural Japanese, not errors.",
   "senses": [
@@ -94,7 +94,7 @@
     {
       "other_slug": null,
       "label": "Verb 前に vs Noun の前に",
-      "summary": "Verbs attach directly (dictionary + 前に). Nouns use Nの前に in general; some everyday nouns also form compounds (食事前、授業前).",
+      "summary": "Verbs attach directly (dictionary + 前に). Nouns use Nの前に in general; some everyday nouns also form compounds (食事前、授業前) while others stay with の.",
       "ex_a_ruby": "[出|で]かける前に[鍵|かぎ]を[閉|し]めた。",
       "ex_a_en": "I locked up before going out (verb)",
       "ex_b_ruby": "[会議|かいぎ]の前に[資料|しりょう]を[確認|かくにん]した。",
