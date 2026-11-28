@@ -133,7 +133,7 @@
       "note": "stationery · など"
     },
     {
-      "ruby": "[机|つくえ]の[上|うえ]にペンや[消しゴム|けしごむ]があります。",
+      "ruby": "[机|つくえ]の[上|うえ]にペンや[消|け]しゴムなどがあります。",
       "english": "On the desk there are pens, erasers, and so on.",
       "note": "stationery · open list"
     },
@@ -171,8 +171,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "はい、ペンやノートなどがあります。",
-      "english": "Yes — there are pens, notebooks, and so on."
+      "ruby": "はい、ペンやノートなどもあります。",
+      "english": "Yes, there are pens, notebooks and such too."
     }
   ],
   "checks": [

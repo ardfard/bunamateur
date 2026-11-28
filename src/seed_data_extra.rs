@@ -4956,8 +4956,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[机|つくえ]",
                     jp_after: "[本|ほん]があります。",
-                    answer: "のうえに",
-                    alt_answers: &[],
+                    answer: "の上に",
+                    alt_answers: &["のうえに"],
                     hint: "on top of • desk",
                     english: "There is a book on the desk.",
                     nuance_note: "机の上に本があります — Nの上に.",
@@ -4965,8 +4965,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[机|つくえ]",
                     jp_after: "[猫|ねこ]がいます。",
-                    answer: "のしたに",
-                    alt_answers: &[],
+                    answer: "の下に",
+                    alt_answers: &["のしたに"],
                     hint: "under • desk",
                     english: "There is a cat under the desk.",
                     nuance_note: "机の下に — under.",
@@ -4974,8 +4974,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[鞄|かばん]",
                     jp_after: "[本|ほん]があります。",
-                    answer: "のなかに",
-                    alt_answers: &[],
+                    answer: "の中に",
+                    alt_answers: &["のなかに"],
                     hint: "inside • bag",
                     english: "There is a book in the bag.",
                     nuance_note: "鞄の中に — inside.",
@@ -4983,8 +4983,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[大学|だいがく]",
                     jp_after: "[駅|えき]があります。",
-                    answer: "のまえに",
-                    alt_answers: &[],
+                    answer: "の前に",
+                    alt_answers: &["のまえに"],
                     hint: "in front of • university",
                     english: "There is a station in front of the university.",
                     nuance_note: "大学の前に — in front (place). Time 〜前に is mae-ni.",
@@ -4992,8 +4992,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[学校|がっこう]",
                     jp_after: "[図書館|としょかん]があります。",
-                    answer: "のうしろに",
-                    alt_answers: &[],
+                    answer: "の後ろに",
+                    alt_answers: &["のうしろに"],
                     hint: "behind • school",
                     english: "There is a library behind the school.",
                     nuance_note: "学校の後ろに — behind.",
@@ -5001,8 +5001,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[教室|きょうしつ]",
                     jp_after: "トイレがあります。",
-                    answer: "のとなりに",
-                    alt_answers: &[],
+                    answer: "の隣に",
+                    alt_answers: &["のとなりに"],
                     hint: "next to • classroom",
                     english: "There is a bathroom next to the classroom.",
                     nuance_note: "教室の隣に — next to. No furigana on トイレ.",
@@ -5010,8 +5010,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[本|ほん]",
                     jp_after: "[傘|かさ]があります。",
-                    answer: "のうえに",
-                    alt_answers: &[],
+                    answer: "の上に",
+                    alt_answers: &["のうえに"],
                     hint: "on top of • book",
                     english: "There is an umbrella on the book.",
                     nuance_note: "本の上に傘があります.",
@@ -5019,8 +5019,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[駅|えき]",
                     jp_after: "[友達|ともだち]がいます。",
-                    answer: "のまえに",
-                    alt_answers: &[],
+                    answer: "の前に",
+                    alt_answers: &["のまえに"],
                     hint: "in front of • station",
                     english: "There is a friend in front of the station.",
                     nuance_note: "駅の前に友達がいます.",
@@ -5028,8 +5028,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[冷蔵庫|れいぞうこ]",
                     jp_after: "[卵|たまご]があります。",
-                    answer: "のなかに",
-                    alt_answers: &[],
+                    answer: "の中に",
+                    alt_answers: &["のなかに"],
                     hint: "inside • fridge",
                     english: "There are eggs in the fridge.",
                     nuance_note: "冷蔵庫の中に卵があります.",
@@ -5250,8 +5250,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "りんごが",
                     jp_after: "あります。",
-                    answer: "みっつ",
-                    alt_answers: &[],
+                    answer: "三つ",
+                    alt_answers: &["みっつ"],
                     hint: "3 · apples",
                     english: "There are three apples.",
                     nuance_note: "りんごが三つあります — counter after the が-phrase.",
@@ -5259,8 +5259,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[学生|がくせい]が",
                     jp_after: "います。",
-                    answer: "さんにん",
-                    alt_answers: &[],
+                    answer: "三人",
+                    alt_answers: &["さんにん"],
                     hint: "3 · people",
                     english: "There are three students.",
                     nuance_note: "学生が三人います — people counter 人.",
@@ -5268,8 +5268,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[部屋|へや]に[人|ひと]が",
                     jp_after: "います。",
-                    answer: "ひとり",
-                    alt_answers: &[],
+                    answer: "一人",
+                    alt_answers: &["ひとり"],
                     hint: "1 · people",
                     english: "There is one person in the room.",
                     nuance_note: "一人=ひとり (irregular reading).",
@@ -5277,8 +5277,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[友達|ともだち]が",
                     jp_after: "います。",
-                    answer: "ふたり",
-                    alt_answers: &[],
+                    answer: "二人",
+                    alt_answers: &["ふたり"],
                     hint: "2 · people",
                     english: "There are two friends.",
                     nuance_note: "二人=ふたり (irregular reading).",
@@ -5286,8 +5286,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[先生|せんせい]が",
                     jp_after: "います。",
-                    answer: "よにん",
-                    alt_answers: &[],
+                    answer: "四人",
+                    alt_answers: &["よにん"],
                     hint: "4 · people",
                     english: "There are four teachers.",
                     nuance_note: "四人=よにん (not ×よんにん / ×しにん).",
@@ -5295,8 +5295,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[鉛筆|えんぴつ]が",
                     jp_after: "あります。",
-                    answer: "いっぽん",
-                    alt_answers: &[],
+                    answer: "一本",
+                    alt_answers: &["いっぽん"],
                     hint: "1 · pencil",
                     english: "There is one pencil.",
                     nuance_note: "一本=いっぽん (sound change).",
@@ -5304,8 +5304,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "ペンが",
                     jp_after: "あります。",
-                    answer: "さんぼん",
-                    alt_answers: &[],
+                    answer: "三本",
+                    alt_answers: &["さんぼん"],
                     hint: "3 · pens",
                     english: "There are three pens.",
                     nuance_note: "三本=さんぼん. No furigana on katakana ペン.",
@@ -5313,8 +5313,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[鉛筆|えんぴつ]が",
                     jp_after: "あります。",
-                    answer: "ろっぽん",
-                    alt_answers: &[],
+                    answer: "六本",
+                    alt_answers: &["ろっぽん"],
                     hint: "6 · pencils",
                     english: "There are six pencils.",
                     nuance_note: "六本=ろっぽん.",
@@ -5322,8 +5322,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[紙|かみ]が",
                     jp_after: "あります。",
-                    answer: "ごまい",
-                    alt_answers: &[],
+                    answer: "五枚",
+                    alt_answers: &["ごまい"],
                     hint: "5 · sheets",
                     english: "There are five sheets of paper.",
                     nuance_note: "紙が五枚あります — flat things take 枚.",
@@ -5331,8 +5331,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "[傘|かさ]が",
                     jp_after: "あります。",
-                    answer: "きゅうほん",
-                    alt_answers: &[],
+                    answer: "九本",
+                    alt_answers: &["きゅうほん"],
                     hint: "9 · umbrellas",
                     english: "There are nine umbrellas.",
                     nuance_note: "九本=きゅうほん. Books take 冊; long thin things like 傘 take 本.",
@@ -5340,8 +5340,8 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                 SeedSentence {
                     jp_before: "これは",
                     jp_after: "です。",
-                    answer: "きゅうひゃくえん",
-                    alt_answers: &[],
+                    answer: "九百円",
+                    alt_answers: &["きゅうひゃくえん"],
                     hint: "900 · yen",
                     english: "This is 900 yen.",
                     nuance_note: "九百円=きゅうひゃくえん — 九 as きゅう with 円.",
@@ -5499,11 +5499,18 @@ mod tests {
     fn every_accepted_answer_and_alt_has_kana_equivalent_path() {
         for g in all_seed_grammar() {
             for s in sentences_for_grammar(g) {
+                let answer_ok = has_kana_equivalent_path(s.answer);
+                let kana_alt = s
+                    .alt_answers
+                    .iter()
+                    .copied()
+                    .find(|alt| has_kana_equivalent_path(alt));
                 assert!(
-                    has_kana_equivalent_path(s.answer),
-                    "answer lacks kana path for {}: {:?}",
+                    answer_ok || kana_alt.is_some(),
+                    "answer for {} must fold to kana or have a kana alt: answer={:?} alts={:?}",
                     g.slug,
-                    s.answer
+                    s.answer,
+                    s.alt_answers
                 );
                 for alt in s.alt_answers {
                     assert!(

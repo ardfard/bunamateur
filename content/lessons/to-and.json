@@ -38,7 +38,7 @@
       "label": "Complete pair",
       "body": "Two nouns joined with と name the whole set for that comment.",
       "example_ruby": "パンと[卵|たまご]があります。",
-      "example_en": "There's bread and eggs. (that's the set)"
+      "example_en": "There are bread and eggs. (that's the set)"
     },
     {
       "label": "Location + complete list",
@@ -114,7 +114,7 @@
   "examples": [
     {
       "ruby": "パンと[卵|たまご]があります。",
-      "english": "There's bread and eggs.",
+      "english": "There are bread and eggs.",
       "note": "complete list · existence"
     },
     {
@@ -167,7 +167,7 @@
     {
       "speaker": "B",
       "ruby": "パンと[卵|たまご]があります。",
-      "english": "There's bread and eggs."
+      "english": "There are bread and eggs."
     },
     {
       "speaker": "A",
