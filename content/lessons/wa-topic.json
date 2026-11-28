@@ -79,6 +79,15 @@
       "ex_a_en": "(I) am a student. (topic left to context)",
       "ex_b_ruby": "[私|わたし]は[学生|がくせい]です。",
       "ex_b_en": "As for me, I am a student."
+    },
+    {
+      "other_slug": "ga-subject",
+      "label": "は (known topic) vs が (new / asked)",
+      "summary": "猫は部屋にいます frames a known cat and says where it is. 部屋に猫がいます presents the cat as new information.",
+      "ex_a_ruby": "[猫|ねこ]は[部屋|へや]にいます。",
+      "ex_a_en": "As for the cat, it's in the room. (cat = known topic)",
+      "ex_b_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_b_en": "There's a cat in the room. (cat = new info)"
     }
   ],
   "examples": [

@@ -1,0 +1,214 @@
+{
+  "meaning": "and / among others · X, Y, and so on (open list)",
+  "gist": "や joins nouns into an open, example-style list: パンや卵があります means bread, eggs, and other things like that — not a closed inventory. など (\"and so on\") often wraps up the same idea: パンや卵などがあります.",
+  "formation": {
+    "columns": ["Pattern", "Shape", "Example"],
+    "rows": [
+      [
+        "Open list",
+        "N₁ や N₂",
+        "パンや[卵|たまご]"
+      ],
+      [
+        "Open list + existence",
+        "N₁ や N₂ が あります",
+        "パンや[卵|たまご]があります。"
+      ],
+      [
+        "…and so on",
+        "N₁ や N₂ など",
+        "パンや[卵|たまご]など"
+      ],
+      [
+        "など + existence",
+        "N₁ や N₂ などが あります",
+        "パンや[卵|たまご]などがあります。"
+      ],
+      [
+        "People (examples)",
+        "N₁ や N₂ が います",
+        "[学生|がくせい]や[先生|せんせい]がいます。"
+      ]
+    ],
+    "note": "や signals \"these are examples; the list is not finished.\" など makes \"and so on\" explicit and usually comes after the last example noun. Do not mix と and や in one list (×パンと卵やミルク)."
+  },
+  "explanation": "や is the open \"and.\" パンや卵があります does not claim that bread and eggs are the only things — it offers them as samples. Add など when you want to say \"and the like\" out loud: パンや卵などがあります. Location still uses に: 部屋に本や鞄などがあります. Animate examples take います: 学生や先生がいます. When you truly mean a closed inventory, switch to と.",
+  "senses": [
+    {
+      "label": "Open / example list",
+      "body": "NやN names samples, not a finished inventory.",
+      "example_ruby": "パンや[卵|たまご]があります。",
+      "example_en": "There is bread, eggs, and so on."
+    },
+    {
+      "label": "など — and so on",
+      "body": "など makes the \"among others\" feeling explicit after the examples.",
+      "example_ruby": "パンや[卵|たまご]などがあります。",
+      "example_en": "There is bread, eggs, and so on."
+    },
+    {
+      "label": "Location + open list",
+      "body": "Place に + examples of what exists there.",
+      "example_ruby": "[部屋|へや]に[本|ほん]や[鞄|かばん]などがあります。",
+      "example_en": "In the room there are books, bags, and so on."
+    },
+    {
+      "label": "People as examples",
+      "body": "Same や / など pattern with います for people.",
+      "example_ruby": "[教室|きょうしつ]に[学生|がくせい]や[先生|せんせい]がいます。",
+      "example_en": "In the classroom there are students, teachers, and so on."
+    }
+  ],
+  "register_context": "Polite classroom speech: N₁やN₂があります / などがあります. など is common in careful polite talk when you do not want to sound like you finished the list. Questions: パンや卵がありますか. Plain forms use ある / いる the same way.",
+  "mistakes": [
+    {
+      "wrong_ruby": "パンと[卵|たまご]やミルクがあります。",
+      "right_ruby": "パンや[卵|たまご]やミルクがあります。",
+      "why": "Stay with one listing style. For an open list, use や throughout (or close the set with と only)."
+    },
+    {
+      "wrong_ruby": "パンなどや[卵|たまご]があります。",
+      "right_ruby": "パンや[卵|たまご]などがあります。",
+      "why": "など follows the example nouns; put it after the last sample, not between them."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]や[先生|せんせい]があります。",
+      "right_ruby": "[学生|がくせい]や[先生|せんせい]がいます。",
+      "why": "People still take います. や does not switch existence verbs."
+    },
+    {
+      "wrong_ruby": "(Fridge has only bread and eggs — complete inventory) パンや[卵|たまご]などがあります。",
+      "right_ruby": "パンと[卵|たまご]があります。",
+      "why": "A closed inventory needs と. や / など says there are other things too."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "to-and",
+      "label": "や vs と",
+      "summary": "や leaves the list open; と presents a complete set.",
+      "ex_a_ruby": "パンや[卵|たまご]があります。",
+      "ex_a_en": "Bread, eggs, and so on. (open)",
+      "ex_b_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "ex_b_en": "In the fridge: bread and eggs. (complete)"
+    },
+    {
+      "other_slug": "contrast-to-ya",
+      "label": "Open list vs complete set",
+      "summary": "Same nouns, different intent: examples (や / など) versus \"that's all\" (と).",
+      "ex_a_ruby": "パンや[卵|たまご]などがあります。",
+      "ex_a_en": "Bread, eggs, etc.",
+      "ex_b_ruby": "パンと[卵|たまご]があります。",
+      "ex_b_en": "Bread and eggs (only those)."
+    },
+    {
+      "other_slug": null,
+      "label": "や alone vs や…など",
+      "summary": "や already hints \"and others\"; など makes \"and so on\" explicit. Both stay open-list.",
+      "ex_a_ruby": "[本|ほん]や[雑誌|ざっし]があります。",
+      "ex_a_en": "There are books, magazines, and so on.",
+      "ex_b_ruby": "[本|ほん]や[雑誌|ざっし]などがあります。",
+      "ex_b_en": "There are books, magazines, and the like."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "パンや[卵|たまご]があります。",
+      "english": "There is bread, eggs, and so on.",
+      "note": "open list · existence"
+    },
+    {
+      "ruby": "パンや[卵|たまご]などがあります。",
+      "english": "There is bread, eggs, and so on.",
+      "note": "や…など"
+    },
+    {
+      "ruby": "[部屋|へや]に[本|ほん]や[鞄|かばん]があります。",
+      "english": "In the room there are books, bags, and so on.",
+      "note": "location · open list"
+    },
+    {
+      "ruby": "[机|つくえ]の[上|うえ]に[本|ほん]や[電話|でんわ]などがあります。",
+      "english": "On the desk there are books, phones, and so on.",
+      "note": "position · など"
+    },
+    {
+      "ruby": "[学生|がくせい]や[先生|せんせい]がいます。",
+      "english": "There are students, teachers, and so on.",
+      "note": "people · います"
+    },
+    {
+      "ruby": "[猫|ねこ]や[犬|いぬ]などがいます。",
+      "english": "There are cats, dogs, and so on.",
+      "note": "animals · など"
+    },
+    {
+      "ruby": "[冷蔵庫|れいぞうこ]にミルクやジュースなどがあります。",
+      "english": "In the fridge there is milk, juice, and so on.",
+      "note": "fridge · open list"
+    },
+    {
+      "ruby": "[鞄|かばん]に[本|ほん]や[傘|かさ]がありますか。",
+      "english": "Are there books, umbrellas, and so on in the bag?",
+      "note": "open list · question"
+    },
+    {
+      "ruby": "ここは[本|ほん]や[雑誌|ざっし]などです。",
+      "english": "Around here it's books, magazines, and the like.",
+      "note": "open list · copula"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[部屋|へや]に[何|なに]がありますか。",
+      "english": "What is in the room?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[本|ほん]や[鞄|かばん]などがあります。",
+      "english": "There are books, bags, and so on."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[猫|ねこ]もいますか。",
+      "english": "Is there a cat too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[猫|ねこ]や[犬|いぬ]がいます。",
+      "english": "Yes — there are cats, dogs, and so on."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Open list (examples, not a closed set): パン（　）卵があります。",
+      "options": ["と", "や", "の"],
+      "answer_idx": 1,
+      "why": "Open / example list → や."
+    },
+    {
+      "prompt": "「bread, eggs, and so on」— pick the natural line.",
+      "options": ["パンと卵があります。", "パンや卵などがあります。", "パンなどや卵があります。"],
+      "answer_idx": 1,
+      "why": "や…など marks an open list. ×などや is the wrong order."
+    },
+    {
+      "prompt": "教室に学生（　）先生がいます。 (examples of who is there)",
+      "options": ["や", "と", "も"],
+      "answer_idx": 0,
+      "why": "Giving examples of people present → や."
+    },
+    {
+      "prompt": "Fix: 本などや雑誌があります。",
+      "options": ["本などと雑誌があります。", "本と雑誌などがあります。", "本や雑誌などがあります。"],
+      "answer_idx": 2,
+      "why": "Examples first with や, then など after the last sample."
+    }
+  ],
+  "related": {
+    "prerequisites": ["to-and"],
+    "next": ["contrast-to-ya"]
+  },
+  "lesson_version": 1
+}
