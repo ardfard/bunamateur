@@ -1,0 +1,211 @@
+{
+  "meaning": "had better / should · (ないほうがいい) had better not (practical advice)",
+  "gist": "た-form (affirmative) or ない-form (negative) + ほうがいい (です): strong practical advice — \"you'd better…\" / \"you'd better not…\". Softer than moral べきだ; different from permission てもいい.",
+  "formation": {
+    "columns": [
+      "Advice type",
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Affirmative (typical)",
+        "Verb た-form",
+        "Vた + ほうがいい / ほうがいいです",
+        "[早|はや]く[寝|ね]たほうがいいです"
+      ],
+      [
+        "Negative",
+        "Verb ない-form",
+        "Vない + ほうがいい / ほうがいいです",
+        "[飲|の]まないほうがいいです"
+      ],
+      [
+        "Casual affirmative",
+        "Verb た-form",
+        "Vた + ほうがいい",
+        "[早|はや]く[出発|しゅっぱつ]したほうがいいよ"
+      ],
+      [
+        "Casual negative",
+        "Verb ない-form",
+        "Vない + ほうがいい",
+        "[無理|むり]をしないほうがいいよ"
+      ]
+    ],
+    "note": "Textbooks teach た-form for affirmative advice (行ったほうがいい). Dictionary form + ほうがいい (行くほうがいい) also occurs and is grammatical — a nuance preference, not an error. Never attach ほうがいい to the ます-form."
+  },
+  "explanation": "ほうがいい gives strong practical advice: 風邪のときは早く寝たほうがいいですよ = \"When you have a cold, you'd better go to sleep early.\" Affirmative advice typically uses the た-form; negative advice uses the ない-form: 夜遅くにコーヒーを飲まないほうがいいです. It recommends what is better for the situation — not permission (てもいい) and not moral duty (べきだ). Adding よ softens or emphasizes the advice in speech.",
+  "senses": [
+    {
+      "label": "Affirmative advice (た + ほうがいい)",
+      "body": "Also: [熱|ねつ]があるなら、[病院|びょういん]へ[行|い]ったほうがいいです。",
+      "example_ruby": "[風邪|かぜ]のときは[早|はや]く[寝|ね]たほうがいいですよ。",
+      "example_en": "When you have a cold, you'd better go to sleep early."
+    },
+    {
+      "label": "Negative advice (ないほうがいい)",
+      "body": "",
+      "example_ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]まないほうがいいです。",
+      "example_en": "You had better not drink coffee late at night."
+    },
+    {
+      "label": "Casual advice",
+      "body": "Also: あまり[無理|むり]をしないほうがいいよ。",
+      "example_ruby": "もっと[早|はや]く[出発|しゅっぱつ]したほうがいいよ。",
+      "example_en": "You should leave earlier."
+    }
+  ],
+  "register_context": "ほうがいいです is neutral-polite advice; ほうがいい / ほうがいいよ is casual. Dictionary-form affirmative (行くほうがいい) is a real pattern some speakers use for general preference; textbooks still favor た for clear \"you'd better\" advice. Stronger moral \"ought to\" is べきだ. Soft suggestions can use 〜たらいい / 〜といい.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[早|はや]く[寝|ね]ますほうがいいです。",
+      "right_ruby": "[早|はや]く[寝|ね]たほうがいいです。",
+      "why": "ほうがいい attaches to the た-form (寝た) or ない-form — never the ます-form."
+    },
+    {
+      "wrong_ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]んだほうがいいです。",
+      "right_ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]まないほうがいいです。",
+      "why": "(Advising against late-night coffee.) Negative advice needs ないほうがいい, not affirmative たほうがいい."
+    },
+    {
+      "wrong_ruby": "[風邪|かぜ]のときは[早|はや]く[寝|ね]てもいいですよ。",
+      "right_ruby": "[風邪|かぜ]のときは[早|はや]く[寝|ね]たほうがいいですよ。",
+      "why": "(Giving strong advice to sleep early when sick.) てもいい = permission (\"you may\"); ほうがいい = \"you'd better.\""
+    },
+    {
+      "wrong_ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]みないほうがいいです。",
+      "right_ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]まないほうがいいです。",
+      "why": "Negative advice needs the real ない-form: 飲む → 飲まない (not *飲みない) + ほうがいい."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "たほうがいい vs 辞書形 + ほうがいい",
+      "summary": "Textbook affirmative advice prefers た; dictionary + ほうがいい is grammatical and often a general preference — not a mistake.",
+      "ex_a_ruby": "[病院|びょういん]へ[行|い]ったほうがいいです。",
+      "ex_a_en": "You'd better go to the hospital (strong practical advice)",
+      "ex_b_ruby": "[病院|びょういん]へ[行|い]くほうがいいです。",
+      "ex_b_en": "Going to the hospital is better (preference; also grammatical)"
+    },
+    {
+      "other_slug": null,
+      "label": "ほうがいい vs てもいい",
+      "summary": "Strong advice (\"you'd better\") vs permission (\"you may\").",
+      "ex_a_ruby": "[早|はや]く[寝|ね]たほうがいいです。",
+      "ex_a_en": "You'd better sleep early",
+      "ex_b_ruby": "[早|はや]く[寝|ね]てもいいです。",
+      "ex_b_en": "You may sleep early"
+    },
+    {
+      "other_slug": null,
+      "label": "ほうがいい vs べきだ",
+      "summary": "Practical personal advice vs moral / principled \"ought to\".",
+      "ex_a_ruby": "[薬|くすり]を[飲|の]んだほうがいいです。",
+      "ex_a_en": "You'd better take the medicine (practical)",
+      "ex_b_ruby": "[約束|やくそく]は[守|まも]るべきです。",
+      "ex_b_en": "You ought to keep promises (moral duty)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[風邪|かぜ]のときは[早|はや]く[寝|ね]たほうがいいですよ。",
+      "english": "When you have a cold, you'd better go to sleep early.",
+      "note": "polite · affirmative advice"
+    },
+    {
+      "ruby": "[熱|ねつ]があるなら、[病院|びょういん]へ[行|い]ったほうがいいです。",
+      "english": "If you have a fever, you had better go to the hospital.",
+      "note": "polite · たほうがいい"
+    },
+    {
+      "ruby": "[夜|よる][遅|おそ]くにコーヒーを[飲|の]まないほうがいいです。",
+      "english": "You had better not drink coffee late at night.",
+      "note": "polite · negative advice"
+    },
+    {
+      "ruby": "もっと[早|はや]く[出発|しゅっぱつ]したほうがいいよ。",
+      "english": "You should leave earlier.",
+      "note": "casual · affirmative"
+    },
+    {
+      "ruby": "あまり[無理|むり]をしないほうがいいよ。",
+      "english": "You'd better not push yourself too hard.",
+      "note": "casual · ないほうがいい"
+    },
+    {
+      "ruby": "[寒|さむ]いから、コートを[着|き]たほうがいいです。",
+      "english": "It's cold, so you had better wear a coat.",
+      "note": "polite · 着た"
+    },
+    {
+      "ruby": "[今日|きょう]は[傘|かさ]を[持|も]っていったほうがいいです。",
+      "english": "You'd better take an umbrella today.",
+      "note": "polite · compound verb"
+    },
+    {
+      "ruby": "[塩|しお]を[入|い]れすぎないほうがいいよ。",
+      "english": "You'd better not add too much salt.",
+      "note": "casual · negative"
+    },
+    {
+      "ruby": "[疲|つか]れたら、[少|すこ]し[休|やす]んだほうがいいです。",
+      "english": "If you're tired, you'd better rest a little.",
+      "note": "polite · advice"
+    },
+    {
+      "ruby": "[夜|よる][遅|おそ]くまで[働|はたら]かないほうがいいです。",
+      "english": "You'd better not work late into the night.",
+      "note": "polite · negative"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]はちょっと[熱|ねつ]があります。",
+      "english": "I have a bit of a fever today."
+    },
+    {
+      "speaker": "B",
+      "ruby": "じゃあ、[早|はや]く[寝|ね]たほうがいいですよ。",
+      "english": "Then you'd better go to sleep early."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[仕事|しごと]もまだあるんですが…。",
+      "english": "But I still have work…"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[無理|むり]をしないほうがいいです。[明日|あした]にしましょう。",
+      "english": "You'd better not push yourself. Let's leave it for tomorrow."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "風邪のときは早く寝た（　）よ。",
+      "options": ["ほうがいいです", "てもいいです", "つもりです"],
+      "answer_idx": 0,
+      "why": "Strong practical advice → ほうがいいです (seed cloze)."
+    },
+    {
+      "prompt": "夜遅くにコーヒーを（　）ほうがいいです。",
+      "options": ["飲まない", "飲んだ", "飲みます"],
+      "answer_idx": 0,
+      "why": "Negative advice uses ない-form + ほうがいい."
+    },
+    {
+      "prompt": "熱があるなら、病院へ（　）ほうがいいです。",
+      "options": ["行った", "行きます", "行ってもいい"],
+      "answer_idx": 0,
+      "why": "Affirmative advice typically uses た-form + ほうがいい (行ったほうがいい)."
+    }
+  ],
+  "related": {
+    "prerequisites": ["た-form (Dojo)", "ない-form (Dojo)"],
+    "next": ["tai", "nakute-mo-ii"]
+  },
+  "lesson_version": 1
+}

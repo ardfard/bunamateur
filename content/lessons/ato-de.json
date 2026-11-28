@@ -1,0 +1,212 @@
+{
+  "meaning": "after doing · after N · afterward",
+  "gist": "た-form + あとで (or Noun + のあとで) marks what comes next: \"after V / after N.\" Use the た-form even for future plans — 仕事が終わったあとで会います, never *終わるあとで. てから is tighter sequential \"and then\"; あとで allows a gap.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Godan た-form",
+        "Vた + あとで",
+        "[終|お]わったあとで / [見|み]たあとで"
+      ],
+      [
+        "Ichidan た-form",
+        "Vた + あとで",
+        "[食|た]べたあとで / [浴|あ]びたあとで"
+      ],
+      [
+        "Irregular",
+        "した / [来|き]た + あとで",
+        "[運動|うんどう]したあとで / [来|き]たあとで"
+      ],
+      [
+        "Noun",
+        "N + のあとで",
+        "[授業|じゅぎょう]のあとで / [試験|しけん]のあとで"
+      ]
+    ],
+    "note": "Always た-form before あとで — even for future plans (終わったあとで会います). Nouns need の: 授業のあとで. Spelling 後で is the same pattern."
+  },
+  "explanation": "あとで attaches to a た-form verb or to a noun with の and places the main action after that event. Learners often expect a dictionary form for the future, but Japanese still uses the た-form to mark the earlier event: 仕事が終わったあとで友達と会います. Past narratives work the same way: 映画を見たあとで晩ごはんを食べました. With nouns: 授業のあとで図書館へ行く / 試験のあとで旅行しよう. Compared with てから, あとで is \"afterward\" (a gap is fine); てから highlights the next step right after finishing.",
+  "senses": [
+    {
+      "label": "After doing (future plan)",
+      "body": "た-form even for the future: [終|お]わったあとで…会います.",
+      "example_ruby": "[仕事|しごと]が[終|お]わったあとで、[友達|ともだち]と[会|あ]います。",
+      "example_en": "After work finishes, I will meet my friend."
+    },
+    {
+      "label": "After doing (past narrative)",
+      "body": "",
+      "example_ruby": "[映画|えいが]を[見|み]たあとで、レストランで[晩|ばん]ごはんを[食|た]べました。",
+      "example_en": "After watching the movie, I ate dinner at a restaurant."
+    },
+    {
+      "label": "After a noun event",
+      "body": "Also: [試験|しけん]のあとで、みんなで[旅行|りょこう]しよう。",
+      "example_ruby": "[授業|じゅぎょう]のあとで、[図書館|としょかん]へ[行|い]く。",
+      "example_en": "After class, I'll go to the library."
+    },
+    {
+      "label": "After doing (request / advice)",
+      "body": "",
+      "example_ruby": "[薬|くすり]を[飲|の]んだあとで、[少|すこ]し[休|やす]んでください。",
+      "example_en": "Please rest a little after taking your medicine."
+    }
+  ],
+  "register_context": "Neutral in polite and casual speech. Polite: 会います / 食べました / 休んでください. Casual: 図書館へ行く / 旅行しよう. 後で is a common kanji spelling of the same あとで.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[仕事|しごと]が[終|お]わるあとで、[友達|ともだち]と[会|あ]います。",
+      "right_ruby": "[仕事|しごと]が[終|お]わったあとで、[友達|ともだち]と[会|あ]います。",
+      "why": "あとで takes the た-form, even for future plans — not the dictionary form."
+    },
+    {
+      "wrong_ruby": "[授業|じゅぎょう]あとで、[図書館|としょかん]へ[行|い]く。",
+      "right_ruby": "[授業|じゅぎょう]のあとで、[図書館|としょかん]へ[行|い]く。",
+      "why": "Nouns need の before あとで: 授業のあとで, not bare 授業あとで."
+    },
+    {
+      "wrong_ruby": "[映画|えいが]を[見|み]たのあとで、レストランで[晩|ばん]ごはんを[食|た]べました。",
+      "right_ruby": "[映画|えいが]を[見|み]たあとで、レストランで[晩|ばん]ごはんを[食|た]べました。",
+      "why": "Verbs take あとで directly after the た-form — do not insert の (*見たのあとで). の is only for nouns (授業のあとで)."
+    },
+    {
+      "wrong_ruby": "[仕事|しごと]が[終|お]わる前に、[友達|ともだち]と[会|あ]います。",
+      "right_ruby": "[仕事|しごと]が[終|お]わったあとで、[友達|ともだち]と[会|あ]います。",
+      "why": "Learner meant \"I'll meet my friend after work finishes.\" 前に = before; use た-form + あとで for after."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "mae-ni",
+      "label": "あとで vs 前に",
+      "summary": "After (た-form + あとで) vs before (dictionary + 前に). Host form flips with the meaning.",
+      "ex_a_ruby": "[寝|ね]たあとで[本|ほん]を[読|よ]む。",
+      "ex_a_en": "I read a book after going to bed / sleeping",
+      "ex_b_ruby": "[寝|ね]る前に[歯|は]を[磨|みが]く。",
+      "ex_b_en": "I brush my teeth before sleeping"
+    },
+    {
+      "other_slug": null,
+      "label": "あとで vs てから",
+      "summary": "あとで = after (gap okay); てから = finish X and then Y (tighter sequential step).",
+      "ex_a_ruby": "[仕事|しごと]が[終|お]わったあとで[会|あ]います。",
+      "ex_a_en": "I'll meet (you) after work finishes — maybe not immediately",
+      "ex_b_ruby": "[仕事|しごと]が[終|お]わってから[会|あ]います。",
+      "ex_b_en": "I'll finish work and then meet (you) — sequential next step"
+    },
+    {
+      "other_slug": null,
+      "label": "Verb あとで vs Noun のあとで",
+      "summary": "Verbs use た-form + あとで; nouns need の.",
+      "ex_a_ruby": "[運動|うんどう]したあとでシャワーを[浴|あ]びた。",
+      "ex_a_en": "After exercising, I took a shower (verb)",
+      "ex_b_ruby": "[試験|しけん]のあとで[旅行|りょこう]しよう。",
+      "ex_b_en": "Let's travel after the exam (noun + の)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[仕事|しごと]が[終|お]わったあとで、[友達|ともだち]と[会|あ]います。",
+      "english": "After work finishes, I will meet my friend.",
+      "note": "た-form · future plan"
+    },
+    {
+      "ruby": "[映画|えいが]を[見|み]たあとで、レストランで[晩|ばん]ごはんを[食|た]べました。",
+      "english": "After watching the movie, I ate dinner at a restaurant.",
+      "note": "polite past"
+    },
+    {
+      "ruby": "[授業|じゅぎょう]のあとで、[図書館|としょかん]へ[行|い]く。",
+      "english": "After class, I'll go to the library.",
+      "note": "noun + のあとで · casual"
+    },
+    {
+      "ruby": "[運動|うんどう]したあとで、シャワーを[浴|あ]びた。",
+      "english": "After exercising, I took a shower.",
+      "note": "casual past"
+    },
+    {
+      "ruby": "[薬|くすり]を[飲|の]んだあとで、[少|すこ]し[休|やす]んでください。",
+      "english": "Please rest a little after taking your medicine.",
+      "note": "request"
+    },
+    {
+      "ruby": "[試験|しけん]のあとで、みんなで[旅行|りょこう]しよう。",
+      "english": "Let's all travel after the exam.",
+      "note": "noun · volitional"
+    },
+    {
+      "ruby": "[食|た]べたあとで、お[皿|さら]を[洗|あら]います。",
+      "english": "After eating, I wash the dishes.",
+      "note": "polite habit"
+    },
+    {
+      "ruby": "[帰|かえ]ったあとで、[電話|でんわ]します。",
+      "english": "I'll call after I get home.",
+      "note": "future plan"
+    },
+    {
+      "ruby": "[授業|じゅぎょう]のあとで、ちょっと[話|はな]しましょう。",
+      "english": "Let's talk a bit after class.",
+      "note": "noun · invitation"
+    },
+    {
+      "ruby": "[見|み]たあとで、[感想|かんそう]を[書|か]いてください。",
+      "english": "After watching, please write your impressions.",
+      "note": "polite request"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[仕事|しごと]が[終|お]わったあとで、[時間|じかん]がありますか。",
+      "english": "Do you have time after work finishes?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい。[終|お]わったあとで[会|あ]えますよ。",
+      "english": "Yes. I can meet after it finishes."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[授業|じゅぎょう]のあとで[図書館|としょかん]へ[行|い]きませんか。",
+      "english": "Shall we go to the library after class?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいですね。[行|い]きましょう。",
+      "english": "Sounds good. Let's go."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "仕事が（　）あとで、友達と会います。",
+      "options": ["終わった", "終わる"],
+      "answer_idx": 0,
+      "why": "あとで needs た-form 終わった even for a future plan."
+    },
+    {
+      "prompt": "授業（　）、図書館へ行く。",
+      "options": ["のあとで", "あとで", "の前に"],
+      "answer_idx": 0,
+      "why": "Nouns need のあとで. Bare あとで is for verbs; 前に would mean before class."
+    },
+    {
+      "prompt": "映画を見た（　）、晩ごはんを食べました。",
+      "options": ["あとで", "前に"],
+      "answer_idx": 0,
+      "why": "Dinner came after the movie → あとで (た-form host already given)."
+    }
+  ],
+  "related": {
+    "prerequisites": ["た-form (Dojo)", "mae-ni"],
+    "next": []
+  },
+  "lesson_version": 1
+}
