@@ -51,9 +51,9 @@
     },
     {
       "label": "Noun / な-adjective hosts",
-      "body": "Noun + の + はずだ; な-adj + な + はずだ.",
-      "example_ruby": "[今日|きょう]は[日曜日|にちようび]だから、[図書館|としょかん]は[閉|し]まっているはずです。",
-      "example_en": "Today is Sunday, so the library should be closed."
+      "body": "Noun + の + はずだ; な-adj + な + はずだ. Also: [図書館|としょかん]は[静|しず]かなはずです。",
+      "example_ruby": "[彼|かれ]は[学生|がくせい]のはずです。",
+      "example_en": "He should be a student (given what we know)."
     },
     {
       "label": "はずがない — \"there's no way\"",
@@ -236,12 +236,12 @@
     {
       "prompt": "彼は天才だから、そんな簡単な問題を（　）。",
       "options": [
-        "間違えるはずです",
+        "間違えないはずです",
         "間違えるはずがあります",
-        "間違えないはずです"
+        "間違えるはずがありません"
       ],
       "answer_idx": 2,
-      "why": "Genius context → expect he will NOT get it wrong: 間違えないはずです (ないはずだ). Affirmative 間違えるはずです claims the opposite; *間違えるはずがあります is not a standard はず pattern."
+      "why": "Genius context → \"there's no way he'd get it wrong\": 間違えるはずがありません. 間違えないはずです is weaker \"I expect he won't\"; *間違えるはずがあります is not the standard pattern."
     }
   ],
   "related": {

@@ -36,8 +36,8 @@
     {
       "label": "Despite a real fact (surprise / frustration)",
       "body": "The first clause actually happened or is true; the second outcome clashes with expectation.",
-      "example_ruby": "[雨|あめ]が[降|ふ]ったのに、ピクニックに[行|い]きました。",
-      "example_en": "Even though it rained, we went on a picnic."
+      "example_ruby": "[約束|やくそく]したのに、[彼|かれ]は[来|こ]なかった。",
+      "example_en": "Even though he promised, he didn't come."
     },
     {
       "label": "Noun / な-adjective + なのに",
@@ -94,11 +94,11 @@
     {
       "other_slug": null,
       "label": "のに vs けど / けれど",
-      "summary": "のに stresses contradiction and often frustration; けど / けれど are softer concessions and can lead into a request or invitation.",
+      "summary": "のに stresses contradiction and often frustration; けど / けれど are softer concessions and can lead into a request or invitation. When the listener is busy, soften further (お忙しいところ…).",
       "ex_a_ruby": "[忙|いそが]しいのに、[手伝|てつだ]ってくれた。",
       "ex_a_en": "Even though you're busy, you helped me. (surprised / moved)",
-      "ex_b_ruby": "[忙|いそが]しいけど、[手伝|てつだ]ってくれますか。",
-      "ex_b_en": "I know you're busy, but could you help me? (soft concession → request)"
+      "ex_b_ruby": "お[忙|いそが]しいところすみませんが、[手伝|てつだ]ってもらえますか。",
+      "ex_b_en": "Sorry to bother you when you're busy, but could you help me? (soft concession → request)"
     },
     {
       "other_slug": null,

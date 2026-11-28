@@ -174,55 +174,55 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るでしょうか。",
-      "english": "Do you think it will rain from this afternoon?"
+      "ruby": "[午後|ごご]から[雨|あめ]、[降|ふ]るかな。",
+      "english": "I wonder if it'll rain from this afternoon."
     },
     {
       "speaker": "B",
-      "ruby": "ええ、[降|ふ]るかもしれませんね。",
-      "english": "Yes, it might rain."
+      "ruby": "うん、[降|ふ]るかもね。",
+      "english": "Yeah, it might rain."
     },
     {
       "speaker": "A",
-      "ruby": "[傘|かさ]を[持|も]っていったほうがいいですか。",
+      "ruby": "[傘|かさ]、[持|も]っていったほうがいい？",
       "english": "Should I take an umbrella?"
     },
     {
       "speaker": "B",
-      "ruby": "そうですね。[持|も]っていったほうがいいかもしれません。",
-      "english": "Yes, it might be better to take one."
+      "ruby": "そうだね。[持|も]っていったほうがいいかも。",
+      "english": "Yeah — it might be better to take one."
     }
   ],
   "checks": [
     {
-      "prompt": "午後から雨が降る（　）。",
+      "prompt": "午後から雨が（　）。",
       "options": [
-        "だかもしれません",
-        "かもしれません",
-        "ますかもしれません"
+        "降るだかもしれません",
+        "降るかもしれません",
+        "降りますかもしれません"
       ],
       "answer_idx": 1,
-      "why": "Plain verb + かもしれません (seed cloze). No だ and not the ます-form."
+      "why": "Plain verb + かもしれません (seed). No だ after the verb; do not use the ます-form (*降りますかもしれません)."
     },
     {
-      "prompt": "その話は本当（　）。",
+      "prompt": "その話は（　）。",
       "options": [
-        "だかもしれません",
-        "なかもしれません",
-        "かもしれません"
+        "本当だかもしれません",
+        "本当なかもしれません",
+        "本当かもしれません"
       ],
       "answer_idx": 2,
       "why": "Noun + かもしれない — no だ (本当かもしれません)."
     },
     {
-      "prompt": "彼は今日来ない（　）。（casual · might not）",
+      "prompt": "彼は今日（　）。（casual · might not）",
       "options": [
-        "かもしれない",
-        "だかもしれない",
-        "ますかもしれない"
+        "来ないかもしれない",
+        "来ないだかもしれない",
+        "来ませんかもしれない"
       ],
       "answer_idx": 0,
-      "why": "Plain negative + かもしれない (seed). No だ after a verb, and not the ます-form."
+      "why": "Plain negative + かもしれない (seed). No だ after a verb; do not use polite ません before かもしれない."
     }
   ],
   "related": {

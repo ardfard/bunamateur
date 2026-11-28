@@ -54,8 +54,8 @@
     {
       "label": "Reacting to a stated feeling / fact",
       "body": "のなら often clarifies \"if that's the case\".",
-      "example_ruby": "[行|い]きたくないなら、[無理|むり]をしなくてもいいよ。",
-      "example_en": "If you don't want to go, you don't have to force yourself."
+      "example_ruby": "[行|い]きたくないのなら、[無理|むり]をしなくてもいいよ。",
+      "example_en": "If you don't want to go (if that's the case), you don't have to force yourself."
     }
   ],
   "register_context": "なら is everyday in advice and topic-picking replies. のなら can sound a bit more explanatory or soft. Casual noun なら is very common (寿司なら…). だったら can also pick up a topic in colloquial speech (寿司だったら…); なら is the standard topic-picking form and だったら is a casual alternative. For \"call me when you arrive,\" use たら, not なら.",
@@ -190,35 +190,35 @@
   ],
   "checks": [
     {
-      "prompt": "日本へ行く（　）、JRパスを買ったほうがいい。",
+      "prompt": "日本へ（　）、JRパスを買ったほうがいい。",
       "options": [
-        "たら",
-        "ば",
-        "なら",
-        "と"
+        "行ったら",
+        "行けば",
+        "行くなら",
+        "行くと"
       ],
       "answer_idx": 2,
-      "why": "Prep advice before the trip (time-reversed) → なら. 行ったら would mean after going; ば/と don't fit this contextual advice."
+      "why": "Prep advice before the trip (time-reversed) → 行くなら. 行ったら means after going; ば/と don't fit this contextual advice."
     },
     {
-      "prompt": "寿司（　）、駅の前の店がおいしいよ。",
+      "prompt": "（　）、駅の前の店がおいしいよ。",
       "options": [
-        "だなら",
-        "なら",
-        "だば"
+        "寿司だなら",
+        "寿司なら",
+        "寿司だば"
       ],
       "answer_idx": 1,
-      "why": "Noun topic-picking → bare なら (seed cloze). *だなら and *だば are ungrammatical."
+      "why": "Noun topic-picking → bare 寿司なら (seed). *寿司だなら and *寿司だば are ungrammatical."
     },
     {
-      "prompt": "もう食べた（　）、片付けてね。",
+      "prompt": "もう（　）、片付けてね。",
       "options": [
-        "なら",
-        "と",
-        "ば"
+        "食べたなら",
+        "食べると",
+        "食べれば"
       ],
       "answer_idx": 0,
-      "why": "Reacting to an assumed past fact → なら / のなら (seed). と cannot take a request; bare ば doesn't fit this topic-reaction."
+      "why": "Reacting to an assumed past fact → 食べたなら (seed). と cannot take a request; 食べれば doesn't fit this topic-reaction after もう."
     }
   ],
   "related": {

@@ -1,6 +1,6 @@
 {
   "meaning": "it seems / appears that · (simile) like / as if",
-  "gist": "Plain clause + ようだ / ようです marks inference from evidence or a sensory impression — \"it seems…\". Nouns take の (雨のようだ); な-adjectives take な (静かなようだ). Also forms similes: 〜のように / 〜のようだ. Casual near-equivalent: みたいだ.",
+  "gist": "Plain clause + ようだ / ようです marks inference from evidence or a sensory impression — \"it seems…\". Nouns take の (雨のようだ); な-adjectives take な (静かなようだ). Casual near-equivalent: みたいだ. Simile 〜のように is only previewed here (full pattern: no-you-na).",
   "formation": {
     "columns": [
       "Host",
@@ -52,8 +52,8 @@
       "example_en": "This appears to be his umbrella."
     },
     {
-      "label": "Simile 〜のように / 〜のようだ",
-      "body": "Noun + のように modifies a verb or adjective as a comparison.",
+      "label": "Simile 〜のように (preview)",
+      "body": "Noun + のように also builds similes (春のように暖かい). Full teaching of 〜のような / 〜のように is Unit 17's のようだ point (no-you-na) — treat this as a preview, not the main job of this lesson.",
       "example_ruby": "[今日|きょう]は[春|はる]のように[暖|あたた]かいですね。",
       "example_en": "Today is warm just like spring, isn't it?"
     }
@@ -112,7 +112,7 @@
     {
       "other_slug": null,
       "label": "Inference ようだ vs simile のように",
-      "summary": "Clause + ようだ = \"it seems…\"; Noun + のように = \"like / as if…\" modifying another word.",
+      "summary": "Clause + ようだ = \"it seems…\". Noun + のように = simile \"like / as if…\" (preview; see no-you-na in Unit 17 for the full pattern).",
       "ex_a_ruby": "[春|はる]のようです。",
       "ex_a_en": "It seems like spring / feels like spring",
       "ex_b_ruby": "[春|はる]のように[暖|あたた]かい。",
@@ -233,7 +233,8 @@
       "の (noun linker)"
     ],
     "next": [
-      "hazu-da"
+      "hazu-da",
+      "no-you-na"
     ]
   },
   "lesson_version": 1

@@ -195,24 +195,24 @@
   ],
   "checks": [
     {
-      "prompt": "もっと早く出発す（　）よかった。",
+      "prompt": "もっと早く（　）よかった。",
       "options": [
-        "れば",
-        "たら",
-        "なら"
+        "出発すれば",
+        "出発するなら",
+        "出発すると"
       ],
       "answer_idx": 0,
-      "why": "Regret pattern with this cloze stem: す + れば → すればよかった (seed). Colloquial 出発したらよかった is also fine in other shapes; here the stem す needs れば."
+      "why": "Regret pattern 〜ばよかった → 出発すればよかった (seed). ならよかった / とよかった are not the regret pattern."
     },
     {
-      "prompt": "毎日練習す（　）、上手になります。",
+      "prompt": "毎日（　）、上手になります。",
       "options": [
-        "たら",
-        "と",
-        "れば"
+        "練習するば",
+        "練習しますば",
+        "練習すれば"
       ],
       "answer_idx": 2,
-      "why": "General \"if you practice…\" with する → すれば (seed). The cloze stem す needs れば."
+      "why": "General condition with する → 練習すれば (seed). *練習するば and *練習しますば are common wrong forms."
     },
     {
       "prompt": "安ければ買いましょう。 — Is this unnatural because of ば + ましょう?",

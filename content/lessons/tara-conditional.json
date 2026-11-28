@@ -195,35 +195,35 @@
   ],
   "checks": [
     {
-      "prompt": "窓を閉め（　）、エアコンをつけてください。",
+      "prompt": "窓を（　）、エアコンをつけてください。",
       "options": [
-        "ば",
-        "たら",
-        "なら",
-        "と"
+        "閉めれば",
+        "閉めたら",
+        "閉めるなら",
+        "閉めると"
       ],
       "answer_idx": 1,
-      "why": "Request after closing → たら. と cannot take a request; same-subject action + てください is awkward with ば; なら is topic-picking, not \"once you close\"."
+      "why": "Request after closing → 閉めたら. と cannot take a request; same-subject action + request is awkward with ば; なら is topic-picking, not \"once you close\"."
     },
     {
-      "prompt": "駅に着い（　）、連絡してください。",
+      "prompt": "駅に（　）、連絡してください。",
       "options": [
-        "たら",
-        "ば",
-        "と"
+        "着いたら",
+        "着けば",
+        "着くと"
       ],
       "answer_idx": 0,
-      "why": "Request after arrival → たら. Same-subject action + てください is awkward with ば; と cannot take a request (seed cloze)."
+      "why": "Request after arrival → 着いたら (seed). と cannot take a request; same-subject action + てください is awkward with ば."
     },
     {
-      "prompt": "安かっ（　）、買うつもりだ。",
+      "prompt": "（　）、買うつもりだ。",
       "options": [
-        "れば",
-        "なら",
-        "たら"
+        "安いだったら",
+        "安くたら",
+        "安かったら"
       ],
       "answer_idx": 2,
-      "why": "い-adj past stem 安かっ + たら (seed). 安ければ is ば-form; bare なら needs a different host shape."
+      "why": "い-adj + たら → 安かったら (seed). *安いだったら and *安くたら are wrong forms."
     }
   ],
   "related": {

@@ -183,6 +183,11 @@
       "english": "According to the forecast, I heard it will snow."
     },
     {
+      "speaker": "B",
+      "ruby": "だから、[明日|あした]のハイキングは[中止|ちゅうし]だそうです。",
+      "english": "So I heard tomorrow's hike is cancelled."
+    },
+    {
       "speaker": "A",
       "ruby": "え、[本当|ほんとう]？ [田中|たなか]さんも[来|こ]ないの？",
       "english": "Really? Is Tanaka not coming either?"
