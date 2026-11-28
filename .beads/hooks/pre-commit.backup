@@ -1,0 +1,47 @@
+#!/bin/bash
+# @cursor-managed
+# Universal hook dispatcher - all hook names symlink to this script
+set -e
+
+HOOKS_DIR="$(cd "$(dirname "$0")" && pwd)"
+HOOK_NAME="$(basename "$0")"
+
+# git sends the ref list on stdin for pre-push alone, and every hook below
+# needs it, so buffer it rather than let the first reader drain it.
+HOOK_STDIN=""
+if [ "$HOOK_NAME" = "pre-push" ]; then
+    HOOK_STDIN="$(cat)"
+fi
+
+run_hook() {
+    if [ "$HOOK_NAME" = "pre-push" ]; then
+        printf '%s
+' "$HOOK_STDIN" | "$@"
+    else
+        "$@"
+    fi
+}
+
+# Read original hooks path
+ORIGINAL_HOOKS_PATH=""
+if [ -f "$HOOKS_DIR/.cursor-original-hooks-path" ]; then
+    ORIGINAL_HOOKS_PATH="$(cat "$HOOKS_DIR/.cursor-original-hooks-path")"
+fi
+
+# The branch guard runs before any repository hook gets a chance to change it.
+BRANCH_GUARD="$HOOKS_DIR/pre-push.cursor.branch-guard"
+if [ "$HOOK_NAME" = "pre-push" ] && [ -x "$BRANCH_GUARD" ]; then
+    run_hook "$BRANCH_GUARD" "$@"
+fi
+
+# Run user's original hook if it exists
+if [ -n "$ORIGINAL_HOOKS_PATH" ] && [ -x "$ORIGINAL_HOOKS_PATH/$HOOK_NAME" ]; then
+    run_hook "$ORIGINAL_HOOKS_PATH/$HOOK_NAME" "$@"
+fi
+
+# Run any cursor hooks for this hook type
+for cursor_hook in "$HOOKS_DIR"/$HOOK_NAME.cursor*; do
+    if [ "$cursor_hook" != "$BRANCH_GUARD" ] && [ -x "$cursor_hook" ]; then
+        run_hook "$cursor_hook" "$@"
+    fi
+done

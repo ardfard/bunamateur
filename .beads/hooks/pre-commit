@@ -1,0 +1,106 @@
+#!/bin/bash
+# @cursor-managed
+# Universal hook dispatcher - all hook names symlink to this script
+set -e
+
+HOOKS_DIR="$(cd "$(dirname "$0")" && pwd)"
+HOOK_NAME="$(basename "$0")"
+
+# git sends the ref list on stdin for pre-push alone, and every hook below
+# needs it, so buffer it rather than let the first reader drain it.
+HOOK_STDIN=""
+if [ "$HOOK_NAME" = "pre-push" ]; then
+    HOOK_STDIN="$(cat)"
+fi
+
+run_hook() {
+    if [ "$HOOK_NAME" = "pre-push" ]; then
+        printf '%s
+' "$HOOK_STDIN" | "$@"
+    else
+        "$@"
+    fi
+}
+
+# Read original hooks path
+ORIGINAL_HOOKS_PATH=""
+if [ -f "$HOOKS_DIR/.cursor-original-hooks-path" ]; then
+    ORIGINAL_HOOKS_PATH="$(cat "$HOOKS_DIR/.cursor-original-hooks-path")"
+fi
+
+# The branch guard runs before any repository hook gets a chance to change it.
+BRANCH_GUARD="$HOOKS_DIR/pre-push.cursor.branch-guard"
+if [ "$HOOK_NAME" = "pre-push" ] && [ -x "$BRANCH_GUARD" ]; then
+    run_hook "$BRANCH_GUARD" "$@"
+fi
+
+# Run user's original hook if it exists
+if [ -n "$ORIGINAL_HOOKS_PATH" ] && [ -x "$ORIGINAL_HOOKS_PATH/$HOOK_NAME" ]; then
+    run_hook "$ORIGINAL_HOOKS_PATH/$HOOK_NAME" "$@"
+fi
+
+# Run any cursor hooks for this hook type
+for cursor_hook in "$HOOKS_DIR"/$HOOK_NAME.cursor*; do
+    if [ "$cursor_hook" != "$BRANCH_GUARD" ] && [ -x "$cursor_hook" ]; then
+        run_hook "$cursor_hook" "$@"
+    fi
+done
+
+# --- BEGIN BEADS INTEGRATION v1.3.4 ---
+# This section is managed by beads. Do not remove these markers.
+if command -v bd >/dev/null 2>&1; then
+  export BD_GIT_HOOK=1
+  _bd_timeout=${BEADS_HOOK_TIMEOUT:-300}
+  case "$_bd_timeout" in
+    *[!0-9]*|'') _bd_timeout_invalid=1 ;;
+    *[1-9]*) _bd_timeout_invalid=0 ;;
+    *) _bd_timeout_invalid=1 ;;
+  esac
+  if [ "$_bd_timeout_invalid" -eq 1 ]; then
+    echo >&2 "beads: invalid BEADS_HOOK_TIMEOUT; using 300 seconds"
+    _bd_timeout=300
+  fi
+  _bd_timeout_backend=none
+  _bd_timeout_command=
+  for _bd_timeout_candidate in timeout gtimeout; do
+    if command -v "$_bd_timeout_candidate" >/dev/null 2>&1; then
+      if _bd_timeout_version="$("$_bd_timeout_candidate" --version 2>/dev/null)"; then
+        case "$_bd_timeout_version" in
+          "timeout (GNU coreutils) "*) _bd_timeout_command=$_bd_timeout_candidate; break ;;
+        esac
+      fi
+    fi
+  done
+  if [ -n "$_bd_timeout_command" ]; then
+    _bd_timeout_backend=coreutils
+    if "$_bd_timeout_command" -- "$_bd_timeout" bd hooks run pre-commit "$@"; then
+      _bd_exit=0
+    else
+      _bd_exit=$?
+    fi
+  elif command -v perl >/dev/null 2>&1; then
+    _bd_timeout_backend=perl
+    if perl -e 'alarm shift; exec @ARGV' -- "$_bd_timeout" bd hooks run pre-commit "$@"; then
+      _bd_exit=0
+    else
+      _bd_exit=$?
+    fi
+  else
+    echo >&2 "beads: hook 'pre-commit' running without timeout; install coreutils or perl to enable BEADS_HOOK_TIMEOUT"
+    if bd hooks run pre-commit "$@"; then
+      _bd_exit=0
+    else
+      _bd_exit=$?
+    fi
+  fi
+  if { [ "$_bd_timeout_backend" = coreutils ] && [ "$_bd_exit" -eq 124 ]; } || { [ "$_bd_timeout_backend" = perl ] && [ "$_bd_exit" -eq 142 ]; }; then
+    echo >&2 "beads: hook 'pre-commit' timed out after ${_bd_timeout}s — continuing without beads"
+    _bd_exit=0
+  fi
+  if [ "$_bd_exit" -eq 3 ]; then
+    echo >&2 "beads: database not initialized — skipping hook 'pre-commit'"
+    _bd_exit=0
+  fi
+  if [ "$_bd_exit" -ne 0 ]; then exit "$_bd_exit"; fi
+fi
+# --- END BEADS INTEGRATION v1.3.4 ---
