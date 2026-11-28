@@ -1,0 +1,202 @@
+{
+  "meaning": "because / since (soft, objective)",
+  "gist": "ので after a plain clause gives a reason that sounds more explanatory and polite than から — often preferred for requests and excuses, especially to superiors. Verbs and い-adjectives attach in the plain form; nouns and な-adjectives take な (not だ): [祝日|しゅくじつ]なので、[有名|ゆうめい]なので. Everyday speech also allows ので before ましょう; the \"avoid ので + volitional\" rule is only a style tendency.",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + ので",
+        "[頭|あたま]が[痛|いた]いので / [遅|おく]れたので"
+      ],
+      [
+        "い-adjective",
+        "い-adj + ので",
+        "[時間|じかん]がないので"
+      ],
+      [
+        "な-adjective",
+        "な-adj + な + ので",
+        "[有名|ゆうめい]なので"
+      ],
+      [
+        "Noun",
+        "N + な + ので",
+        "[祝日|しゅくじつ]なので"
+      ],
+      [
+        "Polite (less common in textbooks)",
+        "ます/です + ので (formal speech)",
+        "[遅|おく]れましたので"
+      ]
+    ],
+    "note": "Standard N5 teaching: nouns / な-adjectives → なので. ×だので is nonstandard/colloquial — do not use it. ので itself already softens; you do not add です before it in the usual pattern."
+  },
+  "explanation": "ので presents the reason as a circumstance rather than a pushy personal claim. That makes it preferred for soft requests and apologies, especially to superiors: 頭が痛いので、早く帰ってもいいですか / 電車が遅れたので、申し訳ありません. It also states neutral facts: 今日は祝日なので、銀行は休みです. から is more personal and assertive; both 時間がないから、行きましょう and 時間がないので、行きましょう are natural in modern everyday speech.",
+  "senses": [
+    {
+      "label": "Soft request or excuse",
+      "body": "Also: [電車|でんしゃ]が[遅|おく]れたので、[失礼|しつれい]しました。 \"The train was late, so sorry (for being late).\"",
+      "example_ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "example_en": "I have a headache, so may I go home early?"
+    },
+    {
+      "label": "Objective / factual cause",
+      "body": "",
+      "example_ruby": "[今日|きょう]は[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "example_en": "Today is a national holiday, so the bank is closed."
+    },
+    {
+      "label": "Ongoing situation + polite follow-up",
+      "body": "Polite てください as a careful request (not a blunt command) fits ので well.",
+      "example_ruby": "[雪|ゆき]が[降|ふ]っているので、[気|き]をつけて[運転|うんてん]してください。",
+      "example_en": "It's snowing, so please drive carefully."
+    }
+  ],
+  "register_context": "ので sounds more explanatory and polite than から; requests or excuses to superiors usually take ので. から is more personal and assertive. Some style guides avoid ので before ましょう or commands, but everyday speech allows it. Default textbook pattern: plain clause + ので (痛いので、遅れたので、なので). Formal speech sometimes allows ます/です + ので.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学生|がくせい]だので、[割引|わりびき]があります。",
+      "right_ruby": "[学生|がくせい]なので、[割引|わりびき]があります。",
+      "why": "Nouns and な-adjectives take な before ので. だので is nonstandard — teach なので."
+    },
+    {
+      "wrong_ruby": "[忙|いそが]しいなので、[返事|へんじ]ができませんでした。",
+      "right_ruby": "[忙|いそが]しかったので、[返事|へんじ]ができませんでした。",
+      "why": "い-adjectives attach directly (忙しいので / past 忙しかったので). Do not insert な after an い-adjective."
+    },
+    {
+      "wrong_ruby": "[静|しず]かだので、ここで[勉強|べんきょう]しています。",
+      "right_ruby": "[静|しず]かなので、ここで[勉強|べんきょう]しています。",
+      "why": "な-adjectives take な before ので (静かなので), not だ (*静かだので)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "kara-reason",
+      "label": "ので vs から",
+      "summary": "Register, not a hard ban: ので is more explanatory/polite (especially to superiors); から is more personal/assertive. Everyday speech allows either before ましょう.",
+      "ex_a_ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "ex_a_en": "I have a headache, so may I go home early? (polite request → ので)",
+      "ex_b_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "ex_b_en": "We don't have time, so let's go by taxi. (personal から; のでも also fine here)"
+    },
+    {
+      "other_slug": null,
+      "label": "な + ので vs だ + から",
+      "summary": "Nouns / な-adjectives: ので needs な; から needs だ/です — never mix them (×だので, ×なから).",
+      "ex_a_ruby": "[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "ex_a_en": "Because it's a holiday (な + ので)",
+      "ex_b_ruby": "[祝日|しゅくじつ]だから、[銀行|ぎんこう]は[休|やす]みです。",
+      "ex_b_en": "Because it's a holiday (だ + から)"
+    },
+    {
+      "other_slug": null,
+      "label": "Polite excuse vs casual explanation",
+      "summary": "Telling a teacher why you were late usually takes ので; から is fine with friends.",
+      "ex_a_ruby": "[電車|でんしゃ]が[遅|おく]れたので、[遅刻|ちこく]しました。",
+      "ex_a_en": "The train was delayed, so I was late. (polite excuse)",
+      "ex_b_ruby": "[電車|でんしゃ]が[遅|おく]れたから、[遅刻|ちこく]したよ。",
+      "ex_b_en": "The train was late, so I was late. (casual)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "english": "I have a headache, so may I go home early?",
+      "note": "soft permission request"
+    },
+    {
+      "ruby": "[今日|きょう]は[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "english": "Today is a national holiday, so the bank is closed.",
+      "note": "noun + なので · factual"
+    },
+    {
+      "ruby": "[電車|でんしゃ]が[遅|おく]れたので、[会議|かいぎ]に[間|ま]に[合|あ]いませんでした。",
+      "english": "The train was delayed, so I didn't make it to the meeting.",
+      "note": "past verb · excuse / cause"
+    },
+    {
+      "ruby": "この[店|みせ]は[有名|ゆうめい]なので、いつも[混|こ]んでいる。",
+      "english": "This shop is famous, so it's always crowded.",
+      "note": "な-adj + なので"
+    },
+    {
+      "ruby": "[時間|じかん]がないので、タクシーで[行|い]きます。",
+      "english": "Since we don't have time, we'll go by taxi.",
+      "note": "objective reason · statement"
+    },
+    {
+      "ruby": "[雪|ゆき]が[降|ふ]っているので、[気|き]をつけて[運転|うんてん]してください。",
+      "english": "It's snowing, so please drive carefully.",
+      "note": "ている + ので · polite request"
+    },
+    {
+      "ruby": "[熱|ねつ]があるので、[今日|きょう]は[休|やす]ませてください。",
+      "english": "I have a fever, so please let me take the day off.",
+      "note": "excuse · soft request"
+    },
+    {
+      "ruby": "[静|しず]かなので、ここで[勉強|べんきょう]しています。",
+      "english": "It's quiet, so I'm studying here.",
+      "note": "な-adj + なので · neutral fact"
+    },
+    {
+      "ruby": "[道|みち]が[混|こ]んでいるので、[少|すこ]し[遅|おく]れます。",
+      "english": "The roads are crowded, so I'll be a little late.",
+      "note": "apology-style explanation"
+    },
+    {
+      "ruby": "[大事|だいじ]な[話|はなし]があるので、[後|あと]で[電話|でんわ]してもいいですか。",
+      "english": "I have something important to discuss, so may I call you later?",
+      "note": "noun + な + ので · permission"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "どうしましたか。[早|はや]く[帰|かえ]りますか。",
+      "english": "What's wrong? Are you leaving early?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい。[頭|あたま]が[痛|いた]いので、[帰|かえ]ってもいいですか。",
+      "english": "Yes. I have a headache, so may I go home?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "わかりました。[気|き]をつけて。[雪|ゆき]が[降|ふ]っていますよ。",
+      "english": "Of course. Take care — it's snowing."
+    },
+    {
+      "speaker": "B",
+      "ruby": "ありがとうございます。[雪|ゆき]が[降|ふ]っているので、[気|き]をつけます。",
+      "english": "Thank you. Since it's snowing, I'll be careful."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "今日は祝日（　）、銀行は休みです。（ので pattern）",
+      "options": ["なので", "だので", "から"],
+      "answer_idx": 0,
+      "why": "Noun + ので → なので. ×だので is nonstandard; bare から after a noun is also wrong."
+    },
+    {
+      "prompt": "有名（　）、いつも混んでいる。（ので pattern）",
+      "options": ["なので", "だので"],
+      "answer_idx": 0,
+      "why": "な-adjective + ので → なので, not ×だので."
+    },
+    {
+      "prompt": "Which sounds more polite when telling your teacher why you were late?",
+      "options": ["電車が遅れたので、遅刻しました。", "電車が遅れたから、遅刻しました。"],
+      "answer_idx": 0,
+      "why": "Excuses to superiors usually take ので; から is grammatical but more personal/assertive."
+    }
+  ],
+  "related": {
+    "prerequisites": ["kara-reason"],
+    "next": []
+  },
+  "lesson_version": 1
+}

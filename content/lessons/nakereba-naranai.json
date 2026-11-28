@@ -1,0 +1,228 @@
+{
+  "meaning": "must / have to · (past) had to",
+  "gist": "ない-stem (ない without い) + ければならない: \"if one does not do X, it won't do\" → must. Polite: なければなりません. Colloquial: 〜なきゃ / 〜なくちゃ / 〜ないと; also なくてはいけない. Past: なければなりませんでした / なければならなかった.",
+  "formation": {
+    "columns": ["Verb", "ない-stem", "Must (plain)", "Must (polite)", "Casual"],
+    "rows": [
+      [
+        "[行|い]く",
+        "[行|い]か",
+        "[行|い]かなければならない",
+        "[行|い]かなければなりません",
+        "[行|い]かなきゃ / [行|い]かなくちゃ / [行|い]かないと"
+      ],
+      [
+        "[食|た]べる",
+        "[食|た]べ",
+        "[食|た]べなければならない",
+        "[食|た]べなければなりません",
+        "[食|た]べなきゃ / [食|た]べないと"
+      ],
+      [
+        "[起|お]きる",
+        "[起|お]き",
+        "[起|お]きなければならない",
+        "[起|お]きなければなりません",
+        "[起|お]きなきゃ"
+      ],
+      [
+        "[飲|の]む",
+        "[飲|の]ま",
+        "[飲|の]まなければならない",
+        "[飲|の]まなければなりません",
+        "[飲|の]まなきゃ"
+      ],
+      [
+        "する / [来|く]る",
+        "し / [来|こ]",
+        "しなければならない / [来|こ]なければならない",
+        "しなければなりません / [来|こ]なければなりません",
+        "しなきゃ / [来|こ]なきゃ"
+      ]
+    ],
+    "note": "Build from the ない form, drop い, then add ければならない. Near-synonym: なくてはいけない / なくちゃ. Past polite: なければなりませんでした; past plain: なければならなかった."
+  },
+  "explanation": "なければならない expresses obligation: if you don't do it, that situation is unacceptable. It is the standard textbook and written form. Conversation often shortens to なきゃ (なければ → なきゃ), なくちゃ (なくては → なくちゃ), or simply ないと. なくてはいけない is a parallel pattern with the same meaning. Past obligation conjugates ならない: なりませんでした / ならなかった. Attach only to the ない-stem — never to the dictionary form.",
+  "senses": [
+    {
+      "label": "Present obligation (polite)",
+      "body": "",
+      "example_ruby": "[明日|あした][早|はや]く[起|お]きなければなりません。",
+      "example_en": "I have to wake up early tomorrow."
+    },
+    {
+      "label": "Plain / casual obligation",
+      "body": "Also: そろそろ[帰|かえ]らなきゃ。",
+      "example_ruby": "[試験|しけん]のために[毎日|まいにち][漢字|かんじ]を[覚|おぼ]えなければならない。",
+      "example_en": "I must memorize kanji every day for the exam."
+    },
+    {
+      "label": "Past obligation (had to)",
+      "body": "Also plain: [急|いそ]いで[駅|えき]まで[走|はし]らなければならなかった。",
+      "example_ruby": "[昨日|きのう]は[残業|ざんぎょう]をしなければなりませんでした。",
+      "example_en": "Yesterday I had to work overtime."
+    }
+  ],
+  "register_context": "なければなりません is neutral-polite (announcements, class, careful speech). なければならない fits writing and firm plain speech. Friends usually say なきゃ / ないと / なくちゃ. なくてはいけません is a common polite alternative.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[明日|あした][早|はや]く[起|お]きるなければなりません。",
+      "right_ruby": "[明日|あした][早|はや]く[起|お]きなければなりません。",
+      "why": "Attach to the ない-stem (起き), not the dictionary form (起きる)."
+    },
+    {
+      "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいいです。",
+      "right_ruby": "[明日|あした][早|はや]く[起|お]きなければなりません。",
+      "why": "(You have an early train tomorrow and must get up.) なくてもいい = \"don't have to\"; なければならない = \"must\"."
+    },
+    {
+      "wrong_ruby": "[来週|らいしゅう]レポートを[出|だ]さなければなりませんでした。",
+      "right_ruby": "[来週|らいしゅう]レポートを[出|だ]さなければなりません。",
+      "why": "(Future obligation.) なりませんでした / ならなかった is past \"had to\" — use non-past なりません for something still ahead."
+    },
+    {
+      "wrong_ruby": "[昨日|きのう][残業|ざんぎょう]をしなければなりません。",
+      "right_ruby": "[昨日|きのう][残業|ざんぎょう]をしなければなりませんでした。",
+      "why": "Past \"had to\" needs past on ならない: なりませんでした / ならなかった."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "nakute-mo-ii",
+      "label": "なければならない vs なくてもいい",
+      "summary": "Must do vs don't have to do.",
+      "ex_a_ruby": "[早|はや]く[起|お]きなければなりません。",
+      "ex_a_en": "I have to wake up early",
+      "ex_b_ruby": "[早|はや]く[起|お]きなくてもいいです。",
+      "ex_b_en": "I don't have to wake up early"
+    },
+    {
+      "other_slug": "te-wa-ikenai",
+      "label": "なければならない vs てはいけない",
+      "summary": "Required action vs forbidden action.",
+      "ex_a_ruby": "[宿題|しゅくだい]を[出|だ]さなければなりません。",
+      "ex_a_en": "You must submit the homework",
+      "ex_b_ruby": "[宿題|しゅくだい]を[忘|わす]れてはいけません。",
+      "ex_b_en": "You must not forget the homework"
+    },
+    {
+      "other_slug": "te-mo-ii",
+      "label": "なければならない vs てもいい",
+      "summary": "Obligation vs mere permission.",
+      "ex_a_ruby": "[今日|きょう]レポートを[出|だ]さなければなりません。",
+      "ex_a_en": "I must submit the report today",
+      "ex_b_ruby": "[今日|きょう]レポートを[出|だ]してもいいです。",
+      "ex_b_en": "I may submit the report today"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[明日|あした][早|はや]く[起|お]きなければなりません。",
+      "english": "I have to wake up early tomorrow.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[試験|しけん]のために[毎日|まいにち][漢字|かんじ]を[覚|おぼ]えなければならない。",
+      "english": "I must memorize kanji every day for the exam.",
+      "note": "plain"
+    },
+    {
+      "ruby": "[今日|きょう]のうちにレポートを[出|だ]さなければなりません。",
+      "english": "I must submit the report before today ends.",
+      "note": "polite"
+    },
+    {
+      "ruby": "もう[遅|おそ]いから、そろそろ[帰|かえ]らなきゃ。",
+      "english": "It's already late, so I have to head home soon.",
+      "note": "casual · なきゃ"
+    },
+    {
+      "ruby": "[今日|きょう][中|じゅう]に[掃除|そうじ]しなくちゃ。",
+      "english": "I've got to clean today.",
+      "note": "casual · なくちゃ"
+    },
+    {
+      "ruby": "[昨日|きのう]は[残業|ざんぎょう]をしなければなりませんでした。",
+      "english": "Yesterday I had to work overtime.",
+      "note": "polite past"
+    },
+    {
+      "ruby": "[急|いそ]いで[駅|えき]まで[走|はし]らなければならなかった。",
+      "english": "I had to run to the station in a hurry.",
+      "note": "plain past"
+    },
+    {
+      "ruby": "[薬|くすり]を[飲|の]まなければなりません。",
+      "english": "I have to take the medicine.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[明日|あした]までに[本|ほん]を[返|かえ]さなくてはいけない。",
+      "english": "I have to return the book by tomorrow.",
+      "note": "plain · なくてはいけない"
+    },
+    {
+      "ruby": "パスポートを[持|も]って[行|い]かないと。",
+      "english": "I have to take my passport.",
+      "note": "casual · ないと"
+    },
+    {
+      "ruby": "[毎日|まいにち][練習|れんしゅう]しなければなりません。",
+      "english": "I have to practice every day.",
+      "note": "polite · する"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[明日|あした]の[朝|あさ]、[何時|なんじ]に[起|お]きますか。",
+      "english": "What time will you get up tomorrow morning?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "六[時|じ]に[起|お]きなければなりません。[電車|でんしゃ]が[早|はや]いんです。",
+      "english": "I have to get up at six. The train is early."
+    },
+    {
+      "speaker": "A",
+      "ruby": "たいへんですね。[昼|ひる]ごはんは？",
+      "english": "That's tough. What about lunch?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[駅|えき]で[買|か]わなきゃ。[時間|じかん]がないから。",
+      "english": "I'll have to buy it at the station — there's no time."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "明日早く起き（　）。",
+      "options": ["てもいいです", "なければなりません", "なくてもいいです"],
+      "answer_idx": 1,
+      "why": "Obligation → なければなりません."
+    },
+    {
+      "prompt": "試験のために漢字を覚え（　）。",
+      "options": ["なければならない", "てもいい", "なくてもいい"],
+      "answer_idx": 0,
+      "why": "Plain must → なければならない."
+    },
+    {
+      "prompt": "もう遅いから、そろそろ帰ら（　）。",
+      "options": ["なくてもいい", "なきゃ", "てもいい"],
+      "answer_idx": 1,
+      "why": "Casual obligation → なきゃ."
+    },
+    {
+      "prompt": "昨日は残業をし（　）。",
+      "options": ["なければなりませんでした", "てもよかったです", "なくてもよかったです"],
+      "answer_idx": 0,
+      "why": "Past \"had to\" → なければなりませんでした."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ない-form (Dojo)", "te-mo-ii"],
+    "next": ["nakute-mo-ii", "te-wa-ikenai"]
+  },
+  "lesson_version": 1
+}

@@ -424,8 +424,23 @@ mod tests {
     #[test]
     fn embedded_sample_lessons_load_and_validate() {
         let lessons = load_embedded_lessons().expect("load lessons");
-        assert!(lessons.contains_key("te-iru"));
-        assert!(lessons.contains_key("koto-ni-suru"));
-        assert_eq!(lessons.len(), 2);
+        for slug in [
+            "te-iru",
+            "koto-ni-suru",
+            "te-mo-ii",
+            "te-wa-ikenai",
+            "nakereba-naranai",
+            "nakute-mo-ii",
+            "tai",
+            "ta-koto-ga-aru",
+            "kara-reason",
+            "node",
+        ] {
+            assert!(
+                lessons.contains_key(slug),
+                "missing embedded lesson '{slug}'"
+            );
+        }
+        assert_eq!(lessons.len(), 10);
     }
 }

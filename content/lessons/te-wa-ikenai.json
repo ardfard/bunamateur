@@ -1,0 +1,223 @@
+{
+  "meaning": "must not / may not · prohibited",
+  "gist": "て-form + は + いけない: \"doing X won't do\" → prohibition. Polite: てはいけません. Casual contractions: 〜ちゃいけない / 〜ちゃだめ; after で-form, で→じゃ (飲んじゃだめ).",
+  "formation": {
+    "columns": ["Verb type", "て-form", "Prohibition (plain)", "Prohibition (polite)", "Casual"],
+    "rows": [
+      [
+        "Godan う・つ・る",
+        "[買|か]って",
+        "[買|か]ってはいけない",
+        "[買|か]ってはいけません",
+        "[買|か]っちゃだめ / [買|か]っちゃいけない"
+      ],
+      [
+        "Godan む・ぶ・ぬ (で)",
+        "[飲|の]んで",
+        "[飲|の]んではいけない",
+        "[飲|の]んではいけません",
+        "[飲|の]んじゃだめ / [飲|の]んじゃいけない"
+      ],
+      [
+        "Godan く",
+        "[書|か]いて",
+        "[書|か]いてはいけない",
+        "[書|か]いてはいけません",
+        "[書|か]いちゃだめ"
+      ],
+      [
+        "Ichidan",
+        "[食|た]べて",
+        "[食|た]べてはいけない",
+        "[食|た]べてはいけません",
+        "[食|た]べちゃだめ / [食|た]べちゃいけない"
+      ],
+      [
+        "Irregular",
+        "して / [来|き]て",
+        "してはいけない / [来|き]てはいけない",
+        "してはいけません / [来|き]てはいけません",
+        "しちゃだめ / [来|き]ちゃだめ"
+      ]
+    ],
+    "note": "ては contracts to ちゃ; では contracts to じゃ. Past prohibition: てはいけませんでした / てはいけなかった."
+  },
+  "explanation": "てはいけない states a rule or warning: the action is not allowed. は marks the て-form as the topic of \"won't do\" (いけない). Polite statements use てはいけません; signs and firm speech often use plain てはいけない. In conversation, especially among friends or with children, ちゃだめ / じゃだめ and ちゃいけない / じゃいけない are far more common than the full form. Do not swap は for も — てもいけない is a different, rarer pattern.",
+  "senses": [
+    {
+      "label": "Rules and signs (polite)",
+      "body": "",
+      "example_ruby": "[美術館|びじゅつかん]の[中|なか]で[写真|しゃしん]を[撮|と]ってはいけません。",
+      "example_en": "You must not take photos inside the art museum."
+    },
+    {
+      "label": "Plain prohibition",
+      "body": "",
+      "example_ruby": "ここで[大|おお]きい[声|こえ]で[話|はな]してはいけない。",
+      "example_en": "You must not talk loudly here."
+    },
+    {
+      "label": "Casual warning",
+      "body": "Also: [秘密|ひみつ]だから、[誰|だれ]にも[言|い]っちゃだめよ。",
+      "example_ruby": "[秘密|ひみつ]だから、[誰|だれ]にも[言|い]っちゃいけないよ。",
+      "example_en": "It's a secret, so you mustn't tell anyone."
+    }
+  ],
+  "register_context": "てはいけません is the classroom/polite rule form. てはいけない is plain/written. Casual speech prefers ちゃだめ / ちゃいけない (and じゃ after で). Softening a refusal of permission is often ちょっと… rather than a blunt だめです to strangers.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[美術館|びじゅつかん]で[写真|しゃしん]を[撮|と]ってもいけません。",
+      "right_ruby": "[美術館|びじゅつかん]で[写真|しゃしん]を[撮|と]ってはいけません。",
+      "why": "Prohibition uses は, not も. てもいい is permission; てはいけない is prohibition."
+    },
+    {
+      "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいい。",
+      "right_ruby": "[明日|あした][早|はや]く[起|お]きてはいけない。",
+      "why": "(House rule: getting up early is forbidden tomorrow.) なくてもいい = \"don't have to\"; てはいけない = \"must not\"."
+    },
+    {
+      "wrong_ruby": "[運転|うんてん]のとき、[酒|さけ]を[飲|の]ってはいけません。",
+      "right_ruby": "[運転|うんてん]のとき、[酒|さけ]を[飲|の]んではいけません。",
+      "why": "飲む → 飲んで → 飲んではいけません (で-form + は)."
+    },
+    {
+      "wrong_ruby": "[遅|おく]れるはいけません。",
+      "right_ruby": "[遅|おく]れてはいけません。",
+      "why": "Attach はいけない to the て-form, not the dictionary form."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "te-mo-ii",
+      "label": "てはいけない vs てもいい",
+      "summary": "Prohibition vs permission.",
+      "ex_a_ruby": "[写真|しゃしん]を[撮|と]ってはいけません。",
+      "ex_a_en": "You must not take photos",
+      "ex_b_ruby": "[写真|しゃしん]を[撮|と]ってもいいです。",
+      "ex_b_en": "You may take photos"
+    },
+    {
+      "other_slug": "nakute-mo-ii",
+      "label": "てはいけない vs なくてもいい",
+      "summary": "Must not do vs don't have to do.",
+      "ex_a_ruby": "[食|た]べてはいけない。",
+      "ex_a_en": "You must not eat it",
+      "ex_b_ruby": "[食|た]べなくてもいい。",
+      "ex_b_en": "You don't have to eat it"
+    },
+    {
+      "other_slug": "nakereba-naranai",
+      "label": "てはいけない vs なければならない",
+      "summary": "Forbidden action vs required action.",
+      "ex_a_ruby": "[遅|おく]れてはいけません。",
+      "ex_a_en": "You must not be late",
+      "ex_b_ruby": "[早|はや]く[来|こ]なければなりません。",
+      "ex_b_en": "You must come early"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[美術館|びじゅつかん]の[中|なか]で[写真|しゃしん]を[撮|と]ってはいけません。",
+      "english": "You must not take photos inside the art museum.",
+      "note": "polite · rule"
+    },
+    {
+      "ruby": "ここで[大|おお]きい[声|こえ]で[話|はな]してはいけない。",
+      "english": "You must not talk in a loud voice here.",
+      "note": "plain"
+    },
+    {
+      "ruby": "[運転|うんてん]するときはお[酒|さけ]を[飲|の]んではいけません。",
+      "english": "You must not drink alcohol when driving.",
+      "note": "polite · で-form"
+    },
+    {
+      "ruby": "[試験|しけん]の[時間|じかん]に[遅|おく]れてはいけません。",
+      "english": "You must not be late for the exam.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[昔|むかし]はここに[入|はい]ってはいけませんでした。",
+      "english": "In the past, you were not allowed to enter here.",
+      "note": "polite past"
+    },
+    {
+      "ruby": "[秘密|ひみつ]だから、[誰|だれ]にも[言|い]っちゃいけないよ。",
+      "english": "It's a secret, so you must not tell anyone.",
+      "note": "casual · ちゃいけない"
+    },
+    {
+      "ruby": "[池|いけ]に[入|はい]っちゃだめ！",
+      "english": "Don't go in the pond!",
+      "note": "casual · ちゃだめ"
+    },
+    {
+      "ruby": "[教室|きょうしつ]で[走|はし]ってはいけません。",
+      "english": "You must not run in the classroom.",
+      "note": "polite · school rule"
+    },
+    {
+      "ruby": "[夜|よる][遅|おそ]くまでゲームをしちゃだめだよ。",
+      "english": "You mustn't play games late at night.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[危|あぶ]ないものは[触|さわ]ってはいけません。",
+      "english": "You must not touch dangerous things.",
+      "note": "polite · warning"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[美術館|びじゅつかん]で[写真|しゃしん]を[撮|と]ってもいいですか。",
+      "english": "May I take photos in the museum?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[中|なか]では[撮|と]ってはいけません。",
+      "english": "No, you must not take them inside."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[外|そと]ならいいですか。",
+      "english": "Is outside okay?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[外|そと]では[撮|と]ってもいいですよ。",
+      "english": "Yes, you may take them outside."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "美術館の中で写真を撮っ（　）。",
+      "options": ["てもいいです", "てはいけません", "なくてもいいです"],
+      "answer_idx": 1,
+      "why": "Museum rule → prohibition てはいけません."
+    },
+    {
+      "prompt": "運転のとき、お酒を飲ん（　）。",
+      "options": ["でもいいです", "ではいけません", "なくてもいいです"],
+      "answer_idx": 1,
+      "why": "飲む → 飲んで → ではいけません."
+    },
+    {
+      "prompt": "秘密だから、誰にも言っ（　）よ。",
+      "options": ["てもいい", "ちゃいけない", "なくてもいい"],
+      "answer_idx": 1,
+      "why": "Casual prohibition → ちゃいけない / ちゃだめ."
+    },
+    {
+      "prompt": "ここで大きい声で話し（　）。",
+      "options": ["てもいい", "てはいけない", "なくてもいい"],
+      "answer_idx": 1,
+      "why": "Plain prohibition → てはいけない."
+    }
+  ],
+  "related": {
+    "prerequisites": ["て-form (Dojo)", "te-mo-ii"],
+    "next": ["nakute-mo-ii", "nakereba-naranai"]
+  },
+  "lesson_version": 1
+}

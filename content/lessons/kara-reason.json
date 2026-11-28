@@ -1,0 +1,202 @@
+{
+  "meaning": "because / since (speaker's reason)",
+  "gist": "から after a full clause marks the reason the speaker is offering — often personal or assertive. Plain or polite clauses both work; nouns and な-adjectives need だ (casual) or です (polite) before から: [暇|ひま]だから / [学生|がくせい]ですから. ので sounds more explanatory and polite (especially to superiors); both are fine before ましょう in everyday speech.",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + から",
+        "[時間|じかん]がないから"
+      ],
+      [
+        "Verb (polite)",
+        "Vます / Vています + から",
+        "[雨|あめ]が[降|ふ]っていますから"
+      ],
+      [
+        "い-adjective",
+        "い-adj + から (past: 〜かったから)",
+        "[早|はや]いから / [忙|いそが]しかったから"
+      ],
+      [
+        "な-adjective / Noun (casual)",
+        "な-adj / N + だ + から",
+        "[静|しず]かだから / [学生|がくせい]だから"
+      ],
+      [
+        "な-adjective / Noun (polite)",
+        "な-adj / N + です + から",
+        "[静|しず]かですから / [学生|がくせい]ですから"
+      ]
+    ],
+    "note": "から can follow polite endings (ます/です) as well as plain ones. Do not use な before から (×静かなから); that な belongs to ので."
+  },
+  "explanation": "から links a reason clause to what follows. It often feels personal or assertive, so it fits invitations and casual explanations: 時間がないから、タクシーで行きましょう / 急ごう. It can also explain a past outcome: 忙しかったから、返事ができませんでした. ので is not banned before ましょう — both are natural in everyday speech — but ので tends to sound more explanatory and polite, especially in requests or excuses to superiors.",
+  "senses": [
+    {
+      "label": "Reason + invitation / volitional",
+      "body": "Also: もう[時間|じかん]がないから、[急|いそ]ごう。 \"There's no time left, so let's hurry.\"",
+      "example_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "example_en": "We don't have time, so let's go by taxi."
+    },
+    {
+      "label": "Reason for a statement or past result",
+      "body": "",
+      "example_ruby": "[昨日|きのう]は[忙|いそが]しかったから、[返事|へんじ]ができませんでした。",
+      "example_en": "I was busy yesterday, so I couldn't reply."
+    },
+    {
+      "label": "Noun / な-adjective reason (だ / です)",
+      "body": "Polite: [学生|がくせい]ですから、[割引|わりびき]があります。",
+      "example_ruby": "ここは[静|しず]かだから、[勉強|べんきょう]しやすい。",
+      "example_en": "It's quiet here, so it's easy to study."
+    }
+  ],
+  "register_context": "から sounds more personal and assertive; ので sounds more explanatory and polite. Requests or excuses to superiors usually take ので. Some style guides avoid ので before ましょう or commands, but in everyday speech both から and ので are fine there. Casual: plain + から (ないから、静かだから). Polite narrative: ます/です + から (降っていますから、学生ですから).",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学生|がくせい]から、[割引|わりびき]があります。",
+      "right_ruby": "[学生|がくせい]だから、[割引|わりびき]があります。",
+      "why": "Nouns and な-adjectives need だ (casual) or です (polite) before から — not the bare noun."
+    },
+    {
+      "wrong_ruby": "[静|しず]かなから、[勉強|べんきょう]しやすい。",
+      "right_ruby": "[静|しず]かだから、[勉強|べんきょう]しやすい。",
+      "why": "Before から use だ (or です), never the な that belongs with ので."
+    },
+    {
+      "wrong_ruby": "[忙|いそが]しいだから、[返事|へんじ]ができませんでした。",
+      "right_ruby": "[忙|いそが]しかったから、[返事|へんじ]ができませんでした。",
+      "why": "い-adjectives attach directly (忙しいから / past 忙しかったから). Do not insert だ after an い-adjective."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "node",
+      "label": "から vs ので",
+      "summary": "Register, not a hard ban: から is more personal/assertive; ので is more explanatory/polite (especially to superiors). Everyday speech allows either before ましょう.",
+      "ex_a_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "ex_a_en": "We don't have time, so let's go by taxi. (personal/assertive から)",
+      "ex_b_ruby": "[時間|じかん]がないので、タクシーで[行|い]きましょう。",
+      "ex_b_en": "We don't have time, so let's go by taxi. (explanatory ので — also natural)"
+    },
+    {
+      "other_slug": null,
+      "label": "だ + から vs な + ので",
+      "summary": "Nouns / な-adjectives: から needs だ/です; ので needs な — never だので or bare 学生から.",
+      "ex_a_ruby": "[学生|がくせい]だから、[安|やす]いです。",
+      "ex_a_en": "Because I'm a student (casual だ + から)",
+      "ex_b_ruby": "[学生|がくせい]なので、[安|やす]いです。",
+      "ex_b_en": "Because I'm a student (な + ので)"
+    },
+    {
+      "other_slug": null,
+      "label": "Personal vs polite excuse",
+      "summary": "To a friend, から is fine; telling a teacher or boss why you were late usually takes ので.",
+      "ex_a_ruby": "[電車|でんしゃ]が[遅|おく]れたから、[遅|おく]れたよ。",
+      "ex_a_en": "The train was late, so I was late. (casual, personal)",
+      "ex_b_ruby": "[電車|でんしゃ]が[遅|おく]れたので、[遅|おく]れました。",
+      "ex_b_en": "The train was delayed, so I was late. (polite excuse)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "english": "We don't have time, so let's go by taxi.",
+      "note": "plain + から · invitation"
+    },
+    {
+      "ruby": "[雨|あめ]が[降|ふ]っていますから、[傘|かさ]を[持|も]っていきましょう。",
+      "english": "It's raining, so let's take an umbrella.",
+      "note": "polite ています + から · invitation"
+    },
+    {
+      "ruby": "もう[時間|じかん]がないから、[急|いそ]ごう。",
+      "english": "There's no time left, so let's hurry.",
+      "note": "casual · volitional 〜よう"
+    },
+    {
+      "ruby": "[昨日|きのう]は[忙|いそが]しかったから、[返事|へんじ]ができませんでした。",
+      "english": "I was busy yesterday, so I couldn't reply.",
+      "note": "past い-adj · past result (ので also possible)"
+    },
+    {
+      "ruby": "ここは[静|しず]かだから、[勉強|べんきょう]しやすい。",
+      "english": "It's quiet here, so it's easy to study.",
+      "note": "な-adj + だ + から · casual"
+    },
+    {
+      "ruby": "[明日|あした]は[早|はや]いから、もう[寝|ね]ます。",
+      "english": "Tomorrow is early, so I'm going to bed now.",
+      "note": "い-adj + から · polite main clause"
+    },
+    {
+      "ruby": "[学生|がくせい]ですから、[割引|わりびき]がありますか。",
+      "english": "I'm a student, so is there a discount?",
+      "note": "noun + です + から · polite"
+    },
+    {
+      "ruby": "[疲|つか]れたから、[今日|きょう]は[早|はや]く[帰|かえ]ろう。",
+      "english": "I'm tired, so let's go home early today.",
+      "note": "plain past · volitional"
+    },
+    {
+      "ruby": "[寒|さむ]いから、[窓|まど]を[閉|し]めてください。",
+      "english": "It's cold, so please close the window.",
+      "note": "reason + てください (directive)"
+    },
+    {
+      "ruby": "[秘密|ひみつ]だから、[誰|だれ]にも[言|い]わないで。",
+      "english": "It's a secret, so don't tell anyone.",
+      "note": "noun + だ + から · casual command"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]はタクシーで[行|い]きませんか。",
+      "english": "Shall we go by taxi today?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "ええ。[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "english": "Yes. We don't have time, so let's go by taxi."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[傘|かさ]も[持|も]っていきますか。",
+      "english": "Are you taking an umbrella too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい。[雨|あめ]が[降|ふ]っていますから。",
+      "english": "Yes — because it's raining."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "学生（　）、割引があります。（から pattern）",
+      "options": ["だから", "から", "だので"],
+      "answer_idx": 0,
+      "why": "Noun + から needs だ (学生だから). Bare から and だので are wrong."
+    },
+    {
+      "prompt": "静か（　）、勉強しやすい。（から pattern）",
+      "options": ["だから", "なから"],
+      "answer_idx": 0,
+      "why": "な-adjective + から → 静かだから, not ×静かなから."
+    },
+    {
+      "prompt": "Telling a close friend why you left early — which sounds more personal?",
+      "options": ["疲れたから、先に帰ったよ。", "疲れたので、先に帰ったよ。"],
+      "answer_idx": 0,
+      "why": "から sounds more personal/assertive among friends; ので is more explanatory/polite (both grammatical)."
+    }
+  ],
+  "related": {
+    "prerequisites": [],
+    "next": ["node"]
+  },
+  "lesson_version": 1
+}

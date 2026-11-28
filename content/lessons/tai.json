@@ -1,0 +1,216 @@
+{
+  "meaning": "want to do · want to V (speaker's desire)",
+  "gist": "ます-stem + たい. たい behaves like an い-adjective (たいです / たくない / たかった / たくなかった) and marks the speaker's desire to do V — \"I want to…\". Asking the listener directly is fine; bare たい does not report a third person's wish.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Godan ます-stem",
+        "stem + たい / たいです",
+        "[行|い]きます → [行|い]きたいです"
+      ],
+      [
+        "Ichidan ます-stem",
+        "stem + たい / たいです",
+        "[食|た]べます → [食|た]べたいです"
+      ],
+      [
+        "Irregular",
+        "し / [来|き] + たい",
+        "したいです / [来|き]たいです"
+      ],
+      [
+        "Negative (い-adj)",
+        "たくない / たくないです",
+        "[行|い]きたくないです"
+      ],
+      [
+        "Past (い-adj)",
+        "たかった / たかったです",
+        "[行|い]きたかったです"
+      ],
+      [
+        "Past negative",
+        "たくなかった / たくなかったです",
+        "[出|で]たくなかった"
+      ]
+    ],
+    "note": "Never attach たい to the dictionary form (*食べるたい). Object of たい often takes が ([寿司|すし]が[食|た]べたい), especially in questions and negatives; を is also common and accepted ([寿司|すし]を[食|た]べたい)."
+  },
+  "explanation": "たい attaches to the ます-stem and conjugates like an い-adjective: 行きたいです, 行きたくない(です), 行きたかった(です), 行きたくなかった(です). It expresses the speaker's own desire, or asks the listener what they want (何が食べたいですか). The object of a たい verb often takes が — textbooks prefer が especially in questions and negatives (何が飲みたい？ / 肉が食べたくない) — though を is widely used too and is not wrong. For a third person's desire, do not use bare たい: use 〜たがる / 〜たがっている, or quote them with 〜たいと言っている.",
+  "senses": [
+    {
+      "label": "Speaker's desire",
+      "body": "",
+      "example_ruby": "[来年|らいねん]、[日本|にほん]へ[旅行|りょこう]に[行|い]きたいです。",
+      "example_en": "Next year, I want to go on a trip to Japan."
+    },
+    {
+      "label": "Asking the listener",
+      "body": "が is especially natural on the object in questions: [何|なに]が[食|た]べたいですか。",
+      "example_ruby": "[今日|きょう]の[夜|よる]、[何|なに]が[食|た]べたいですか。",
+      "example_en": "What do you want to eat tonight?"
+    },
+    {
+      "label": "Past / negative desire",
+      "body": "Also: [本当|ほんとう]は[会議|かいぎ]に[出|で]たくなかった。 \"Honestly, I didn't want to attend the meeting.\"",
+      "example_ruby": "[子供|こども]のころ、[医者|いしゃ]になりたかったです。",
+      "example_en": "When I was a child, I wanted to become a doctor."
+    }
+  ],
+  "register_context": "たいです is neutral-polite; たい / たくない / たかった are plain-casual. Soften with んです (行きたいんです) for explanation or hesitation. Do not use bare たい to narrate someone else's wish in polite report — prefer たがっている or たいと言っている.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[寿司|すし]を[食|た]べるたいです。",
+      "right_ruby": "[寿司|すし]が[食|た]べたいです。",
+      "why": "たい attaches to the ます-stem (食べ), never the dictionary form (*食べるたい)."
+    },
+    {
+      "wrong_ruby": "[弟|おとうと]はゲームをしたいです。",
+      "right_ruby": "[弟|おとうと]はゲームをしたがっています。",
+      "why": "Bare たい is for the speaker (or a direct question to the listener). Third-person desire needs たがる / たがっている or たいと言っている."
+    },
+    {
+      "wrong_ruby": "[寿司|すし]が[食|た]べたいでした。",
+      "right_ruby": "[寿司|すし]が[食|た]べたかったです。",
+      "why": "Past tense conjugates たい like an い-adjective: たかった / たかったです — not *たいでした."
+    },
+    {
+      "wrong_ruby": "[彼|かれ]は[日本|にほん]に[行|い]きたい。",
+      "right_ruby": "[彼|かれ]は[日本|にほん]に[行|い]きたいと[言|い]っている。",
+      "why": "Reporting his wish: quote it, or use たがっている — not bare declarative たい."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "たい vs ほしい",
+      "summary": "Want to do a verb vs want a noun/thing.",
+      "ex_a_ruby": "[冷|つめ]たい[水|みず]を[飲|の]みたい。",
+      "ex_a_en": "I want to drink cold water (verb desire)",
+      "ex_b_ruby": "[冷|つめ]たい[水|みず]がほしい。",
+      "ex_b_en": "I want (some) cold water (thing desire)"
+    },
+    {
+      "other_slug": null,
+      "label": "たい vs たがる / たがっている",
+      "summary": "Speaker's desire vs observable third-person desire.",
+      "ex_a_ruby": "[私|わたし]は[映画|えいが]を[見|み]たい。",
+      "ex_a_en": "I want to watch a movie",
+      "ex_b_ruby": "[妹|いもうと]は[映画|えいが]を[見|み]たがっている。",
+      "ex_b_en": "My little sister wants to watch a movie (shows signs of wanting)"
+    },
+    {
+      "other_slug": "tsumori",
+      "label": "たい vs つもりだ",
+      "summary": "Desire (\"I want to\") vs intention/plan (\"I intend to\").",
+      "ex_a_ruby": "[来年|らいねん][日本|にほん]へ[行|い]きたいです。",
+      "ex_a_en": "I want to go to Japan next year",
+      "ex_b_ruby": "[来年|らいねん][日本|にほん]へ[行|い]くつもりです。",
+      "ex_b_en": "I plan / intend to go to Japan next year"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[来年|らいねん]、[日本|にほん]へ[旅行|りょこう]に[行|い]きたいです。",
+      "english": "Next year, I want to go on a trip to Japan.",
+      "note": "polite · speaker desire"
+    },
+    {
+      "ruby": "[今年|ことし]の[夏|なつ]は[京都|きょうと]へ[行|い]きたいです。",
+      "english": "I want to go to Kyoto this summer.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[疲|つか]れたから、[今日|きょう]は[何|なに]もしたくないです。",
+      "english": "I'm tired, so I don't want to do anything today.",
+      "note": "negative · polite"
+    },
+    {
+      "ruby": "[子供|こども]のころ、[医者|いしゃ]になりたかったです。",
+      "english": "When I was a child, I wanted to become a doctor.",
+      "note": "past desire"
+    },
+    {
+      "ruby": "[本当|ほんとう]は[会議|かいぎ]に[出|で]たくなかった。",
+      "english": "Honestly, I didn't want to attend the meeting.",
+      "note": "past negative · plain"
+    },
+    {
+      "ruby": "[寒|さむ]いので、[温|あたた]かいお[茶|ちゃ]を[飲|の]みたい。",
+      "english": "It's cold, so I want to drink warm tea.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[寿司|すし]が[食|た]べたいです。",
+      "english": "I want to eat sushi.",
+      "note": "object with が"
+    },
+    {
+      "ruby": "[何|なに]が[飲|の]みたいですか。",
+      "english": "What do you want to drink?",
+      "note": "question · が preferred"
+    },
+    {
+      "ruby": "[弟|おとうと]はゲームをしたがっている。",
+      "english": "My little brother wants to play games.",
+      "note": "third person · たがっている"
+    },
+    {
+      "ruby": "[友達|ともだち]は[来月|らいげつ][北海道|ほっかいどう]に[行|い]きたいと[言|い]っている。",
+      "english": "My friend says they want to go to Hokkaido next month.",
+      "note": "third person · quoted desire"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]の[夜|よる]、[何|なに]が[食|た]べたいですか。",
+      "english": "What do you want to eat tonight?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[私|わたし]はラーメンが[食|た]べたいです。",
+      "english": "I want to eat ramen."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[一緒|いっしょ]に[行|い]きましょうか。",
+      "english": "Shall we go together?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "ええ、[行|い]きたいです。",
+      "english": "Yes, I'd like to."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "寿司を（　）たいです。",
+      "options": ["食べる", "食べ"],
+      "answer_idx": 1,
+      "why": "たい attaches to the ます-stem (食べ), not the dictionary form."
+    },
+    {
+      "prompt": "弟はゲームを（　）。",
+      "options": ["したいです", "したがっています"],
+      "answer_idx": 1,
+      "why": "Third-person desire needs たがっている (or たいと言っている), not bare たい."
+    },
+    {
+      "prompt": "昨日は寿司が食べ（　）。",
+      "options": ["たかったです", "たいでした"],
+      "answer_idx": 0,
+      "why": "Past of たい is たかったです (い-adjective conjugation), not *たいでした."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ます-form (Dojo)"],
+    "next": ["tsumori", "hou-ga-ii"]
+  },
+  "lesson_version": 1
+}
