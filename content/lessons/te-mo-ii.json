@@ -1,0 +1,217 @@
+{
+  "meaning": "may / it's okay to · (asking) may I · (granting) you may",
+  "gist": "て-form + も (\"even\") + いい (\"good/okay\"): \"it's okay even if you do X\" → permission. Asking: 〜てもいいですか / 〜てもよろしいですか. Granting: 〜てもいいですよ / 〜てもいいよ.",
+  "formation": {
+    "columns": ["Verb type", "て-form", "Permission (plain)", "Permission (polite)", "Asking (polite)"],
+    "rows": [
+      [
+        "Godan う・つ・る",
+        "[買|か]って",
+        "[買|か]ってもいい",
+        "[買|か]ってもいいです",
+        "[買|か]ってもいいですか"
+      ],
+      [
+        "Godan む・ぶ・ぬ (で)",
+        "[飲|の]んで",
+        "[飲|の]んでもいい",
+        "[飲|の]んでもいいです",
+        "[飲|の]んでもいいですか"
+      ],
+      [
+        "Godan く",
+        "[書|か]いて",
+        "[書|か]いてもいい",
+        "[書|か]いてもいいです",
+        "[書|か]いてもいいですか"
+      ],
+      [
+        "Ichidan",
+        "[食|た]べて",
+        "[食|た]べてもいい",
+        "[食|た]べてもいいです",
+        "[食|た]べてもいいですか"
+      ],
+      [
+        "Irregular",
+        "して / [来|き]て",
+        "してもいい / [来|き]てもいい",
+        "してもいいです / [来|き]てもいいです",
+        "してもいいですか / [来|き]てもいいですか"
+      ]
+    ],
+    "note": "After で-form verbs (飲んで, 読んで, 遊んで), the pattern is でもいい, not てもいい. More formal asking: 〜てもよろしいですか."
+  },
+  "explanation": "てもいい grants or requests permission. Literally it says the situation is fine even if the action happens. 〜てもいいですか asks politely; 〜てもよろしいですか is more formal (to strangers, superiors, service situations). To grant permission, drop か and often add よ: 撮ってもいいですよ. Casual speech uses plain てもいい / てもいいよ. The particle is も (\"even\"), not は — てはいい is not the standard permission pattern.",
+  "senses": [
+    {
+      "label": "Asking permission",
+      "body": "Also formal: [写真|しゃしん]を[撮|と]ってもよろしいですか。",
+      "example_ruby": "ここで[写真|しゃしん]を[撮|と]ってもいいですか。",
+      "example_en": "May I take a photo here?"
+    },
+    {
+      "label": "Granting permission",
+      "body": "",
+      "example_ruby": "[窓|まど]を[開|あ]けてもいいですよ。",
+      "example_en": "You may open the window."
+    },
+    {
+      "label": "Casual permission",
+      "body": "",
+      "example_ruby": "このお[菓子|かし]、[食|た]べてもいいよ。",
+      "example_en": "You can eat this snack."
+    }
+  ],
+  "register_context": "Neutral-polite: てもいいです / てもいいですか. Formal: てもよろしいですか. Casual: てもいい / てもいいよ. Soft refusal of a request often uses ちょっと… rather than a bare だめです.",
+  "mistakes": [
+    {
+      "wrong_ruby": "ここで[写真|しゃしん]を[撮|と]ってはいいです。",
+      "right_ruby": "ここで[写真|しゃしん]を[撮|と]ってもいいです。",
+      "why": "Permission uses も (\"even\"), not は. てはいい is not the standard \"you may\" pattern."
+    },
+    {
+      "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいいですか。",
+      "right_ruby": "[明日|あした][早|はや]く[起|お]きてもいいですか。",
+      "why": "てもいい = \"is it okay if I do?\"; なくてもいい = \"is it okay if I don't?\" (no obligation)."
+    },
+    {
+      "wrong_ruby": "[酒|さけ]を[飲|の]ってもいいですか。",
+      "right_ruby": "[酒|さけ]を[飲|の]んでもいいですか。",
+      "why": "む・ぶ・ぬ Godan verbs take で-form: 飲んで → 飲んでもいい."
+    },
+    {
+      "wrong_ruby": "[写真|しゃしん]を[撮|と]るもいいですか。",
+      "right_ruby": "[写真|しゃしん]を[撮|と]ってもいいですか。",
+      "why": "Attach もいい to the て-form, not the dictionary form."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "te-wa-ikenai",
+      "label": "てもいい vs てはいけない",
+      "summary": "Permission (\"you may\") vs prohibition (\"you must not\").",
+      "ex_a_ruby": "ここで[写真|しゃしん]を[撮|と]ってもいいです。",
+      "ex_a_en": "You may take photos here",
+      "ex_b_ruby": "ここで[写真|しゃしん]を[撮|と]ってはいけません。",
+      "ex_b_en": "You must not take photos here"
+    },
+    {
+      "other_slug": "nakute-mo-ii",
+      "label": "てもいい vs なくてもいい",
+      "summary": "Okay to do vs okay not to do (no obligation).",
+      "ex_a_ruby": "[行|い]ってもいいです。",
+      "ex_a_en": "You may go",
+      "ex_b_ruby": "[行|い]かなくてもいいです。",
+      "ex_b_en": "You don't have to go"
+    },
+    {
+      "other_slug": "nakereba-naranai",
+      "label": "てもいい vs なければならない",
+      "summary": "Optional permission vs strong obligation.",
+      "ex_a_ruby": "[宿題|しゅくだい]を[出|だ]してもいいです。",
+      "ex_a_en": "You may submit the homework",
+      "ex_b_ruby": "[宿題|しゅくだい]を[出|だ]さなければなりません。",
+      "ex_b_en": "You must submit the homework"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "ここで[写真|しゃしん]を[撮|と]ってもいいですか。",
+      "english": "May I take a photo here?",
+      "note": "polite · asking"
+    },
+    {
+      "ruby": "[写真|しゃしん]を[撮|と]ってもよろしいですか。",
+      "english": "Would it be all right if I took a photo?",
+      "note": "formal polite · asking"
+    },
+    {
+      "ruby": "[窓|まど]を[開|あ]けてもいいですよ。",
+      "english": "You may open the window.",
+      "note": "polite · granting"
+    },
+    {
+      "ruby": "ここに[名前|なまえ]を[書|か]いてもいいですか。",
+      "english": "May I write my name here?",
+      "note": "polite · asking"
+    },
+    {
+      "ruby": "このお[菓子|かし]、[食|た]べてもいいよ。",
+      "english": "You may eat this snack.",
+      "note": "casual · granting"
+    },
+    {
+      "ruby": "[水|みず]を[飲|の]んでもいいですか。",
+      "english": "May I drink water?",
+      "note": "polite · で-form"
+    },
+    {
+      "ruby": "[明日|あした]は[早|はや]く[帰|かえ]ってもいいと[言|い]われた。",
+      "english": "I was told I may go home early tomorrow.",
+      "note": "plain before と"
+    },
+    {
+      "ruby": "[少|すこ]し[休|やす]んでもいいですか。",
+      "english": "May I rest a little?",
+      "note": "polite · で-form"
+    },
+    {
+      "ruby": "[友達|ともだち]を[連|つ]れて[来|き]てもいいですか。",
+      "english": "May I bring a friend?",
+      "note": "polite · asking"
+    },
+    {
+      "ruby": "この[椅子|いす]に[座|すわ]ってもいいですよ。",
+      "english": "You may sit in this chair.",
+      "note": "polite · granting"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "すみません、ここで[写真|しゃしん]を[撮|と]ってもいいですか。",
+      "english": "Excuse me, may I take a photo here?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、どうぞ。[撮|と]ってもいいですよ。",
+      "english": "Yes, go ahead. You may take one."
+    },
+    {
+      "speaker": "A",
+      "ruby": "フラッシュを[使|つか]ってもいいですか。",
+      "english": "May I use the flash?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[少|すこ]し[待|ま]ってください。[今|いま]はだめです。",
+      "english": "Please wait a bit. Not right now."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "ここで写真を撮っ（　）か。",
+      "options": ["てもいいです", "てはいけません", "なくてもいいです"],
+      "answer_idx": 0,
+      "why": "Asking permission → てもいいですか (cloze answer: てもいいです)."
+    },
+    {
+      "prompt": "このお菓子、食べ（　）よ。",
+      "options": ["てはいけない", "てもいい", "なくてもいい"],
+      "answer_idx": 1,
+      "why": "Casual granting of permission → てもいい."
+    },
+    {
+      "prompt": "写真を撮っ（　）か。 (formal)",
+      "options": ["てもよろしいです", "てはいけません", "なければなりません"],
+      "answer_idx": 0,
+      "why": "Formal permission ask → てもよろしいですか."
+    }
+  ],
+  "related": {
+    "prerequisites": ["て-form (Dojo)"],
+    "next": ["te-wa-ikenai", "nakute-mo-ii", "nakereba-naranai"]
+  },
+  "lesson_version": 1
+}

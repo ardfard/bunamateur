@@ -1,0 +1,220 @@
+{
+  "meaning": "have (the experience of) done · have done before · have never done",
+  "gist": "Verb た-form + ことがある: \"have the experience of having done V\" — life experience, at least once. Negative たことがない / たことがありません = \"have never…\". Not for a one-off recent event you just finished.",
+  "formation": {
+    "columns": [
+      "Verb type",
+      "Dictionary → た-form",
+      "Experience (plain)",
+      "Polite",
+      "Never (plain)",
+      "Never (polite)"
+    ],
+    "rows": [
+      [
+        "Godan う・つ・る",
+        "[買|か]う → [買|か]った",
+        "[買|か]ったことがある",
+        "[買|か]ったことがあります",
+        "[買|か]ったことがない",
+        "[買|か]ったことがありません"
+      ],
+      [
+        "Godan む・ぶ・ぬ",
+        "[飲|の]む → [飲|の]んだ",
+        "[飲|の]んだことがある",
+        "[飲|の]んだことがあります",
+        "[飲|の]んだことがない",
+        "[飲|の]んだことがありません"
+      ],
+      [
+        "Godan く ([行|い]く → [行|い]った)",
+        "[書|か]く → [書|か]いた",
+        "[書|か]いたことがある",
+        "[書|か]いたことがあります",
+        "[書|か]いたことがない",
+        "[書|か]いたことがありません"
+      ],
+      [
+        "Ichidan",
+        "[食|た]べる → [食|た]べた",
+        "[食|た]べたことがある",
+        "[食|た]べたことがあります",
+        "[食|た]べたことがない",
+        "[食|た]べたことがありません"
+      ],
+      [
+        "Irregular",
+        "する → した / [来|く]る → [来|き]た",
+        "したことがある / [来|き]たことがある",
+        "したことがあります / [来|き]たことがあります",
+        "したことがない / [来|き]たことがない",
+        "したことがありません / [来|き]たことがありません"
+      ]
+    ],
+    "note": "Casual speech often drops が: たことある / たことない. Questions: 〜たことがありますか / 〜たことある？"
+  },
+  "explanation": "たことがある asks or states whether something has ever happened in your life — not whether it happened at a specific time. 富士山に登ったことがあります = \"I have climbed Mt. Fuji (at least once)\"; 納豆を食べたことがありません = \"I have never eaten natto.\" For a concrete past event (this morning, yesterday), use the plain past instead: 今朝ごはんを食べた. Dictionary form + ことがある is a different pattern meaning \"sometimes / there are times when…\" — do not confuse the host form.",
+  "senses": [
+    {
+      "label": "Life experience (have done)",
+      "body": "",
+      "example_ruby": "[私|わたし]は[富士山|ふじさん]に[登|のぼ]ったことがあります。",
+      "example_en": "I have climbed Mt. Fuji before."
+    },
+    {
+      "label": "Have never done",
+      "body": "Also casual: そんな[難|むずか]しい[漢字|かんじ]は[見|み]たことがない。",
+      "example_ruby": "[納豆|なっとう]はまだ[食|た]べたことがありません。",
+      "example_en": "I have never eaten natto yet."
+    },
+    {
+      "label": "Asking about experience",
+      "body": "",
+      "example_ruby": "[北海道|ほっかいどう]に[行|い]ったことがありますか。",
+      "example_en": "Have you ever been to Hokkaido?"
+    }
+  ],
+  "register_context": "たことがあります / たことがありません is neutral-polite. Plain: たことがある / たことがない. Casual conversation often drops が (たことある / たことない). Very common as a conversation opener: 〜たことがありますか。",
+  "mistakes": [
+    {
+      "wrong_ruby": "[今朝|けさ]、ごはんを[食|た]べたことがあります。",
+      "right_ruby": "[今朝|けさ]、ごはんを[食|た]べました。",
+      "why": "たことがある is life experience, not a recent everyday action at a specific time."
+    },
+    {
+      "wrong_ruby": "[寿司|すし]を[食|た]べることがあります。",
+      "right_ruby": "[寿司|すし]を[食|た]べたことがあります。",
+      "why": "Learner meant \"I have eaten sushi before,\" but dictionary + ことがある = \"sometimes\"; experience needs the た-form."
+    },
+    {
+      "wrong_ruby": "[今朝|けさ][駅|えき]に[行|い]ったことがあります。",
+      "right_ruby": "[今朝|けさ][駅|えき]に[行|い]きました。",
+      "why": "\"I went to the station this morning\" is a specific past event — use plain past, not experience たことがある."
+    },
+    {
+      "wrong_ruby": "[日本|にほん]へ[行|い]くことがありますか。",
+      "right_ruby": "[日本|にほん]へ[行|い]ったことがありますか。",
+      "why": "\"Have you ever…?\" needs た-form + ことがありますか, not dictionary form."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "たことがある vs plain past た",
+      "summary": "Life experience (ever / at least once) vs a specific past event.",
+      "ex_a_ruby": "[寿司|すし]を[食|た]べたことがある。",
+      "ex_a_en": "I have eaten sushi before (experience)",
+      "ex_b_ruby": "[今朝|けさ]ごはんを[食|た]べた。",
+      "ex_b_en": "I ate breakfast this morning (specific past)"
+    },
+    {
+      "other_slug": "koto-ga-aru-sometimes",
+      "label": "たことがある vs ことがある (dictionary)",
+      "summary": "Past experience vs \"sometimes / there are times when\".",
+      "ex_a_ruby": "[北海道|ほっかいどう]に[行|い]ったことがある。",
+      "ex_a_en": "I have been to Hokkaido (experience)",
+      "ex_b_ruby": "[冬|ふゆ]は[雪|ゆき]が[降|ふ]ることがある。",
+      "ex_b_en": "In winter it sometimes snows"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[私|わたし]は[富士山|ふじさん]に[登|のぼ]ったことがあります。",
+      "english": "I have climbed Mt. Fuji before.",
+      "note": "polite · experience"
+    },
+    {
+      "ruby": "[納豆|なっとう]を[食|た]べたことがありますか。",
+      "english": "Have you ever eaten natto?",
+      "note": "polite · question"
+    },
+    {
+      "ruby": "[北海道|ほっかいどう]に[行|い]ったことがありますか。",
+      "english": "Have you ever been to Hokkaido?",
+      "note": "polite · asking experience"
+    },
+    {
+      "ruby": "[納豆|なっとう]はまだ[食|た]べたことがありません。",
+      "english": "I have never eaten natto yet.",
+      "note": "polite · never"
+    },
+    {
+      "ruby": "[富士山|ふじさん]に[登|のぼ]ったことがあるよ。",
+      "english": "I have climbed Mt. Fuji before.",
+      "note": "casual"
+    },
+    {
+      "ruby": "そんな[難|むずか]しい[漢字|かんじ]は[見|み]たことがない。",
+      "english": "I've never seen such a difficult kanji.",
+      "note": "casual · never"
+    },
+    {
+      "ruby": "[日本|にほん]の[映画|えいが]を[見|み]たことがあります。",
+      "english": "I have seen a Japanese movie before.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[一度|いちど]も[飛行機|ひこうき]に[乗|の]ったことがありません。",
+      "english": "I have never been on a plane even once.",
+      "note": "polite · never · 一度も"
+    },
+    {
+      "ruby": "[京都|きょうと]に[行|い]ったことある？",
+      "english": "Have you ever been to Kyoto?",
+      "note": "casual · が dropped"
+    },
+    {
+      "ruby": "[寿司|すし]を[作|つく]ったことはありませんが、[食|た]べたことはあります。",
+      "english": "I've never made sushi, but I have eaten it.",
+      "note": "contrast never vs have"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[北海道|ほっかいどう]に[行|い]ったことがありますか。",
+      "english": "Have you ever been to Hokkaido?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、まだ[行|い]ったことがありません。",
+      "english": "No, I haven't been yet."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[納豆|なっとう]は[食|た]べたことがありますか。",
+      "english": "Have you ever eaten natto?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[一度|いちど][食|た]べたことがあります。",
+      "english": "Yes, I've eaten it once."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "今朝、駅に（　）。",
+      "options": ["行ったことがあります", "行きました"],
+      "answer_idx": 1,
+      "why": "A specific past event this morning uses plain past, not life-experience たことがある."
+    },
+    {
+      "prompt": "寿司を（　）ことがあります。（\"I have eaten sushi before\"）",
+      "options": ["食べた", "食べる"],
+      "answer_idx": 0,
+      "why": "Experience needs た-form; dictionary + ことがある means \"sometimes\"."
+    },
+    {
+      "prompt": "納豆はまだ（　）。",
+      "options": ["食べたことがありません", "食べませんでした"],
+      "answer_idx": 0,
+      "why": "\"Have never…\" is たことがありません; 食べませんでした is \"didn't eat (on a specific occasion).\""
+    }
+  ],
+  "related": {
+    "prerequisites": ["た-form (Dojo)"],
+    "next": ["koto-ga-aru-sometimes", "te-iru"]
+  },
+  "lesson_version": 1
+}

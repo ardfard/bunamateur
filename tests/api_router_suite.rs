@@ -527,9 +527,24 @@ fn test_lesson_loader_validator_and_api_json_shape() {
     assert!(validate_furigana("[食べる]", "bad").is_err());
 
     let lessons = load_embedded_lessons().expect("embedded lessons must load");
-    assert!(lessons.contains_key("te-iru"));
-    assert!(lessons.contains_key("koto-ni-suru"));
-    assert_eq!(lessons.len(), 2);
+    for slug in [
+        "te-iru",
+        "koto-ni-suru",
+        "te-mo-ii",
+        "te-wa-ikenai",
+        "nakereba-naranai",
+        "nakute-mo-ii",
+        "tai",
+        "ta-koto-ga-aru",
+        "kara-reason",
+        "node",
+    ] {
+        assert!(
+            lessons.contains_key(slug),
+            "missing embedded lesson '{slug}'"
+        );
+    }
+    assert_eq!(lessons.len(), 10);
 
     let known: HashSet<&str> = all_seed_grammar().iter().map(|g| g.slug).collect();
     for slug in lessons.keys() {

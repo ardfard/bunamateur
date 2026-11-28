@@ -1,0 +1,217 @@
+{
+  "meaning": "don't have to / need not · (past) didn't have to",
+  "gist": "ない-stem + くてもいい: \"it's okay even if you don't\" → no obligation. Polite: なくてもいいです. Colloquial often drops も: 〜なくていい. Past: なくてもよかった / なくてもよかったです.",
+  "formation": {
+    "columns": ["Verb", "ない-stem", "Don't have to (plain)", "Don't have to (polite)", "Past"],
+    "rows": [
+      [
+        "[行|い]く",
+        "[行|い]か",
+        "[行|い]かなくてもいい",
+        "[行|い]かなくてもいいです",
+        "[行|い]かなくてもよかった"
+      ],
+      [
+        "[食|た]べる",
+        "[食|た]べ",
+        "[食|た]べなくてもいい",
+        "[食|た]べなくてもいいです",
+        "[食|た]べなくてもよかった"
+      ],
+      [
+        "[起|お]きる",
+        "[起|お]き",
+        "[起|お]きなくてもいい",
+        "[起|お]きなくてもいいです",
+        "[起|お]きなくてもよかった"
+      ],
+      [
+        "[急|いそ]ぐ",
+        "[急|いそ]が",
+        "[急|いそ]がなくてもいい",
+        "[急|いそ]がなくてもいいです",
+        "[急|いそ]がなくてもよかった"
+      ],
+      [
+        "する / [来|く]る",
+        "し / [来|こ]",
+        "しなくてもいい / [来|こ]なくてもいい",
+        "しなくてもいいです / [来|こ]なくてもいいです",
+        "しなくてもよかった / [来|こ]なくてもよかった"
+      ]
+    ],
+    "note": "From ない, drop い → add くてもいい. Casual often drops も: 行かなくていい. Formal softener: なくてもかまいません. Past conjugates いい → よかった."
+  },
+  "explanation": "なくてもいい says the action is unnecessary: it is fine even if you skip it. It is not a prohibition — 食べなくてもいい means \"you don't have to eat,\" while 食べてはいけない means \"you must not eat.\" Asking whether something is required uses 〜なくてもいいですか. Casual speech often shortens to なくていい (も dropped). Past \"didn't have to\" uses よかった: 行かなくてもよかった.",
+  "senses": [
+    {
+      "label": "No obligation (polite)",
+      "body": "",
+      "example_ruby": "[明日|あした]は[早|はや]く[起|お]きなくてもいいです。",
+      "example_en": "You don't have to wake up early tomorrow."
+    },
+    {
+      "label": "Asking if optional",
+      "body": "",
+      "example_ruby": "[靴|くつ]を[脱|ぬ]がなくてもいいですか。",
+      "example_en": "Is it okay if I don't take off my shoes?"
+    },
+    {
+      "label": "Past: didn't have to",
+      "body": "Also: しなくてもよかったです。",
+      "example_ruby": "[昨日|きのう]は[会社|かいしゃ]に[行|い]かなくてもよかった。",
+      "example_en": "Yesterday I didn't have to go to work."
+    }
+  ],
+  "register_context": "なくてもいいです is neutral-polite. Plain なくてもいい / casual なくていい are everyday speech. なくてもかまいません is a softer, more formal equivalent. Reassurance to a friend: 心配しなくてもいいよ.",
+  "mistakes": [
+    {
+      "wrong_ruby": "このケーキは[食|た]べてはいけないよ。",
+      "right_ruby": "このケーキは[食|た]べなくてもいいよ。",
+      "why": "When you mean \"don't have to eat\": なくてもいい. てはいけない means \"must not eat.\""
+    },
+    {
+      "wrong_ruby": "[明日|あした]は[早|はや]く[起|お]きなければなりません。",
+      "right_ruby": "[明日|あした]は[早|はや]く[起|お]きなくてもいいです。",
+      "why": "When the action is optional: なくてもいい. なければならない means \"must.\""
+    },
+    {
+      "wrong_ruby": "[行|い]くなくてもいいです。",
+      "right_ruby": "[行|い]かなくてもいいです。",
+      "why": "Use the ない-stem (行か), not the dictionary form (行く)."
+    },
+    {
+      "wrong_ruby": "[昨日|きのう][会社|かいしゃ]に[行|い]かなくてもいいです。",
+      "right_ruby": "[昨日|きのう][会社|かいしゃ]に[行|い]かなくてもよかったです。",
+      "why": "Past \"didn't have to\" conjugates いい → よかった."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "nakereba-naranai",
+      "label": "なくてもいい vs なければならない",
+      "summary": "Don't have to vs must.",
+      "ex_a_ruby": "[早|はや]く[起|お]きなくてもいいです。",
+      "ex_a_en": "You don't have to wake up early",
+      "ex_b_ruby": "[早|はや]く[起|お]きなければなりません。",
+      "ex_b_en": "You must wake up early"
+    },
+    {
+      "other_slug": "te-wa-ikenai",
+      "label": "なくてもいい vs てはいけない",
+      "summary": "Optional (skip OK) vs forbidden.",
+      "ex_a_ruby": "[食|た]べなくてもいい。",
+      "ex_a_en": "You don't have to eat it",
+      "ex_b_ruby": "[食|た]べてはいけない。",
+      "ex_b_en": "You must not eat it"
+    },
+    {
+      "other_slug": "te-mo-ii",
+      "label": "なくてもいい vs てもいい",
+      "summary": "Okay not to do vs okay to do.",
+      "ex_a_ruby": "[行|い]かなくてもいいです。",
+      "ex_a_en": "You don't have to go",
+      "ex_b_ruby": "[行|い]ってもいいです。",
+      "ex_b_en": "You may go"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[明日|あした]は[早|はや]く[起|お]きなくてもいいです。",
+      "english": "You don't have to wake up early tomorrow.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[靴|くつ]を[脱|ぬ]がなくてもいいですか。",
+      "english": "Is it okay if I don't take off my shoes?",
+      "note": "polite · asking"
+    },
+    {
+      "ruby": "もう[心配|しんぱい]しなくていいよ。",
+      "english": "You don't need to worry anymore.",
+      "note": "casual · も often dropped"
+    },
+    {
+      "ruby": "[昨日|きのう]は[会社|かいしゃ]に[行|い]かなくてもよかった。",
+      "english": "Yesterday I didn't have to go to the office.",
+      "note": "plain past"
+    },
+    {
+      "ruby": "[全部|ぜんぶ][覚|おぼ]えなくてもいいです。",
+      "english": "You don't have to memorize all of them.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[急|いそ]がなくてもいい、まだ[十分|じゅうぶん][時間|じかん]がある。",
+      "english": "No need to hurry; there's still plenty of time.",
+      "note": "plain"
+    },
+    {
+      "ruby": "[今日|きょう]はネクタイをしなくてもいいです。",
+      "english": "You don't have to wear a tie today.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[現金|げんきん]を[持|も]って[来|こ]なくてもいいよ。",
+      "english": "You don't have to bring cash.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[全部|ぜんぶ][食|た]べなくてもかまいません。",
+      "english": "It's fine if you don't eat everything.",
+      "note": "formal softener"
+    },
+    {
+      "ruby": "[昨日|きのう]は[宿題|しゅくだい]を[出|だ]さなくてもよかったです。",
+      "english": "Yesterday I didn't have to submit homework.",
+      "note": "polite past"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[明日|あした]のミーティング、[早|はや]く[来|こ]なければなりませんか。",
+      "english": "Do I have to come early for tomorrow's meeting?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[早|はや]く[来|こ]なくてもいいですよ。",
+      "english": "No, you don't have to come early."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[資料|しりょう]も[全部|ぜんぶ][読|よ]まなくてもいいですか。",
+      "english": "Is it okay if I don't read all the materials either?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[一|いち][番|ばん][大切|たいせつ]なページだけ[読|よ]めばいいです。",
+      "english": "Just reading the most important pages is enough."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "明日は早く起き（　）。",
+      "options": ["なければなりません", "なくてもいいです", "てはいけません"],
+      "answer_idx": 1,
+      "why": "No obligation → なくてもいいです."
+    },
+    {
+      "prompt": "もう心配し（　）よ。",
+      "options": ["てはいけない", "なくてもいい", "なければならない"],
+      "answer_idx": 1,
+      "why": "Reassurance / don't need to → なくてもいい."
+    },
+    {
+      "prompt": "昨日は会社に行か（　）。",
+      "options": ["なければなりませんでした", "なくてもよかった", "てはいけませんでした"],
+      "answer_idx": 1,
+      "why": "Past \"didn't have to\" → なくてもよかった."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ない-form (Dojo)", "te-mo-ii", "nakereba-naranai"],
+    "next": ["te-wa-ikenai"]
+  },
+  "lesson_version": 1
+}

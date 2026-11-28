@@ -1,0 +1,207 @@
+{
+  "meaning": "because / since (soft, objective)",
+  "gist": "ので after a plain clause gives a reason that sounds more factual and courteous than から — the go-to for polite requests and excuses. Verbs and い-adjectives attach in the plain form; nouns and な-adjectives take な (not だ): [祝日|しゅくじつ]なので、[有名|ゆうめい]なので. Avoid pairing ので with strong invitations or volitionals (〜ましょう / 〜よう) in careful speech.",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + ので",
+        "[頭|あたま]が[痛|いた]いので / [遅|おく]れたので"
+      ],
+      [
+        "い-adjective",
+        "い-adj + ので",
+        "[時間|じかん]がないので"
+      ],
+      [
+        "な-adjective",
+        "な-adj + な + ので",
+        "[有名|ゆうめい]なので"
+      ],
+      [
+        "Noun",
+        "N + な + ので",
+        "[祝日|しゅくじつ]なので"
+      ],
+      [
+        "Polite (less common in textbooks)",
+        "ます/です + ので (formal speech)",
+        "[遅|おく]れましたので"
+      ]
+    ],
+    "note": "Standard N5 teaching: nouns / な-adjectives → なので. ×だので is nonstandard/colloquial — do not use it. ので itself already softens; you do not add です before it in the usual pattern."
+  },
+  "explanation": "ので presents the reason as a circumstance rather than a pushy personal claim. That makes it preferred for soft requests and apologies: 頭が痛いので、早く帰ってもいいですか / 電車が遅れたので、申し訳ありません. It also states neutral facts: 今日は祝日なので、銀行は休みです. Compared with から, it is less assertive — so 時間がないので、タクシーで行きます is natural, while 時間がないので、行きましょう sounds less careful than the から version.",
+  "senses": [
+    {
+      "label": "Soft request or excuse",
+      "body": "Also: [電車|でんしゃ]が[遅|おく]れたので、[失礼|しつれい]しました。 \"The train was late, so sorry (for being late).\"",
+      "example_ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "example_en": "I have a headache, so may I go home early?"
+    },
+    {
+      "label": "Objective / factual cause",
+      "body": "",
+      "example_ruby": "[今日|きょう]は[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "example_en": "Today is a national holiday, so the bank is closed."
+    },
+    {
+      "label": "Ongoing situation + polite follow-up",
+      "body": "Polite てください as a careful request (not a blunt command) fits ので well.",
+      "example_ruby": "[雪|ゆき]が[降|ふ]っているので、[気|き]をつけて[運転|うんてん]してください。",
+      "example_en": "It's snowing, so please drive carefully."
+    }
+  ],
+  "register_context": "Softer and more polite than から. Default textbook pattern is plain clause + ので (痛いので、遅れたので、なので). Use it for 〜てもいいですか, apologies, and factual explanations. Prefer から before 〜ましょう / 〜よう / firm volitionals. Formal speech sometimes allows ます/です + ので, but N5 drills stick to the plain + ので pattern.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学生|がくせい]だので、[割引|わりびき]があります。",
+      "right_ruby": "[学生|がくせい]なので、[割引|わりびき]があります。",
+      "why": "Nouns and な-adjectives take な before ので. だので is nonstandard — teach なので."
+    },
+    {
+      "wrong_ruby": "[お腹|おなか]が[空|す]いたから、[食|た]べてもいいですか。",
+      "right_ruby": "[お腹|おなか]が[空|す]いたので、[食|た]べてもいいですか。",
+      "why": "Soft permission requests prefer ので; から feels more assertive as an excuse."
+    },
+    {
+      "wrong_ruby": "[時間|じかん]がないので、タクシーで[行|い]きましょう。",
+      "right_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "why": "Careful speech avoids ので + strong invitations/volitionals; use から before 行きましょう (or keep ので with a plain statement: 行きます)."
+    },
+    {
+      "wrong_ruby": "[有名|ゆうめい]だから、いつも[混|こ]んでいる。",
+      "right_ruby": "[有名|ゆうめい]なので、いつも[混|こ]んでいる。",
+      "why": "When the target pattern is ので, な-adjectives need な — だから is the から pattern, not ので."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "kara-reason",
+      "label": "ので vs から",
+      "summary": "Softer objective reason (requests, excuses) vs subjective / assertive reason (invitations, volitionals).",
+      "ex_a_ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "ex_a_en": "I have a headache, so may I go home early? (request → ので)",
+      "ex_b_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "ex_b_en": "We don't have time, so let's go by taxi. (invitation → から)"
+    },
+    {
+      "other_slug": null,
+      "label": "な + ので vs だ + から",
+      "summary": "Nouns / な-adjectives: ので needs な; から needs だ/です — never mix them (×だので, ×なから).",
+      "ex_a_ruby": "[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "ex_a_en": "Because it's a holiday (な + ので)",
+      "ex_b_ruby": "[祝日|しゅくじつ]だから、[銀行|ぎんこう]は[休|やす]みです。",
+      "ex_b_en": "Because it's a holiday (だ + から)"
+    },
+    {
+      "other_slug": null,
+      "label": "ので + statement vs から + volitional",
+      "summary": "Same reason, different follow-up: ので + 行きます is soft/neutral; から + 行きましょう urges jointly.",
+      "ex_a_ruby": "[時間|じかん]がないので、タクシーで[行|い]きます。",
+      "ex_a_en": "Since we don't have time, we'll go by taxi.",
+      "ex_b_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
+      "ex_b_en": "We don't have time, so let's go by taxi."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
+      "english": "I have a headache, so may I go home early?",
+      "note": "soft permission request"
+    },
+    {
+      "ruby": "[今日|きょう]は[祝日|しゅくじつ]なので、[銀行|ぎんこう]は[休|やす]みです。",
+      "english": "Today is a national holiday, so the bank is closed.",
+      "note": "noun + なので · factual"
+    },
+    {
+      "ruby": "[電車|でんしゃ]が[遅|おく]れたので、[会議|かいぎ]に[間|ま]に[合|あ]いませんでした。",
+      "english": "The train was delayed, so I didn't make it to the meeting.",
+      "note": "past verb · excuse / cause"
+    },
+    {
+      "ruby": "この[店|みせ]は[有名|ゆうめい]なので、いつも[混|こ]んでいる。",
+      "english": "This shop is famous, so it's always crowded.",
+      "note": "な-adj + なので"
+    },
+    {
+      "ruby": "[時間|じかん]がないので、タクシーで[行|い]きます。",
+      "english": "Since we don't have time, we'll go by taxi.",
+      "note": "objective reason · statement (not ましょう)"
+    },
+    {
+      "ruby": "[雪|ゆき]が[降|ふ]っているので、[気|き]をつけて[運転|うんてん]してください。",
+      "english": "It's snowing, so please drive carefully.",
+      "note": "ている + ので · polite request"
+    },
+    {
+      "ruby": "[熱|ねつ]があるので、[今日|きょう]は[休|やす]ませてください。",
+      "english": "I have a fever, so please let me take the day off.",
+      "note": "excuse · soft request"
+    },
+    {
+      "ruby": "[静|しず]かなので、ここで[勉強|べんきょう]しています。",
+      "english": "It's quiet, so I'm studying here.",
+      "note": "な-adj + なので · neutral fact"
+    },
+    {
+      "ruby": "[道|みち]が[混|こ]んでいるので、[少|すこ]し[遅|おく]れます。",
+      "english": "The roads are crowded, so I'll be a little late.",
+      "note": "apology-style explanation"
+    },
+    {
+      "ruby": "[大事|だいじ]な[話|はなし]があるので、[後|あと]で[電話|でんわ]してもいいですか。",
+      "english": "I have something important to discuss, so may I call you later?",
+      "note": "noun + な + ので · permission"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "どうしましたか。[早|はや]く[帰|かえ]りますか。",
+      "english": "What's wrong? Are you leaving early?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい。[頭|あたま]が[痛|いた]いので、[帰|かえ]ってもいいですか。",
+      "english": "Yes. I have a headache, so may I go home?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "わかりました。[気|き]をつけて。[雪|ゆき]が[降|ふ]っていますよ。",
+      "english": "Of course. Take care — it's snowing."
+    },
+    {
+      "speaker": "B",
+      "ruby": "ありがとうございます。[雪|ゆき]が[降|ふ]っているので、[気|き]をつけます。",
+      "english": "Thank you. Since it's snowing, I'll be careful."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "今日は祝日（　）、銀行は休みです。",
+      "options": ["なので", "だから", "だので"],
+      "answer_idx": 0,
+      "why": "Nouns take な before ので. だから is the から pattern; だので is nonstandard."
+    },
+    {
+      "prompt": "頭が痛い（　）、早く帰ってもいいですか。",
+      "options": ["ので", "から"],
+      "answer_idx": 0,
+      "why": "Soft permission requests prefer ので over assertive から."
+    },
+    {
+      "prompt": "時間がない（　）、タクシーで行きましょう。",
+      "options": ["ので", "から"],
+      "answer_idx": 1,
+      "why": "Strong invitations like 行きましょう pair with から; avoid ので + ましょう in careful speech."
+    }
+  ],
+  "related": {
+    "prerequisites": ["kara-reason"],
+    "next": []
+  },
+  "lesson_version": 1
+}
