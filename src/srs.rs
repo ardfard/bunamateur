@@ -722,6 +722,32 @@ fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
     edit_chars.iter().any(|&c| is_particle_morpheme(c))
 }
 
+/// Known wrong readings that must grade Incorrect (never typo forgiveness).
+/// Pairs are (wrong_form, correct_form); both compared after `normalize_jp`.
+/// Covers counter sound-change mistakes taught in numbers-counters.
+const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
+    ("さんほん", "さんぼん"),
+    ("さんほん", "三本"),
+    ("ににん", "ふたり"),
+    ("ににん", "二人"),
+    ("よんにん", "よにん"),
+    ("よんにん", "四人"),
+    ("しにん", "よにん"),
+    ("しにん", "四人"),
+    ("きゅうぼん", "きゅうほん"),
+    ("きゅうぼん", "九本"),
+    ("みつ", "みっつ"),
+    ("みつ", "三つ"),
+];
+
+fn is_known_incorrect_form(norm_in: &str, targets: &[String]) -> bool {
+    KNOWN_INCORRECT_FORMS.iter().any(|(wrong, correct)| {
+        let w = normalize_jp(wrong);
+        let c = normalize_jp(correct);
+        norm_in == w && targets.contains(&c)
+    })
+}
+
 /// Grades a learner's answer with contextual nuance detection (politeness/register, tense,
 /// polarity, confusable grammar synonyms, and 1-character kana typos).
 pub fn grade_answer(
@@ -746,6 +772,11 @@ pub fn grade_answer(
         if !n.is_empty() && !targets.contains(&n) {
             targets.push(n);
         }
+    }
+
+    // 0. Pedagogical near-misses (counter sound changes, etc.) → hard Incorrect
+    if is_known_incorrect_form(&norm_in, &targets) {
+        return GradeOutcome::Incorrect;
     }
 
     // 1. Politeness / Register mismatch
@@ -983,6 +1014,28 @@ mod tests {
             GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "typo"),
             other => panic!("expected typo AlmostRight, got {:?}", other),
         }
+
+        // Counter sound-change mistakes must not get typo forgiveness
+        assert_eq!(
+            grade_answer("さんほん", "三本", &["さんぼん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("よんにん", "四人", &["よにん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ににん", "二人", &["ふたり".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("きゅうぼん", "九本", &["きゅうほん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("みつ", "三つ", &["みっつ".into()], ""),
+            GradeOutcome::Incorrect
+        );
 
         // Wrong grammar form — not Correct
         assert!(!matches!(
