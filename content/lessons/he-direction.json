@@ -115,7 +115,7 @@
       "ex_b_en": "I go to school."
     },
     {
-      "other_slug": "ni-destination",
+      "other_slug": null,
       "label": "へ vs に for movement",
       "summary": "Either particle is fine for go / come / return.",
       "ex_a_ruby": "[学校|がっこう]へ[行|い]きます。",

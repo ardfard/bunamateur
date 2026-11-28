@@ -105,24 +105,6 @@
       "ex_a_en": "I go to school.",
       "ex_b_ruby": "[本|ほん]を[読|よ]みます。",
       "ex_b_en": "I read a book."
-    },
-    {
-      "other_slug": "contrast-ni-he",
-      "label": "に and へ for movement",
-      "summary": "に and へ both work for go / come / return; only に works for time.",
-      "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
-      "ex_a_en": "I go to school.",
-      "ex_b_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "ex_b_en": "I go toward school."
-    },
-    {
-      "other_slug": "he-direction",
-      "label": "に vs へ for movement",
-      "summary": "Either particle is fine for go / come / return.",
-      "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
-      "ex_a_en": "I go to school.",
-      "ex_b_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "ex_b_en": "I go toward school."
     }
   ],
   "examples": [

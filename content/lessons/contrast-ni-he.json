@@ -110,7 +110,7 @@
       "ex_b_en": "I get up at seven. (に only — not ×へ)"
     },
     {
-      "other_slug": "ni-destination",
+      "other_slug": null,
       "label": "に destination (also OK: へ)",
       "summary": "に marks the destination of movement. へ also works for go / come / return.",
       "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
