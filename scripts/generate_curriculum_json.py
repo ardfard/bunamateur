@@ -329,19 +329,15 @@ def build() -> dict:
     seed = load_seed_slugs()
     missing_keep: list[str] = []
     units_out = []
-    global_sort = 0
-    all_slugs: list[str] = []
 
     for u in UNITS:
         unit_id = f"u{u['n']:02d}"
         points_out = []
-        unit_point_slugs = [p[0] for p in u["points"]]
 
         for slug, title, teaches, needs, source in u["points"]:
             status, _level_override = parse_source(source)
             if status == "existing" and slug not in seed:
                 missing_keep.append(slug)
-                status = "planned"
             prereqs = [s for s in needs.split(",") if s]
             points_out.append(
                 {
@@ -355,7 +351,6 @@ def build() -> dict:
                     "source": source,
                 }
             )
-            all_slugs.append(slug)
 
         for contrast in u["contrasts"]:
             slug, _, rest = contrast.partition(":")
@@ -377,8 +372,6 @@ def build() -> dict:
                     "source": "new",
                 }
             )
-            all_slugs.append(slug)
-            _ = unit_point_slugs  # silence lint
 
         units_out.append(
             {
@@ -403,14 +396,20 @@ def build() -> dict:
             point["sort_order"] = sort_order
             teaching_order.append(point["slug"])
 
-    # Sketch existing points that are seeded but not in units 1–25
+    # Copy sketch so module-level SKETCH is never mutated in place.
+    sketch_out = json.loads(json.dumps(SKETCH))
     sketch_slugs = []
-    for sketch in SKETCH:
+    for sketch in sketch_out:
         for p in sketch["existing"]:
             sketch_slugs.append(p["slug"])
             if p["slug"] not in seed:
                 missing_keep.append(p["slug"])
-                p["status"] = "planned"
+
+    if missing_keep:
+        missing = ", ".join(sorted(set(missing_keep)))
+        raise SystemExit(
+            f"Fail-fast: keep/existing slug(s) missing from seed_data: {missing}"
+        )
 
     unit_and_sketch = set(teaching_order) | set(sketch_slugs)
     orphan_seeds = sorted(seed - unit_and_sketch)
@@ -420,11 +419,11 @@ def build() -> dict:
     return {
         "version": 1,
         "units": units_out,
-        "sketch": SKETCH,
+        "sketch": sketch_out,
         "meta": {
             "seed_slug_count": len(seed),
             "curriculum_point_count": len(teaching_order),
-            "missing_keep_slugs": missing_keep,
+            "missing_keep_slugs": [],
             "seeded_in_units": covered_existing,
             "seeded_in_sketch": covered_sketch,
             "orphan_seed_slugs": orphan_seeds,
@@ -440,7 +439,6 @@ def main() -> None:
     meta = data["meta"]
     print(f"Wrote {out}")
     print(f"units={len(data['units'])} points={meta['curriculum_point_count']}")
-    print(f"missing_keep={meta['missing_keep_slugs']}")
     print(f"orphan_seeds={meta['orphan_seed_slugs']}")
     print(f"seeded_in_sketch={meta['seeded_in_sketch']}")
 

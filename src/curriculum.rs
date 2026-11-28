@@ -126,10 +126,13 @@ impl Curriculum {
 ///
 /// Checks:
 /// 1. All slugs unique across units (+ sketch.existing).
-/// 2. Every prerequisite exists in teaching order and appears earlier (no cycles).
-/// 3. Contrast entries have `kind == contrast` and earlier prerequisites (members taught first).
-/// 4. Every `status == existing` slug is in `seeded_slugs`.
-/// 5. Every seeded slug appears exactly once in units teaching order or sketch.existing.
+/// 2. `unit.id`, `unit.n`, and `unit.sort_order` are each unique across units.
+/// 3. Across teaching order, `point.sort_order` values are unique and strictly increasing.
+/// 4. Every prerequisite exists in teaching order and appears earlier (no cycles).
+/// 5. Contrast entries have `kind == contrast` and earlier prerequisites (members taught first).
+/// 6. Every `status == existing` slug is in `seeded_slugs`.
+/// 7. No `status == planned` slug collides with `seeded_slugs`.
+/// 8. Every seeded slug appears exactly once among Existing teaching-order points or sketch.existing.
 pub fn validate_curriculum(
     curriculum: &Curriculum,
     seeded_slugs: &HashSet<&str>,
@@ -137,14 +140,47 @@ pub fn validate_curriculum(
     let mut errors = Vec::new();
     let order = curriculum.teaching_order();
 
+    let mut seen_unit_ids: HashSet<&str> = HashSet::new();
+    let mut seen_unit_ns: HashSet<i32> = HashSet::new();
+    let mut seen_unit_sorts: HashSet<i32> = HashSet::new();
+    for unit in &curriculum.units {
+        if !seen_unit_ids.insert(unit.id.as_str()) {
+            errors.push(format!("duplicate unit id: {}", unit.id));
+        }
+        if !seen_unit_ns.insert(unit.n) {
+            errors.push(format!("duplicate unit n: {}", unit.n));
+        }
+        if !seen_unit_sorts.insert(unit.sort_order) {
+            errors.push(format!("duplicate unit sort_order: {}", unit.sort_order));
+        }
+    }
+
     let mut position: HashMap<&str, usize> = HashMap::new();
     let mut seen: HashSet<&str> = HashSet::new();
+    let mut prev_point_sort: Option<i32> = None;
+    let mut seen_point_sorts: HashSet<i32> = HashSet::new();
 
     for (idx, point) in order.iter().enumerate() {
         if !seen.insert(point.slug.as_str()) {
             errors.push(format!("duplicate slug in curriculum units: {}", point.slug));
         }
         position.insert(point.slug.as_str(), idx);
+
+        if !seen_point_sorts.insert(point.sort_order) {
+            errors.push(format!(
+                "duplicate point sort_order {} for '{}'",
+                point.sort_order, point.slug
+            ));
+        }
+        if let Some(prev) = prev_point_sort
+            && point.sort_order <= prev
+        {
+            errors.push(format!(
+                "point sort_order for '{}' ({}) is not strictly greater than previous ({})",
+                point.slug, point.sort_order, prev
+            ));
+        }
+        prev_point_sort = Some(point.sort_order);
     }
 
     for slug in curriculum.sketch_existing_slugs() {
@@ -197,6 +233,12 @@ pub fn validate_curriculum(
                 point.slug
             ));
         }
+        if point.status == PointStatus::Planned && seeded_slugs.contains(point.slug.as_str()) {
+            errors.push(format!(
+                "planned curriculum slug '{}' collides with seeded_slugs",
+                point.slug
+            ));
+        }
     }
     for slug in curriculum.sketch_existing_slugs() {
         if !seeded_slugs.contains(slug) {
@@ -206,9 +248,12 @@ pub fn validate_curriculum(
         }
     }
 
+    // Coverage counts only Existing teaching-order points + sketch.existing (not planned).
     let mut coverage: HashMap<&str, usize> = HashMap::new();
     for point in &order {
-        *coverage.entry(point.slug.as_str()).or_insert(0) += 1;
+        if point.status == PointStatus::Existing {
+            *coverage.entry(point.slug.as_str()).or_insert(0) += 1;
+        }
     }
     for slug in curriculum.sketch_existing_slugs() {
         *coverage.entry(slug).or_insert(0) += 1;
@@ -449,5 +494,106 @@ mod tests {
         let seeded: HashSet<&str> = ["a", "b", "c", "orphan"].into_iter().collect();
         let errs = validate_curriculum(&curriculum, &seeded).unwrap_err();
         assert!(errs.iter().any(|e| e.contains("orphan") && e.contains("missing")));
+    }
+
+    #[test]
+    fn fails_when_planned_slug_is_also_seeded() {
+        let json = r#"{
+          "version": 1,
+          "units": [
+            {
+              "id": "u01", "n": 1, "level": "N5", "title": "T", "goal": "G", "sort_order": 1,
+              "points": [
+                {"slug":"a","title":"A","summary":"","prerequisites":[],"status":"planned","level":"N5","kind":"point","sort_order":1}
+              ]
+            }
+          ]
+        }"#;
+        let curriculum = parse_curriculum(json).unwrap();
+        let seeded: HashSet<&str> = ["a"].into_iter().collect();
+        let errs = validate_curriculum(&curriculum, &seeded).unwrap_err();
+        assert!(
+            errs.iter().any(|e| e.contains("collides with seeded_slugs")),
+            "expected planned/seed collision, got: {errs:?}"
+        );
+        assert!(
+            errs.iter().any(|e| e.contains("missing from curriculum")),
+            "expected seeded slug missing from Existing coverage, got: {errs:?}"
+        );
+    }
+
+    #[test]
+    fn fails_on_duplicate_unit_id_n_or_sort_order() {
+        let json = r#"{
+          "version": 1,
+          "units": [
+            {
+              "id": "u01", "n": 1, "level": "N5", "title": "T1", "goal": "G", "sort_order": 1,
+              "points": [
+                {"slug":"a","title":"A","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":1}
+              ]
+            },
+            {
+              "id": "u01", "n": 1, "level": "N5", "title": "T2", "goal": "G", "sort_order": 1,
+              "points": [
+                {"slug":"b","title":"B","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":2}
+              ]
+            }
+          ]
+        }"#;
+        let curriculum = parse_curriculum(json).unwrap();
+        let seeded: HashSet<&str> = ["a", "b"].into_iter().collect();
+        let errs = validate_curriculum(&curriculum, &seeded).unwrap_err();
+        assert!(errs.iter().any(|e| e.contains("duplicate unit id")));
+        assert!(errs.iter().any(|e| e.contains("duplicate unit n")));
+        assert!(errs.iter().any(|e| e.contains("duplicate unit sort_order")));
+    }
+
+    #[test]
+    fn fails_on_non_increasing_or_duplicate_point_sort_order() {
+        let duplicate_json = r#"{
+          "version": 1,
+          "units": [
+            {
+              "id": "u01", "n": 1, "level": "N5", "title": "T", "goal": "G", "sort_order": 1,
+              "points": [
+                {"slug":"a","title":"A","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":1},
+                {"slug":"b","title":"B","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":1}
+              ]
+            }
+          ]
+        }"#;
+        let curriculum = parse_curriculum(duplicate_json).unwrap();
+        let seeded: HashSet<&str> = ["a", "b"].into_iter().collect();
+        let errs = validate_curriculum(&curriculum, &seeded).unwrap_err();
+        assert!(
+            errs.iter().any(|e| e.contains("duplicate point sort_order")),
+            "expected duplicate point sort_order, got: {errs:?}"
+        );
+
+        // Cross-unit: teaching_order yields sort_order 5 then 3 → not strictly increasing.
+        let cross_unit_json = r#"{
+          "version": 1,
+          "units": [
+            {
+              "id": "u01", "n": 1, "level": "N5", "title": "T1", "goal": "G", "sort_order": 1,
+              "points": [
+                {"slug":"a","title":"A","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":5}
+              ]
+            },
+            {
+              "id": "u02", "n": 2, "level": "N5", "title": "T2", "goal": "G", "sort_order": 2,
+              "points": [
+                {"slug":"b","title":"B","summary":"","prerequisites":[],"status":"existing","level":"N5","kind":"point","sort_order":3}
+              ]
+            }
+          ]
+        }"#;
+        let curriculum = parse_curriculum(cross_unit_json).unwrap();
+        let errs = validate_curriculum(&curriculum, &seeded).unwrap_err();
+        assert!(
+            errs.iter().any(|e| e.contains("not strictly greater")),
+            "expected non-increasing point sort_order, got: {errs:?}"
+        );
     }
 }

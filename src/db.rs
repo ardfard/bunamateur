@@ -348,7 +348,30 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
             }
         }
     }
-    // Sketch existing points stay unplaced (unit_id / sort_order NULL); they sort after NULLS LAST.
+
+    // Clear stale placement for seeded rows that are not among curriculum.existing_points()
+    // (sketch.existing today; also any future move out of a unit). Re-seeding must leave
+    // those rows unplaced so unit_id / sort_order / prerequisites / kind do not linger.
+    let placed_existing: HashSet<&str> = curriculum
+        .existing_points()
+        .into_iter()
+        .map(|p| p.slug.as_str())
+        .collect();
+    let unplaced_seeded: Vec<&str> = seeded_slugs
+        .iter()
+        .copied()
+        .filter(|slug| !placed_existing.contains(slug))
+        .collect();
+    if !unplaced_seeded.is_empty() {
+        sqlx::query(
+            "UPDATE grammar_points
+             SET unit_id = NULL, sort_order = NULL, prerequisites = '{}', kind = 'point'
+             WHERE slug = ANY($1)",
+        )
+        .bind(&unplaced_seeded)
+        .execute(&mut *tx)
+        .await?;
+    }
 
     for p in SEED_PASSAGES {
         sqlx::query(
