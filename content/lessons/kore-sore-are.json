@@ -1,0 +1,213 @@
+{
+  "meaning": "this one / that one (near you) / that one over there / which one",
+  "gist": "これ・それ・あれ pick a thing by whose territory it is in (or by distance). They stand alone as pronouns — これは本です — not これ本. どれ asks \"which one?\" Soft polite cousins こちら / どちら show up in service talk.",
+  "formation": {
+    "columns": ["Word", "Territory model", "Distance model", "Example"],
+    "rows": [
+      [
+        "これ",
+        "near the speaker",
+        "close to me",
+        "これは[本|ほん]です。"
+      ],
+      [
+        "それ",
+        "near the listener",
+        "a little away (by you)",
+        "それはだれの[傘|かさ]ですか。"
+      ],
+      [
+        "あれ",
+        "away from speaker and listener",
+        "far from both",
+        "あれは[駅|えき]です。"
+      ],
+      [
+        "どれ",
+        "asking which of several",
+        "—",
+        "どれですか。 / [私|わたし]の[鞄|かばん]はどれですか。"
+      ]
+    ],
+    "note": "これ / それ / あれ / どれ are pronouns: they replace a noun. To modify a noun (this book), you need この / その / あの — taught next. Soft/polite: こちら ≈ this way / this one; どちら ≈ which (one/way)."
+  },
+  "explanation": "Japanese pointing words track speaker and listener, not only meters on the floor. Territory model: これ is in the speaker's space (in your hand, at your desk); それ is in the listener's space (what they are holding or just mentioned); あれ is outside both spaces (across the room, that building over there). Distance model is the same three-way split taught as near / mid / far when territory is unclear. どれ asks which one among options: どれですか / 私の鞄はどれですか. Keep the copula in polite classroom speech: これは本です. Soft polite cousins こちら and どちら appear in service talk.",
+  "senses": [
+    {
+      "label": "これ — near the speaker",
+      "body": "Use when the thing is in your space: in your hand, on your desk, next to you.",
+      "example_ruby": "これは[私|わたし]の[本|ほん]です。",
+      "example_en": "This (near me) is my book."
+    },
+    {
+      "label": "それ — near the listener",
+      "body": "Also for something the listener just named: A「これは鞄です。」B「それは何の鞄ですか。」",
+      "example_ruby": "それは[先生|せんせい]の[傘|かさ]ですか。",
+      "example_en": "Is that (by you) the teacher's umbrella?"
+    },
+    {
+      "label": "あれ — away from both",
+      "body": "Far from speaker and listener, or not in either person's immediate space.",
+      "example_ruby": "あれは[駅|えき]です。",
+      "example_en": "That (over there) is the station."
+    },
+    {
+      "label": "どれ — which one",
+      "body": "Question word for choosing among things. Soft polite cousin: どちらですか.",
+      "example_ruby": "[私|わたし]の[鞄|かばん]はどれですか。",
+      "example_en": "Which one is my bag?"
+    }
+  ],
+  "register_context": "Classroom default: これ／それ／あれ＋です. Plain form: これだ / それだ. Soft/polite service style often prefers こちら／そちら／あちら and どちら over bare これ／どれ. Negatives from earlier Unit 1 still attach normally: これは鞄じゃないです / あれは駅ではありません.",
+  "mistakes": [
+    {
+      "wrong_ruby": "これ[本|ほん]です。",
+      "right_ruby": "この[本|ほん]です。",
+      "why": "これ cannot sit directly before a noun. Standalone pronoun: これは本です. Before a noun you need この本 (taught in この・その・あの)."
+    },
+    {
+      "wrong_ruby": "(You are holding the book.) それは[本|ほん]です。",
+      "right_ruby": "これは[本|ほん]です。",
+      "why": "Near the speaker → これ, not それ. If it is in your hands, use これ."
+    },
+    {
+      "wrong_ruby": "どれは[私|わたし]の[鞄|かばん]ですか。",
+      "right_ruby": "[私|わたし]の[鞄|かばん]はどれですか。",
+      "why": "Question words like どれ do not take topic は. Put the known noun as topic and どれ in the comment: 私の鞄はどれですか."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "kono-sono-ano",
+      "label": "これ vs この本",
+      "summary": "これ stands alone (a pronoun). この must be followed by a noun: この本. Same for それ/その, あれ/あの.",
+      "ex_a_ruby": "これは[本|ほん]です。",
+      "ex_a_en": "This one is a book. (これ = the thing itself)",
+      "ex_b_ruby": "この[本|ほん]は[私|わたし]のです。",
+      "ex_b_en": "This book is mine. (この + noun)"
+    },
+    {
+      "other_slug": null,
+      "label": "Territory vs raw distance",
+      "summary": "If you hold it, say これ even if the listener is closer on a map. If they hold it, say それ even when you could almost touch it.",
+      "ex_a_ruby": "これは[私|わたし]の[電話|でんわ]です。",
+      "ex_a_en": "(In my hand) This is my phone.",
+      "ex_b_ruby": "それは[私|わたし]の[電話|でんわ]ですか。",
+      "ex_b_en": "(In your hand) Is that my phone?"
+    },
+    {
+      "other_slug": null,
+      "label": "どれ vs どこ",
+      "summary": "どれ = which thing; どこ = which place / where. Different question words.",
+      "ex_a_ruby": "どれですか。",
+      "ex_a_en": "Which one (of these things)?",
+      "ex_b_ruby": "どこですか。",
+      "ex_b_en": "Where / which place?"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "これは[本|ほん]です。",
+      "english": "This is a book.",
+      "note": "これ · near speaker"
+    },
+    {
+      "ruby": "それは[私|わたし]の[傘|かさ]ですか。",
+      "english": "Is that my umbrella?",
+      "note": "それ · near listener · question"
+    },
+    {
+      "ruby": "あれは[駅|えき]です。",
+      "english": "That over there is the station.",
+      "note": "あれ · away from both"
+    },
+    {
+      "ruby": "どれですか。",
+      "english": "Which one is it?",
+      "note": "どれ · which one"
+    },
+    {
+      "ruby": "[私|わたし]の[鞄|かばん]はどれですか。",
+      "english": "Which one is my bag?",
+      "note": "どれ · noun は どれですか"
+    },
+    {
+      "ruby": "これも[鞄|かばん]です。",
+      "english": "This is a bag, too.",
+      "note": "これ + も"
+    },
+    {
+      "ruby": "あれは[何|なん]ですか。",
+      "english": "What is that over there?",
+      "note": "あれ · 何ですか"
+    },
+    {
+      "ruby": "それは[先生|せんせい]のじゃないです。",
+      "english": "(Near you) That isn't the teacher's.",
+      "note": "それ · near you · negative じゃないです"
+    },
+    {
+      "ruby": "これは[友達|ともだち]の[電話|でんわ]です。",
+      "english": "This is my friend's phone.",
+      "note": "これ · の link"
+    },
+    {
+      "ruby": "あれは[大学|だいがく]ではありません。",
+      "english": "That over there is not a university.",
+      "note": "あれ · formal negative"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "これは[何|なん]ですか。",
+      "english": "What is this?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "それは[私|わたし]の[本|ほん]です。",
+      "english": "That is my book. (A's これ → B's それ)"
+    },
+    {
+      "speaker": "A",
+      "ruby": "あれも[本|ほん]ですか。",
+      "english": "Is that over there a book, too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、あれは[鞄|かばん]です。",
+      "english": "No, that over there is a bag."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "(You are holding a book.) （　）は本です。",
+      "options": ["これ", "それ", "あれ"],
+      "answer_idx": 0,
+      "why": "In the speaker's hands → これ (territory near speaker)."
+    },
+    {
+      "prompt": "(Pointing at an umbrella next to the listener.) （　）はだれの傘ですか。",
+      "options": ["これ", "それ", "どれ"],
+      "answer_idx": 1,
+      "why": "Near the listener → それ."
+    },
+    {
+      "prompt": "(The station is far from both of you.) （　）は駅です。",
+      "options": ["これ", "それ", "あれ"],
+      "answer_idx": 2,
+      "why": "Away from speaker and listener → あれ."
+    },
+    {
+      "prompt": "(You want to ask which one is your bag.) 私の鞄は（　）ですか。",
+      "options": ["どこ", "あれ", "どれ"],
+      "answer_idx": 2,
+      "why": "Asking which of several → どれ. Context forces the question word, not pointing with あれ. どこ is for places."
+    }
+  ],
+  "related": {
+    "prerequisites": ["wa-topic"],
+    "next": ["kono-sono-ano"]
+  },
+  "lesson_version": 1
+}

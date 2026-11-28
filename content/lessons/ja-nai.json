@@ -1,0 +1,218 @@
+{
+  "meaning": "is not / was not (negative of です) · polite and plain",
+  "gist": "Negate noun + です with じゃないです (casual-polite) or ではありません (formal). Also learn じゃありません as another polite option. Past: じゃなかったです / ではありませんでした. Plain: じゃない / じゃなかった. Never ×じゃないでした — use じゃなかったです.",
+  "formation": {
+    "columns": ["Tense", "Casual-polite", "Formal / polite", "Plain"],
+    "rows": [
+      [
+        "Present negative",
+        "N + じゃないです",
+        "N + ではありません / じゃありません",
+        "N + じゃない"
+      ],
+      [
+        "Past negative",
+        "N + じゃなかったです",
+        "N + ではありませんでした",
+        "N + じゃなかった"
+      ],
+      [
+        "Present positive (review)",
+        "N + です",
+        "N + です",
+        "N + だ"
+      ],
+      [
+        "Past positive (new here)",
+        "N + でした",
+        "N + でした",
+        "N + だった"
+      ]
+    ],
+    "note": "じゃないです and ではありません are the main pair; じゃありません is another common polite negative (softer than ではありません). Past negative is じゃなかったです, not ×じゃないでした. Do not tack です onto じゃありません (×じゃありませんです)."
+  },
+  "explanation": "じゃないです is the everyday polite negative of noun + です: 学生じゃないです. In formal speech (announcements, careful writing, talking up), prefer ではありません: 学生ではありません. じゃありません appears often too and sits between them in feel. For past negatives, change ない → なかった: 学生じゃなかったです / 学生ではありませんでした. Plain speech drops です: 学生じゃない / 学生じゃなかった. A very common error is keeping present じゃない and tacking on でした (×学生じゃないでした) — conjugate the negative itself to past: じゃなかったです.",
+  "senses": [
+    {
+      "label": "Casual-polite present negative",
+      "body": "Default classroom/polite negative for beginners.",
+      "example_ruby": "[私|わたし]は[先生|せんせい]じゃないです。",
+      "example_en": "I am not a teacher."
+    },
+    {
+      "label": "Formal present negative",
+      "body": "Also common: [学生|がくせい]じゃありません。",
+      "example_ruby": "[私|わたし]は[学生|がくせい]ではありません。",
+      "example_en": "I am not a student. (formal)"
+    },
+    {
+      "label": "Past negative",
+      "body": "Natural with days and events: [先週|せんしゅう]は[休|やす]みではありませんでした。",
+      "example_ruby": "[昨日|きのう]は[休|やす]みじゃなかったです。",
+      "example_en": "Yesterday was not a day off."
+    },
+    {
+      "label": "Plain negative",
+      "body": "Inner monologue and plain speech drop です: じゃない / じゃなかった.",
+      "example_ruby": "[佐藤|さとう]さんは[日本人|にほんじん]じゃない。",
+      "example_en": "Sato-san isn't Japanese."
+    }
+  ],
+  "register_context": "Casual-polite default: じゃないです. Formal: ではありません. Also common polite: じゃありません. Plain: じゃない / じゃなかった (inner monologue, casual speech). Yes/no questions pair with か on the positive side (先生ですか) or use a full negative answer (いいえ、先生じゃないです). Affirmative past でした / だった pairs with these negatives on the です table.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学生|がくせい]じゃないでした。",
+      "right_ruby": "[学生|がくせい]じゃなかったです。",
+      "why": "Past negative conjugates ない → なかった: じゃなかったです, not ×じゃないでした."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]じゃありませんです。",
+      "right_ruby": "[学生|がくせい]じゃありません。",
+      "why": "じゃありません is already a finished polite negative — do not add another です."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]ですじゃない。",
+      "right_ruby": "[学生|がくせい]じゃないです。",
+      "why": "Drop です before the negative; attach じゃないです directly to the noun."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]だじゃないです。",
+      "right_ruby": "[学生|がくせい]じゃないです。",
+      "why": "Drop だ/です before the negative; attach じゃないです directly to the noun."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "desu-da",
+      "label": "です vs じゃないです",
+      "summary": "Positive copula vs negative: 学生です \"is a student\" vs 学生じゃないです / 学生ではありません \"is not a student.\"",
+      "ex_a_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "ex_a_en": "I am a student.",
+      "ex_b_ruby": "[私|わたし]は[学生|がくせい]じゃないです。",
+      "ex_b_en": "I am not a student."
+    },
+    {
+      "other_slug": null,
+      "label": "じゃないです vs ではありません",
+      "summary": "Same meaning; register differs — casual-polite vs formal. じゃありません is another polite form.",
+      "ex_a_ruby": "[医者|いしゃ]じゃないです。",
+      "ex_a_en": "I'm not a doctor. (casual-polite)",
+      "ex_b_ruby": "[医者|いしゃ]ではありません。",
+      "ex_b_en": "I am not a doctor. (formal)"
+    },
+    {
+      "other_slug": null,
+      "label": "Present vs past negative",
+      "summary": "Present じゃないです / ではありません vs past じゃなかったです / ではありませんでした.",
+      "ex_a_ruby": "[今日|きょう]は[休|やす]みじゃないです。",
+      "ex_a_en": "Today is not a day off.",
+      "ex_b_ruby": "[昨日|きのう]は[休|やす]みじゃなかったです。",
+      "ex_b_en": "Yesterday was not a day off."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[私|わたし]は[先生|せんせい]じゃないです。",
+      "english": "I am not a teacher.",
+      "note": "casual-polite · present"
+    },
+    {
+      "ruby": "[私|わたし]は[学生|がくせい]ではありません。",
+      "english": "I am not a student.",
+      "note": "formal · present"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[会社員|かいしゃいん]じゃありません。",
+      "english": "Tanaka-san is not an office worker.",
+      "note": "polite · じゃありません"
+    },
+    {
+      "ruby": "[昨日|きのう]は[休|やす]みじゃなかったです。",
+      "english": "Yesterday was not a day off.",
+      "note": "casual-polite · past"
+    },
+    {
+      "ruby": "[先週|せんしゅう]は[休|やす]みではありませんでした。",
+      "english": "Last week was not a day off.",
+      "note": "formal · past · day/event"
+    },
+    {
+      "ruby": "[佐藤|さとう]さんは[日本人|にほんじん]じゃない。",
+      "english": "Sato-san isn't Japanese.",
+      "note": "plain · present"
+    },
+    {
+      "ruby": "[昨日|きのう]は[日曜日|にちようび]じゃなかった。",
+      "english": "Yesterday wasn't Sunday.",
+      "note": "plain · past · day"
+    },
+    {
+      "ruby": "[山田|やまだ]さんも[先生|せんせい]じゃないです。",
+      "english": "Yamada-san is not a teacher either.",
+      "note": "casual-polite · も + negative"
+    },
+    {
+      "ruby": "[木村|きむら]さんは[会社員|かいしゃいん]じゃないです。",
+      "english": "Kimura-san is not an office worker.",
+      "note": "casual-polite · occupation"
+    },
+    {
+      "ruby": "[昨日|きのう]はテストじゃなかったです。",
+      "english": "Yesterday wasn't a test day.",
+      "note": "casual-polite · past · event"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[山田|やまだ]さんは[先生|せんせい]ですか。",
+      "english": "Is Yamada-san a teacher?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[先生|せんせい]じゃないです。[会社員|かいしゃいん]です。",
+      "english": "No, (I'm/he's) not a teacher. (I'm/He's) an office worker."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[田中|たなか]さんも[会社員|かいしゃいん]ですか。",
+      "english": "Is Tanaka-san an office worker too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[田中|たなか]さんは[会社員|かいしゃいん]ではありません。[医者|いしゃ]です。",
+      "english": "No, Tanaka-san is not an office worker. (Tanaka-san) is a doctor."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "私は先生（　）。(casual-polite negative)",
+      "options": ["じゃありませんでした", "じゃないです", "だじゃないです"],
+      "answer_idx": 1,
+      "why": "Present casual-polite negative → じゃないです."
+    },
+    {
+      "prompt": "Formal: 私は学生（　）。",
+      "options": ["じゃないです", "じゃないでした", "ではありません"],
+      "answer_idx": 2,
+      "why": "Formal present negative → ではありません."
+    },
+    {
+      "prompt": "Fix: 学生じゃないでした。",
+      "options": ["学生じゃなかったです。", "学生じゃないですでした。", "学生だじゃなかったです。"],
+      "answer_idx": 0,
+      "why": "Past negative is じゃなかったです, not ×じゃないでした."
+    },
+    {
+      "prompt": "A: 昨日は休みでしたか。 B: いいえ、休み（　）。",
+      "options": ["じゃないです", "じゃなかったです", "ではありません"],
+      "answer_idx": 1,
+      "why": "Yesterday → past negative じゃなかったです."
+    }
+  ],
+  "related": {
+    "prerequisites": ["desu-da"],
+    "next": []
+  },
+  "lesson_version": 1
+}

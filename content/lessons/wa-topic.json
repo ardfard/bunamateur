@@ -1,0 +1,179 @@
+{
+  "meaning": "topic marker は (read わ) · \"as for X…\"",
+  "gist": "は marks the topic — what the sentence is about — then the rest comments on it: [私|わたし]は[学生|がくせい]です. Write は, say わ. Builds on Noun + です/だ.",
+  "formation": {
+    "columns": ["Pattern", "Reading note", "Example"],
+    "rows": [
+      [
+        "Topic + は + Noun + です",
+        "は → わ",
+        "[私|わたし]は[学生|がくせい]です"
+      ],
+      [
+        "Topic + は + Noun + だ",
+        "は → わ",
+        "[私|わたし]は[学生|がくせい]だ"
+      ],
+      [
+        "Name + は + Noun + です",
+        "は → わ",
+        "[田中|たなか]さんは[先生|せんせい]です"
+      ],
+      [
+        "Thing/role + は + Noun + です",
+        "は → わ",
+        "[専攻|せんこう]は[日本語|にほんご]です"
+      ]
+    ],
+    "note": "Particle は is always written は and pronounced わ (not like the mora は in はな). Do not write the particle as わ. も (\"also\") replaces は — they do not stack (taught in mo-also)."
+  },
+  "explanation": "は sets the topic frame: \"as for X, (it/I) am Y.\" [私|わたし]は[学生|がくせい]です means \"As for me, (I) am a student.\" The noun before は is what you are talking about; です/だ still does the equating. Pronunciation is the key beginner trap: the topic particle looks like は but sounds like わ. Keep register from the previous lesson — polite です by default; だ for plain form; spoken casual often uses a bare noun (私は学生。).",
+  "senses": [
+    {
+      "label": "Self as topic",
+      "body": "Name yourself as the topic, then give the identity with です/だ.",
+      "example_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "example_en": "I am a student. (as for me…)"
+    },
+    {
+      "label": "Other people as topic",
+      "body": "Any person noun (or name + さん for others) can be the topic.",
+      "example_ruby": "[田中|たなか]さんは[先生|せんせい]です。",
+      "example_en": "Tanaka-san is a teacher."
+    },
+    {
+      "label": "Role / field as topic",
+      "body": "Abstract nouns like 専攻 (major) can be the topic too.",
+      "example_ruby": "[専攻|せんこう]は[日本語|にほんご]です。",
+      "example_en": "My major is Japanese."
+    }
+  ],
+  "register_context": "Topic は is register-neutral; politeness still lives in です vs だ. Polite: 私は学生です. Plain form: 私は学生だ. Spoken casual often drops だ: 私は学生。. Dropping は after a clear topic (私学生です) is also common in casual speech — not a hard error, but write は in careful / classroom Japanese. Do not attach さん to your own name: ×私は田中さんです → 私は田中です.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[私|わたし]わ[学生|がくせい]です。",
+      "right_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "why": "The topic particle is written は (read わ). Do not spell the particle as わ."
+    },
+    {
+      "wrong_ruby": "は[学生|がくせい]です。",
+      "right_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "why": "は needs a topic noun in front of it."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "mo-also",
+      "label": "は vs も",
+      "summary": "は marks the topic (\"as for X\"); も means \"also/too\" and replaces は rather than stacking on it.",
+      "ex_a_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "ex_a_en": "I am a student. (topic は)",
+      "ex_b_ruby": "[私|わたし]も[学生|がくせい]です。",
+      "ex_b_en": "I am a student too. (も replaces は)"
+    },
+    {
+      "other_slug": "desu-da",
+      "label": "With topic vs bare copula",
+      "summary": "Bare 学生です identifies without naming the topic; 私は学生です frames who you mean.",
+      "ex_a_ruby": "[学生|がくせい]です。",
+      "ex_a_en": "(I) am a student. (topic left to context)",
+      "ex_b_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "ex_b_en": "As for me, I am a student."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[私|わたし]は[学生|がくせい]です。",
+      "english": "(Self-intro) I am a student.",
+      "note": "polite · core pattern"
+    },
+    {
+      "ruby": "[私|わたし]は[田中|たなか]です。",
+      "english": "(Meeting someone) I'm Tanaka.",
+      "note": "polite · name · no さん on self"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[先生|せんせい]です。",
+      "english": "(Talking about a classmate's teacher) Tanaka-san is a teacher.",
+      "note": "polite · other person"
+    },
+    {
+      "ruby": "[私|わたし]は[日本人|にほんじん]です。",
+      "english": "(Nationality in a self-intro) I am Japanese.",
+      "note": "polite · nationality"
+    },
+    {
+      "ruby": "[専攻|せんこう]は[日本語|にほんご]です。",
+      "english": "(Campus self-intro) My major is Japanese.",
+      "note": "polite · field as topic"
+    },
+    {
+      "ruby": "[山田|やまだ]さんは[会社員|かいしゃいん]です。",
+      "english": "(Office small talk) Yamada-san is an office worker.",
+      "note": "polite · workplace"
+    },
+    {
+      "ruby": "[私|わたし]は[大学生|だいがくせい]だ。",
+      "english": "(Plain form) I'm a university student.",
+      "note": "plain form · だ"
+    },
+    {
+      "ruby": "[友達|ともだち]は[医者|いしゃ]です。",
+      "english": "(Introducing someone) My friend is a doctor.",
+      "note": "polite · third person"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "はじめまして。[私|わたし]は[田中|たなか]です。",
+      "english": "Nice to meet you. I'm Tanaka."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[私|わたし]は[山田|やまだ]です。よろしくおねがいします。",
+      "english": "I'm Yamada. Nice to meet you."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[学生|がくせい]です。[専攻|せんこう]は[日本語|にほんご]です。",
+      "english": "(I'm) a student. My major is Japanese."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[会社員|かいしゃいん]です。よろしくおねがいします。",
+      "english": "(I'm) an office worker. Nice to meet you."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "私（　）学生です。 (mark the topic \"I\")",
+      "options": ["も", "は", "わ"],
+      "answer_idx": 1,
+      "why": "Topic marker is written は (read わ). も means \"also\" (later lesson); spelling the particle as わ is wrong."
+    },
+    {
+      "prompt": "Context: introducing yourself politely — set yourself as the topic. 私（　）会社員です。",
+      "options": ["は", "も"],
+      "answer_idx": 0,
+      "why": "Framing \"as for me\" → は. も would mean \"I am also an office worker,\" which needs a prior \"also\" context."
+    },
+    {
+      "prompt": "How do you pronounce the topic particle in 私は学生です?",
+      "options": ["は (as in はな)", "ば", "わ"],
+      "answer_idx": 2,
+      "why": "Topic は is always pronounced わ, even though it is written は."
+    },
+    {
+      "prompt": "Context: \"As for Tanaka-san, (he) is a teacher\" — not \"Tanaka too.\"",
+      "options": ["田中さんも先生です。", "田中さんわ先生です。", "田中さんは先生です。"],
+      "answer_idx": 2,
+      "why": "Topic frame uses は. も would mean \"Tanaka too\"; わ is the wrong spelling of the particle."
+    }
+  ],
+  "related": {
+    "prerequisites": ["desu-da"],
+    "next": ["ka-question", "no-noun-link", "mo-also"]
+  },
+  "lesson_version": 1
+}

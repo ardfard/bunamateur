@@ -1,0 +1,229 @@
+{
+  "meaning": "question particle か · yes/no questions · 何・だれ・どこ・いつ · はい / いいえ",
+  "gist": "Add か after です to ask: [学生|がくせい]ですか。 Question words sit in the answer's slot — [何|なん]ですか, だれですか, どこですか, いつですか — not before は as a new topic. Answer yes/no with はい / いいえ. Read [何|なん] before です/だ (and で・と・の); often [何|なに] before other sounds. Plain questions usually drop both だ and か and rise in pitch: [学生|がくせい]？ (×学生だか; bare か can sound blunt).",
+  "formation": {
+    "columns": ["Type", "Pattern", "Example"],
+    "rows": [
+      [
+        "Yes / no",
+        "Nは Nですか",
+        "[田中|たなか]さんは[学生|がくせい]ですか"
+      ],
+      [
+        "What",
+        "Nは [何|なん]ですか",
+        "[名前|なまえ]は[何|なん]ですか"
+      ],
+      [
+        "Who",
+        "Nは だれですか",
+        "[先生|せんせい]はだれですか"
+      ],
+      [
+        "Where",
+        "Nは どこですか",
+        "トイレはどこですか"
+      ],
+      [
+        "When",
+        "Nは いつですか",
+        "[誕生日|たんじょうび]はいつですか"
+      ],
+      [
+        "Plain yes / no",
+        "N？ (drop だ and usually か)",
+        "[学生|がくせい]？"
+      ]
+    ],
+    "note": "[何|なん] before です/だ (なんです). Often [何|なに] before other sounds (casual なに？). Plain questions usually drop だ and か — rising 学生？; bare か can sound blunt. Do not keep か when answering."
+  },
+  "explanation": "か turns a polite statement into a question. Polite default: keep です and add か — 学生ですか。 For content questions, put 何・だれ・どこ・いつ where the answer noun would go: 名前は何ですか (not ×何は名前ですか). Yes/no replies use はい or いいえ; after いいえ, you can offer the real noun (いいえ、先生です) — negatives like じゃないです come later. Reading of 何: なん before です/だ (and before で・と・の); often なに elsewhere, including a bare casual なに？ In plain style, questions usually drop both だ and か and rise in pitch — 学生？ — never ×学生だか. Bare か after a plain noun (学生か) can sound blunt or abrupt.",
+  "senses": [
+    {
+      "label": "Yes / no with か",
+      "body": "Statement + か. Rising intonation; keep polite です.",
+      "example_ruby": "[山田|やまだ]さんは[会社員|かいしゃいん]ですか。",
+      "example_en": "Is Yamada-san an office worker?"
+    },
+    {
+      "label": "Question word in the answer slot",
+      "body": "[何|なん]・だれ・どこ・いつ replace the unknown piece of the answer.",
+      "example_ruby": "[駅|えき]はどこですか。",
+      "example_en": "Where is the station?"
+    },
+    {
+      "label": "はい / いいえ",
+      "body": "はい affirms; いいえ denies. After いいえ, name the real noun if you can.",
+      "example_ruby": "はい、[学生|がくせい]です。",
+      "example_en": "Yes, (I) am a student."
+    },
+    {
+      "label": "なん vs なに",
+      "body": "Before です/だ → [何|なん]です. Elsewhere often [何|なに] (e.g. casual なに？).",
+      "example_ruby": "[名前|なまえ]は[何|なん]ですか。",
+      "example_en": "What is (your) name?"
+    }
+  ],
+  "register_context": "Default polite: Nですか / [何|なん]ですか. Plain/casual: drop だ and usually か — rising 学生？ / なに？ Bare か can sound blunt. Never ×学生だか.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学生|がくせい]だか。",
+      "right_ruby": "[学生|がくせい]？",
+      "why": "Plain questions drop だ (and usually か). ×だか is ungrammatical — use rising 学生？ or polite 学生ですか。"
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]かです。",
+      "right_ruby": "[学生|がくせい]ですか。",
+      "why": "か comes after the full polite ending: ですか, not ×かです."
+    },
+    {
+      "wrong_ruby": "どこはトイレですか。",
+      "right_ruby": "トイレはどこですか。",
+      "why": "The known noun is the topic; the question word fills the answer slot — トイレはどこですか."
+    },
+    {
+      "wrong_ruby": "はい、[学生|がくせい]ですか。",
+      "right_ruby": "はい、[学生|がくせい]です。",
+      "why": "Answers are statements. Do not keep question か when saying yes."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "Yes/no ですか vs content question",
+      "summary": "ですか after a full noun asks for はい/いいえ; a question word in that slot asks for information.",
+      "ex_a_ruby": "[田中|たなか]さんは[先生|せんせい]ですか。",
+      "ex_a_en": "Is Tanaka-san a teacher? (yes/no)",
+      "ex_b_ruby": "[先生|せんせい]はだれですか。",
+      "ex_b_en": "Who is the teacher? (content)"
+    },
+    {
+      "other_slug": null,
+      "label": "Polite ですか vs plain rising ？",
+      "summary": "Polite keeps です+か. Plain usually drops だ and か and rises — 学生？ — never ×だか. Bare か can sound blunt.",
+      "ex_a_ruby": "[学生|がくせい]ですか。",
+      "ex_a_en": "Are you a student? (polite)",
+      "ex_b_ruby": "[学生|がくせい]？",
+      "ex_b_en": "Are you a student? (casual; rising intonation)"
+    },
+    {
+      "other_slug": null,
+      "label": "なんです vs casual なに",
+      "summary": "Before です/だ read 何 as なん; bare casual \"what?\" is often なに.",
+      "ex_a_ruby": "[何|なん]ですか。",
+      "ex_a_en": "What is it? (なん before です)",
+      "ex_b_ruby": "[何|なに]？",
+      "ex_b_en": "What? (casual; なに before other sounds / alone)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[山田|やまだ]さんは[学生|がくせい]ですか。",
+      "english": "Is Yamada-san a student?",
+      "note": "polite · yes/no"
+    },
+    {
+      "ruby": "[名前|なまえ]は[何|なん]ですか。",
+      "english": "What is (your) name?",
+      "note": "polite · なんです"
+    },
+    {
+      "ruby": "[先生|せんせい]はだれですか。",
+      "english": "Who is the teacher?",
+      "note": "polite · だれ"
+    },
+    {
+      "ruby": "トイレはどこですか。",
+      "english": "Where is the restroom?",
+      "note": "polite · どこ"
+    },
+    {
+      "ruby": "[誕生日|たんじょうび]はいつですか。",
+      "english": "When is (your) birthday?",
+      "note": "polite · いつ"
+    },
+    {
+      "ruby": "はい、[会社員|かいしゃいん]です。",
+      "english": "Yes, (I'm) an office worker.",
+      "note": "answer · はい"
+    },
+    {
+      "ruby": "いいえ、[医者|いしゃ]です。",
+      "english": "No, (I'm) a doctor.",
+      "note": "answer · いいえ + real noun"
+    },
+    {
+      "ruby": "[教室|きょうしつ]はどこですか。",
+      "english": "Where is the classroom?",
+      "note": "polite · classroom"
+    },
+    {
+      "ruby": "[日本語|にほんご]の[先生|せんせい]はだれですか。",
+      "english": "Who is the Japanese teacher?",
+      "note": "polite · だれ"
+    },
+    {
+      "ruby": "[学生|がくせい]？",
+      "english": "Are you a student?",
+      "note": "plain · rising intonation (drop だ and か)"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "すみません。[名前|なまえ]は[何|なん]ですか。",
+      "english": "Excuse me — what is your name?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[山田|やまだ]です。",
+      "english": "I'm Yamada."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[山田|やまだ]さんは[学生|がくせい]ですか。",
+      "english": "Are you a student, Yamada-san?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[学生|がくせい]です。[田中|たなか]さんは[先生|せんせい]ですか。",
+      "english": "Yes, I'm a student. Is Tanaka-san a teacher?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "いいえ、[会社員|かいしゃいん]です。",
+      "english": "No, (he's) an office worker."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "学生です（　）。 (yes/no question)",
+      "options": ["だか", "は", "か"],
+      "answer_idx": 2,
+      "why": "Polite questions add か after です. ×だか is the plain-style mistake; は is the topic marker, not the question ending."
+    },
+    {
+      "prompt": "名前は（　）ですか。 (reading before です)",
+      "options": ["なに", "なん", "だれ"],
+      "answer_idx": 1,
+      "why": "Before です/だ, 何 is なん (なんですか). なに is for other environments; だれ asks who, not what."
+    },
+    {
+      "prompt": "Plain/casual rising question (drop だ and usually か):",
+      "options": ["学生だか。", "学生？", "学生かです。"],
+      "answer_idx": 1,
+      "why": "Plain questions usually rise without だ or か: 学生？ — never ×学生だか. Bare か can sound blunt; ×かです is also wrong."
+    },
+    {
+      "prompt": "トイレ（　）どこですか。",
+      "options": ["か", "だ", "は"],
+      "answer_idx": 2,
+      "why": "Known noun takes topic は; どこ fills the answer slot. か ends the whole question (ですか); だ is the plain copula, not the topic marker."
+    }
+  ],
+  "related": {
+    "prerequisites": ["wa-topic"],
+    "next": ["kore-sore-are"]
+  },
+  "lesson_version": 1
+}

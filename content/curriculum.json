@@ -16,10 +16,10 @@
           "title": "だ / です",
           "summary": "The copula: X is Y; polite です and plain だ",
           "prerequisites": [],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 1
         },
         {
@@ -29,23 +29,23 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 2
         },
         {
           "slug": "ka-question",
           "title": "か and question words",
-          "summary": "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot",
+          "summary": "Yes/no questions; 何・だれ・どこ・いつ in the answer's slot",
           "prerequisites": [
             "wa-topic"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 3
         },
         {
@@ -55,10 +55,10 @@
           "prerequisites": [
             "wa-topic"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 4
         },
         {
@@ -68,10 +68,10 @@
           "prerequisites": [
             "wa-topic"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 5
         },
         {
@@ -81,10 +81,10 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 6
         },
         {
@@ -94,10 +94,10 @@
           "prerequisites": [
             "wa-topic"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 7
         },
         {
@@ -108,10 +108,10 @@
             "kore-sore-are",
             "no-noun-link"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 8
         }
       ]
@@ -3261,7 +3261,7 @@
     }
   ],
   "meta": {
-    "seed_slug_count": 62,
+    "seed_slug_count": 70,
     "curriculum_point_count": 216,
     "missing_keep_slugs": [],
     "seeded_in_units": [
@@ -3269,18 +3269,24 @@
       "ba-conditional",
       "bakari",
       "beki-da",
+      "desu-da",
       "hazu-da",
       "hou-ga-ii",
       "ippou-da",
+      "ja-nai",
+      "ka-question",
       "kamo-shirenai",
       "kara-reason",
       "kawari-ni",
+      "kono-sono-ano",
+      "kore-sore-are",
       "koto-ga-aru-sometimes",
       "koto-ga-dekiru",
       "koto-ni-naru",
       "koto-ni-suru",
       "koto-wa-nai",
       "mae-ni",
+      "mo-also",
       "nagara",
       "nakereba-naranai",
       "nakute-mo-ii",
@@ -3293,6 +3299,7 @@
       "ni-tsurete",
       "ni-yotte",
       "no-ga-jouzu",
+      "no-noun-link",
       "node",
       "noni",
       "okage-de",
@@ -3315,6 +3322,7 @@
       "to-shitara",
       "tsumori",
       "uchi-ni",
+      "wa-topic",
       "wake-dewa-nai",
       "wake-niwa-ikanai",
       "yasui-nikui",
