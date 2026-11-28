@@ -1,6 +1,6 @@
 {
   "meaning": "の links two nouns · possession · description · belonging",
-  "gist": "の sits between nouns: AのB ≈ \"B of A\" / \"A's B.\" Possession: [私|わたし]の[本|ほん]. Description: [日本語|にほんご]の[先生|せんせい]. Belonging / group: [大学|だいがく]の[学生|がくせい]. Do not drop の (×日本語先生). Pointing words like この[本|ほん] come later — different job from [私|わたし]の[本|ほん].",
+  "gist": "の sits between nouns: AのB ≈ \"B of A\" / \"A's B.\" Possession: [私|わたし]の[本|ほん]. Description: [日本語|にほんご]の[先生|せんせい]. Belonging / group: さくら[大学|だいがく]の[学生|がくせい] (or the compound [大学生|だいがくせい]). Do not drop の (×日本語先生). Pointing words like この[本|ほん] come later — different job from [私|わたし]の[本|ほん].",
   "formation": {
     "columns": ["Use", "Pattern", "Example"],
     "rows": [
@@ -17,12 +17,12 @@
       [
         "Belonging / group",
         "NのNです",
-        "[大学|だいがく]の[学生|がくせい]です"
+        "さくら[大学|だいがく]の[学生|がくせい]です"
       ],
       [
         "Whose…?",
-        "Nは[誰|だれ]のNですか",
-        "[傘|かさ]は[誰|だれ]の[傘|かさ]ですか"
+        "NはだれのNですか",
+        "[傘|かさ]はだれの[傘|かさ]ですか"
       ],
       [
         "… is mine",
@@ -30,9 +30,9 @@
         "[本|ほん]は[私|わたし]のです"
       ]
     ],
-    "note": "Order is modifierのhead — [私|わたし]の[本|ほん], not ×本の私 for \"my book.\" の does not replace は: [私|わたし]の[本|ほん]は… when you need a topic."
+    "note": "Order is modifierのhead — [私|わたし]の[本|ほん]. Prefer [大学生|だいがくせい] or さくら[大学|だいがく]の[学生|がくせい] over bare [大学|だいがく]の[学生|がくせい]. の does not replace は: [私|わたし]の[本|ほん]は… when you need a topic."
   },
-  "explanation": "の joins two nouns so the first modifies the second. Possession is the clearest case: 私の本 \"my book.\" The same linker describes kind or field — 日本語の先生 \"a Japanese-language teacher\" — and belonging or group — 大学の学生 \"a university student,\" 学校の先生 \"a school teacher.\" Questions keep か: 傘はだれの傘ですか / 本は私のです. Never glue the nouns with no linker (×日本語先生). この本 (\"this book\") is a later pointing form; it is not the same as 私の本 (\"my book\").",
+  "explanation": "の joins two nouns so the first modifies the second. Possession is the clearest case: 私の本 \"my book.\" The same linker describes kind or field — 日本語の先生 \"a Japanese-language teacher\" — and belonging or group — さくら大学の学生 \"a Sakura University student,\" or the compound 大学生. Questions keep か: 傘はだれのですか / 本は私のです. Never glue the nouns with no linker (×日本語先生). この本 (\"this book\") is a later pointing form; it is not the same as 私の本 (\"my book\").",
   "senses": [
     {
       "label": "Possession",
@@ -48,14 +48,14 @@
     },
     {
       "label": "Belonging / group",
-      "body": "Organization or place linked to the person or thing.",
-      "example_ruby": "[大学|だいがく]の[学生|がくせい]です。",
-      "example_en": "(He) is a university student."
+      "body": "Named school or place linked to the person — or use the compound 大学生.",
+      "example_ruby": "さくら[大学|だいがく]の[学生|がくせい]です。",
+      "example_en": "(He) is a Sakura University student."
     },
     {
       "label": "Whose…? / mine",
-      "body": "[誰|だれ]の asks whose; [私|わたし]のです means \"mine\" when the noun is clear.",
-      "example_ruby": "[本|ほん]は[誰|だれ]のですか。",
+      "body": "だれの asks whose; [私|わたし]のです means \"mine\" when the noun is clear.",
+      "example_ruby": "[本|ほん]はだれのですか。",
       "example_en": "Whose book is it?"
     }
   ],
@@ -72,14 +72,14 @@
       "why": "Possession also requires の: 私の本, not ×私本."
     },
     {
-      "wrong_ruby": "[本|ほん]の[私|わたし]です。",
-      "right_ruby": "[私|わたし]の[本|ほん]です。",
-      "why": "Modifier comes first: ownerのthing. ×本の私 does not mean \"my book.\""
-    },
-    {
       "wrong_ruby": "[私|わたし]はの[本|ほん]です。",
       "right_ruby": "[私|わたし]の[本|ほん]です。",
       "why": "Do not insert topic は inside the の link. For \"my book\" as the predicate, use 私の本です."
+    },
+    {
+      "wrong_ruby": "[私|わたし]のは[学生|がくせい]です。",
+      "right_ruby": "[私|わたし]は[学生|がくせい]です。",
+      "why": "の needs a head noun after it (私の本). ×私のは学生です is not how you say \"I am a student.\""
     }
   ],
   "contrasts": [
@@ -114,9 +114,9 @@
       "note": "polite · description"
     },
     {
-      "ruby": "[大学|だいがく]の[学生|がくせい]です。",
-      "english": "(He) is a university student.",
-      "note": "polite · belonging"
+      "ruby": "さくら[大学|だいがく]の[学生|がくせい]です。",
+      "english": "(He) is a Sakura University student.",
+      "note": "polite · named school + の"
     },
     {
       "ruby": "[田中|たなか]さんの[鞄|かばん]です。",
@@ -129,7 +129,7 @@
       "note": "polite · belonging / role"
     },
     {
-      "ruby": "[傘|かさ]は[誰|だれ]の[傘|かさ]ですか。",
+      "ruby": "[傘|かさ]はだれのですか。",
       "english": "Whose umbrella is it?",
       "note": "polite · だれの + か"
     },
@@ -149,21 +149,21 @@
       "note": "polite · の + は topic"
     },
     {
-      "ruby": "[猫|ねこ]は[山田|やまだ]さんの[猫|ねこ]です。",
-      "english": "The cat is Yamada-san's cat.",
-      "note": "polite · belonging"
+      "ruby": "[傘|かさ]は[山田|やまだ]さんのです。",
+      "english": "The umbrella is Yamada-san's.",
+      "note": "polite · …のです (no repeated head)"
     }
   ],
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[本|ほん]は[誰|だれ]のですか。",
+      "ruby": "[本|ほん]はだれのですか。",
       "english": "Whose book is it?"
     },
     {
       "speaker": "B",
-      "ruby": "[私|わたし]の[本|ほん]です。",
-      "english": "It's my book."
+      "ruby": "[私|わたし]のです。",
+      "english": "It's mine."
     },
     {
       "speaker": "A",
@@ -172,8 +172,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "はい、[大学|だいがく]の[先生|せんせい]です。",
-      "english": "Yes, (she's) a university teacher."
+      "ruby": "はい、さくら[大学|だいがく]の[先生|せんせい]です。",
+      "english": "Yes, (she's) a Sakura University teacher."
     }
   ],
   "checks": [
@@ -185,21 +185,21 @@
     },
     {
       "prompt": "私（　）本です。",
-      "options": ["の", "はの", "だ"],
-      "answer_idx": 0,
+      "options": ["はの", "の", "だ"],
+      "answer_idx": 1,
       "why": "Possession is 私の本. ×はの stacks topic inside the link; だ is the plain copula, not the noun linker."
     },
     {
-      "prompt": "傘は（　）の傘ですか。",
-      "options": ["だれ", "どこ", "いつ"],
-      "answer_idx": 0,
-      "why": "\"Whose\" uses だれの. どこ/いつ ask where/when, not owner."
+      "prompt": "傘は山田さん（　）傘ですか。",
+      "options": ["は", "か", "の"],
+      "answer_idx": 2,
+      "why": "Blank the linker の: 傘は山田さんの傘ですか. は/か are different particles."
     },
     {
       "prompt": "Which means \"my book\" (not \"this book\")?",
-      "options": ["私の本です。", "この本です。", "日本語先生です。"],
-      "answer_idx": 0,
-      "why": "私の本 is possession with の. この本 is pointing (later). ×日本語先生 drops required の."
+      "options": ["この本です。", "私の本です。", "日本語先生です。"],
+      "answer_idx": 1,
+      "why": "私の本 is possession with の. この本 is pointing (kono-sono-ano, later). ×日本語先生 drops required の."
     }
   ],
   "related": {
