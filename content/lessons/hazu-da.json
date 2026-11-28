@@ -236,12 +236,12 @@
     {
       "prompt": "彼は天才だから、そんな簡単な問題を（　）。",
       "options": [
-        "間違えないはずです",
-        "間違えるはずがあります",
+        "間違えないはずがありません",
+        "間違えるはずです",
         "間違えるはずがありません"
       ],
       "answer_idx": 2,
-      "why": "Genius context → \"there's no way he'd get it wrong\": 間違えるはずがありません. 間違えないはずです is weaker \"I expect he won't\"; *間違えるはずがあります is not the standard pattern."
+      "why": "Genius context → \"there's no way he'd get it wrong\": 間違えるはずがありません. 間違えないはずがありません flips the polarity (\"can't fail to get it wrong\"); 間違えるはずです expects an error."
     }
   ],
   "related": {

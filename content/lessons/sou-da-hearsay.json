@@ -179,13 +179,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "[天気予報|てんきよほう]によると、[雪|ゆき]が[降|ふ]るそうです。",
-      "english": "According to the forecast, I heard it will snow."
-    },
-    {
-      "speaker": "B",
-      "ruby": "だから、[明日|あした]のハイキングは[中止|ちゅうし]だそうです。",
-      "english": "So I heard tomorrow's hike is cancelled."
+      "ruby": "[天気予報|てんきよほう]によると、[雪|ゆき]が[降|ふ]るそうだよ。それで、[明日|あした]のハイキングは[中止|ちゅうし]になったそうだ。",
+      "english": "According to the forecast, I heard it'll snow. And I heard tomorrow's hike got cancelled."
     },
     {
       "speaker": "A",
