@@ -1,8 +1,8 @@
 {
   "meaning": "is not / was not (negative of です) · polite and plain",
-  "gist": "Negate noun + です with じゃないです (casual-polite) or ではありません (formal). Also learn じゃありません as another polite option. Past: じゃなかったです / ではありませんでした. Plain: じゃない / じゃなかった. Never ×じゃないでした — use じゃなかったです.",
+  "gist": "Negate noun + です with polite (conversational) じゃないです or polite (formal) ではありません. Also learn じゃありません as another polite option. Past: じゃなかったです / ではありませんでした. Plain: じゃない / じゃなかった. Never ×じゃないでした — use じゃなかったです.",
   "formation": {
-    "columns": ["Tense", "Casual-polite", "Formal / polite", "Plain"],
+    "columns": ["Tense", "Polite (conversational)", "Polite (formal)", "Plain"],
     "rows": [
       [
         "Present negative",
@@ -29,21 +29,21 @@
         "N + だった"
       ]
     ],
-    "note": "じゃないです and ではありません are the main pair; じゃありません is another common polite negative (softer than ではありません). Past negative is じゃなかったです, not ×じゃないでした. Do not tack です onto じゃありません (×じゃありませんです)."
+    "note": "Polite (conversational) じゃないです and polite (formal) ではありません are the main pair; じゃありません (past: じゃありませんでした) is another common polite negative, softer than ではありません. ではないです and ではなかったです are also grammatical polite variants (less common in everyday speech). Past negative is じゃなかったです, not ×じゃないでした. Do not tack です onto じゃありません (×じゃありませんです)."
   },
   "explanation": "じゃないです is the everyday polite negative of noun + です: 学生じゃないです. In formal speech (announcements, careful writing, talking up), prefer ではありません: 学生ではありません. じゃありません appears often too and sits between them in feel. For past negatives, change ない → なかった: 学生じゃなかったです / 学生ではありませんでした. Plain speech drops です: 学生じゃない / 学生じゃなかった. A very common error is keeping present じゃない and tacking on でした (×学生じゃないでした) — conjugate the negative itself to past: じゃなかったです.",
   "senses": [
     {
-      "label": "Casual-polite present negative",
+      "label": "Polite (conversational) present negative",
       "body": "Default classroom/polite negative for beginners.",
       "example_ruby": "[私|わたし]は[先生|せんせい]じゃないです。",
       "example_en": "I am not a teacher."
     },
     {
-      "label": "Formal present negative",
+      "label": "Polite (formal) present negative",
       "body": "Also common: [学生|がくせい]じゃありません。",
       "example_ruby": "[私|わたし]は[学生|がくせい]ではありません。",
-      "example_en": "I am not a student. (formal)"
+      "example_en": "I am not a student. — polite (formal)"
     },
     {
       "label": "Past negative",
@@ -58,7 +58,7 @@
       "example_en": "Sato-san isn't Japanese."
     }
   ],
-  "register_context": "Casual-polite default: じゃないです. Formal: ではありません. Also common polite: じゃありません. Plain: じゃない / じゃなかった (inner monologue, casual speech). Yes/no questions pair with か on the positive side (先生ですか) or use a full negative answer (いいえ、先生じゃないです). Affirmative past でした / だった pairs with these negatives on the です table.",
+  "register_context": "Polite (conversational) default: じゃないです (past: じゃなかったです). Polite (formal): ではありません (past: ではありませんでした). Also common polite: じゃありません (past: じゃありませんでした). Other grammatical polite variants: ではないです / ではなかったです (less common in everyday speech). Plain: じゃない / じゃなかった (inner monologue, casual speech). Yes/no questions pair with か on the positive side (先生ですか) or use a full negative answer (いいえ、先生じゃないです). Affirmative past でした / だった pairs with these negatives on the です table.",
   "mistakes": [
     {
       "wrong_ruby": "[学生|がくせい]じゃないでした。",
@@ -94,11 +94,11 @@
     {
       "other_slug": null,
       "label": "じゃないです vs ではありません",
-      "summary": "Same meaning; register differs — casual-polite vs formal. じゃありません is another polite form.",
+      "summary": "Same meaning; register differs — polite (conversational) vs polite (formal). じゃありません is another polite form.",
       "ex_a_ruby": "[医者|いしゃ]じゃないです。",
-      "ex_a_en": "I'm not a doctor. (casual-polite)",
+      "ex_a_en": "I'm not a doctor. — polite (conversational)",
       "ex_b_ruby": "[医者|いしゃ]ではありません。",
-      "ex_b_en": "I am not a doctor. (formal)"
+      "ex_b_en": "I am not a doctor. — polite (formal)"
     },
     {
       "other_slug": null,
@@ -114,12 +114,12 @@
     {
       "ruby": "[私|わたし]は[先生|せんせい]じゃないです。",
       "english": "I am not a teacher.",
-      "note": "casual-polite · present"
+      "note": "polite (conversational) · present"
     },
     {
       "ruby": "[私|わたし]は[学生|がくせい]ではありません。",
       "english": "I am not a student.",
-      "note": "formal · present"
+      "note": "polite (formal) · present"
     },
     {
       "ruby": "[田中|たなか]さんは[会社員|かいしゃいん]じゃありません。",
@@ -129,12 +129,12 @@
     {
       "ruby": "[昨日|きのう]は[休|やす]みじゃなかったです。",
       "english": "Yesterday was not a day off.",
-      "note": "casual-polite · past"
+      "note": "polite (conversational) · past"
     },
     {
       "ruby": "[先週|せんしゅう]は[休|やす]みではありませんでした。",
       "english": "Last week was not a day off.",
-      "note": "formal · past · day/event"
+      "note": "polite (formal) · past · day/event"
     },
     {
       "ruby": "[佐藤|さとう]さんは[日本人|にほんじん]じゃない。",
@@ -149,17 +149,17 @@
     {
       "ruby": "[山田|やまだ]さんも[先生|せんせい]じゃないです。",
       "english": "Yamada-san is not a teacher either.",
-      "note": "casual-polite · も + negative"
+      "note": "polite (conversational) · も + negative"
     },
     {
       "ruby": "[木村|きむら]さんは[会社員|かいしゃいん]じゃないです。",
       "english": "Kimura-san is not an office worker.",
-      "note": "casual-polite · occupation"
+      "note": "polite (conversational) · occupation"
     },
     {
       "ruby": "[昨日|きのう]はテストじゃなかったです。",
       "english": "Yesterday wasn't a test day.",
-      "note": "casual-polite · past · event"
+      "note": "polite (conversational) · past · event"
     }
   ],
   "dialogue": [
@@ -186,16 +186,16 @@
   ],
   "checks": [
     {
-      "prompt": "私は先生（　）。(casual-polite negative)",
+      "prompt": "Polite (conversational): 私は先生（　）。",
       "options": ["じゃありませんでした", "じゃないです", "だじゃないです"],
       "answer_idx": 1,
-      "why": "Present casual-polite negative → じゃないです."
+      "why": "Present polite (conversational) negative → じゃないです."
     },
     {
-      "prompt": "Formal: 私は学生（　）。",
+      "prompt": "Polite (formal): 私は学生（　）。",
       "options": ["じゃないです", "じゃないでした", "ではありません"],
       "answer_idx": 2,
-      "why": "Formal present negative → ではありません."
+      "why": "Present polite (formal) negative → ではありません."
     },
     {
       "prompt": "Fix: 学生じゃないでした。",

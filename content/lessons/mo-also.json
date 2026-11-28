@@ -64,7 +64,7 @@
     {
       "wrong_ruby": "[私|わたし]はも[学生|がくせい]です。",
       "right_ruby": "[私|わたし]も[学生|がくせい]です。",
-      "why": "も replaces は; stacking はも is ungrammatical. This is the Unit 1 home for ×私はも."
+      "why": "も replaces は; stacking はも is ungrammatical."
     },
     {
       "wrong_ruby": "[私|わたし]は[学生|がくせい]もです。",
