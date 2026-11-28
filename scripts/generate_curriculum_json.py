@@ -31,14 +31,14 @@ UNITS: list[dict] = [
     ["numbers-counters", "Numbers and counters", "〜つ・〜人・〜本・〜枚・〜円, sound changes, counter after the particle: りんごが三つあります", "aru-iru", "keep"],
   ], "contrasts": ["contrast-to-ya: と vs や (complete vs open list)"], "dojo": "Counter readings: いっぽん, さんぼん, ろっぽん", "reading": "私の部屋: what is where, polite, about 100–120 characters" },
   { "n": 3, "level": "N5", "title": "Doing things", "goal": "Describe a day with ます verbs and the action particles.", "points": [
-    ["masu-form", "Verb-ます", "ます・ません・ました・ませんでした; the three verb groups", "desu-da", "new"],
-    ["wo-object", "を (object)", "What the action is done to: 本を読みます", "masu-form", "new"],
-    ["de-place", "で (place of action)", "Where an action happens: 図書館で勉強します", "masu-form", "new"],
-    ["ni-destination", "に (destination)", "Where you go, come or return to", "masu-form", "new"],
-    ["he-direction", "へ (direction)", "Toward; overlaps with に for movement", "ni-destination", "new"],
-    ["ni-time", "に (time) and telling time", "〜時・〜分・曜日に, ごろ; no に with 今日 or 毎日", "masu-form,numbers-counters", "new"],
-    ["de-means", "で (means)", "Tool, transport, language: バスで, 日本語で", "de-place", "new"],
-    ["to-with", "と (together with)", "Doing something with someone: 友達と", "to-and,masu-form", "new"],
+    ["masu-form", "Verb-ます", "ます・ません・ました・ませんでした; the three verb groups", "desu-da", "keep"],
+    ["wo-object", "を (object)", "What the action is done to: 本を読みます", "masu-form", "keep"],
+    ["de-place", "で (place of action)", "Where an action happens: 図書館で勉強します", "masu-form", "keep"],
+    ["ni-destination", "に (destination)", "Where you go, come or return to", "masu-form", "keep"],
+    ["he-direction", "へ (direction)", "Toward; overlaps with に for movement", "ni-destination", "keep"],
+    ["ni-time", "に (time) and telling time", "〜時・〜分・曜日に, ごろ; no に with 今日 or 毎日", "masu-form,numbers-counters", "keep"],
+    ["de-means", "で (means)", "Tool, transport, language: バスで, 日本語で", "de-place", "keep"],
+    ["to-with", "と (together with)", "Doing something with someone: 友達と", "to-and,masu-form", "keep"],
   ], "contrasts": ["contrast-ni-de: に vs で for places (exists there vs happens there)", "contrast-ni-he: に vs へ (both fine for movement; where only に works)"], "dojo": "ます forms of every verb group, including する and 来る", "reading": "My weekend: a polite diary entry" },
   { "n": 4, "level": "N5", "title": "Describing and asking", "goal": "Describe things, say what you like, order and invite.", "points": [
     ["i-adjective", "い-adjectives", "Present, negative, past, before nouns; いい→よくない", "desu-da", "new"],
@@ -254,6 +254,8 @@ UNITS: list[dict] = [
 # Contrasts that are already seeded as keep/existing (default: planned/new).
 CONTRAST_SOURCES: dict[str, str] = {
     "contrast-to-ya": "keep",
+    "contrast-ni-de": "keep",
+    "contrast-ni-he": "keep",
 }
 
 # Explicit contrast member overrides when inference from unit points is ambiguous.

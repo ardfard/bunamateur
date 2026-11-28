@@ -1,0 +1,215 @@
+{
+  "meaning": "と (together with) · with someone",
+  "gist": "[友達|ともだち]と[映画|えいが]を[見|み]ます。 Person + と marks who you do the action with. This is not list と (パンと卵). Alone is [一人|ひとり]で — never ×一人と.",
+  "formation": {
+    "columns": ["Pattern", "Shape", "Example"],
+    "rows": [
+      [
+        "With someone",
+        "Person と + Vます",
+        "[友達|ともだち]と[行|い]きます"
+      ],
+      [
+        "With + object",
+        "Person と + Nを + Vます",
+        "[友達|ともだち]と[映画|えいが]を[見|み]ます"
+      ],
+      [
+        "With + place / time",
+        "Timeに Placeで Personと Vます",
+        "[土曜日|どようび]にカフェで[友達|ともだち]と[食|た]べます"
+      ],
+      [
+        "Alone (not と)",
+        "一人で + Vます",
+        "[一人|ひとり]で[勉強|べんきょう]します"
+      ],
+      [
+        "List と (Unit 2)",
+        "N₁ と N₂ が あります",
+        "パンと[卵|たまご]があります"
+      ]
+    ],
+    "note": "Personと = together with that person. NounとNoun = complete list (Unit 2). Alone → 一人で, not ×一人と."
+  },
+  "explanation": "と after a person means \"together with\": 友達と映画を見ます / 田中さんと話します. The rest of the sentence can still use object を, place で, time に, and destination に / へ: 土曜日に友達と駅に行きます. Do not confuse this with list と from Unit 2 (パンと卵があります) — that と joins nouns into a complete inventory, not a companion. For alone, use 一人で: 一人で勉強します (never ×一人と).",
+  "senses": [
+    {
+      "label": "Companion + action",
+      "body": "Personと + verb: do the action with that person.",
+      "example_ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "example_en": "I watch a movie with a friend."
+    },
+    {
+      "label": "Companion + place / time",
+      "body": "Stack with time に and place で as usual.",
+      "example_ruby": "[土曜日|どようび]にカフェで[友達|ともだち]と[食|た]べます。",
+      "example_en": "On Saturday I eat with a friend at a café."
+    },
+    {
+      "label": "一人で — alone",
+      "body": "Alone uses で, not companion と.",
+      "example_ruby": "[一人|ひとり]で[本|ほん]を[読|よ]みます。",
+      "example_en": "I read a book alone."
+    },
+    {
+      "label": "Not list と",
+      "body": "パンと卵があります is a complete noun list — different job.",
+      "example_ruby": "パンと[卵|たまご]があります。",
+      "example_en": "There are bread and eggs. (list と)"
+    }
+  ],
+  "register_context": "Polite: PersonとVます / PersonとNをVます. Questions: だれと行きますか / 友達と見ますか. Works with all prior Unit 3 particles in one sentence when the scene needs them.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[一人|ひとり]と[映画|えいが]を[見|み]ます。",
+      "right_ruby": "[一人|ひとり]で[映画|えいが]を[見|み]ます。",
+      "why": "Alone is 一人で, not ×一人と."
+    },
+    {
+      "wrong_ruby": "[友達|ともだち]で[映画|えいが]を[見|み]ます。",
+      "right_ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "why": "Companion takes と. で would treat 友達 like a place or means."
+    },
+    {
+      "wrong_ruby": "[友達|ともだち]を[映画|えいが]を[見|み]ます。",
+      "right_ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "why": "The person you go with is と; を marks the object (映画を)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "to-and",
+      "label": "と-with vs と-and",
+      "summary": "友達と見ます = with a friend. パンと卵があります = bread and eggs (complete list).",
+      "ex_a_ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "ex_a_en": "I watch a movie with a friend. (companion)",
+      "ex_b_ruby": "パンと[卵|たまご]があります。",
+      "ex_b_en": "There are bread and eggs. (complete list)"
+    },
+    {
+      "other_slug": null,
+      "label": "と companion vs 一人で",
+      "summary": "友達と = with someone. 一人で = alone.",
+      "ex_a_ruby": "[友達|ともだち]と[行|い]きます。",
+      "ex_a_en": "I go with a friend.",
+      "ex_b_ruby": "[一人|ひとり]で[行|い]きます。",
+      "ex_b_en": "I go alone."
+    },
+    {
+      "other_slug": null,
+      "label": "と vs で on people",
+      "summary": "Personと = together with. Placeで / meansで are different jobs.",
+      "ex_a_ruby": "[田中|たなか]さんと[話|はな]します。",
+      "ex_a_en": "I talk with Tanaka-san.",
+      "ex_b_ruby": "カフェで[話|はな]します。",
+      "ex_b_en": "I talk at a café. (place で)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "english": "I watch a movie with a friend.",
+      "note": "companion + object"
+    },
+    {
+      "ruby": "[田中|たなか]さんと[話|はな]します。",
+      "english": "I talk with Tanaka-san.",
+      "note": "companion"
+    },
+    {
+      "ruby": "[友達|ともだち]と[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school with a friend.",
+      "note": "companion + destination"
+    },
+    {
+      "ruby": "[土曜日|どようび]に[友達|ともだち]とカフェで[食|た]べます。",
+      "english": "On Saturday I eat with a friend at a café.",
+      "note": "time + companion + place"
+    },
+    {
+      "ruby": "[一人|ひとり]で[勉強|べんきょう]します。",
+      "english": "I study alone.",
+      "note": "一人で"
+    },
+    {
+      "ruby": "[七時|しちじ]に[友達|ともだち]と[駅|えき]で[会|あ]います。",
+      "english": "I meet a friend at the station at seven.",
+      "note": "time + companion + place"
+    },
+    {
+      "ruby": "[友達|ともだち]と[音楽|おんがく]を[聞|き]きます。",
+      "english": "I listen to music with a friend.",
+      "note": "companion + object"
+    },
+    {
+      "ruby": "[一人|ひとり]で[本|ほん]を[読|よ]みます。",
+      "english": "I read a book alone.",
+      "note": "alone"
+    },
+    {
+      "ruby": "[山田|やまだ]さんと[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I study with Yamada-san at the library.",
+      "note": "companion + place"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[土曜日|どようび]に[何|なに]をしますか。",
+      "english": "What will you do on Saturday?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。[一時|いちじ]にカフェで[会|あ]います。",
+      "english": "I'll watch a movie with a friend. We'll meet at a café at one."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[日曜日|にちようび]は。",
+      "english": "And Sunday?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[一人|ひとり]で[家|いえ]で[本|ほん]を[読|よ]みます。",
+      "english": "I'll read a book at home alone."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "友達（　）映画を見ます。 (with a friend)",
+      "options": ["で", "を", "と"],
+      "answer_idx": 2,
+      "why": "Companion → 友達と."
+    },
+    {
+      "prompt": "Alone:",
+      "options": ["一人と勉強します。", "一人で勉強します。", "一人に勉強します。"],
+      "answer_idx": 1,
+      "why": "Alone is 一人で, not ×一人と."
+    },
+    {
+      "prompt": "Which uses companion と?",
+      "options": ["パンと卵があります。", "友達と行きます。", "電車で行きます。"],
+      "answer_idx": 1,
+      "why": "友達と = with a friend. パンと卵 is list と."
+    },
+    {
+      "prompt": "田中さん（　）話します。",
+      "options": ["と", "で", "を"],
+      "answer_idx": 0,
+      "why": "Talk with someone → Personと話します."
+    },
+    {
+      "prompt": "Fix: 一人と映画を見ます。",
+      "options": ["一人で映画を見ます。", "一人が映画を見ます。", "一人を映画を見ます。"],
+      "answer_idx": 0,
+      "why": "Alone → 一人で."
+    }
+  ],
+  "related": {
+    "prerequisites": ["to-and", "masu-form"],
+    "next": ["contrast-ni-de"]
+  },
+  "lesson_version": 1
+}

@@ -1,0 +1,261 @@
+{
+  "meaning": "で · place of action (\"at / in\" where you do something)",
+  "gist": "[図書館|としょかん]で[勉強|べんきょう]します。 で marks the place where an action happens. Pattern: Place + で + (objectを) + verb-ます. This is different from existence に ([部屋|へや]に[猫|ねこ]がいます) — で is for doing, not just being there.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Place",
+      "Action",
+      "Full sentence"
+    ],
+    "rows": [
+      [
+        "Placeで + Vます",
+        "[図書館|としょかん]",
+        "[勉強|べんきょう]します",
+        "[図書館|としょかん]で[勉強|べんきょう]します。"
+      ],
+      [
+        "Placeで + Nを + Vます",
+        "カフェ",
+        "コーヒーを[飲|の]みます",
+        "カフェでコーヒーを[飲|の]みます。"
+      ],
+      [
+        "Placeで + Nを + Vます",
+        "[家|いえ]",
+        "[本|ほん]を[読|よ]みます",
+        "[家|いえ]で[本|ほん]を[読|よ]みます。"
+      ],
+      [
+        "Placeで + Nを + Vます",
+        "[学校|がっこう]",
+        "[日本語|にほんご]を[話|はな]します",
+        "[学校|がっこう]で[日本語|にほんご]を[話|はな]します。"
+      ]
+    ],
+    "note": "で sits on the place of the action. You can still use を for objects: カフェでコーヒーを飲みます. で here is place-of-action only. Means/tool で (バスで) is a different use of the same particle."
+  },
+  "explanation": "で tells where you do something: [図書館|としょかん]で[勉強|べんきょう]します (study at the library), [家|いえ]で[本|ほん]を[読|よ]みます (read at home). Combine it with object を when needed: カフェでコーヒーを[飲|の]みます. You already know に for where something exists ([部屋|へや]に[猫|ねこ]がいます). For actions, the place takes で. Keep existence に and action で separate in your mind: being somewhere vs doing something somewhere.",
+  "senses": [
+    {
+      "label": "Place of studying / working",
+      "body": "Mark where you study or do an activity with で.",
+      "example_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "example_en": "I study at the library."
+    },
+    {
+      "label": "Place + object + verb",
+      "body": "Placeで and objectを work together in one sentence.",
+      "example_ruby": "カフェでコーヒーを[飲|の]みます。",
+      "example_en": "I drink coffee at a café."
+    },
+    {
+      "label": "Home and school as action places",
+      "body": "[家|いえ]で / [学校|がっこう]で mark where the action happens.",
+      "example_ruby": "[家|いえ]で[本|ほん]を[読|よ]みます。",
+      "example_en": "I read a book at home."
+    },
+    {
+      "label": "Speaking / listening somewhere",
+      "body": "Languages and media still take を; the place takes で.",
+      "example_ruby": "[学校|がっこう]で[日本語|にほんご]を[話|はな]します。",
+      "example_en": "I speak Japanese at school."
+    }
+  ],
+  "register_context": "Polite classroom default: Placeで + (Nを) + verb-ます. Use the same polite ます set you already know. Here で marks place of action. Means/tool で (バスで行きます) is separate.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[図書館|としょかん]に[勉強|べんきょう]します。",
+      "right_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "why": "Place of an action takes で, not existence に."
+    },
+    {
+      "wrong_ruby": "[勉強|べんきょう]しますで[図書館|としょかん]。",
+      "right_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "why": "で attaches to the place noun before the verb."
+    },
+    {
+      "wrong_ruby": "カフェをコーヒーで[飲|の]みます。",
+      "right_ruby": "カフェでコーヒーを[飲|の]みます。",
+      "why": "Place takes で; object takes を. Do not swap them."
+    },
+    {
+      "wrong_ruby": "[家|いえ]が[本|ほん]を[読|よ]みます。",
+      "right_ruby": "[家|いえ]で[本|ほん]を[読|よ]みます。",
+      "why": "The place of reading needs で, not が."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ni-location",
+      "label": "に (existence) vs で (action)",
+      "summary": "[部屋|へや]に[猫|ねこ]がいます locates existence. [部屋|へや]で[勉強|べんきょう]します locates an action.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room.",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room."
+    },
+    {
+      "other_slug": null,
+      "label": "を (object) vs で (place)",
+      "summary": "を marks what you act on; で marks where you act.",
+      "ex_a_ruby": "コーヒーを[飲|の]みます。",
+      "ex_a_en": "I drink coffee.",
+      "ex_b_ruby": "カフェでコーヒーを[飲|の]みます。",
+      "ex_b_en": "I drink coffee at a café."
+    },
+    {
+      "other_slug": null,
+      "label": "Bare action vs action in a place",
+      "summary": "[勉強|べんきょう]します names the action. [図書館|としょかん]で[勉強|べんきょう]します adds where.",
+      "ex_a_ruby": "[勉強|べんきょう]します。",
+      "ex_a_en": "I study.",
+      "ex_b_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study at the library."
+    },
+    {
+      "other_slug": "contrast-ni-de",
+      "label": "に vs で contrast lesson",
+      "summary": "に marks where something exists; で marks where an action happens. This lesson focuses on action で; the contrast lesson drills both.",
+      "ex_a_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "ex_a_en": "I study at the library. (action place で)",
+      "ex_b_ruby": "[図書館|としょかん]に[本|ほん]があります。",
+      "ex_b_en": "There are books in the library. (existence に)"
+    },
+    {
+      "other_slug": "de-means",
+      "label": "で place vs で means",
+      "summary": "で can mark where you act, or the tool/transport you use. Place: 図書館で勉強します. Means: バスで行きます.",
+      "ex_a_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "ex_a_en": "I study at the library. (place)",
+      "ex_b_ruby": "バスで[行|い]きます。",
+      "ex_b_en": "I go by bus. (means)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I study at the library.",
+      "note": "place of action"
+    },
+    {
+      "ruby": "カフェでコーヒーを[飲|の]みます。",
+      "english": "I drink coffee at a café.",
+      "note": "place + object"
+    },
+    {
+      "ruby": "[家|いえ]で[本|ほん]を[読|よ]みます。",
+      "english": "I read a book at home.",
+      "note": "home · action"
+    },
+    {
+      "ruby": "[学校|がっこう]で[日本語|にほんご]を[話|はな]します。",
+      "english": "I speak Japanese at school.",
+      "note": "school · speak"
+    },
+    {
+      "ruby": "[教室|きょうしつ]で[音楽|おんがく]を[聞|き]きます。",
+      "english": "I listen to music in the classroom.",
+      "note": "classroom · listen"
+    },
+    {
+      "ruby": "[駅|えき]で[新聞|しんぶん]を[買|か]います。",
+      "english": "I buy a newspaper at the station.",
+      "note": "station · buy"
+    },
+    {
+      "ruby": "[部屋|へや]で[手紙|てがみ]を[書|か]きます。",
+      "english": "I write a letter in the room.",
+      "note": "room · write"
+    },
+    {
+      "ruby": "[私|わたし]は[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I study at the library.",
+      "note": "topic + place"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "どこで[勉強|べんきょう]しますか。",
+      "english": "Where do you study?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I study at the library."
+    },
+    {
+      "speaker": "A",
+      "ruby": "カフェでコーヒーを[飲|の]みますか。",
+      "english": "Do you drink coffee at a café?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[飲|の]みます。[家|いえ]でも[本|ほん]を[読|よ]みます。",
+      "english": "Yes, I do. I also read books at home."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "図書館（　）勉強します。",
+      "options": [
+        "に",
+        "で",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "Place of action → 図書館で勉強します."
+    },
+    {
+      "prompt": "カフェ（　）コーヒーを飲みます。",
+      "options": [
+        "に",
+        "で",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "Place of the action takes で: カフェでコーヒーを飲みます. に would be existence/destination, not this action place."
+    },
+    {
+      "prompt": "Context: I read a book at home.",
+      "options": [
+        "家に本を読みます。",
+        "家を本で読みます。",
+        "家で本を読みます。"
+      ],
+      "answer_idx": 2,
+      "why": "Action place → で. ×家に… uses existence に; ×家を本で… swaps particles."
+    },
+    {
+      "prompt": "学校（　）日本語を話します。",
+      "options": [
+        "が",
+        "を",
+        "で"
+      ],
+      "answer_idx": 2,
+      "why": "Place of speaking → 学校で."
+    },
+    {
+      "prompt": "部屋（　）勉強します。 (I study in the room.)",
+      "options": [
+        "で",
+        "に",
+        "を"
+      ],
+      "answer_idx": 0,
+      "why": "Action in a place → 部屋で勉強します (existence would be 部屋に…がいます)."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masu-form"
+    ],
+    "next": [
+      "ni-destination"
+    ]
+  },
+  "lesson_version": 1
+}

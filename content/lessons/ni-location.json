@@ -99,6 +99,24 @@
       "ex_a_en": "There's a cat in the room.",
       "ex_b_ruby": "[猫|ねこ]は[部屋|へや]にいます。",
       "ex_b_en": "As for the cat, it's in the room."
+    },
+    {
+      "other_slug": "de-place",
+      "label": "に existence vs で action place",
+      "summary": "部屋に猫がいます locates existence. 部屋で勉強します locates an action.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room. (existence に)",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room. (action で)"
+    },
+    {
+      "other_slug": "contrast-ni-de",
+      "label": "に vs で contrast lesson",
+      "summary": "Same pair drilled as a dedicated contrast: existence に vs action で.",
+      "ex_a_ruby": "[図書館|としょかん]に[本|ほん]があります。",
+      "ex_a_en": "There are books in the library. (existence に)",
+      "ex_b_ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+      "ex_b_en": "I read a book at the library. (action で)"
     }
   ],
   "examples": [

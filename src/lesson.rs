@@ -468,12 +468,22 @@ mod tests {
             "ya-nado",
             "numbers-counters",
             "contrast-to-ya",
+            "masu-form",
+            "wo-object",
+            "de-place",
+            "ni-destination",
+            "he-direction",
+            "ni-time",
+            "de-means",
+            "to-with",
+            "contrast-ni-de",
+            "contrast-ni-he",
         ] {
             assert!(
                 lessons.contains_key(slug),
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 43);
+        assert_eq!(lessons.len(), 53);
     }
 }

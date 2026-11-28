@@ -1,0 +1,260 @@
+{
+  "meaning": "verb-ます · polite present / past affirmative and negative",
+  "gist": "Polite verbs end in ます: [食|た]べます / [行|い]きます / します. The same stem builds ません (negative), ました (past), and ませんでした (past negative). Japanese verbs fall into three groups — ru-verbs, u-verbs, and irregular する / [来|く]る — that each form the ます stem differently.",
+  "formation": {
+    "columns": [
+      "Group",
+      "Dictionary",
+      "ます form",
+      "Example"
+    ],
+    "rows": [
+      [
+        "ru-verbs",
+        "[食|た]べる / [見|み]る",
+        "[食|た]べます / [見|み]ます",
+        "[食|た]べます。 / [見|み]ます。"
+      ],
+      [
+        "u-verbs",
+        "[書|か]く / [読|よ]む / [買|か]う",
+        "[書|か]きます / [読|よ]みます / [買|か]います",
+        "[書|か]きます。 / [読|よ]みます。"
+      ],
+      [
+        "irregular",
+        "する / [来|く]る",
+        "します / [来|き]ます",
+        "します。 / [来|き]ます。"
+      ],
+      [
+        "Negative",
+        "—",
+        "stem + ません",
+        "[食|た]べません。 / [行|い]きません。"
+      ],
+      [
+        "Past / past negative",
+        "—",
+        "ました / ませんでした",
+        "[行|い]きました。 / [行|い]きませんでした。"
+      ]
+    ],
+    "note": "Dictionary forms appear here only as citation. In speech and examples, use polite ます forms. A few verbs look like ru-verbs but are u-verbs: [帰|かえ]る→[帰|かえ]ります, [入|はい]る→[入|はい]ります, [切|き]る→[切|き]ります, [知|し]る→[知|し]ります, [走|はし]る→[走|はし]ります (not ×[帰|かえ]ます)."
+  },
+  "explanation": "ます is the polite verb ending you will use most of the time in class. Affirmative present/future is stem + ます ([食|た]べます). Negative is stem + ません ([食|た]べません). Past is stem + ました ([食|た]べました); past negative is stem + ませんでした ([食|た]べませんでした). Ru-verbs drop る and add ます: [食|た]べる→[食|た]べます, [見|み]る→[見|み]ます, [起|お]きる→[起|お]きます, [寝|ね]る→[寝|ね]ます. U-verbs change the final u-sound to the matching i-sound before ます: [書|か]く→[書|か]きます, [読|よ]む→[読|よ]みます, [飲|の]む→[飲|の]みます, [話|はな]す→[話|はな]します, [買|か]う→[買|か]います, [待|ま]つ→[待|ま]ちます, [行|い]く→[行|い]きます, [会|あ]う→[会|あ]います, [聞|き]く→[聞|き]きます. Irregular: する→します, [来|く]る→[来|き]ます. Watch look-alikes like [帰|かえ]る — it is a u-verb ([帰|かえ]ります), not ×[帰|かえ]ます.",
+  "senses": [
+    {
+      "label": "Affirmative ます",
+      "body": "Present or near-future polite action: stem + ます.",
+      "example_ruby": "[食|た]べます。",
+      "example_en": "I eat. / I will eat."
+    },
+    {
+      "label": "Negative ません",
+      "body": "Polite \"do not / will not\": stem + ません.",
+      "example_ruby": "[行|い]きません。",
+      "example_en": "I don't go. / I won't go."
+    },
+    {
+      "label": "Past ました",
+      "body": "Polite completed action: stem + ました.",
+      "example_ruby": "[起|お]きました。",
+      "example_en": "I got up. / I woke up."
+    },
+    {
+      "label": "Past negative ませんでした",
+      "body": "Polite \"did not\": stem + ませんでした.",
+      "example_ruby": "[寝|ね]ませんでした。",
+      "example_en": "I didn't sleep. / I didn't go to bed."
+    },
+    {
+      "label": "Three verb groups",
+      "body": "Ru-verbs drop る ([見|み]ます). U-verbs shift to an i-sound ([読|よ]みます). Irregular: します / [来|き]ます.",
+      "example_ruby": "[読|よ]みます。 / します。 / [来|き]ます。",
+      "example_en": "I read. / I do. / I come."
+    }
+  ],
+  "register_context": "Classroom default is polite ます / ません / ました / ませんでした. Keep dictionary forms for looking verbs up — not for classroom sentences yet. Topic は / も work with these verbs: [私|わたし]は[寝|ね]ます / [田中|たなか]さんも[起|お]きます.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[帰|かえ]ます。",
+      "right_ruby": "[帰|かえ]ります。",
+      "why": "[帰|かえ]る looks like a ru-verb but is a u-verb → [帰|かえ]ります, not ×[帰|かえ]ます. Same pattern for [入|はい]る / [切|き]る / [知|し]る / [走|はし]る."
+    },
+    {
+      "wrong_ruby": "[食|た]べる。",
+      "right_ruby": "[食|た]べます。",
+      "why": "In polite classroom speech, use ます — not the dictionary form alone."
+    },
+    {
+      "wrong_ruby": "するます。",
+      "right_ruby": "します。",
+      "why": "する is irregular: する → します (not ×するます)."
+    },
+    {
+      "wrong_ruby": "[来|く]ます。",
+      "right_ruby": "[来|き]ます。",
+      "why": "[来|く]る is irregular: the stem is [来|き], so [来|き]ます (reading きます)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "ます vs ません",
+      "summary": "ます affirms the action; ません denies it. Same stem either way.",
+      "ex_a_ruby": "[食|た]べます。",
+      "ex_a_en": "I eat. / I will eat.",
+      "ex_b_ruby": "[食|た]べません。",
+      "ex_b_en": "I don't eat. / I won't eat."
+    },
+    {
+      "other_slug": null,
+      "label": "ました vs ませんでした",
+      "summary": "ました is polite past; ませんでした is polite past negative.",
+      "ex_a_ruby": "[行|い]きました。",
+      "ex_a_en": "I went.",
+      "ex_b_ruby": "[行|い]きませんでした。",
+      "ex_b_en": "I didn't go."
+    },
+    {
+      "other_slug": null,
+      "label": "Noun + です vs verb + ます",
+      "summary": "です equates nouns ([学生|がくせい]です). ます conjugates verbs ([食|た]べます). Do not mix endings (×[食|た]べです).",
+      "ex_a_ruby": "[学生|がくせい]です。",
+      "ex_a_en": "I am a student.",
+      "ex_b_ruby": "[食|た]べます。",
+      "ex_b_en": "I eat. / I will eat."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[食|た]べます。",
+      "english": "I eat. / I will eat.",
+      "note": "ru-verb · affirmative"
+    },
+    {
+      "ruby": "[見|み]ます。",
+      "english": "I watch. / I look.",
+      "note": "ru-verb"
+    },
+    {
+      "ruby": "[読|よ]みます。",
+      "english": "I read.",
+      "note": "u-verb"
+    },
+    {
+      "ruby": "[買|か]います。",
+      "english": "I buy.",
+      "note": "u-verb · う→い"
+    },
+    {
+      "ruby": "します。",
+      "english": "I do.",
+      "note": "irregular · する"
+    },
+    {
+      "ruby": "[来|き]ます。",
+      "english": "I come.",
+      "note": "irregular · 来る"
+    },
+    {
+      "ruby": "[私|わたし]は[寝|ね]ます。",
+      "english": "I sleep. / I go to bed.",
+      "note": "topic は + ます"
+    },
+    {
+      "ruby": "[田中|たなか]さんも[起|お]きます。",
+      "english": "Tanaka-san gets up too.",
+      "note": "も + ます"
+    },
+    {
+      "ruby": "[帰|かえ]りませんでした。",
+      "english": "I didn't go home. / (Someone) didn't return.",
+      "note": "u-verb look-alike · past negative"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[朝|あさ]、[起|お]きますか。",
+      "english": "Do you get up in the morning?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[起|お]きます。[食|た]べます。それから[行|い]きます。",
+      "english": "Yes, I get up. I eat. Then I go."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[土曜日|どようび]も[行|い]きますか。",
+      "english": "Do you go on Saturday too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[行|い]きません。[寝|ね]ます。",
+      "english": "No, I don't go. I sleep in. / I go to bed."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "食べる → polite form.",
+      "options": [
+        "食べます",
+        "食べります",
+        "食べるます"
+      ],
+      "answer_idx": 0,
+      "why": "Ru-verb: drop る → 食べます."
+    },
+    {
+      "prompt": "帰る → polite form.",
+      "options": [
+        "帰ます",
+        "帰ります",
+        "帰えます"
+      ],
+      "answer_idx": 1,
+      "why": "帰る is a u-verb look-alike → 帰ります, not ×帰ます."
+    },
+    {
+      "prompt": "する → polite form.",
+      "options": [
+        "するます",
+        "します",
+        "すます"
+      ],
+      "answer_idx": 1,
+      "why": "Irregular: する → します."
+    },
+    {
+      "prompt": "行き（　）。 (I didn't go.)",
+      "options": [
+        "ました",
+        "ません",
+        "ませんでした"
+      ],
+      "answer_idx": 2,
+      "why": "Past negative → 行きませんでした."
+    },
+    {
+      "prompt": "来る → polite form (reading).",
+      "options": [
+        "きます",
+        "くます",
+        "こます"
+      ],
+      "answer_idx": 0,
+      "why": "来る → 来ます, read きます."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "desu-da"
+    ],
+    "next": [
+      "wo-object"
+    ]
+  },
+  "lesson_version": 1
+}

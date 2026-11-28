@@ -742,7 +742,8 @@ fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
 
 /// Known wrong readings that must grade Incorrect (never typo forgiveness).
 /// Pairs are (wrong_form, correct_form); both compared after `normalize_jp`.
-/// Covers counter sound-change mistakes taught in numbers-counters.
+/// Covers counter sound-change mistakes (numbers-counters) and clock/minute
+/// misreadings taught in ni-time.
 const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("さんほん", "さんぼん"),
     ("さんほん", "三本"),
@@ -756,7 +757,28 @@ const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("きゅうぼん", "九本"),
     ("みつ", "みっつ"),
     ("みつ", "三つ"),
+    // Clock hours (ni-time)
+    ("よんじ", "よじ"),
+    ("よんじ", "四時"),
+    ("ななじ", "しちじ"),
+    ("ななじ", "七時"),
+    ("きゅうじ", "くじ"),
+    ("きゅうじ", "九時"),
+    // Minutes (ni-time)
+    ("いちぷん", "いっぷん"),
+    ("いちぷん", "一分"),
+    ("さんふん", "さんぷん"),
+    ("さんふん", "三分"),
+    ("ろくふん", "ろっぷん"),
+    ("ろくふん", "六分"),
+    ("じゅうふん", "じゅっぷん"),
+    ("じゅうふん", "十分"),
+    ("じゅうふん", "じっぷん"),
+    ("じっふん", "じゅっぷん"),
+    ("じっふん", "十分"),
+    ("じっふん", "じっぷん"),
 ];
+// Note: じっぷん is a valid alternate of じゅっぷん — do not list it as incorrect.
 
 fn is_known_incorrect_form(norm_in: &str, targets: &[String]) -> bool {
     KNOWN_INCORRECT_FORMS.iter().any(|(wrong, correct)| {
@@ -1110,6 +1132,41 @@ mod tests {
             grade_answer("みつ", "三つ", &["みっつ".into()], ""),
             GradeOutcome::Incorrect
         );
+
+        // Clock / minute misreadings (ni-time) must not get typo forgiveness
+        assert_eq!(
+            grade_answer("よんじ", "四時", &["よじ".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ななじ", "七時", &["しちじ".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("きゅうじ", "九時", &["くじ".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("いちぷん", "一分", &["いっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("さんふん", "三分", &["さんぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ろくふん", "六分", &["ろっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("じゅうふん", "十分", &["じゅっぷん".into(), "じっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        // じっぷん is a valid alternate reading, not a known-incorrect form
+        assert!(matches!(
+            grade_answer("じっぷん", "十分", &["じゅっぷん".into(), "じっぷん".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
 
         // Wrong grammar form — not Correct
         assert!(!matches!(

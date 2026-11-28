@@ -251,10 +251,10 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 17
         },
         {
@@ -264,10 +264,10 @@
           "prerequisites": [
             "masu-form"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 18
         },
         {
@@ -277,10 +277,10 @@
           "prerequisites": [
             "masu-form"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 19
         },
         {
@@ -290,10 +290,10 @@
           "prerequisites": [
             "masu-form"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 20
         },
         {
@@ -303,10 +303,10 @@
           "prerequisites": [
             "ni-destination"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 21
         },
         {
@@ -317,10 +317,10 @@
             "masu-form",
             "numbers-counters"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 22
         },
         {
@@ -330,10 +330,10 @@
           "prerequisites": [
             "de-place"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 23
         },
         {
@@ -344,10 +344,10 @@
             "to-and",
             "masu-form"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 24
         },
         {
@@ -358,10 +358,10 @@
             "ni-location",
             "de-place"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "contrast",
-          "source": "new",
+          "source": "keep",
           "sort_order": 25
         },
         {
@@ -372,10 +372,10 @@
             "ni-destination",
             "he-direction"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "contrast",
-          "source": "new",
+          "source": "keep",
           "sort_order": 26
         }
       ]
@@ -3261,7 +3261,7 @@
     }
   ],
   "meta": {
-    "seed_slug_count": 78,
+    "seed_slug_count": 88,
     "curriculum_point_count": 216,
     "missing_keep_slugs": [],
     "seeded_in_units": [
@@ -3270,10 +3270,15 @@
       "ba-conditional",
       "bakari",
       "beki-da",
+      "contrast-ni-de",
+      "contrast-ni-he",
       "contrast-to-ya",
+      "de-means",
+      "de-place",
       "desu-da",
       "ga-subject",
       "hazu-da",
+      "he-direction",
       "hou-ga-ii",
       "ippou-da",
       "ja-nai",
@@ -3289,15 +3294,18 @@
       "koto-ni-suru",
       "koto-wa-nai",
       "mae-ni",
+      "masu-form",
       "mo-also",
       "nagara",
       "nakereba-naranai",
       "nakute-mo-ii",
       "nara-conditional",
       "ni-chigainai",
+      "ni-destination",
       "ni-kurabete",
       "ni-location",
       "ni-taishite",
+      "ni-time",
       "ni-totte",
       "ni-tsuite",
       "ni-tsurete",
@@ -3327,11 +3335,13 @@
       "to-iu-koto-da",
       "to-omou",
       "to-shitara",
+      "to-with",
       "tsumori",
       "uchi-ni",
       "wa-topic",
       "wake-dewa-nai",
       "wake-niwa-ikanai",
+      "wo-object",
       "ya-nado",
       "yasui-nikui",
       "you-da",
