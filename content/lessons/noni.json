@@ -31,7 +31,7 @@
     ],
     "note": "Attach のに to the plain form — never ます/です (*降りますのに). Nouns and な-adjectives need な (日曜日なのに), not だ (*日曜日だのに). い-adjectives take no な (*忙しいなのに)."
   },
-  "explanation": "のに links a known fact to a result that goes against what you expected: 雨が降ったのに、ピクニックに行きました = \"Even though it rained, we went on a picnic.\" The first clause is real (not hypothetical); the second carries surprise, disappointment, or frustration. Nouns and な-adjectives insert な: 日曜日なのに、会社で働かなければなりません. Unlike softer けど / けれど, のに does not lead into invitations or requests — *雨が降っているのに、行きましょう is unnatural; use ても for \"even if / even though, let's…\". A different N3 のに marks purpose with evaluative / utility predicates (かかる, 使う, 便利だ, 必要だ, 役に立つ): 駅まで行くのに十分かかります — same form, different meaning. Regular volitional motion verbs like 走る take ために / ように, not purpose のに.",
+  "explanation": "のに links a known fact to a result that goes against what you expected: 約束したのに、彼は来なかった = \"Even though he promised, he didn't come.\" The first clause is real (not hypothetical); the second carries surprise, disappointment, or frustration. Nouns and な-adjectives insert な: 日曜日なのに、会社で働かなければなりません. Unlike softer けど / けれど, のに does not lead into invitations or requests — *雨が降っているのに、行きましょう is unnatural; use ても for \"even if / even though, let's…\". A different N3 のに marks purpose with evaluative / utility predicates (かかる, 使う, 便利だ, 必要だ, 役に立つ): 駅まで行くのに十分かかります — same form, different meaning. Regular volitional motion verbs like 走る take ために / ように, not purpose のに.",
   "senses": [
     {
       "label": "Despite a real fact (surprise / frustration)",
@@ -76,9 +76,9 @@
       "why": "のに cannot be followed by a volitional / invitation. Use ても (\"even if\") or rephrase without のに."
     },
     {
-      "wrong_ruby": "[雨|あめ]が[降|ふ]りますのに、ピクニックに[行|い]きました。",
-      "right_ruby": "[雨|あめ]が[降|ふ]ったのに、ピクニックに[行|い]きました。",
-      "why": "のに attaches to the plain form (降った / 降っている), never the ます-form."
+      "wrong_ruby": "[約束|やくそく]しますのに、[彼|かれ]は[来|こ]なかった。",
+      "right_ruby": "[約束|やくそく]したのに、[彼|かれ]は[来|こ]なかった。",
+      "why": "のに attaches to the plain form (約束した), never the ます-form (*約束しますのに)."
     }
   ],
   "contrasts": [
@@ -86,8 +86,8 @@
       "other_slug": null,
       "label": "のに vs ても",
       "summary": "のに = real situation + unexpected / frustrating result. ても = \"even if / even though\" and can lead into invitations or advice.",
-      "ex_a_ruby": "[雨|あめ]が[降|ふ]ったのに、ピクニックに[行|い]きました。",
-      "ex_a_en": "Even though it (actually) rained, we went on a picnic.",
+      "ex_a_ruby": "[雨|あめ]が[降|ふ]っているのに、[彼|かれ]は[出|で]かけた。",
+      "ex_a_en": "Even though it's raining, he went out. (speaker's surprise)",
       "ex_b_ruby": "[雨|あめ]が[降|ふ]っても、ピクニックに[行|い]きます。",
       "ex_b_en": "Even if it rains, we'll go on a picnic."
     },
@@ -121,9 +121,9 @@
   ],
   "examples": [
     {
-      "ruby": "[雨|あめ]が[降|ふ]ったのに、ピクニックに[行|い]きました。",
-      "english": "Even though it rained, we went on a picnic.",
-      "note": "seed · surprise at contradictory result"
+      "ruby": "[約束|やくそく]したのに、[彼|かれ]は[来|こ]なかった。",
+      "english": "Even though he promised, he didn't come.",
+      "note": "lead · frustration at unmet expectation"
     },
     {
       "ruby": "[日曜日|にちようび]なのに、[会社|かいしゃ]で[働|はたら]かなければなりません。",
@@ -136,9 +136,9 @@
       "note": "disappointment · effort vs result"
     },
     {
-      "ruby": "[約束|やくそく]したのに、[彼|かれ]は[来|こ]なかった。",
-      "english": "Even though he promised, he didn't come.",
-      "note": "casual · broken expectation"
+      "ruby": "[雨|あめ]が[降|ふ]っているのに、[彼|かれ]はピクニックに[行|い]った。",
+      "english": "Even though it's raining, he went on a picnic.",
+      "note": "casual · surprise at contradictory result"
     },
     {
       "ruby": "[日曜日|にちようび]なのに、[仕事|しごと]をしなければなりません。",
@@ -174,23 +174,23 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[昨日|きのう]のピクニックはどうでしたか。",
-      "english": "How was yesterday's picnic?"
+      "ruby": "[彼|かれ]、[昨日|きのう][来|き]ましたか。",
+      "english": "Did he come yesterday?"
     },
     {
       "speaker": "B",
-      "ruby": "[雨|あめ]が[降|ふ]ったのに、みんな[行|い]きました。",
-      "english": "Even though it rained, everyone went."
+      "ruby": "[約束|やくそく]したのに、[来|こ]ませんでした。",
+      "english": "Even though he promised, he didn't come."
     },
     {
       "speaker": "A",
-      "ruby": "[寒|さむ]かったでしょうね。",
-      "english": "It must have been cold."
+      "ruby": "そうですか。[雨|あめ]も[降|ふ]っていましたね。",
+      "english": "I see. It was raining too, wasn't it."
     },
     {
       "speaker": "B",
-      "ruby": "はい。[傘|かさ]を[持|も]っていったのに、[服|ふく]がぬれてしまいました。",
-      "english": "Yes. Even though I brought an umbrella, my clothes still got wet."
+      "ruby": "はい。[雨|あめ]が[降|ふ]っているのに、[彼|かれ]は[出|で]かけると[言|い]っていました。",
+      "english": "Yes. Even though it was raining, he said he was going out."
     }
   ],
   "checks": [

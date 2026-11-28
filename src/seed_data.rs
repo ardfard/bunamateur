@@ -378,13 +378,13 @@ pub static SEED_GRAMMAR: &[SeedGrammar] = &[
         initial_ghost: 2,
         sentences: &[
             SeedSentence {
-                jp_before: "[雨|あめ]が[降|ふ]った",
-                jp_after: "、ピクニックに[行|い]きました。",
+                jp_before: "[雨|あめ]が[降|ふ]っている",
+                jp_after: "、[彼|かれ]はピクニックに[行|い]った。",
                 answer: "のに",
                 alt_answers: &[],
                 hint: "even though / despite",
-                english: "Even though it rained, we went on a picnic.",
-                nuance_note: "Expresses surprise that we still went despite the rain.",
+                english: "Even though it's raining, he went on a picnic.",
+                nuance_note: "Expresses surprise at his going out despite the rain.",
             },
             SeedSentence {
                 jp_before: "[日曜日|にちようび]な",
@@ -1014,8 +1014,8 @@ pub static SEED_PASSAGES: &[SeedPassage] = &[
         title: "雨の日のピクニック (A Rainy Day Picnic)",
         jlpt_level: "N4",
         topic: "Weekend Story",
-        content_ruby: "[昨日|きのう]は[雨|あめ]が[降|ふ]ったのに、[友達|ともだち]と[公園|こうえん]へ[行|い]きました。[傘|かさ]を[忘|わす]れてしまったので、[駅|えき]で[新|あたら]しい[傘|かさ]を[買|か]わなければなりませんでした。でも、[一緒|いっしょ]に[温|あたた]かいお[茶|ちゃ]を[飲|の]みながら[話|はな]して、とても[楽|たの]しかったです。",
-        english: "Even though it rained yesterday, I went to the park with my friends. Because I accidentally forgot my umbrella, I had to buy a new one at the station. Still, talking while drinking warm tea together was really fun.",
+        content_ruby: "[昨日|きのう]は[雨|あめ]が[降|ふ]っていましたが、[友達|ともだち]と[公園|こうえん]へ[行|い]きました。[傘|かさ]を[忘|わす]れてしまったので、[駅|えき]で[新|あたら]しい[傘|かさ]を[買|か]わなければなりませんでした。でも、[一緒|いっしょ]に[温|あたた]かいお[茶|ちゃ]を[飲|の]みながら[話|はな]して、とても[楽|たの]しかったです。",
+        english: "It was raining yesterday, but I went to the park with my friends. Because I accidentally forgot my umbrella, I had to buy a new one at the station. Still, talking while drinking warm tea together was really fun.",
     },
     SeedPassage {
         title: "日本の暮らしに慣れるまで (Getting Used to Japan)",

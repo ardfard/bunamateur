@@ -184,13 +184,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "え、[本当|ほんとう]？ [田中|たなか]さんも[来|こ]ないの？",
-      "english": "Really? Is Tanaka not coming either?"
+      "ruby": "え、[本当|ほんとう]？じゃあ、[田中|たなか]さんにも[連絡|れんらく]しないと。",
+      "english": "Really? Then I need to let Tanaka-san know too."
     },
     {
       "speaker": "B",
-      "ruby": "うん、[来|こ]ないそうだよ。",
-      "english": "Yeah, I heard they're not coming."
+      "ruby": "[田中|たなか]さんはもう[知|し]っているそうだよ。",
+      "english": "I heard Tanaka-san already knows."
     }
   ],
   "checks": [
