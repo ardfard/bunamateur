@@ -278,6 +278,59 @@ pub fn validate_curriculum(
     }
 }
 
+/// Validate that lesson `related` curriculum-slug links respect teaching order.
+///
+/// Only strings that exist as curriculum teaching-order slugs are checked.
+/// Non-slug labels (e.g. Dojo form names) are ignored. Prerequisites must be
+/// strictly earlier; next entries must be strictly later.
+pub fn validate_lesson_related_order(
+    curriculum: &Curriculum,
+    lessons: &HashMap<String, crate::lesson::GrammarLesson>,
+) -> Result<(), Vec<String>> {
+    let order = curriculum.teaching_order();
+    let position: HashMap<&str, usize> = order
+        .iter()
+        .enumerate()
+        .map(|(idx, point)| (point.slug.as_str(), idx))
+        .collect();
+
+    let mut errors = Vec::new();
+    for (slug, lesson) in lessons {
+        let Some(&lesson_idx) = position.get(slug.as_str()) else {
+            // Lesson without a curriculum teaching-order placement (e.g. sketch-only).
+            continue;
+        };
+
+        for pre in &lesson.related.prerequisites {
+            let Some(&pre_idx) = position.get(pre.as_str()) else {
+                continue;
+            };
+            if pre_idx >= lesson_idx {
+                errors.push(format!(
+                    "lesson '{slug}': related prerequisite '{pre}' is not earlier in teaching order"
+                ));
+            }
+        }
+
+        for next in &lesson.related.next {
+            let Some(&next_idx) = position.get(next.as_str()) else {
+                continue;
+            };
+            if next_idx <= lesson_idx {
+                errors.push(format!(
+                    "lesson '{slug}': related next '{next}' is not later in teaching order"
+                ));
+            }
+        }
+    }
+
+    if errors.is_empty() {
+        Ok(())
+    } else {
+        Err(errors)
+    }
+}
+
 /// Convenience: load embedded curriculum and validate against a seeded slug set.
 pub fn load_and_validate_curriculum(seeded_slugs: &HashSet<&str>) -> Result<Curriculum> {
     let curriculum = load_curriculum()?;
@@ -308,7 +361,7 @@ mod tests {
         assert!(!curriculum.sketch.is_empty());
 
         let order = curriculum.teaching_order();
-        assert_eq!(order.len(), 213);
+        assert_eq!(order.len(), 216);
 
         let seeded = seeded_from_catalog();
         assert_eq!(seeded.len(), 62);
@@ -321,6 +374,18 @@ mod tests {
         assert_eq!(existing.len(), 56);
         assert_eq!(curriculum.sketch_existing_slugs().len(), 6);
         assert_eq!(existing.len() + curriculum.sketch_existing_slugs().len(), 62);
+    }
+
+    #[test]
+    fn real_lessons_respect_related_teaching_order() {
+        let curriculum = load_curriculum().expect("load curriculum.json");
+        let lessons = crate::lesson::load_embedded_lessons().expect("load lessons");
+        validate_lesson_related_order(&curriculum, &lessons).unwrap_or_else(|errs| {
+            panic!(
+                "lesson related links should respect teaching order:\n{}",
+                errs.join("\n")
+            );
+        });
     }
 
     fn minimal_valid_json() -> &'static str {

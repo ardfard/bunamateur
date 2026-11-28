@@ -1,6 +1,8 @@
 use crate::audio::{AudioConfig, AudioService};
 use crate::crypto::TokenCipher;
-use crate::curriculum::{PointKind, PointStatus, load_and_validate_curriculum};
+use crate::curriculum::{
+    PointKind, PointStatus, load_and_validate_curriculum, validate_lesson_related_order,
+};
 use crate::email::{
     DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
 };
@@ -219,6 +221,13 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
         .context("Curriculum validation failed during seed_content")?;
     let (checksum, item_count, sentence_count) = compute_curriculum_checksum();
     let lessons = load_embedded_lessons().context("Failed to load embedded grammar lessons")?;
+    if let Err(errors) = validate_lesson_related_order(&curriculum, &lessons) {
+        anyhow::bail!(
+            "Lesson related-order validation failed ({} error(s)):\n{}",
+            errors.len(),
+            errors.join("\n")
+        );
+    }
 
     let mut tx = pool.begin().await?;
 
@@ -300,12 +309,8 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
 
     // Second pass: upsert curriculum units and attach metadata to existing grammar rows.
     //
-    // Interim gating policy for planned prerequisites:
-    // Many Existing (seeded) points list Planned slugs as prerequisites. Those Planned
-    // slugs have no `grammar_points` row yet. Until early units are authored, treat
-    // missing/planned prerequisite slugs as satisfied for unlock purposes so today's
-    // placed points with planned-only prereqs remain reachable in Learn New.
-    // (Alternative deferred: walk to the nearest Existing ancestor in teaching order.)
+    // When gating lands, a prerequisite slug with no grammar_points row (planned)
+    // counts as met; once that slug's row is seeded, it gates normally.
     for unit in &curriculum.units {
         sqlx::query(
             "INSERT INTO units (id, n, level, title, goal, sort_order)
