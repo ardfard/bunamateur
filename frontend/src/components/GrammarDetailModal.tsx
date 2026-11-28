@@ -4,6 +4,7 @@ import { api } from '../api'
 import type { FuriganaMode, GrammarPointDetail } from '../types'
 import { RubyText } from '../utils/furigana'
 import { playSentenceAudio } from '../utils/speech'
+import { LessonContent } from './LessonContent'
 import { useToast } from './ToastContext'
 
 interface GrammarDetailModalProps {
@@ -167,7 +168,7 @@ export const GrammarDetailModal: React.FC<GrammarDetailModalProps> = ({
               </button>
             </div>
 
-            {/* Structure Formula */}
+            {/* Structure Formula (always show compact structure + pitch) */}
             <div
               className="rounded-xl border p-4"
               style={{
@@ -191,58 +192,68 @@ export const GrammarDetailModal: React.FC<GrammarDetailModalProps> = ({
               )}
             </div>
 
-            {/* Nuance, Caution & Confusable Contrast */}
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div
-                className="rounded-xl border p-4"
-                style={{ borderColor: 'var(--border-subtle)' }}
-              >
-                <div className="mb-1.5 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
-                  Explanation & Nuance
-                </div>
-                <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
-                  {detail.nuance}
-                </p>
-              </div>
-              <div className="flex flex-col gap-3">
+            {detail.lesson ? (
+              <LessonContent
+                lesson={detail.lesson}
+                mode="full"
+                furiganaMode={furiganaMode}
+                knownKanji={knownKanji}
+                highlightKnown={highlightKnown}
+              />
+            ) : (
+              /* Nuance, Caution & Confusable Contrast — short-field fallback */
+              <div className="grid gap-4 sm:grid-cols-2">
                 <div
-                  className="rounded-xl border p-3.5"
-                  style={{
-                    backgroundColor: 'var(--accent-amber-soft)',
-                    borderColor: 'var(--border-subtle)',
-                  }}
+                  className="rounded-xl border p-4"
+                  style={{ borderColor: 'var(--border-subtle)' }}
                 >
-                  <div
-                    className="mb-1 flex items-center gap-1.5 text-xs font-bold"
-                    style={{ color: 'var(--accent-amber)' }}
-                  >
-                    <AlertTriangle className="h-3.5 w-3.5" />
-                    Caution
+                  <div className="mb-1.5 text-xs font-bold uppercase tracking-wider" style={{ color: 'var(--text-muted)' }}>
+                    Explanation & Nuance
                   </div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-primary)' }}>
-                    {detail.caution}
+                  <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>
+                    {detail.nuance}
                   </p>
                 </div>
-                <div
-                  className="rounded-xl border p-3.5"
-                  style={{
-                    backgroundColor: 'var(--accent-indigo-soft)',
-                    borderColor: 'var(--border-subtle)',
-                  }}
-                >
+                <div className="flex flex-col gap-3">
                   <div
-                    className="mb-1 flex items-center gap-1.5 text-xs font-bold"
-                    style={{ color: 'var(--accent-indigo)' }}
+                    className="rounded-xl border p-3.5"
+                    style={{
+                      backgroundColor: 'var(--accent-amber-soft)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
                   >
-                    <GitCompare className="h-3.5 w-3.5" />
-                    Confusable Contrast
+                    <div
+                      className="mb-1 flex items-center gap-1.5 text-xs font-bold"
+                      style={{ color: 'var(--accent-amber)' }}
+                    >
+                      <AlertTriangle className="h-3.5 w-3.5" />
+                      Caution
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                      {detail.caution}
+                    </p>
                   </div>
-                  <p className="text-xs leading-relaxed" style={{ color: 'var(--text-primary)' }}>
-                    {detail.confusable_with}
-                  </p>
+                  <div
+                    className="rounded-xl border p-3.5"
+                    style={{
+                      backgroundColor: 'var(--accent-indigo-soft)',
+                      borderColor: 'var(--border-subtle)',
+                    }}
+                  >
+                    <div
+                      className="mb-1 flex items-center gap-1.5 text-xs font-bold"
+                      style={{ color: 'var(--accent-indigo)' }}
+                    >
+                      <GitCompare className="h-3.5 w-3.5" />
+                      Confusable Contrast
+                    </div>
+                    <p className="text-xs leading-relaxed" style={{ color: 'var(--text-primary)' }}>
+                      {detail.confusable_with}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
 
             {/* Example Sentences */}
             <div className="flex flex-col gap-3">

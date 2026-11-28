@@ -47,6 +47,75 @@ export interface GrammarPointSummary {
   wk_total_kanji: number
 }
 
+export interface FormationTable {
+  columns: string[]
+  rows: string[][]
+  note?: string
+}
+
+export interface LessonSense {
+  label: string
+  body?: string
+  example_ruby: string
+  example_en: string
+}
+
+export interface LessonMistake {
+  wrong_ruby: string
+  right_ruby: string
+  why: string
+}
+
+export interface LessonContrast {
+  other_slug?: string | null
+  label: string
+  summary: string
+  ex_a_ruby: string
+  ex_a_en: string
+  ex_b_ruby: string
+  ex_b_en: string
+}
+
+export interface LessonExample {
+  ruby: string
+  english: string
+  note?: string
+}
+
+export interface DialogueLine {
+  speaker: string
+  ruby: string
+  english: string
+}
+
+export interface LessonCheck {
+  prompt: string
+  options: string[]
+  answer_idx: number
+  why?: string
+}
+
+export interface LessonRelated {
+  prerequisites?: string[]
+  next?: string[]
+}
+
+export interface GrammarLesson {
+  meaning: string
+  gist: string
+  formation: FormationTable
+  explanation: string
+  senses: LessonSense[]
+  register_context: string
+  mistakes: LessonMistake[]
+  contrasts: LessonContrast[]
+  examples: LessonExample[]
+  dialogue: DialogueLine[]
+  checks: LessonCheck[]
+  related: LessonRelated
+  lesson_version?: number
+}
+
 export interface GrammarPointDetail {
   id: number
   slug: string
@@ -72,6 +141,8 @@ export interface GrammarPointDetail {
   wk_readiness_pct: number
   wk_known_kanji: number
   wk_total_kanji: number
+  /** Rich lesson when seeded; omit/null falls back to short nuance/caution fields. */
+  lesson?: GrammarLesson | null
 }
 
 export interface ReviewQueueItem {
@@ -97,6 +168,10 @@ export interface ReviewQueueItem {
   is_ghost: boolean
   ghost_level: number
   mode: 'review' | 'lesson' | 'cram'
+  /** Rich lesson for Learn New pre-cloze flow; optional. */
+  lesson?: GrammarLesson | null
+  /** Convenience copy of lesson mistakes for post-miss feedback. */
+  mistakes?: LessonMistake[]
 }
 
 export interface SubmitAnswerRequest {

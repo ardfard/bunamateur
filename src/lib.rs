@@ -3,6 +3,7 @@ pub mod auth;
 pub mod crypto;
 pub mod db;
 pub mod email;
+pub mod lesson;
 pub mod models;
 pub mod nlp;
 pub mod oauth;

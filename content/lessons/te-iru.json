@@ -1,0 +1,239 @@
+{
+  "meaning": "is doing · is in the state of · does regularly",
+  "gist": "て-form + いる (\"to be, to exist\"). いる places the action — or the result of a change — in the present moment. Whether it reads as \"-ing\" or \"is in the state of\" depends on the verb: activity verbs ([食|た]べる, [読|よ]む, [降|ふ]る) give \"-ing\"; change-of-state verbs ([結婚|けっこん]する, [知|し]る, [着|つ]く, [開|あ]く) give \"is in the resulting state\".",
+  "formation": {
+    "columns": [
+      "Verb type",
+      "Dictionary → て-form",
+      "Plain",
+      "Polite",
+      "Negative (polite)",
+      "Past (polite)"
+    ],
+    "rows": [
+      [
+        "Godan う・つ・る",
+        "[買|か]う → [買|か]って",
+        "[買|か]っている",
+        "[買|か]っています",
+        "[買|か]っていません",
+        "[買|か]っていました"
+      ],
+      [
+        "Godan む・ぶ・ぬ",
+        "[飲|の]む → [飲|の]んで",
+        "[飲|の]んでいる",
+        "[飲|の]んでいます",
+        "[飲|の]んでいません",
+        "[飲|の]んでいました"
+      ],
+      [
+        "Godan く (行く → 行って is the exception)",
+        "[書|か]く → [書|か]いて",
+        "[書|か]いている",
+        "[書|か]いています",
+        "[書|か]いていません",
+        "[書|か]いていました"
+      ],
+      [
+        "Godan ぐ",
+        "[泳|およ]ぐ → [泳|およ]いで",
+        "[泳|およ]いでいる",
+        "[泳|およ]いでいます",
+        "[泳|およ]いでいません",
+        "[泳|およ]いでいました"
+      ],
+      [
+        "Godan す",
+        "[話|はな]す → [話|はな]して",
+        "[話|はな]している",
+        "[話|はな]しています",
+        "[話|はな]していません",
+        "[話|はな]していました"
+      ],
+      [
+        "Ichidan",
+        "[食|た]べる → [食|た]べて",
+        "[食|た]べている",
+        "[食|た]べています",
+        "[食|た]べていません",
+        "[食|た]べていました"
+      ],
+      [
+        "Irregular",
+        "する → して / [来|く]る → [来|き]て",
+        "している / [来|き]ている",
+        "しています / [来|き]ています",
+        "していません / [来|き]ていません",
+        "していました / [来|き]ていました"
+      ]
+    ],
+    "note": "Casual speech drops the い: 食べている → 食べてる, 飲んでいる → 飲んでる, ています → てます, ていない → てない, ていた → てた."
+  },
+  "explanation": "ている describes a situation that is currently true. With activities it is the English \"-ing\": 今、雨が降っています (\"it is raining\"). With verbs that mean a change ([結婚|けっこん]する \"get married\", [住|す]む \"take up residence\", [知|し]る \"come to know\") it describes the state after the change: 結婚しています means \"is married\", not \"is getting married\". It also frames a routine you are currently in the middle of — 毎朝走っています \"I've been running every morning (these days)\". If the action is finished and nothing about it still holds now, use the past: 昨日、本を読みました.",
+  "senses": [
+    {
+      "label": "Action in progress",
+      "body": "",
+      "example_ruby": "[姉|あね]は[今|いま]、[台所|だいどころ]で[料理|りょうり]をしている。",
+      "example_en": "My older sister is cooking in the kitchen right now."
+    },
+    {
+      "label": "Resulting state",
+      "body": "Also: [電気|でんき]がついていますよ。 \"The light is on.\"",
+      "example_ruby": "[田中|たなか]さんは[結婚|けっこん]しています。",
+      "example_en": "Tanaka-san is married."
+    },
+    {
+      "label": "Current routine / ongoing arrangement",
+      "body": "Also: [私|わたし]は[東京|とうきょう]に[住|す]んでいます。 \"I live in Tokyo.\"",
+      "example_ruby": "[毎朝|まいあさ]、[公園|こうえん]を[走|はし]っています。",
+      "example_en": "I run in the park every morning (these days)."
+    }
+  ],
+  "register_context": "Fully neutral: ています (polite), ている (plain/writing), てる/てます (casual, い dropped). Questions: 〜ていますか / 〜てる？",
+  "mistakes": [
+    {
+      "wrong_ruby": "[先生|せんせい]の[名前|なまえ]を[知|し]っていません。",
+      "right_ruby": "[先生|せんせい]の[名前|なまえ]を[知|し]りません。",
+      "why": "The negative of 知っている is 知らない/知りません, not 知っていない. (\"Do you know?\" → 知っていますか; \"I don't\" → 知りません.)"
+    },
+    {
+      "wrong_ruby": "[私|わたし]は[結婚|けっこん]します。",
+      "right_ruby": "[私|わたし]は[結婚|けっこん]しています。",
+      "why": "結婚する = the event \"get married\"; the state needs ている. (Wrong form used when meaning \"I'm married\".)"
+    },
+    {
+      "wrong_ruby": "[窓|まど]が[開|あ]けています。",
+      "right_ruby": "[窓|まど]が[開|あ]いています。",
+      "why": "\"Is open\" uses intransitive 開く; 開ける + ている describes someone doing the opening."
+    },
+    {
+      "wrong_ruby": "[昨日|きのう]、[本|ほん]を[読|よ]んでいます。",
+      "right_ruby": "[昨日|きのう]、[本|ほん]を[読|よ]みました。",
+      "why": "A finished past action is not ている."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "ている vs 〜た",
+      "summary": "Event in the past vs state that still holds now.",
+      "ex_a_ruby": "[彼|かれ]は[去年|きょねん][結婚|けっこん]した。",
+      "ex_a_en": "He got married last year (event)",
+      "ex_b_ruby": "[彼|かれ]は[結婚|けっこん]している。",
+      "ex_b_en": "He is married (state now)"
+    },
+    {
+      "other_slug": null,
+      "label": "ている vs plain ます",
+      "summary": "General habit vs current routine you are in the middle of.",
+      "ex_a_ruby": "[毎日|まいにち][走|はし]ります。",
+      "ex_a_en": "I run every day (general habit)",
+      "ex_b_ruby": "[毎朝|まいあさ][走|はし]っています。",
+      "ex_b_en": "I've been running every morning (current routine)"
+    },
+    {
+      "other_slug": null,
+      "label": "ている vs 〜てある",
+      "summary": "Neutral fact vs intentional state left by someone.",
+      "ex_a_ruby": "[窓|まど]が[開|あ]いている。",
+      "ex_a_en": "The window is open (neutral fact)",
+      "ex_b_ruby": "[窓|まど]が[開|あ]けてある。",
+      "ex_b_en": "The window has been opened (on purpose, e.g. for fresh air)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[今|いま]、[雨|あめ]が[降|ふ]っています。",
+      "english": "It's raining now.",
+      "note": "polite · ongoing"
+    },
+    {
+      "ruby": "[姉|あね]は[今|いま]、[台所|だいどころ]で[料理|りょうり]をしている。",
+      "english": "My older sister is cooking in the kitchen now.",
+      "note": "plain · ongoing"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[結婚|けっこん]しています。",
+      "english": "Tanaka-san is married.",
+      "note": "resulting state"
+    },
+    {
+      "ruby": "[私|わたし]は[東京|とうきょう]に[住|す]んでいます。",
+      "english": "I live in Tokyo.",
+      "note": "ongoing arrangement"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[眼鏡|めがね]をかけています。",
+      "english": "Tanaka-san is wearing glasses.",
+      "note": "resulting state"
+    },
+    {
+      "ruby": "[毎朝|まいあさ]、[公園|こうえん]を[走|はし]っています。",
+      "english": "I run in the park every morning (these days).",
+      "note": "current routine"
+    },
+    {
+      "ruby": "[傘|かさ]を[持|も]っていますか。",
+      "english": "Do you have an umbrella?",
+      "note": "question"
+    },
+    {
+      "ruby": "[子|こ]どもたちはまだ[寝|ね]ていません。",
+      "english": "The children aren't asleep yet.",
+      "note": "negative · resulting state"
+    },
+    {
+      "ruby": "[昨日|きのう]の[夜|よる]、[雨|あめ]が[降|ふ]っていました。",
+      "english": "It was raining last night.",
+      "note": "past continuous"
+    },
+    {
+      "ruby": "「[何|なに]してるの？」「[本|ほん]、[読|よ]んでる。」",
+      "english": "\"What are you doing?\" \"Reading a book.\" (casual)",
+      "note": "casual · い dropped"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今|いま]、[何|なに]をしていますか。",
+      "english": "What are you doing now?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[宿題|しゅくだい]をしています。",
+      "english": "My homework."
+    },
+    {
+      "speaker": "A",
+      "ruby": "お[兄|にい]さんも[宿題|しゅくだい]をしていますか。",
+      "english": "Is your brother doing homework too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[兄|あに]は[友達|ともだち]と[遊|あそ]んでいます。",
+      "english": "No, he's playing with friends."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "私は先生の電話番号を（　）。",
+      "options": ["知っていません", "知りません"],
+      "answer_idx": 1,
+      "why": "The negative of 知っている is 知りません, not 知っていません."
+    },
+    {
+      "prompt": "窓が（　）います。",
+      "options": ["開いて", "開けて"],
+      "answer_idx": 0,
+      "why": "\"Is open\" uses intransitive 開く → 開いています."
+    }
+  ],
+  "related": {
+    "prerequisites": ["て-form (Dojo)"],
+    "next": ["te-shimau", "to-iu-koto-da"]
+  },
+  "lesson_version": 1
+}

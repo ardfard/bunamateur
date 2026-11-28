@@ -24,6 +24,7 @@ RUN mkdir -p src \
 
 COPY src ./src
 COPY migrations ./migrations
+COPY content ./content
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
 RUN cargo build --release --locked

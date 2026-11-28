@@ -3,6 +3,7 @@ use crate::crypto::TokenCipher;
 use crate::email::{
     DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
 };
+use crate::lesson::{GrammarLesson, load_embedded_lessons};
 use crate::models::{
     AccountProfileResponse, AccountSessionInfo, AuthUserInfo, CompleteOnboardingRequest,
     ConjugationItem, ContentVersionInfo, DailyActivityPoint, DashboardStats, DetectedGrammar,
@@ -213,16 +214,21 @@ pub fn compute_curriculum_checksum() -> (String, i32, i32) {
 pub async fn seed_content(pool: &PgPool) -> Result<()> {
     let all_grammar = all_seed_grammar();
     let (checksum, item_count, sentence_count) = compute_curriculum_checksum();
+    let lessons = load_embedded_lessons().context("Failed to load embedded grammar lessons")?;
 
     let mut tx = pool.begin().await?;
 
     for g in all_grammar {
         let patterns: Vec<String> = g.match_patterns.iter().map(|s| (*s).to_string()).collect();
+        let lesson_json = lessons
+            .get(g.slug)
+            .cloned()
+            .map(sqlx::types::Json);
 
         let grammar_id: i64 = sqlx::query_scalar(
             "INSERT INTO grammar_points
-                 (slug, title, reading, meaning, jlpt_level, study_path, structure, nuance, caution, confusable_with, pitch_note, match_patterns, content_version)
-             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+                 (slug, title, reading, meaning, jlpt_level, study_path, structure, nuance, caution, confusable_with, pitch_note, match_patterns, content_version, lesson)
+             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
              ON CONFLICT (slug) DO UPDATE SET
                  title = EXCLUDED.title,
                  reading = EXCLUDED.reading,
@@ -235,7 +241,8 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
                  confusable_with = EXCLUDED.confusable_with,
                  pitch_note = EXCLUDED.pitch_note,
                  match_patterns = EXCLUDED.match_patterns,
-                 content_version = EXCLUDED.content_version
+                 content_version = EXCLUDED.content_version,
+                 lesson = EXCLUDED.lesson
              RETURNING id",
         )
         .bind(g.slug)
@@ -251,6 +258,7 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
         .bind(g.pitch_note)
         .bind(&patterns)
         .bind(CONTENT_SCHEMA_VERSION)
+        .bind(lesson_json)
         .fetch_one(&mut *tx)
         .await?;
 
@@ -1495,6 +1503,7 @@ struct GrammarDetailRow {
     streak: i32,
     ghost_level: i32,
     next_review_at: Option<DateTime<Utc>>,
+    lesson: Option<sqlx::types::Json<GrammarLesson>>,
 }
 
 #[derive(FromRow, Clone)]
@@ -1526,7 +1535,8 @@ pub async fn get_grammar_detail(
                 COALESCE(p.incorrect_count, 0) AS incorrect_count,
                 COALESCE(p.streak, 0) AS streak,
                 COALESCE(p.ghost_level, 0) AS ghost_level,
-                p.next_review_at
+                p.next_review_at,
+                g.lesson
          FROM grammar_points g
          LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
          WHERE g.id = $2",
@@ -1597,6 +1607,7 @@ pub async fn get_grammar_detail(
         wk_readiness_pct: wk_pct,
         wk_known_kanji: wk_known,
         wk_total_kanji: wk_total,
+        lesson: row.lesson.map(|j| j.0),
     }))
 }
 
@@ -1838,6 +1849,7 @@ struct QueueGrammarRow {
     confusable_with: String,
     srs_stage: i32,
     ghost_level: i32,
+    lesson: Option<sqlx::types::Json<GrammarLesson>>,
 }
 
 pub async fn build_review_queue(
@@ -1880,7 +1892,7 @@ pub async fn build_review_queue(
     match mode {
         "ghost" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, g.lesson,
                         p.srs_stage, p.ghost_level
                  FROM grammar_points g
                  JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
@@ -1894,7 +1906,7 @@ pub async fn build_review_queue(
         }
         "lesson" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, g.lesson,
                         COALESCE(p.srs_stage, 0) AS srs_stage,
                         COALESCE(p.ghost_level, 0) AS ghost_level
                  FROM grammar_points g
@@ -1912,7 +1924,7 @@ pub async fn build_review_queue(
         }
         "cram" => {
             let rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, g.lesson,
                         COALESCE(p.srs_stage, 0) AS srs_stage,
                         COALESCE(p.ghost_level, 0) AS ghost_level
                  FROM grammar_points g
@@ -1927,7 +1939,7 @@ pub async fn build_review_queue(
         _ => {
             // Due Ghost Reviews first, then due regular SRS reviews
             let ghost_rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, g.lesson,
                         p.srs_stage, p.ghost_level
                  FROM grammar_points g
                  JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
@@ -1940,7 +1952,7 @@ pub async fn build_review_queue(
             .await?;
             if accept(ghost_rows, |_| true, "review") {
                 let regular_rows: Vec<QueueGrammarRow> = sqlx::query_as(
-                    "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with,
+                    "SELECT g.id, g.title, g.reading, g.meaning, g.jlpt_level, g.structure, g.nuance, g.caution, g.confusable_with, g.lesson,
                             p.srs_stage, p.ghost_level
                      FROM grammar_points g
                      JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
@@ -1991,6 +2003,11 @@ pub async fn build_review_queue(
         let idx = (g.srs_stage.max(0) as usize) % sentences.len();
         let s = &sentences[idx];
 
+        let lesson = g.lesson.map(|j| j.0);
+        let mistakes = lesson
+            .as_ref()
+            .map(|l| l.mistakes.clone())
+            .unwrap_or_default();
         items.push(ReviewQueueItem {
             grammar_id: g.id,
             sentence_id: s.id,
@@ -2014,6 +2031,8 @@ pub async fn build_review_queue(
             is_ghost,
             ghost_level: g.ghost_level,
             mode: item_mode.to_string(),
+            lesson,
+            mistakes,
         });
     }
 

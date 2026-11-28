@@ -1,0 +1,186 @@
+{
+  "meaning": "decide to do / decide not to do (my own decision) · (〜ことにしている) make it a personal rule",
+  "gist": "こと (\"the matter\") + に (\"into\") + する (\"make/settle\"): I settle the matter as \"V\". The speaker is the decider. If the decision was imposed or arranged by someone else, Japanese switches to ことになる (\"it came to be that…\").",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (dictionary)",
+        "V辞書形 + ことにする / ことにした / ことにしました",
+        "[行|い]くことにしました"
+      ],
+      [
+        "Verb (negative)",
+        "Vない + ことにする",
+        "[行|い]かないことにしました"
+      ],
+      [
+        "Standing rule/habit",
+        "V + ことにしている / ことにしています",
+        "[食|た]べないことにしている"
+      ],
+      [
+        "Noun (choose an item)",
+        "N + にする (no こと)",
+        "ラーメンにします"
+      ]
+    ],
+    "note": "Use the dictionary or ない form before ことにする, never the た-form (行ったことにする means \"treat it as if I had gone\")."
+  },
+  "explanation": "ことにする marks a decision you make. ことにした/ことにしました (past) reports that you made it (\"I've decided to…\"); ことにします (non-past) announces a decision as you make it (\"I'll go with…\"). With ている it becomes a standing rule: 夜は甘いものを食べないことにしている = \"I make it a rule not to eat sweets at night.\" It sounds more settled than つもり (\"I plan to…\"), which can still be revised.",
+  "senses": [
+    {
+      "label": "Decision made / announced",
+      "body": "",
+      "example_ruby": "[今日|きょう]から[毎日|まいにち]、[日本語|にほんご]を[勉強|べんきょう]することにしました。",
+      "example_en": "I've decided to study Japanese every day starting today."
+    },
+    {
+      "label": "Decision at the moment of speaking",
+      "body": "",
+      "example_ruby": "[迷|まよ]いましたが、[京都|きょうと]に[行|い]くことにします。",
+      "example_en": "I was torn, but I'll go to Kyoto."
+    },
+    {
+      "label": "Personal rule",
+      "body": "",
+      "example_ruby": "[私|わたし]は[夜|よる]は[甘|あま]いものを[食|た]べないことにしている。",
+      "example_en": "I make it a rule not to eat sweets at night."
+    }
+  ],
+  "register_context": "ことにしました is neutral-polite and the normal way to announce a decision. Casual: ことにした / ことにする. In conversation use it for your own decisions; report someone else's with そうだ/と言っていた: [先生|せんせい]は[来月|らいげつ][結婚|けっこん]することにしたそうです。",
+  "mistakes": [
+    {
+      "wrong_ruby": "[日本|にほん]へ[行|い]ったことにしました。",
+      "right_ruby": "[日本|にほん]へ[行|い]くことにしました。",
+      "why": "Dictionary form (decision about a future action), not た-form."
+    },
+    {
+      "wrong_ruby": "[行|い]くことにしませんでした。",
+      "right_ruby": "[行|い]かないことにしました。",
+      "why": "\"Didn't decide to go\" ≠ \"decided not to go\"; put ない inside."
+    },
+    {
+      "wrong_ruby": "[私|わたし]は[会社|かいしゃ]の[命令|めいれい]で[来月|らいげつ][転勤|てんきん]することにしました。",
+      "right_ruby": "[私|わたし]は[会社|かいしゃ]の[命令|めいれい]で[来月|らいげつ][転勤|てんきん]することになりました。",
+      "why": "When you aren't the decider, use ことになる."
+    },
+    {
+      "wrong_ruby": "[昼|ひる]ごはんはラーメンのことにします。",
+      "right_ruby": "[昼|ひる]ごはんはラーメンにします。",
+      "why": "To choose a noun use N + にする."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "koto-ni-naru",
+      "label": "ことにする vs ことになる",
+      "summary": "My choice vs an external / arranged decision (also the humble way to announce your own plans).",
+      "ex_a_ruby": "[来月|らいげつ][大阪|おおさか]に[転勤|てんきん]することにしました。",
+      "ex_a_en": "I decided to transfer to Osaka (my choice)",
+      "ex_b_ruby": "[来月|らいげつ][大阪|おおさか]に[転勤|てんきん]することになりました。",
+      "ex_b_en": "It's been decided I'll transfer (company's decision)"
+    },
+    {
+      "other_slug": "tsumori",
+      "label": "ことにする vs つもりだ",
+      "summary": "Settled decision vs intention that can still change.",
+      "ex_a_ruby": "[日本|にほん]へ[行|い]くつもりです。",
+      "ex_a_en": "I'm planning to go (intention, can change)",
+      "ex_b_ruby": "[日本|にほん]へ[行|い]くことにしました。",
+      "ex_b_en": "I've decided to go (settled)"
+    },
+    {
+      "other_slug": "you-ni-suru",
+      "label": "ことにする vs ようにする",
+      "summary": "One decision vs trying to make something a habit.",
+      "ex_a_ruby": "[野菜|やさい]を[食|た]べることにする。",
+      "ex_a_en": "I'll (decide to) eat vegetables (one decision)",
+      "ex_b_ruby": "[野菜|やさい]を[食|た]べるようにする。",
+      "ex_b_en": "I'll try to eat vegetables (as a habit)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[今日|きょう]から[毎日|まいにち]、[日本語|にほんご]を[勉強|べんきょう]することにしました。",
+      "english": "I've decided to study Japanese every day from today.",
+      "note": "polite past · decision"
+    },
+    {
+      "ruby": "[暑|あつ]いので、[今日|きょう]は[出|で]かけないことにした。",
+      "english": "It's hot, so I decided not to go out today.",
+      "note": "plain · negative decision"
+    },
+    {
+      "ruby": "[来年|らいねん]、[大阪|おおさか]の[大学|だいがく]に[進学|しんがく]することにしました。",
+      "english": "I've decided to go on to a university in Osaka next year.",
+      "note": "polite past"
+    },
+    {
+      "ruby": "[私|わたし]は[夜|よる]は[甘|あま]いものを[食|た]べないことにしている。",
+      "english": "I make it a rule not to eat sweets at night.",
+      "note": "personal rule"
+    },
+    {
+      "ruby": "[毎朝|まいあさ]、[家|いえ]を[出|で]る[前|まえ]にニュースを[見|み]ることにしています。",
+      "english": "I make it a habit to watch the news before leaving home each morning.",
+      "note": "habit · polite"
+    },
+    {
+      "ruby": "[迷|まよ]いましたが、[京都|きょうと]に[行|い]くことにします。",
+      "english": "I was torn, but I'll go to Kyoto.",
+      "note": "decision at moment of speaking"
+    },
+    {
+      "ruby": "[熱|ねつ]があったので、[会議|かいぎ]を[休|やす]むことにした。",
+      "english": "I had a fever, so I decided to skip the meeting.",
+      "note": "plain past"
+    },
+    {
+      "ruby": "[高|たか]すぎるので、このかばんは[買|か]わないことにします。",
+      "english": "It's too expensive, so I'll decide not to buy this bag.",
+      "note": "non-past announce · negative"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[旅行|りょこう]はどうしますか。",
+      "english": "What will you do about the trip?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[迷|まよ]いましたが、[京都|きょうと]に[行|い]くことにしました。",
+      "english": "I was torn, but I've decided to go to Kyoto."
+    },
+    {
+      "speaker": "A",
+      "ruby": "いいですね。いつ[行|い]くんですか。",
+      "english": "Nice. When are you going?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[来月|らいげつ]の[初|はじ]めです。",
+      "english": "At the beginning of next month."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "会社の決定で来月転勤する（　）。",
+      "options": ["ことにしました", "ことになりました"],
+      "answer_idx": 1,
+      "why": "External decision → ことになる."
+    },
+    {
+      "prompt": "夜は甘いものを（　）ことにしている。",
+      "options": ["食べた", "食べない"],
+      "answer_idx": 1,
+      "why": "Dictionary or ない form before ことにする — never た-form."
+    }
+  ],
+  "related": {
+    "prerequisites": ["tsumori", "you-ni-suru"],
+    "next": ["koto-ni-naru"]
+  },
+  "lesson_version": 1
+}

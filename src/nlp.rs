@@ -299,6 +299,9 @@ pub fn deconjugate_surface(surface: &str) -> Vec<(String, &'static str)> {
     let mut unverified: Vec<(String, &'static str)> = Vec::new();
     let mut seen: HashSet<String> = HashSet::new();
 
+    // Scope the mutable borrow of `verified`/`seen`/`unverified` so the fallback
+    // merge below can mutate them freely (clippy::drop_non_drop on Rust 1.92).
+    {
     let mut push_candidate =
         |lemma: String, label: &'static str, allowed: TargetClass, force_verified: bool| {
             if lemma.is_empty() || lemma == clean {
@@ -438,8 +441,7 @@ pub fn deconjugate_surface(surface: &str) -> Vec<(String, &'static str)> {
             push_candidate(stem.to_string(), label, TargetClass::NaAdj, false);
         }
     }
-
-    drop(push_candidate);
+    } // end push_candidate borrow scope
 
     // Append deduplicated unverified fallbacks only if not already in verified
     for (lemma, label) in unverified {

@@ -16,7 +16,8 @@ use bunamateur::{
     crypto::TokenCipher,
     db::{compute_longest_streak, review_intensity_bucket, vocab_bookmarks_to_anki_tsv},
     email::{build_email_verification_email, build_password_reset_email},
-    models::VocabBookmark,
+    lesson::{load_embedded_lessons, parse_lesson_json, validate_furigana},
+    models::{GrammarPointDetail, ReviewQueueItem, VocabBookmark},
     nlp::{WkSubjectLookup, analyze_japanese_text, match_pattern_against_analysis},
     observability::{
         MetricsRegistry, PROMETHEUS_CONTENT_TYPE, accepts_gzip, compute_weak_etag, gzip_compress,
@@ -26,6 +27,7 @@ use bunamateur::{
         AUTH_BODY_LIMIT_BYTES, RateLimitConfig, RateLimitRule, RateLimitTier, RateLimiter,
         SecurityConfig, build_cors_layer, rate_limit_middleware,
     },
+    seed_data_extra::all_seed_grammar,
     srs::{GhostIntensity, GradeOutcome, compute_srs_transition_with_intensity, grade_answer},
 };
 use chrono::Utc;
@@ -517,4 +519,102 @@ fn test_email_verification_email_escapes_html_and_preserves_url() {
     assert!(html.contains("Sakura &lt;N4&gt; &amp; &quot;Friends&quot;"));
     assert!(html.contains("token=verify_tok_123&amp;ref=signup"));
     assert!(html.contains("24 hours"));
+}
+
+#[test]
+fn test_lesson_loader_validator_and_api_json_shape() {
+    validate_furigana("[食|た]べている", "sample").unwrap();
+    assert!(validate_furigana("[食べる]", "bad").is_err());
+
+    let lessons = load_embedded_lessons().expect("embedded lessons must load");
+    assert!(lessons.contains_key("te-iru"));
+    assert!(lessons.contains_key("koto-ni-suru"));
+    assert_eq!(lessons.len(), 2);
+
+    let known: HashSet<&str> = all_seed_grammar().iter().map(|g| g.slug).collect();
+    for slug in lessons.keys() {
+        assert!(
+            known.contains(slug.as_str()),
+            "lesson slug '{slug}' must exist in curriculum"
+        );
+    }
+
+    let te = lessons.get("te-iru").unwrap();
+    assert!(!te.mistakes.is_empty());
+    assert!(!te.checks.is_empty());
+    assert!(te.formation.rows.len() >= 5);
+
+    // Round-trip through the public API DTOs so frontend contracts stay honest.
+    let detail = GrammarPointDetail {
+        id: 1,
+        slug: "te-iru".into(),
+        title: "〜ている".into(),
+        reading: "ている".into(),
+        meaning: "Ongoing".into(),
+        jlpt_level: "N5".into(),
+        study_path: "Genki I".into(),
+        structure: "Vて + いる".into(),
+        nuance: "short".into(),
+        caution: "short caution".into(),
+        confusable_with: "short contrast".into(),
+        pitch_note: "".into(),
+        user_notes: "".into(),
+        srs_stage: 0,
+        srs_label: "Lesson".into(),
+        correct_count: 0,
+        incorrect_count: 0,
+        streak: 0,
+        ghost_level: 0,
+        next_review_at: None,
+        sentences: vec![],
+        wk_readiness_pct: 0,
+        wk_known_kanji: 0,
+        wk_total_kanji: 0,
+        lesson: Some(te.clone()),
+    };
+    let detail_json = serde_json::to_value(&detail).unwrap();
+    assert!(detail_json.get("lesson").is_some());
+    assert_eq!(
+        detail_json["lesson"]["checks"][0]["answer_idx"].as_u64(),
+        Some(te.checks[0].answer_idx as u64)
+    );
+
+    let queue_item = ReviewQueueItem {
+        grammar_id: 1,
+        sentence_id: 10,
+        title: detail.title.clone(),
+        reading: detail.reading.clone(),
+        meaning: detail.meaning.clone(),
+        jlpt_level: detail.jlpt_level.clone(),
+        structure: detail.structure.clone(),
+        nuance: detail.nuance.clone(),
+        caution: detail.caution.clone(),
+        confusable_with: detail.confusable_with.clone(),
+        jp_before: "[今|いま]、".into(),
+        jp_after: "。".into(),
+        answer: "ています".into(),
+        alt_answers: vec![],
+        hint: "polite".into(),
+        english: "…".into(),
+        nuance_note: "".into(),
+        srs_stage: 0,
+        srs_label: "Lesson".into(),
+        is_ghost: false,
+        ghost_level: 0,
+        mode: "lesson".into(),
+        lesson: Some(te.clone()),
+        mistakes: te.mistakes.clone(),
+    };
+    let queue_json = serde_json::to_value(&queue_item).unwrap();
+    assert!(queue_json.get("lesson").is_some());
+    assert!(
+        queue_json["mistakes"]
+            .as_array()
+            .map(|a| !a.is_empty())
+            .unwrap_or(false)
+    );
+
+    // Reject malformed lesson JSON via the same parse path seed uses.
+    let bad = r#"{"meaning":"x","gist":"","formation":{"columns":["a"],"rows":[["b"]],"note":""},"explanation":"e","senses":[],"register_context":"","mistakes":[],"contrasts":[],"examples":[],"dialogue":[],"checks":[],"related":{}}"#;
+    assert!(parse_lesson_json("bad", bad).is_err());
 }
