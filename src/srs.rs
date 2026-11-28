@@ -32,6 +32,7 @@ const KANJI_TO_KANA: &[(&str, &str)] = &[
     ("構", "かま"),
     ("訳", "わけ"),
     ("関", "かか"),
+    ("誰", "だれ"),
 ];
 
 /// Particles / grammatical morphemes — a 1-char edit involving these is not a "typo".
@@ -366,6 +367,10 @@ const REGISTER_PAIRS: &[(&str, &str)] = &[
     ("あります", "ある"),
     ("います", "いる"),
     ("ありません", "ない"),
+    ("じゃなかったです", "じゃなかった"),
+    ("ではなかったです", "ではなかった"),
+    ("じゃないです", "じゃない"),
+    ("ではないです", "ではない"),
     ("ました", "た"),
     ("ませんでした", "なかった"),
     ("ません", "ない"),
@@ -417,6 +422,10 @@ const TENSE_PAIRS: &[(&str, &str)] = &[
     ("にくい", "にくかった"),
     ("ません", "ませんでした"),
     ("ます", "ました"),
+    ("じゃないです", "じゃなかったです"),
+    ("ではないです", "ではなかったです"),
+    ("じゃない", "じゃなかった"),
+    ("ではない", "ではなかった"),
     ("です", "でした"),
     ("だ", "だった"),
 ];
@@ -763,7 +772,7 @@ pub fn grade_answer(
     user_input: &str,
     primary: &str,
     alts: &[String],
-    hint: &str,
+    _hint: &str,
 ) -> GradeOutcome {
     if let Some(matched) = check_answer(user_input, primary, alts) {
         return GradeOutcome::Correct { matched };
@@ -790,7 +799,7 @@ pub fn grade_answer(
 
     // 1. Politeness / Register mismatch
     if let Some(user_was_polite) = try_pair_transform(&norm_in, &targets, REGISTER_PAIRS) {
-        let msg = if user_was_polite || hint.to_lowercase().contains("casual") {
+        let msg = if user_was_polite {
             "Almost! Right grammar, wrong register — try the casual / plain form."
         } else {
             "Almost! Right grammar, wrong register — try the polite (〜ます / 〜です) form."
@@ -1136,6 +1145,98 @@ mod tests {
         assert_eq!(MAX_NEAR_MISS_RETRIES, 2);
         // Unmapped content kanji (食) remains after normalize → false
         assert!(!has_kana_equivalent_path("食べている"));
+    }
+
+    #[test]
+    fn test_unit1_kanji_and_ja_nai_near_miss_grading() {
+        assert!(has_kana_equivalent_path("誰"));
+        assert!(matches!(
+            grade_answer("誰", "だれ", &[], "polite • who"),
+            GradeOutcome::Correct { .. }
+        ));
+
+        match grade_answer(
+            "じゃない",
+            "じゃないです",
+            &[
+                "ではありません".into(),
+                "じゃありません".into(),
+                "ではないです".into(),
+            ],
+            "polite",
+        ) {
+            GradeOutcome::AlmostRight { category, hint } => {
+                assert_eq!(category, "register");
+                assert!(
+                    hint.contains("polite"),
+                    "expected polite register hint, got: {}",
+                    hint
+                );
+            }
+            other => panic!("expected register AlmostRight, got {:?}", other),
+        }
+
+        match grade_answer("じゃないです", "じゃない", &["ではない".into()], "plain") {
+            GradeOutcome::AlmostRight { category, hint } => {
+                assert_eq!(category, "register");
+                assert!(
+                    hint.contains("casual") || hint.contains("plain"),
+                    "expected casual/plain register hint, got: {}",
+                    hint
+                );
+            }
+            other => panic!("expected register AlmostRight, got {:?}", other),
+        }
+
+        // Covered via ありません↔ない and ありませんでした↔なかった suffix pairs.
+        for (polite, plain) in [
+            ("じゃありません", "じゃない"),
+            ("ではありません", "ではない"),
+            ("じゃありませんでした", "じゃなかった"),
+        ] {
+            match grade_answer(polite, plain, &[], "plain") {
+                GradeOutcome::AlmostRight { category, hint } => {
+                    assert_eq!(category, "register");
+                    assert!(
+                        hint.contains("casual") || hint.contains("plain"),
+                        "expected casual/plain register hint for {} -> {}, got: {}",
+                        polite,
+                        plain,
+                        hint
+                    );
+                }
+                other => panic!(
+                    "expected register AlmostRight for {} -> {}, got {:?}",
+                    polite, plain, other
+                ),
+            }
+            match grade_answer(plain, polite, &[], "polite") {
+                GradeOutcome::AlmostRight { category, hint } => {
+                    assert_eq!(category, "register");
+                    assert!(
+                        hint.contains("polite"),
+                        "expected polite register hint for {} -> {}, got: {}",
+                        plain,
+                        polite,
+                        hint
+                    );
+                }
+                other => panic!(
+                    "expected register AlmostRight for {} -> {}, got {:?}",
+                    plain, polite, other
+                ),
+            }
+        }
+
+        match grade_answer(
+            "じゃないです",
+            "じゃなかったです",
+            &["ではありませんでした".into()],
+            "polite past",
+        ) {
+            GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "tense"),
+            other => panic!("expected tense AlmostRight, got {:?}", other),
+        }
     }
 
     #[test]

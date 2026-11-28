@@ -188,7 +188,7 @@
       "prompt": "山田さん（　）傘ですか。",
       "options": ["は", "か", "の"],
       "answer_idx": 2,
-      "why": "Blank the linker の: 山田さんの傘ですか. は/か are different particles."
+      "why": "の links the owner to the noun: 山田さんの傘ですか. は/か are different particles."
     },
     {
       "prompt": "Which means \"my book\" (not \"this book\")?",

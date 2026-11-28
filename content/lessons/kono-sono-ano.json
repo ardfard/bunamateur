@@ -2,25 +2,27 @@
   "meaning": "this〜 / that〜 (near you) / that〜 over there · here / there / over there · which〜 / where",
   "gist": "この・その・あの must be followed by a noun (この本). Matching place words are ここ・そこ・あそこ. Questions: どの + noun (which〜), and どこ (where). Do not say ×このは… — use これは… when there is no noun after.",
   "formation": {
-    "columns": ["Series", "+ noun", "Place word", "Question"],
+    "columns": ["Series", "+ noun", "Place word"],
     "rows": [
       [
         "こ-",
         "この[本|ほん]",
-        "ここ",
-        "どの[本|ほん] / どこ"
+        "ここ"
       ],
       [
         "そ-",
         "その[傘|かさ]",
-        "そこ",
-        "—"
+        "そこ"
       ],
       [
         "あ-",
         "あの[建物|たてもの] / あの[人|ひと]",
-        "あそこ",
-        "—"
+        "あそこ"
+      ],
+      [
+        "ど- (question)",
+        "どの[本|ほん]",
+        "どこ"
       ]
     ],
     "note": "この／その／あの always need a following noun. Alone, use これ／それ／あれ. Places: ここ／そこ／あそこ stand alone like nouns (ここは図書館です). どの + noun = which〜; どこ = where."
@@ -196,10 +198,10 @@
       "why": "Before a noun you need この. これ stands alone; ここ is a place."
     },
     {
-      "prompt": "（　）は私のです。 (no noun after the blank)",
-      "options": ["この", "どの", "これ"],
+      "prompt": "（　）鞄ですか。",
+      "options": ["どれ", "どこ", "どの"],
       "answer_idx": 2,
-      "why": "No following noun → pronoun これ, not この."
+      "why": "Which + noun → どの鞄. どれ cannot take a noun after it."
     },
     {
       "prompt": "トイレは（　）ですか。",
@@ -208,10 +210,10 @@
       "why": "Asking where → どこ. どれ/どの are for choosing things."
     },
     {
-      "prompt": "（　）鞄ですか。",
-      "options": ["どれ", "どこ", "どの"],
+      "prompt": "（　）は私のです。 (no noun after the blank)",
+      "options": ["この", "どの", "これ"],
       "answer_idx": 2,
-      "why": "Which + noun → どの鞄. どれ cannot take a noun after it."
+      "why": "No following noun → pronoun これ, not この."
     }
   ],
   "related": {
