@@ -1,6 +1,6 @@
 {
   "meaning": "に (time) and telling time · at 〜時 / on 曜日",
-  "gist": "Mark a specific clock time or weekday with に: [七時|しちじ]に[起|お]きます / [土曜日|どようび]に[映画|えいが]を[見|み]ます. Learn hour and minute readings (よじ・しちじ・くじ; いっぷん・さんぷん・ろっぷん・じゅっぷん). Skip に after relative words like 今日 / 明日 / 毎日.",
+  "gist": "Mark a specific clock time or weekday with に: [七時|しちじ]に[起|お]きます / [土曜日|どようび]に[映画|えいが]を[見|み]ます. Learn hour and minute readings (よじ・しちじ・くじ; いっぷん・さんぷん・ろっぷん・じゅっぷん). Skip に after relative words like 今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩.",
   "formation": {
     "columns": [
       "Pattern",
@@ -21,12 +21,12 @@
       [
         "Minutes",
         "〜時〜分に + Vます",
-        "[三時|さんじ][五分|ごふん]に[待|ま]ちます"
+        "[三時|さんじ][五分|ごふん]に[来|き]ます"
       ],
       [
         "About (ごろ)",
         "〜時ごろ(に) + Vます",
-        "[七時|しちじ]ごろ[寝|ね]ます"
+        "[十一時|じゅういちじ]ごろ[寝|ね]ます"
       ],
       [
         "Weekday + に",
@@ -34,9 +34,9 @@
         "[土曜日|どようび]に[映画|えいが]を[見|み]ます"
       ]
     ],
-    "note": "に marks a specific time point (clock or weekday). ごろ softens \"about\"; に after ごろ is optional. Do not put に on 今日 / 明日 / 毎日 / 毎朝 / 先週."
+    "note": "に marks a specific time point (clock or weekday). ごろ softens \"about\"; に after ごろ is optional. Do not put に on 今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩."
   },
-  "explanation": "Time に pins an action to a clock time or a named weekday: 七時に起きます / 土曜日に映画を見ます. Hours use 〜時; half past is 〜時半; minutes are 〜分. Watch irregular hour readings: 四時 is よじ (not ×よんじ), 七時 is しちじ (not ×ななじ), 九時 is くじ (not ×きゅうじ). Minutes reshape too: 一分いっぷん, 三分さんぷん, 六分ろっぷん, 十分じゅっぷん / じっぷん. ごろ means \"about\": 七時ごろ(に)寝ます. Relative time words already place the day, so skip に: 今日学校に行きます (not ×今日に).",
+  "explanation": "Time に pins an action to a clock time or a named weekday: 七時に起きます / 土曜日に映画を見ます. Hours use 〜時; half past is 〜時半; minutes are 〜分. Watch irregular hour readings: 四時 is よじ (not ×よんじ), 七時 is しちじ (ななじ is also heard in speech), 九時 is くじ (not ×きゅうじ). Minutes reshape too: 一分いっぷん, 三分さんぷん, 六分ろっぷん, 十分じゅっぷん / じっぷん. ごろ means \"about\": 十一時ごろ(に)寝ます. Relative time words already place the day, so skip に: 今日学校に行きます (not ×今日に).",
   "senses": [
     {
       "label": "Clock time + に",
@@ -53,8 +53,8 @@
     {
       "label": "ごろ — about",
       "body": "ごろ softens the time; に after ごろ is optional.",
-      "example_ruby": "[七時|しちじ]ごろ[寝|ね]ます。",
-      "example_en": "I go to bed around seven."
+      "example_ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "example_en": "I go to bed around eleven."
     },
     {
       "label": "Weekday + に",
@@ -77,11 +77,6 @@
       "why": "四時 is よじ, not ×よんじ."
     },
     {
-      "wrong_ruby": "ななじに[起|お]きます。",
-      "right_ruby": "しちじに[起|お]きます。",
-      "why": "七時 is しちじ, not ×ななじ."
-    },
-    {
       "wrong_ruby": "きゅうじに[寝|ね]ます。",
       "right_ruby": "くじに[寝|ね]ます。",
       "why": "九時 is くじ, not ×きゅうじ."
@@ -92,24 +87,24 @@
       "why": "一分 is いっぷん, not ×いちぷん."
     },
     {
-      "wrong_ruby": "さんふんに[待|ま]ちます。",
-      "right_ruby": "さんぷんに[待|ま]ちます。",
+      "wrong_ruby": "さんじさんふんに[来|き]ます。",
+      "right_ruby": "さんじさんぷんに[来|き]ます。",
       "why": "三分 is さんぷん, not ×さんふん."
     },
     {
-      "wrong_ruby": "ろくふんに[待|ま]ちます。",
-      "right_ruby": "ろっぷんに[待|ま]ちます。",
+      "wrong_ruby": "ろくじろくふんに[来|き]ます。",
+      "right_ruby": "ろくじろっぷんに[来|き]ます。",
       "why": "六分 is ろっぷん, not ×ろくふん."
     },
     {
-      "wrong_ruby": "じゅうふんに[待|ま]ちます。",
-      "right_ruby": "じゅっぷんに[待|ま]ちます。",
+      "wrong_ruby": "にじじゅうふんに[来|き]ます。",
+      "right_ruby": "にじじゅっぷんに[来|き]ます。",
       "why": "十分 is じゅっぷん / じっぷん, not ×じゅうふん."
     },
     {
       "wrong_ruby": "[今日|きょう]に[学校|がっこう]に[行|い]きます。",
       "right_ruby": "[今日|きょう][学校|がっこう]に[行|い]きます。",
-      "why": "今日 / 明日 / 毎日 / 毎朝 / 先週 take no に. Use に for clock times and 曜日."
+      "why": "今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩 take no に. Use に for clock times and 曜日."
     }
   ],
   "contrasts": [
@@ -126,17 +121,17 @@
       "other_slug": null,
       "label": "Exact time vs ごろ",
       "summary": "〜時に is a point; 〜時ごろ(に) is approximate.",
-      "ex_a_ruby": "[七時|しちじ]に[寝|ね]ます。",
-      "ex_a_en": "I go to bed at seven.",
-      "ex_b_ruby": "[七時|しちじ]ごろ[寝|ね]ます。",
-      "ex_b_en": "I go to bed around seven."
+      "ex_a_ruby": "[十一時|じゅういちじ]に[寝|ね]ます。",
+      "ex_a_en": "I go to bed at eleven.",
+      "ex_b_ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "ex_b_en": "I go to bed around eleven."
     },
     {
       "other_slug": null,
       "label": "Irregular hour readings",
-      "summary": "よじ / しちじ / くじ — not ×よんじ / ×ななじ / ×きゅうじ.",
-      "ex_a_ruby": "[四時|よじ]に[待|ま]ちます。",
-      "ex_a_en": "I wait at four. (よじ)",
+      "summary": "よじ / しちじ / くじ — not ×よんじ / ×きゅうじ; 七時 is しちじ (ななじ is also heard; textbooks teach しちじ).",
+      "ex_a_ruby": "[四時|よじ]に[帰|かえ]ります。",
+      "ex_a_en": "I go home at four. (よじ)",
       "ex_b_ruby": "[九時|くじ]に[寝|ね]ます。",
       "ex_b_en": "I go to bed at nine. (くじ)"
     }
@@ -158,8 +153,8 @@
       "note": "半"
     },
     {
-      "ruby": "[四時|よじ]に[待|ま]ちます。",
-      "english": "I wait at four.",
+      "ruby": "[四時|よじ]に[帰|かえ]ります。",
+      "english": "I go home at four.",
       "note": "よじ"
     },
     {
@@ -169,7 +164,7 @@
     },
     {
       "ruby": "[三時|さんじ][三分|さんぷん]に[会|あ]います。",
-      "english": "I meet at 3:03.",
+      "english": "We'll meet at 3:03.",
       "note": "さんぷん"
     },
     {
@@ -178,8 +173,8 @@
       "note": "ろっぷん"
     },
     {
-      "ruby": "[七時|しちじ]ごろ[寝|ね]ます。",
-      "english": "I go to bed around seven.",
+      "ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "english": "I go to bed around eleven.",
       "note": "ごろ"
     },
     {
@@ -206,13 +201,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "[日曜日|にちようび]は。",
-      "english": "And Sunday?"
+      "ruby": "[日曜日|にちようび]は[何|なに]をしますか。",
+      "english": "What will you do on Sunday?"
     },
     {
       "speaker": "B",
-      "ruby": "[日曜日|にちようび]に[家|いえ]で[本|ほん]を[読|よ]みます。[九時|くじ]ごろ[寝|ね]ます。",
-      "english": "On Sunday I'll read a book at home. I'll go to bed around nine."
+      "ruby": "[家|いえ]で[本|ほん]を[読|よ]みます。[九時|くじ]ごろ[寝|ね]ます。",
+      "english": "I'll read a book at home. I'll go to bed around nine."
     }
   ],
   "checks": [
@@ -227,7 +222,7 @@
       "why": "Specific clock time takes に: 七時に起きます."
     },
     {
-      "prompt": "四時に待ちます — reading of 四時?",
+      "prompt": "四時に帰ります — reading of 四時?",
       "options": [
         "よんじ",
         "よじ",

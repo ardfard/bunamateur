@@ -2,7 +2,11 @@
   "meaning": "に vs へ · destination both OK; only に for time",
   "gist": "[学校|がっこう]に[行|い]きます and [学校|がっこう]へ[行|い]きます are both fine for movement destination. Time takes only に: [七時|しちじ]に[起|お]きます — never ×七時へ. へ is read え.",
   "formation": {
-    "columns": ["Use", "Particle", "Example"],
+    "columns": [
+      "Use",
+      "Particle",
+      "Example"
+    ],
     "rows": [
       [
         "Destination (に)",
@@ -79,7 +83,7 @@
   ],
   "contrasts": [
     {
-      "other_slug": "ni-destination",
+      "other_slug": null,
       "label": "に destination (also OK: へ)",
       "summary": "学校に行きます is fine; 学校へ行きます is the same movement scene.",
       "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
@@ -88,7 +92,7 @@
       "ex_b_en": "I go to school. (へ)"
     },
     {
-      "other_slug": "he-direction",
+      "other_slug": null,
       "label": "へ direction (also OK: に)",
       "summary": "へ marks direction toward a place; for basic movement it pairs with に as both-OK.",
       "ex_a_ruby": "[駅|えき]へ[行|い]きます。",
@@ -104,6 +108,24 @@
       "ex_a_en": "I go to school. (both OK)",
       "ex_b_ruby": "[七時|しちじ]に[起|お]きます。",
       "ex_b_en": "I get up at seven. (に only — not ×へ)"
+    },
+    {
+      "other_slug": "ni-destination",
+      "label": "に destination (also OK: へ)",
+      "summary": "に marks the destination of movement. へ also works for go / come / return.",
+      "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_a_en": "I go to school.",
+      "ex_b_ruby": "[学校|がっこう]へ[行|い]きます。",
+      "ex_b_en": "I go toward school."
+    },
+    {
+      "other_slug": "he-direction",
+      "label": "へ direction (also OK: に)",
+      "summary": "へ marks direction. に also works for go / come / return.",
+      "ex_a_ruby": "[学校|がっこう]へ[行|い]きます。",
+      "ex_a_en": "I go toward school.",
+      "ex_b_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_b_en": "I go to school."
     }
   ],
   "examples": [
@@ -161,54 +183,77 @@
     },
     {
       "speaker": "B",
-      "ruby": "[八時|はちじ]に[行|い]きます。[自転車|じてんしゃ]で[学校|がっこう]へ[行|い]きます。",
-      "english": "I go at eight. I go to school by bicycle."
+      "ruby": "[八時|はちじ]に[行|い]きます。",
+      "english": "I go at eight."
     },
     {
       "speaker": "A",
-      "ruby": "[家|いえ]へ[帰|かえ]りますか。",
-      "english": "Are you going home?"
+      "ruby": "[何時|なんじ]にうちへ[帰|かえ]りますか。",
+      "english": "What time do you go home?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、[六時|ろくじ]に[家|いえ]に[帰|かえ]ります。",
-      "english": "Yes, I go home at six."
+      "ruby": "[六時|ろくじ]ごろ[帰|かえ]ります。",
+      "english": "I go home around six."
     }
   ],
   "checks": [
     {
       "prompt": "学校（　）行きます。 (destination — both OK; pick a correct one)",
-      "options": ["学校に行きます。", "学校を行きます。", "学校が行きます。"],
+      "options": [
+        "学校に行きます。",
+        "学校を行きます。",
+        "学校が行きます。"
+      ],
       "answer_idx": 0,
       "why": "Destination takes に (へ also OK). Not を."
     },
     {
       "prompt": "七時（　）起きます。",
-      "options": ["へ", "を", "に"],
+      "options": [
+        "へ",
+        "を",
+        "に"
+      ],
       "answer_idx": 2,
       "why": "Time takes に only — not ×へ."
     },
     {
       "prompt": "Which is wrong?",
-      "options": ["学校へ行きます。", "七時へ起きます。", "学校に行きます。"],
+      "options": [
+        "学校へ行きます。",
+        "七時へ起きます。",
+        "学校に行きます。"
+      ],
       "answer_idx": 1,
       "why": "×七時へ — time cannot take へ."
     },
     {
       "prompt": "へ is pronounced…",
-      "options": ["え", "へ", "べ"],
+      "options": [
+        "え",
+        "へ",
+        "べ"
+      ],
       "answer_idx": 0,
       "why": "Particle へ is read え."
     },
     {
       "prompt": "部屋（　）猫がいます。",
-      "options": ["へ", "で", "に"],
+      "options": [
+        "へ",
+        "で",
+        "に"
+      ],
       "answer_idx": 2,
       "why": "Existence location → に (not へ)."
     }
   ],
   "related": {
-    "prerequisites": ["ni-destination", "he-direction"],
+    "prerequisites": [
+      "ni-destination",
+      "he-direction"
+    ],
     "next": []
   },
   "lesson_version": 1

@@ -83,9 +83,9 @@
       "why": "[帰|かえ]る looks like a ru-verb but is a u-verb → [帰|かえ]ります, not ×[帰|かえ]ます. Same pattern for [入|はい]る / [切|き]る / [知|し]る / [走|はし]る."
     },
     {
-      "wrong_ruby": "[食|た]べる。",
+      "wrong_ruby": "[食|た]べるます。",
       "right_ruby": "[食|た]べます。",
-      "why": "In polite classroom speech, use ます — not the dictionary form alone."
+      "why": "Ru-verbs drop る before ます."
     },
     {
       "wrong_ruby": "するます。",
@@ -177,23 +177,23 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[朝|あさ]、[起|お]きますか。",
-      "english": "Do you get up in the morning?"
+      "ruby": "[明日|あした]、[来|き]ますか。",
+      "english": "Are you coming tomorrow?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、[起|お]きます。[食|た]べます。それから[行|い]きます。",
-      "english": "Yes, I get up. I eat. Then I go."
+      "ruby": "はい、[来|き]ます。",
+      "english": "Yes, I am."
     },
     {
       "speaker": "A",
-      "ruby": "[土曜日|どようび]も[行|い]きますか。",
-      "english": "Do you go on Saturday too?"
+      "ruby": "[田中|たなか]さんも[来|き]ますか。",
+      "english": "Is Tanaka-san coming too?"
     },
     {
       "speaker": "B",
-      "ruby": "いいえ、[行|い]きません。[寝|ね]ます。",
-      "english": "No, I don't go. I sleep in. / I go to bed."
+      "ruby": "いいえ、[田中|たなか]さんは[来|き]ません。",
+      "english": "No, Tanaka-san isn't coming."
     }
   ],
   "checks": [

@@ -1,6 +1,6 @@
 {
   "meaning": "に · destination of go / come / return",
-  "gist": "[学校|がっこう]に[行|い]きます。 に marks where you go, come, or return to. Use it with [行|い]きます / [来|き]ます / [帰|かえ]ります. [行|い]きます takes に (or へ) — never ×[学校|がっこう]を[行|い]きます. Both うちに[帰|かえ]ります and [家|いえ]に[帰|かえ]ります are fine.",
+  "gist": "[学校|がっこう]に[行|い]きます。 に marks where you go, come, or return to. Use it with [行|い]きます / [来|き]ます / [帰|かえ]ります. [行|い]きます takes に — never ×[学校|がっこう]を[行|い]きます. Both うちに[帰|かえ]ります and [家|いえ]に[帰|かえ]ります are fine.",
   "formation": {
     "columns": [
       "Verb",
@@ -29,9 +29,9 @@
         "[学校|がっこう]に[行|い]きます。[図書館|としょかん]で[勉強|べんきょう]します。"
       ]
     ],
-    "note": "Destination に pairs with movement verbs. うち and [家|いえ] both work for \"home\" with [帰|かえ]ります. へ overlaps with に for movement. Do not use を with [行|い]きます."
+    "note": "Destination に pairs with movement verbs. うち and [家|いえ] both work for \"home\" with [帰|かえ]ります. Do not use を with [行|い]きます."
   },
-  "explanation": "To say where you are headed, mark the destination with に: [学校|がっこう]に[行|い]きます (go to school), うちに[帰|かえ]ります / [家|いえ]に[帰|かえ]ります (go home — both うち and 家 are natural), [日本|にほん]に[来|き]ます (come to Japan). Movement verbs take に (or へ), not object を: ×[学校|がっこう]を[行|い]きます is wrong. You can still use place-of-action で and object を once you arrive: [学校|がっこう]に[行|い]きます。[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+  "explanation": "To say where you are headed, mark the destination with に: [学校|がっこう]に[行|い]きます (go to school), うちに[帰|かえ]ります / [家|いえ]に[帰|かえ]ります (go home — both うち and 家 are natural), [日本|にほん]に[来|き]ます (come to Japan). Movement verbs take に, not object を: ×[学校|がっこう]を[行|い]きます is wrong. You can still use place-of-action で and object を once you arrive: [学校|がっこう]に[行|い]きます。[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
   "senses": [
     {
       "label": "Go to a place",
@@ -64,12 +64,12 @@
       "example_en": "I go to the library. I read a book."
     }
   ],
-  "register_context": "Polite classroom movement: Placeに行きます / 来ます / 帰ります. へ is a close alternate for movement direction; master に on destinations first. Time に (七時に) is a different use of the same kana.",
+  "register_context": "Polite classroom movement: Placeに行きます / 来ます / 帰ります. Master に on destinations first.",
   "mistakes": [
     {
       "wrong_ruby": "[学校|がっこう]を[行|い]きます。",
       "right_ruby": "[学校|がっこう]に[行|い]きます。",
-      "why": "[行|い]きます takes destination に (or へ), not object を."
+      "why": "[行|い]きます takes destination に, not object を."
     },
     {
       "wrong_ruby": "[行|い]きますに[学校|がっこう]。",
@@ -82,7 +82,7 @@
       "why": "で marks where an action happens; destination of going takes に."
     },
     {
-      "wrong_ruby": "[家|いえ]が[帰|かえ]ります。",
+      "wrong_ruby": "[家|いえ]が[帰|かえ]ります。(Meaning: The house goes home.)",
       "right_ruby": "[家|いえ]に[帰|かえ]ります。",
       "why": "Home as destination needs に: 家に帰ります (or うちに帰ります)."
     }
@@ -107,22 +107,22 @@
       "ex_b_en": "I read a book."
     },
     {
-      "other_slug": "he-direction",
-      "label": "に vs へ for movement",
-      "summary": "For going/coming, 学校に行きます and 学校へ行きます both work. へ stresses direction toward; に marks the destination.",
+      "other_slug": "contrast-ni-he",
+      "label": "に and へ for movement",
+      "summary": "に and へ both work for go / come / return; only に works for time.",
       "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
-      "ex_a_en": "I go to school. (destination に)",
+      "ex_a_en": "I go to school.",
       "ex_b_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "ex_b_en": "I go to school. / toward school (direction へ)"
+      "ex_b_en": "I go toward school."
     },
     {
-      "other_slug": "contrast-ni-he",
-      "label": "に vs へ contrast lesson",
-      "summary": "に and へ both work for movement destinations; only に works for time. The contrast lesson drills where they diverge.",
+      "other_slug": "he-direction",
+      "label": "に vs へ for movement",
+      "summary": "Either particle is fine for go / come / return.",
       "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
-      "ex_a_en": "I go to school. (に destination)",
+      "ex_a_en": "I go to school.",
       "ex_b_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "ex_b_en": "I go toward school. (へ direction)"
+      "ex_b_en": "I go toward school."
     }
   ],
   "examples": [
@@ -157,7 +157,7 @@
       "note": "library"
     },
     {
-      "ruby": "カフェに[行|い]ます。コーヒーを[飲|の]みます。",
+      "ruby": "カフェに[行|い]きます。コーヒーを[飲|の]みます。",
       "english": "I go to a café. I drink coffee.",
       "note": "destination then object"
     },
@@ -185,13 +185,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "[家|いえ]に[帰|かえ]りますか。",
-      "english": "Are you going home?"
+      "ruby": "それから、うちに[帰|かえ]りますか。",
+      "english": "And then, are you going home?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、うちに[帰|かえ]ります。",
-      "english": "Yes, I'm going home."
+      "ruby": "いいえ、[友達|ともだち]の[家|いえ]に[行|い]きます。",
+      "english": "No, I'm going to a friend's house."
     }
   ],
   "checks": [

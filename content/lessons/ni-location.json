@@ -2,7 +2,11 @@
   "meaning": "に · location of existence (\"in / at\")",
   "gist": "[部屋|へや]に[猫|ねこ]がいます。 Place + に + subject + が + います / あります says where something exists. に marks the place; が marks who or what is there.",
   "formation": {
-    "columns": ["Pattern", "Animate", "Thing"],
+    "columns": [
+      "Pattern",
+      "Animate",
+      "Thing"
+    ],
     "rows": [
       [
         "Placeに + Nが + います / あります",
@@ -111,12 +115,12 @@
     },
     {
       "other_slug": "contrast-ni-de",
-      "label": "に vs で contrast lesson",
-      "summary": "Same pair drilled as a dedicated contrast: existence に vs action で.",
-      "ex_a_ruby": "[図書館|としょかん]に[本|ほん]があります。",
-      "ex_a_en": "There are books in the library. (existence に)",
-      "ex_b_ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
-      "ex_b_en": "I read a book at the library. (action で)"
+      "label": "に vs で for places",
+      "summary": "に marks where something exists; で marks where an action happens.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room.",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room."
     }
   ],
   "examples": [
@@ -186,32 +190,52 @@
   "checks": [
     {
       "prompt": "部屋（　）猫がいます。",
-      "options": ["が", "は", "に"],
+      "options": [
+        "が",
+        "は",
+        "に"
+      ],
       "answer_idx": 2,
       "why": "Place of existence takes に: 部屋に猫がいます."
     },
     {
       "prompt": "教室に本（　）。",
-      "options": ["がいます", "があります", "です"],
+      "options": [
+        "がいます",
+        "があります",
+        "です"
+      ],
       "answer_idx": 1,
       "why": "Books → があります even with place に."
     },
     {
       "prompt": "図書館に（　）がいますか。 (Who is in the library?)",
-      "options": ["だれ", "何", "どこ"],
+      "options": [
+        "だれ",
+        "何",
+        "どこ"
+      ],
       "answer_idx": 0,
       "why": "Asking who → だれがいますか. 何 can ask \"what animal\"; どこ asks where."
     },
     {
       "prompt": "Context: There is a teacher here.",
-      "options": ["先生がここいます。", "ここに先生がいます。", "ここが先生にいます。"],
+      "options": [
+        "先生がここいます。",
+        "ここに先生がいます。",
+        "ここが先生にいます。"
+      ],
       "answer_idx": 1,
       "why": "Place word + に + subjectが + います. ×先生がここいます drops に."
     }
   ],
   "related": {
-    "prerequisites": ["aru-iru"],
-    "next": ["position-nouns"]
+    "prerequisites": [
+      "aru-iru"
+    ],
+    "next": [
+      "position-nouns"
+    ]
   },
   "lesson_version": 1
 }

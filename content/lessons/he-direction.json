@@ -1,6 +1,6 @@
 {
   "meaning": "へ · direction toward (pronounced え)",
-  "gist": "[学校|がっこう]へ[行|い]きます。 へ marks direction toward a place. Pronounce へ as え. For movement, へ and に often both work: [学校|がっこう]へ[行|い]きます ≈ [学校|がっこう]に[行|い]きます. Time expressions use only に (×七時へ).",
+  "gist": "[学校|がっこう]へ[行|い]きます。 へ marks direction toward a place. Pronounce へ as え. For movement, へ and に often both work: [学校|がっこう]へ[行|い]きます ≈ [学校|がっこう]に[行|い]きます.",
   "formation": {
     "columns": [
       "Pattern",
@@ -36,7 +36,7 @@
     ],
     "note": "Written へ, spoken え. For go/come/return, へ and に are usually interchangeable. へ slightly highlights the direction toward; に is the everyday destination marker you just learned."
   },
-  "explanation": "へ points you toward a place: [学校|がっこう]へ[行|い]きます, [日本|にほん]へ[来|き]ます, うちへ[帰|かえ]ります. Say it as え, not \"he.\" With movement verbs, [学校|がっこう]へ[行|い]きます and [学校|がっこう]に[行|い]きます are both natural. Keep using で for where you act and を for objects after you arrive. Clock times and weekdays take に only — not へ (七時に / ×七時へ).",
+  "explanation": "へ points you toward a place: [学校|がっこう]へ[行|い]きます, [日本|にほん]へ[来|き]ます, うちへ[帰|かえ]ります. Say it as え, not \"he.\" With movement verbs, [学校|がっこう]へ[行|い]きます and [学校|がっこう]に[行|い]きます are both natural. Keep using で for where you act and を for objects after you arrive. Either particle is fine for go / come / return.",
   "senses": [
     {
       "label": "Direction of going",
@@ -61,15 +61,9 @@
       "body": "For movement, へ and に usually both work; pick either in class.",
       "example_ruby": "[学校|がっこう]へ[行|い]きます。 / [学校|がっこう]に[行|い]きます。",
       "example_en": "I go to school. (either particle)"
-    },
-    {
-      "label": "Preview: time takes に only",
-      "body": "Movement allows へ or に. Clock times take に only (七時に), never ×七時へ.",
-      "example_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "example_en": "Direction OK with へ; time uses に, not へ."
     }
   ],
-  "register_context": "Polite classroom movement with へ / に. Pronounce へ as え. Either particle is fine for go/come/return in this course; learn the overlap rather than treating one as \"more correct.\"",
+  "register_context": "Polite classroom movement with へ / に. Pronounce へ as え. Either particle is fine for go / come / return.",
   "mistakes": [
     {
       "wrong_ruby": "[学校|がっこう]を[行|い]きます。",
@@ -82,9 +76,9 @@
       "why": "へ attaches to the place noun before the verb."
     },
     {
-      "wrong_ruby": "(Pronouncing へ as \"he\") [学校|がっこう]へ[行|い]きます。",
+      "wrong_ruby": "[学校|がっこう]え[行|い]きます。",
       "right_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "why": "へ is pronounced え (学校え行きます), not \"he.\""
+      "why": "You say え, but the particle is always written へ."
     },
     {
       "wrong_ruby": "[学校|がっこう]で[行|い]きます。",
@@ -94,7 +88,7 @@
   ],
   "contrasts": [
     {
-      "other_slug": "ni-destination",
+      "other_slug": null,
       "label": "へ vs に for movement",
       "summary": "学校へ行きます ≈ 学校に行きます. Both mark where you are headed; へ leans toward \"direction,\" に toward \"destination.\"",
       "ex_a_ruby": "[学校|がっこう]へ[行|い]きます。",
@@ -112,22 +106,22 @@
       "ex_b_en": "I study at school."
     },
     {
-      "other_slug": null,
-      "label": "Movement へ/に vs time に only",
-      "summary": "For going, both へ and に work. For clock times, only に: 七時に / ×七時へ.",
-      "ex_a_ruby": "[駅|えき]へ[行|い]きます。",
-      "ex_a_en": "I go to the station. (へ OK)",
-      "ex_b_ruby": "[駅|えき]に[行|い]きます。",
-      "ex_b_en": "I go to the station. (に OK for movement; time uses に only)"
+      "other_slug": "contrast-ni-he",
+      "label": "に and へ for movement",
+      "summary": "へ and に both work for go / come / return.",
+      "ex_a_ruby": "[学校|がっこう]へ[行|い]きます。",
+      "ex_a_en": "I go toward school.",
+      "ex_b_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_b_en": "I go to school."
     },
     {
-      "other_slug": "contrast-ni-he",
-      "label": "に vs へ contrast lesson",
-      "summary": "へ and に both mark movement destinations; time takes only に (七時に — never ×七時へ).",
+      "other_slug": "ni-destination",
+      "label": "へ vs に for movement",
+      "summary": "Either particle is fine for go / come / return.",
       "ex_a_ruby": "[学校|がっこう]へ[行|い]きます。",
-      "ex_a_en": "I go toward school. (へ)",
-      "ex_b_ruby": "[七時|しちじ]に[起|お]きます。",
-      "ex_b_en": "I get up at seven. (time に only)"
+      "ex_a_en": "I go toward school.",
+      "ex_b_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_b_en": "I go to school."
     }
   ],
   "examples": [
@@ -185,13 +179,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "[家|いえ]へ[帰|かえ]りますか。",
-      "english": "Are you going home?"
+      "ruby": "それから、うちへ[帰|かえ]りますか。",
+      "english": "And then, are you going home?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、うちへ[帰|かえ]ります。",
-      "english": "Yes, I'm heading home."
+      "ruby": "いいえ、[友達|ともだち]の[家|いえ]へ[行|い]きます。",
+      "english": "No, I'm going to a friend's house."
     }
   ],
   "checks": [

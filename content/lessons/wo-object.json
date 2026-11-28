@@ -36,7 +36,7 @@
     ],
     "note": "を comes right after the object noun. Pronounce を as お. Topic は / も can still frame the sentence: [私|わたし]は本を読みます / [田中|たなか]さんもコーヒーを飲みます."
   },
-  "explanation": "When a verb acts on something, mark that something with を: [本|ほん]を[読|よ]みます (read a book), コーヒーを[飲|の]みます (drink coffee), [映画|えいが]を[見|み]ます (watch a movie). The particle is written を but pronounced お. Keep the order Object + を + verb — never ×[行|い]きますを. For the thing being read, watched, or drunk, use を, not が: ×[本|ほん]が[読|よ]みます is wrong for \"(I) read a book.\"",
+  "explanation": "When a verb acts on something, mark that something with を: [本|ほん]を[読|よ]みます (read a book), コーヒーを[飲|の]みます (drink coffee), [映画|えいが]を[見|み]ます (watch a movie). The particle is written を but pronounced お. Keep the order Object + を + verb — never ×[読|よ]みますを. For the thing being read, watched, or drunk, use を, not が: ×[本|ほん]が[読|よ]みます is wrong for \"(I) read a book.\"",
   "senses": [
     {
       "label": "Object of an action",
@@ -71,7 +71,7 @@
       "why": "The thing you read is the object → を, not が. (が marks a subject of existence or focus, not this object role.)"
     },
     {
-      "wrong_ruby": "[行|い]きますを。",
+      "wrong_ruby": "[本|ほん][読|よ]みますを。",
       "right_ruby": "[本|ほん]を[読|よ]みます。",
       "why": "を attaches to the object noun before the verb — never after the verb."
     },
@@ -175,8 +175,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "はい、[音楽|おんがく]を[聞|き]ます。コーヒーも[飲|の]みます。",
-      "english": "Yes, I listen to music. I drink coffee too."
+      "ruby": "はい、[聞|き]きます。[日本|にほん]の[音楽|おんがく]も[聞|き]きます。",
+      "english": "Yes, I do. I listen to Japanese music too."
     }
   ],
   "checks": [
@@ -195,7 +195,7 @@
       "options": [
         "が",
         "を",
-        "は"
+        "に"
       ],
       "answer_idx": 1,
       "why": "Object of drinking takes を: コーヒーを飲みます."

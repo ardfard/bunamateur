@@ -2,7 +2,11 @@
   "meaning": "と (together with) · with someone",
   "gist": "[友達|ともだち]と[映画|えいが]を[見|み]ます。 Person + と marks who you do the action with. This is not list と (パンと卵). Alone is [一人|ひとり]で — never ×一人と.",
   "formation": {
-    "columns": ["Pattern", "Shape", "Example"],
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
     "rows": [
       [
         "With someone",
@@ -166,50 +170,75 @@
     },
     {
       "speaker": "A",
-      "ruby": "[日曜日|にちようび]は。",
-      "english": "And Sunday?"
+      "ruby": "[日曜日|にちようび]は[何|なに]をしますか。",
+      "english": "What will you do on Sunday?"
     },
     {
       "speaker": "B",
-      "ruby": "[一人|ひとり]で[家|いえ]で[本|ほん]を[読|よ]みます。",
+      "ruby": "[家|いえ]で[一人|ひとり]で[本|ほん]を[読|よ]みます。",
       "english": "I'll read a book at home alone."
     }
   ],
   "checks": [
     {
       "prompt": "友達（　）映画を見ます。 (with a friend)",
-      "options": ["で", "を", "と"],
+      "options": [
+        "で",
+        "を",
+        "と"
+      ],
       "answer_idx": 2,
       "why": "Companion → 友達と."
     },
     {
-      "prompt": "Alone:",
-      "options": ["一人と勉強します。", "一人で勉強します。", "一人に勉強します。"],
+      "prompt": "山田さん（　）図書館で勉強します。 (with Yamada-san)",
+      "options": [
+        "で",
+        "と",
+        "を"
+      ],
       "answer_idx": 1,
-      "why": "Alone is 一人で, not ×一人と."
+      "why": "Companion → 山田さんと."
     },
     {
       "prompt": "Which uses companion と?",
-      "options": ["パンと卵があります。", "友達と行きます。", "電車で行きます。"],
+      "options": [
+        "パンと卵があります。",
+        "友達と行きます。",
+        "電車で行きます。"
+      ],
       "answer_idx": 1,
       "why": "友達と = with a friend. パンと卵 is list と."
     },
     {
       "prompt": "田中さん（　）話します。",
-      "options": ["と", "で", "を"],
+      "options": [
+        "と",
+        "で",
+        "を"
+      ],
       "answer_idx": 0,
       "why": "Talk with someone → Personと話します."
     },
     {
       "prompt": "Fix: 一人と映画を見ます。",
-      "options": ["一人で映画を見ます。", "一人が映画を見ます。", "一人を映画を見ます。"],
+      "options": [
+        "一人で映画を見ます。",
+        "一人に映画を見ます。",
+        "一人を映画を見ます。"
+      ],
       "answer_idx": 0,
       "why": "Alone → 一人で."
     }
   ],
   "related": {
-    "prerequisites": ["to-and", "masu-form"],
-    "next": ["contrast-ni-de"]
+    "prerequisites": [
+      "to-and",
+      "masu-form"
+    ],
+    "next": [
+      "contrast-ni-de"
+    ]
   },
   "lesson_version": 1
 }

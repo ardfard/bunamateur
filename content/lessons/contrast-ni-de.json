@@ -2,7 +2,11 @@
   "meaning": "に vs で for places · existence vs action location",
   "gist": "[部屋|へや]に[猫|ねこ]がいます says where something exists. [部屋|へや]で[勉強|べんきょう]します says where an action happens. Same place noun; the particle follows the verb's job — existence (います / あります) vs action (勉強します / 読みます).",
   "formation": {
-    "columns": ["Job", "Particle", "Example"],
+    "columns": [
+      "Job",
+      "Particle",
+      "Example"
+    ],
     "rows": [
       [
         "Existence location",
@@ -78,7 +82,7 @@
   ],
   "contrasts": [
     {
-      "other_slug": "ni-location",
+      "other_slug": null,
       "label": "に — existence location",
       "summary": "部屋に猫がいます / 図書館に本があります — where something is.",
       "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
@@ -87,13 +91,31 @@
       "ex_b_en": "I study in the room. (action で)"
     },
     {
-      "other_slug": "de-place",
+      "other_slug": null,
       "label": "で — action location",
       "summary": "部屋で勉強します / 図書館で本を読みます — where you do something.",
       "ex_a_ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
       "ex_a_en": "I read a book at the library. (action で)",
       "ex_b_ruby": "[図書館|としょかん]に[本|ほん]があります。",
       "ex_b_en": "There are books in the library. (existence に)"
+    },
+    {
+      "other_slug": "ni-location",
+      "label": "に — existence location",
+      "summary": "に marks where something exists with います / あります.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room.",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room."
+    },
+    {
+      "other_slug": "de-place",
+      "label": "で — action location",
+      "summary": "で marks where an action happens.",
+      "ex_a_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_a_en": "I study in the room.",
+      "ex_b_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_b_en": "There is a cat in the room."
     }
   ],
   "examples": [
@@ -151,60 +173,85 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[図書館|としょかん]に[本|ほん]がありますか。",
-      "english": "Are there books in the library?"
+      "ruby": "[今日|きょう]、どこで[勉強|べんきょう]しますか。",
+      "english": "Where will you study today?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、あります。[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
-      "english": "Yes, there are. I read books at the library."
+      "ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I'll study at the library."
     },
     {
       "speaker": "A",
-      "ruby": "[部屋|へや]に[猫|ねこ]がいますか。",
-      "english": "Is there a cat in the room?"
+      "ruby": "[図書館|としょかん]に[山田|やまだ]さんもいますか。",
+      "english": "Is Yamada-san at the library too?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、います。[部屋|へや]で[勉強|べんきょう]します。",
-      "english": "Yes, there is. I study in the room."
+      "ruby": "はい、います。",
+      "english": "Yes, she is."
     }
   ],
   "checks": [
     {
       "prompt": "部屋（　）猫がいます。",
-      "options": ["で", "に", "を"],
+      "options": [
+        "で",
+        "に",
+        "を"
+      ],
       "answer_idx": 1,
       "why": "Existence location → に."
     },
     {
       "prompt": "部屋（　）勉強します。",
-      "options": ["に", "が", "で"],
+      "options": [
+        "に",
+        "が",
+        "で"
+      ],
       "answer_idx": 2,
       "why": "Action location → で."
     },
     {
       "prompt": "図書館に本があります vs 図書館で本を読みます — which is existence?",
-      "options": ["図書館で本を読みます", "図書館に本があります", "both"],
+      "options": [
+        "図書館で本を読みます",
+        "図書館に本があります",
+        "both"
+      ],
       "answer_idx": 1,
       "why": "があります → existence に."
     },
     {
       "prompt": "Fix: 教室に話します。",
-      "options": ["教室で話します。", "教室が話します。", "教室を話します。"],
+      "options": [
+        "教室で話します。",
+        "教室が話します。",
+        "教室を話します。"
+      ],
       "answer_idx": 0,
       "why": "Talking is an action at the place → で."
     },
     {
       "prompt": "カフェ（　）コーヒーを飲みます。",
-      "options": ["に", "で", "と"],
+      "options": [
+        "に",
+        "で",
+        "と"
+      ],
       "answer_idx": 1,
       "why": "Drinking is an action → place で."
     }
   ],
   "related": {
-    "prerequisites": ["ni-location", "de-place"],
-    "next": ["contrast-ni-he"]
+    "prerequisites": [
+      "ni-location",
+      "de-place"
+    ],
+    "next": [
+      "contrast-ni-he"
+    ]
   },
   "lesson_version": 1
 }
