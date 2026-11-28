@@ -1,6 +1,7 @@
 pub mod audio;
 pub mod auth;
 pub mod crypto;
+pub mod curriculum;
 pub mod db;
 pub mod email;
 pub mod lesson;

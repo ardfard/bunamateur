@@ -68,6 +68,12 @@ pub struct GrammarPointSummary {
     pub wk_readiness_pct: u8,
     pub wk_known_kanji: usize,
     pub wk_total_kanji: usize,
+    /// Curriculum unit id when assigned; `None` for unplaced / sketch points.
+    pub unit_id: Option<String>,
+    /// Display title of the curriculum unit (JOIN); `None` when unplaced.
+    pub unit_title: Option<String>,
+    /// Teaching sort order within the curriculum; `None` when unplaced.
+    pub sort_order: Option<i32>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]

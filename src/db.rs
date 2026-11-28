@@ -1,5 +1,6 @@
 use crate::audio::{AudioConfig, AudioService};
 use crate::crypto::TokenCipher;
+use crate::curriculum::{PointKind, PointStatus, load_and_validate_curriculum};
 use crate::email::{
     DEFAULT_APP_PUBLIC_URL, DEFAULT_EMAIL_FROM, DynEmailSender, NoopLogEmailSender,
 };
@@ -213,12 +214,15 @@ pub fn compute_curriculum_checksum() -> (String, i32, i32) {
 /// touching any user-scoped tables.
 pub async fn seed_content(pool: &PgPool) -> Result<()> {
     let all_grammar = all_seed_grammar();
+    let seeded_slugs: HashSet<&str> = all_grammar.iter().map(|g| g.slug).collect();
+    let curriculum = load_and_validate_curriculum(&seeded_slugs)
+        .context("Curriculum validation failed during seed_content")?;
     let (checksum, item_count, sentence_count) = compute_curriculum_checksum();
     let lessons = load_embedded_lessons().context("Failed to load embedded grammar lessons")?;
 
     let mut tx = pool.begin().await?;
 
-    for g in all_grammar {
+    for g in &all_grammar {
         let patterns: Vec<String> = g.match_patterns.iter().map(|s| (*s).to_string()).collect();
         let lesson_json = lessons
             .get(g.slug)
@@ -293,6 +297,58 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
             .await?;
         }
     }
+
+    // Second pass: upsert curriculum units and attach metadata to existing grammar rows.
+    for unit in &curriculum.units {
+        sqlx::query(
+            "INSERT INTO units (id, n, level, title, goal, sort_order)
+             VALUES ($1, $2, $3, $4, $5, $6)
+             ON CONFLICT (id) DO UPDATE SET
+                 n = EXCLUDED.n,
+                 level = EXCLUDED.level,
+                 title = EXCLUDED.title,
+                 goal = EXCLUDED.goal,
+                 sort_order = EXCLUDED.sort_order",
+        )
+        .bind(&unit.id)
+        .bind(unit.n)
+        .bind(&unit.level)
+        .bind(&unit.title)
+        .bind(&unit.goal)
+        .bind(unit.sort_order)
+        .execute(&mut *tx)
+        .await?;
+
+        for point in &unit.points {
+            if point.status != PointStatus::Existing {
+                // Planned / contrast-without-row: do not create grammar_points rows.
+                continue;
+            }
+            let kind = match point.kind {
+                PointKind::Point => "point",
+                PointKind::Contrast => "contrast",
+            };
+            let updated = sqlx::query(
+                "UPDATE grammar_points
+                 SET unit_id = $1, sort_order = $2, prerequisites = $3, kind = $4
+                 WHERE slug = $5",
+            )
+            .bind(&unit.id)
+            .bind(point.sort_order)
+            .bind(&point.prerequisites)
+            .bind(kind)
+            .bind(&point.slug)
+            .execute(&mut *tx)
+            .await?;
+            if updated.rows_affected() == 0 {
+                anyhow::bail!(
+                    "Curriculum existing slug '{}' has no grammar_points row to update",
+                    point.slug
+                );
+            }
+        }
+    }
+    // Sketch existing points stay unplaced (unit_id / sort_order NULL); they sort after NULLS LAST.
 
     for p in SEED_PASSAGES {
         sqlx::query(
@@ -1381,6 +1437,9 @@ struct GrammarSummaryRow {
     correct_count: i32,
     incorrect_count: i32,
     combined_sentences: String,
+    unit_id: Option<String>,
+    unit_title: Option<String>,
+    sort_order: Option<i32>,
 }
 
 pub async fn list_grammar_summaries(
@@ -1400,12 +1459,18 @@ pub async fn list_grammar_summaries(
                 COALESCE(p.ghost_level, 0) AS ghost_level,
                 COALESCE(p.correct_count, 0) AS correct_count,
                 COALESCE(p.incorrect_count, 0) AS incorrect_count,
-                COALESCE(STRING_AGG(s.jp_before || s.answer || s.jp_after, ' ' ORDER BY s.position, s.id), '') AS combined_sentences
+                COALESCE(STRING_AGG(s.jp_before || s.answer || s.jp_after, ' ' ORDER BY s.position, s.id), '') AS combined_sentences,
+                g.unit_id,
+                u.title AS unit_title,
+                g.sort_order
          FROM grammar_points g
+         LEFT JOIN units u ON u.id = g.unit_id
          LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
          LEFT JOIN grammar_sentences s ON s.grammar_id = g.id
-         GROUP BY g.id, p.srs_stage, p.next_review_at, p.ghost_level, p.correct_count, p.incorrect_count
-         ORDER BY CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END, g.id",
+         GROUP BY g.id, p.srs_stage, p.next_review_at, p.ghost_level, p.correct_count, p.incorrect_count, u.title
+         ORDER BY g.sort_order ASC NULLS LAST,
+                  CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END,
+                  g.id",
     )
     .bind(user_id)
     .fetch_all(pool)
@@ -1476,6 +1541,9 @@ pub async fn list_grammar_summaries(
             wk_readiness_pct: wk_pct,
             wk_known_kanji: wk_known,
             wk_total_kanji: wk_total,
+            unit_id: row.unit_id,
+            unit_title: row.unit_title,
+            sort_order: row.sort_order,
         });
     }
 
@@ -1912,7 +1980,8 @@ pub async fn build_review_queue(
                  FROM grammar_points g
                  LEFT JOIN user_progress p ON p.grammar_id = g.id AND p.user_id = $1
                  WHERE COALESCE(p.srs_stage, 0) = 0
-                 ORDER BY CASE WHEN $2 <> 'JLPT Core' AND g.study_path = $2 THEN 0 ELSE 1 END,
+                 ORDER BY g.sort_order ASC NULLS LAST,
+                          CASE WHEN $2 <> 'JLPT Core' AND g.study_path = $2 THEN 0 ELSE 1 END,
                           CASE g.jlpt_level WHEN 'N5' THEN 1 WHEN 'N4' THEN 2 WHEN 'N3' THEN 3 WHEN 'N2' THEN 4 ELSE 5 END,
                           g.id",
             )
