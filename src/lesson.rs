@@ -444,12 +444,20 @@ mod tests {
             "mae-ni",
             "ato-de",
             "shi-listing",
+            "desu-da",
+            "wa-topic",
+            "ka-question",
+            "no-noun-link",
+            "mo-also",
+            "ja-nai",
+            "kore-sore-are",
+            "kono-sono-ano",
         ] {
             assert!(
                 lessons.contains_key(slug),
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 19);
+        assert_eq!(lessons.len(), 27);
     }
 }

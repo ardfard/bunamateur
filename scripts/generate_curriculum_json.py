@@ -12,14 +12,14 @@ P = tuple[str, str, str, str, str]
 
 UNITS: list[dict] = [
   { "n": 1, "level": "N5", "title": "Saying what things are", "goal": "Introduce yourself and identify objects with です.", "points": [
-    ["desu-da", "だ / です", "The copula: X is Y; polite です and plain だ", "", "new"],
-    ["wa-topic", "は (topic)", "Marks what the sentence is about: 私は学生です", "desu-da", "new"],
-    ["ka-question", "か and question words", "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot", "wa-topic", "new"],
-    ["no-noun-link", "の (noun + noun)", "Possession, belonging, description: 私の本, 日本語の先生", "wa-topic", "new"],
-    ["mo-also", "も (also)", "Too / also; replaces は rather than stacking on it", "wa-topic", "new"],
-    ["ja-nai", "じゃないです / ではありません (and past)", "Negative and past of です, polite and plain", "desu-da", "new"],
-    ["kore-sore-are", "これ・それ・あれ・どれ", "Pointing words chosen by distance from speaker and listener", "wa-topic", "new"],
-    ["kono-sono-ano", "この・その・あの / ここ・そこ・あそこ", "Pointing + noun, and the matching place words", "kore-sore-are,no-noun-link", "new"],
+    ["desu-da", "だ / です", "The copula: X is Y; polite です and plain だ", "", "keep"],
+    ["wa-topic", "は (topic)", "Marks what the sentence is about: 私は学生です", "desu-da", "keep"],
+    ["ka-question", "か and question words", "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot", "wa-topic", "keep"],
+    ["no-noun-link", "の (noun + noun)", "Possession, belonging, description: 私の本, 日本語の先生", "wa-topic", "keep"],
+    ["mo-also", "も (also)", "Too / also; replaces は rather than stacking on it", "wa-topic", "keep"],
+    ["ja-nai", "じゃないです / ではありません (and past)", "Negative and past of です, polite and plain", "desu-da", "keep"],
+    ["kore-sore-are", "これ・それ・あれ・どれ", "Pointing words chosen by distance from speaker and listener", "wa-topic", "keep"],
+    ["kono-sono-ano", "この・その・あの / ここ・そこ・あそこ", "Pointing + noun, and the matching place words", "kore-sore-are,no-noun-link", "keep"],
   ], "contrasts": [], "dojo": "です table: polite/plain × present/past × positive/negative", "reading": "自己紹介: a self-introduction, polite, about 80 characters" },
   { "n": 2, "level": "N5", "title": "What is where", "goal": "Say what exists, where it is, and how many.", "points": [
     ["ga-subject", "が (subject)", "Marks the subject when it is new or asked about: だれがいますか", "wa-topic", "new"],
