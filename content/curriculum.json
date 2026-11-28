@@ -397,10 +397,10 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 27
         },
         {
@@ -411,10 +411,10 @@
             "i-adjective",
             "ja-nai"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 28
         },
         {
@@ -425,10 +425,10 @@
             "ga-subject",
             "na-adjective"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 29
         },
         {
@@ -438,10 +438,10 @@
           "prerequisites": [
             "i-adjective"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 30
         },
         {
@@ -451,10 +451,10 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 31
         },
         {
@@ -465,10 +465,10 @@
             "wo-object",
             "numbers-counters"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 32
         },
         {
@@ -478,10 +478,10 @@
           "prerequisites": [
             "ni-time"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 33
         },
         {
@@ -491,10 +491,10 @@
           "prerequisites": [
             "masu-form"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 34
         },
         {
@@ -504,10 +504,10 @@
           "prerequisites": [
             "masenka-mashou"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 35
         },
         {
@@ -518,10 +518,10 @@
             "wa-topic",
             "ga-subject"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "contrast",
-          "source": "new",
+          "source": "keep",
           "sort_order": 36
         }
       ]
@@ -3261,10 +3261,11 @@
     }
   ],
   "meta": {
-    "seed_slug_count": 88,
+    "seed_slug_count": 98,
     "curriculum_point_count": 216,
     "missing_keep_slugs": [],
     "seeded_in_units": [
+      "amari-zenzen",
       "aru-iru",
       "ato-de",
       "ba-conditional",
@@ -3273,17 +3274,21 @@
       "contrast-ni-de",
       "contrast-ni-he",
       "contrast-to-ya",
+      "contrast-wa-ga-1",
       "de-means",
       "de-place",
+      "demo-suggestion",
       "desu-da",
       "ga-subject",
       "hazu-da",
       "he-direction",
       "hou-ga-ii",
+      "i-adjective",
       "ippou-da",
       "ja-nai",
       "ka-question",
       "kamo-shirenai",
+      "kara-made",
       "kara-reason",
       "kawari-ni",
       "kono-sono-ano",
@@ -3294,8 +3299,10 @@
       "koto-ni-suru",
       "koto-wa-nai",
       "mae-ni",
+      "masenka-mashou",
       "masu-form",
       "mo-also",
+      "na-adjective",
       "nagara",
       "nakereba-naranai",
       "nakute-mo-ii",
@@ -3320,6 +3327,7 @@
       "sei-de",
       "shi-listing",
       "sou-da-hearsay",
+      "suki-jouzu",
       "ta-koto-ga-aru",
       "tai",
       "tame-ni",
@@ -3341,9 +3349,11 @@
       "wa-topic",
       "wake-dewa-nai",
       "wake-niwa-ikanai",
+      "wo-kudasai",
       "wo-object",
       "ya-nado",
       "yasui-nikui",
+      "yo-ne",
       "you-da",
       "you-ni-naru",
       "you-ni-suru"

@@ -41,15 +41,15 @@ UNITS: list[dict] = [
     ["to-with", "と (together with)", "Doing something with someone: 友達と", "to-and,masu-form", "keep"],
   ], "contrasts": ["contrast-ni-de: に vs で for places (exists there vs happens there)", "contrast-ni-he: に vs へ (both fine for movement; where only に works)"], "dojo": "ます forms of every verb group, including する and 来る", "reading": "My weekend: a polite diary entry" },
   { "n": 4, "level": "N5", "title": "Describing and asking", "goal": "Describe things, say what you like, order and invite.", "points": [
-    ["i-adjective", "い-adjectives", "Present, negative, past, before nouns; いい→よくない", "desu-da", "new"],
-    ["na-adjective", "な-adjectives", "な before nouns; じゃない, でした", "i-adjective,ja-nai", "new"],
-    ["suki-jouzu", "が with 好き・上手・分かる", "The thing liked, good at or understood takes が", "ga-subject,na-adjective", "new"],
-    ["amari-zenzen", "あまり / 全然 + negative", "Degree words that need a negative; とても, ちょっと", "i-adjective", "new"],
-    ["yo-ne", "よ / ね", "よ for news to the listener, ね for shared ground", "desu-da", "new"],
-    ["wo-kudasai", "N をください", "Asking for things in shops and restaurants", "wo-object,numbers-counters", "new"],
-    ["kara-made", "から / まで (from / until)", "Start and end points in time and space", "ni-time", "new"],
-    ["masenka-mashou", "〜ませんか / 〜ましょう(か)", "Inviting, suggesting and offering", "masu-form", "new"],
-    ["demo-suggestion", "でも (suggestion)", "Suggestion でも for offering an example option: お茶でも飲みませんか", "masenka-mashou", "new"],
+    ["i-adjective", "い-adjectives", "Present, negative, past, before nouns; いい→よくない", "desu-da", "keep"],
+    ["na-adjective", "な-adjectives", "な before nouns; じゃない, でした", "i-adjective,ja-nai", "keep"],
+    ["suki-jouzu", "が with 好き・上手・分かる", "The thing liked, good at or understood takes が", "ga-subject,na-adjective", "keep"],
+    ["amari-zenzen", "あまり / 全然 + negative", "Degree words that need a negative; とても, ちょっと", "i-adjective", "keep"],
+    ["yo-ne", "よ / ね", "よ for news to the listener, ね for shared ground", "desu-da", "keep"],
+    ["wo-kudasai", "N をください", "Asking for things in shops and restaurants", "wo-object,numbers-counters", "keep"],
+    ["kara-made", "から / まで (from / until)", "Start and end points in time and space", "ni-time", "keep"],
+    ["masenka-mashou", "〜ませんか / 〜ましょう(か)", "Inviting, suggesting and offering", "masu-form", "keep"],
+    ["demo-suggestion", "でも (suggestion)", "Suggestion でも for offering an example option: お茶でも飲みませんか", "masenka-mashou", "keep"],
   ], "contrasts": ["contrast-wa-ga-1: は vs が, first pass (topic vs new information)"], "dojo": "い- and な-adjective forms", "reading": "At a café: a short ordering dialogue" },
   { "n": 5, "level": "N5", "title": "Wanting and comparing", "goal": "Say what you want, why, and which is better.", "points": [
     ["hoshii", "〜がほしい", "Wanting a thing", "suki-jouzu", "new"],
@@ -256,6 +256,7 @@ CONTRAST_SOURCES: dict[str, str] = {
     "contrast-to-ya": "keep",
     "contrast-ni-de": "keep",
     "contrast-ni-he": "keep",
+    "contrast-wa-ga-1": "keep",
 }
 
 # Explicit contrast member overrides when inference from unit points is ambiguous.

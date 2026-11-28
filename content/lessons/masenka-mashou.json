@@ -1,0 +1,253 @@
+{
+  "meaning": "〜ませんか / 〜ましょう / 〜ましょうか · inviting, suggesting, offering",
+  "gist": "Invite with ませんか: [一緒|いっしょ]に[映画|えいが]を[見|み]ませんか (Would you like to watch a movie together?). Say \"let's\" with ましょう: [見|み]ましょう. Ask \"shall we…?\" or \"shall I…?\" with ましょうか: [何時|なんじ]に[会|あ]いましょうか / [荷物|にもつ]を[持|も]ちましょうか. All three sit on the ます stem.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Use",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Vませんか",
+        "invite: would you like to…?",
+        "[一緒|いっしょ]に[映画|えいが]を[見|み]ませんか"
+      ],
+      [
+        "Vましょう",
+        "let's… / accept",
+        "[見|み]ましょう"
+      ],
+      [
+        "Question word + Vましょうか",
+        "shall we…? (decide together)",
+        "[何|なに]を[食|た]べましょうか"
+      ],
+      [
+        "Vましょうか",
+        "shall I…? (offer help)",
+        "[荷物|にもつ]を[持|も]ちましょうか"
+      ],
+      [
+        "Answer",
+        "accept / decline",
+        "はい、いいですね / すみません、ちょっと…"
+      ]
+    ],
+    "note": "Build all three from the ます stem: [見|み]ます → [見|み]ませんか / [見|み]ましょう / [見|み]ましょうか. Look-alike u-verbs keep their り: [帰|かえ]ります → [帰|かえ]りましょう."
+  },
+  "explanation": "ませんか turns a negative question into a gentle invitation: 一緒に映画を見ませんか — \"Would you like to watch a movie (with me)?\" It leaves the choice to the listener, so it is the safe way to invite someone. ましょう means \"let's.\" Use it to accept (はい、見ましょう) or to propose a plan you expect the other person to agree with. ましょうか asks \"shall we…?\" when you decide something together (何時に会いましょうか / どこで食べましょうか), or \"shall I…?\" when you offer to do something yourself (荷物を持ちましょうか). Keep ませんか and ますか apart: 映画を見ますか only asks whether someone watches movies.",
+  "senses": [
+    {
+      "label": "ませんか: invite",
+      "body": "A gentle \"would you like to…?\" that leaves the choice to the listener.",
+      "example_ruby": "[一緒|いっしょ]に[昼|ひる]ご[飯|はん]を[食|た]べませんか。",
+      "example_en": "Would you like to have lunch together?"
+    },
+    {
+      "label": "ましょう: let's / accept",
+      "body": "Propose a plan, or say yes to one.",
+      "example_ruby": "はい、[食|た]べましょう。",
+      "example_en": "Yes, let's eat."
+    },
+    {
+      "label": "ましょうか: shall we…?",
+      "body": "With a question word, decide the details together.",
+      "example_ruby": "どこで[食|た]べましょうか。",
+      "example_en": "Where shall we eat?"
+    },
+    {
+      "label": "ましょうか: shall I…?",
+      "body": "Offer to do something yourself.",
+      "example_ruby": "[荷物|にもつ]を[持|も]ちましょうか。",
+      "example_en": "Shall I carry your bag?"
+    }
+  ],
+  "register_context": "Polite everyday: use ませんか / ましょう / ましょうか with classmates, coworkers, and friends you speak politely with. Accept with はい、いいですね or はい、〜ましょう. Decline softly with すみません、ちょっと… and let the sentence trail off; a flat いいえ、見ません sounds blunt. 一緒に (together) often joins an invitation.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[一緒|いっしょ]に[見|み]ませんですか。",
+      "right_ruby": "[一緒|いっしょ]に[見|み]ませんか。",
+      "why": "ませんか takes no です. The ending is just ません + か."
+    },
+    {
+      "wrong_ruby": "[帰|かえ]ましょう。",
+      "right_ruby": "[帰|かえ]りましょう。",
+      "why": "[帰|かえ]る is a u-verb, so the stem is [帰|かえ]り: [帰|かえ]ります → [帰|かえ]りましょう, not ×[帰|かえ]ましょう."
+    },
+    {
+      "wrong_ruby": "[一緒|いっしょ]に[映画|えいが]を[見|み]ますか。(Meaning: Are you going to watch a movie together?)",
+      "right_ruby": "[一緒|いっしょ]に[映画|えいが]を[見|み]ませんか。",
+      "why": "ますか only asks for information. To invite, use ませんか."
+    },
+    {
+      "wrong_ruby": "[荷物|にもつ]を[持|も]ちませんか。(Meaning: Would you like to carry the bag?)",
+      "right_ruby": "[荷物|にもつ]を[持|も]ちましょうか。",
+      "why": "To offer to do it yourself, use ましょうか. ませんか invites the listener to do it."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "ますか (asking) vs ませんか (inviting)",
+      "summary": "映画を見ますか asks about a habit or plan. 映画を見ませんか invites the listener to watch one.",
+      "ex_a_ruby": "[映画|えいが]を[見|み]ますか。",
+      "ex_a_en": "Do you watch movies?",
+      "ex_b_ruby": "[映画|えいが]を[見|み]ませんか。",
+      "ex_b_en": "Would you like to watch a movie?"
+    },
+    {
+      "other_slug": null,
+      "label": "ませんか (asks) vs ましょう (proposes)",
+      "summary": "ませんか leaves the choice to the listener. ましょう assumes the plan is on.",
+      "ex_a_ruby": "[一緒|いっしょ]に[行|い]きませんか。",
+      "ex_a_en": "Would you like to go together?",
+      "ex_b_ruby": "[一緒|いっしょ]に[行|い]きましょう。",
+      "ex_b_en": "Let's go together."
+    },
+    {
+      "other_slug": null,
+      "label": "ましょうか (I'll do it) vs ませんか (join me)",
+      "summary": "窓を開けましょうか offers your own help. 一緒に帰りませんか invites the listener along.",
+      "ex_a_ruby": "[窓|まど]を[開|あ]けましょうか。",
+      "ex_a_en": "Shall I open the window?",
+      "ex_b_ruby": "[一緒|いっしょ]に[帰|かえ]りませんか。",
+      "ex_b_en": "Would you like to head home together?"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[一緒|いっしょ]に[映画|えいが]を[見|み]ませんか。",
+      "english": "Would you like to watch a movie together?",
+      "note": "ませんか · invite"
+    },
+    {
+      "ruby": "[土曜日|どようび]にテニスをしませんか。",
+      "english": "Would you like to play tennis on Saturday?",
+      "note": "time に + invite"
+    },
+    {
+      "ruby": "[一緒|いっしょ]に[帰|かえ]りませんか。",
+      "english": "Would you like to head home together?",
+      "note": "u-verb look-alike"
+    },
+    {
+      "ruby": "はい、[行|い]きましょう。",
+      "english": "Yes, let's go.",
+      "note": "ましょう · accept"
+    },
+    {
+      "ruby": "[駅|えき]で[会|あ]いましょう。",
+      "english": "Let's meet at the station.",
+      "note": "ましょう · propose"
+    },
+    {
+      "ruby": "[何時|なんじ]に[会|あ]いましょうか。",
+      "english": "What time shall we meet?",
+      "note": "decide together"
+    },
+    {
+      "ruby": "[何|なに]を[食|た]べましょうか。",
+      "english": "What shall we eat?",
+      "note": "decide together"
+    },
+    {
+      "ruby": "[荷物|にもつ]を[持|も]ちましょうか。",
+      "english": "Shall I carry your bag?",
+      "note": "offer"
+    },
+    {
+      "ruby": "[窓|まど]を[開|あ]けましょうか。",
+      "english": "Shall I open the window?",
+      "note": "offer"
+    },
+    {
+      "ruby": "すみません、[土曜日|どようび]はちょっと…。",
+      "english": "Sorry, Saturday is a bit…",
+      "note": "soft decline"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[土曜日|どようび]に[一緒|いっしょ]に[映画|えいが]を[見|み]ませんか。",
+      "english": "Would you like to see a movie together on Saturday?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、いいですね。[見|み]ましょう。",
+      "english": "Yes, sounds good. Let's."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[何時|なんじ]に[会|あ]いましょうか。",
+      "english": "What time shall we meet?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[一時|いちじ]に[駅|えき]で[会|あ]いましょう。",
+      "english": "Let's meet at the station at one."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Context: inviting a friend. 一緒に映画を（　）。",
+      "options": [
+        "見ますか",
+        "見ませんか",
+        "見ましたか"
+      ],
+      "answer_idx": 1,
+      "why": "Invitation → 見ませんか. 見ますか only asks; 見ましたか asks about the past."
+    },
+    {
+      "prompt": "Context: offering to carry a bag yourself. 荷物を（　）。",
+      "options": [
+        "持ちましょうか",
+        "持ちませんか",
+        "持ちますか"
+      ],
+      "answer_idx": 0,
+      "why": "Offering your own help → ましょうか. 持ちませんか would invite the listener to carry it."
+    },
+    {
+      "prompt": "A: 一緒に帰りませんか。 B: はい、（　）。",
+      "options": [
+        "帰りましょう",
+        "帰りません",
+        "帰りましたか"
+      ],
+      "answer_idx": 0,
+      "why": "Accepting an invitation → ましょう: はい、帰りましょう."
+    },
+    {
+      "prompt": "帰る → \"let's go home.\"",
+      "options": [
+        "帰ましょう",
+        "帰りましょう",
+        "帰るましょう"
+      ],
+      "answer_idx": 1,
+      "why": "帰る is a u-verb: 帰ります → 帰りましょう."
+    },
+    {
+      "prompt": "Context: deciding together. 何時に（　）。 (What time shall we meet?)",
+      "options": [
+        "会いましょうか",
+        "会いませんか",
+        "会いましょう"
+      ],
+      "answer_idx": 0,
+      "why": "A question word with \"shall we\" takes ましょうか. ませんか invites; ましょう without か is not a question."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masu-form"
+    ],
+    "next": [
+      "demo-suggestion"
+    ]
+  },
+  "lesson_version": 1
+}

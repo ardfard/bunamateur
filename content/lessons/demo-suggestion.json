@@ -1,0 +1,248 @@
+{
+  "meaning": "Nでも · softening a suggestion (\"…or something\")",
+  "gist": "Put でも after a noun to make an invitation light: お[茶|ちゃ]でも[飲|の]みませんか (How about some tea?). The noun is one idea, not a fixed choice. でも takes the place of を (not ×をでも) and follows に: [公園|こうえん]にでも[行|い]きませんか.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
+    "rows": [
+      [
+        "In place of を",
+        "N + でも + Vませんか",
+        "お[茶|ちゃ]でも[飲|の]みませんか"
+      ],
+      [
+        "する activities",
+        "N + でも + しませんか",
+        "[散歩|さんぽ]でもしませんか"
+      ],
+      [
+        "After place に",
+        "Place + に + でも + Vませんか",
+        "[公園|こうえん]にでも[行|い]きませんか"
+      ],
+      [
+        "After time に",
+        "Time + に + でも + Vませんか",
+        "[日曜日|にちようび]にでも[会|あ]いませんか"
+      ],
+      [
+        "Deciding together",
+        "N + でも + Vましょうか",
+        "コーヒーでも[飲|の]みましょうか"
+      ]
+    ],
+    "note": "でも replaces を: お茶でも飲みませんか, not ×お茶をでも. に stays and でも comes after it: 公園にでも. The suggestion is softer: tea is one idea, and something else would be fine too."
+  },
+  "explanation": "お茶を飲みませんか names tea as the plan. お茶でも飲みませんか offers tea as one idea: \"tea or something.\" The listener can say yes without being tied to that exact thing, so でも makes the invitation lighter and friendlier. でも sits right after the noun and takes the place of を: お茶でも, ご飯でも, 映画でも. With に, keep に and add でも after it: 公園にでも行きませんか / 日曜日にでも会いませんか. This でも lives in invitations and suggestions, with ませんか, ましょうか, and ましょう. When you order a specific thing from staff, drop it and use を: コーヒーをください.",
+  "senses": [
+    {
+      "label": "A light invitation",
+      "body": "The noun is one idea; something similar would be fine too.",
+      "example_ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "example_en": "How about some tea?"
+    },
+    {
+      "label": "Activities with する",
+      "body": "Nでもしませんか suggests an activity without pinning it down.",
+      "example_ruby": "[散歩|さんぽ]でもしませんか。",
+      "example_en": "How about a walk?"
+    },
+    {
+      "label": "Place or time + にでも",
+      "body": "Keep に and add でも: \"the park or somewhere,\" \"Sunday or so.\"",
+      "example_ruby": "[公園|こうえん]にでも[行|い]きませんか。",
+      "example_en": "How about going to the park or somewhere?"
+    },
+    {
+      "label": "Deciding together",
+      "body": "With ましょうか, でも floats an idea for both of you.",
+      "example_ruby": "コーヒーでも[飲|の]みましょうか。",
+      "example_en": "Shall we have a coffee or something?"
+    }
+  ],
+  "register_context": "Polite everyday: Nでも + ませんか / ましょうか / ましょう. Friends and coworkers both use it, often after class or work: お茶でも飲みませんか. It softens a suggestion, so leave it out of shop orders and plain statements about what you do.",
+  "mistakes": [
+    {
+      "wrong_ruby": "お[茶|ちゃ]をでも[飲|の]みませんか。",
+      "right_ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "why": "でも replaces を. Do not stack them."
+    },
+    {
+      "wrong_ruby": "[公園|こうえん]でもに[行|い]きませんか。",
+      "right_ruby": "[公園|こうえん]にでも[行|い]きませんか。",
+      "why": "に comes first, then でも: 公園にでも."
+    },
+    {
+      "wrong_ruby": "コーヒーでもください。(Meaning: Give me coffee or something.)",
+      "right_ruby": "コーヒーをください。",
+      "why": "When you order a specific thing, use を. でも makes it sound like any drink will do."
+    },
+    {
+      "wrong_ruby": "お[茶|ちゃ]でも[飲|の]みます。(Meaning: I'll drink tea or something.)",
+      "right_ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "why": "To suggest tea to someone, pair でも with an invitation such as ませんか."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "を (that thing) vs でも (that or something)",
+      "summary": "お茶を飲みませんか names tea. お茶でも飲みませんか offers tea as one idea.",
+      "ex_a_ruby": "お[茶|ちゃ]を[飲|の]みませんか。",
+      "ex_a_en": "Would you like to have tea?",
+      "ex_b_ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "ex_b_en": "How about some tea or something?"
+    },
+    {
+      "other_slug": null,
+      "label": "でも (or something) vs も (also)",
+      "summary": "お茶でも飲みませんか floats tea as an idea. お茶も飲みませんか adds tea to something already offered.",
+      "ex_a_ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "ex_a_en": "How about some tea?",
+      "ex_b_ruby": "お[茶|ちゃ]も[飲|の]みませんか。",
+      "ex_b_en": "Would you like some tea too?"
+    },
+    {
+      "other_slug": null,
+      "label": "Inviting a friend vs ordering",
+      "summary": "コーヒーでも飲みませんか invites someone. コーヒーをください asks staff for one specific thing.",
+      "ex_a_ruby": "コーヒーでも[飲|の]みませんか。",
+      "ex_a_en": "How about a coffee?",
+      "ex_b_ruby": "コーヒーをください。",
+      "ex_b_en": "Coffee, please."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "お[茶|ちゃ]でも[飲|の]みませんか。",
+      "english": "How about some tea?",
+      "note": "でも in place of を"
+    },
+    {
+      "ruby": "コーヒーでも[飲|の]みましょうか。",
+      "english": "Shall we have a coffee or something?",
+      "note": "with ましょうか"
+    },
+    {
+      "ruby": "[映画|えいが]でも[見|み]ませんか。",
+      "english": "How about watching a movie?",
+      "note": "でも in place of を"
+    },
+    {
+      "ruby": "ご[飯|はん]でも[食|た]べませんか。",
+      "english": "How about getting something to eat?",
+      "note": "でも in place of を"
+    },
+    {
+      "ruby": "[散歩|さんぽ]でもしませんか。",
+      "english": "How about a walk?",
+      "note": "する activity"
+    },
+    {
+      "ruby": "[公園|こうえん]にでも[行|い]きませんか。",
+      "english": "How about going to the park or somewhere?",
+      "note": "にでも · place"
+    },
+    {
+      "ruby": "[日曜日|にちようび]にでも[会|あ]いませんか。",
+      "english": "How about meeting on Sunday or so?",
+      "note": "にでも · time"
+    },
+    {
+      "ruby": "[一緒|いっしょ]にケーキでも[食|た]べましょう。",
+      "english": "Let's have some cake or something together.",
+      "note": "with ましょう"
+    },
+    {
+      "ruby": "[駅|えき]の[前|まえ]のカフェでお[茶|ちゃ]でも[飲|の]みませんか。",
+      "english": "How about some tea at the café in front of the station?",
+      "note": "place で + でも"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[田中|たなか]さん、お[茶|ちゃ]でも[飲|の]みませんか。",
+      "english": "Tanaka-san, how about some tea?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいですね。どこで[飲|の]みましょうか。",
+      "english": "Sounds good. Where shall we have it?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "[駅|えき]の[前|まえ]にカフェがありますよ。",
+      "english": "There's a café in front of the station."
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、そこで[飲|の]みましょう。",
+      "english": "OK, let's have it there."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "お茶（　）飲みませんか。 (How about some tea?)",
+      "options": [
+        "でも",
+        "をでも",
+        "に"
+      ],
+      "answer_idx": 0,
+      "why": "でも takes the place of を: お茶でも飲みませんか."
+    },
+    {
+      "prompt": "Fix: お茶をでも飲みませんか。",
+      "options": [
+        "お茶でも飲みませんか。",
+        "お茶でもを飲みませんか。",
+        "お茶をでも飲みました。"
+      ],
+      "answer_idx": 0,
+      "why": "Drop を; でも replaces it."
+    },
+    {
+      "prompt": "公園（　）行きませんか。 (How about the park or somewhere?)",
+      "options": [
+        "でもに",
+        "にでも",
+        "をでも"
+      ],
+      "answer_idx": 1,
+      "why": "に stays and でも follows it: 公園にでも."
+    },
+    {
+      "prompt": "Context: ordering at a café counter.",
+      "options": [
+        "コーヒーでもください。",
+        "コーヒーをください。",
+        "コーヒーでも飲みませんか。"
+      ],
+      "answer_idx": 1,
+      "why": "Ordering one specific thing → を + ください. でも would make it sound like any drink will do."
+    },
+    {
+      "prompt": "What does でも add in お茶でも飲みませんか?",
+      "options": [
+        "It softens the invitation: tea or something.",
+        "It makes the sentence past.",
+        "It says you drink only tea."
+      ],
+      "answer_idx": 0,
+      "why": "Suggestion でも offers the noun as one idea and keeps the invitation light."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masenka-mashou"
+    ],
+    "next": [
+      "contrast-wa-ga-1"
+    ]
+  },
+  "lesson_version": 1
+}

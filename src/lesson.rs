@@ -484,6 +484,6 @@ mod tests {
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 53);
+        assert_eq!(lessons.len(), 63);
     }
 }

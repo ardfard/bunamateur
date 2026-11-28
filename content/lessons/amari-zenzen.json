@@ -1,0 +1,290 @@
+{
+  "meaning": "あまり / 全然 + negative · とても, ちょっと",
+  "gist": "Degree words go right before an adjective or verb. とても (very) and ちょっと (a little) go with affirmative forms: とても[寒|さむ]いです / ちょっと[高|たか]いです. あまり (not very) and [全然|ぜんぜん] (not at all) need a negative: あまり[寒|さむ]くないです / [全然|ぜんぜん][分|わ]かりません.",
+  "formation": {
+    "columns": [
+      "Word",
+      "Meaning",
+      "Ending",
+      "Example"
+    ],
+    "rows": [
+      [
+        "とても",
+        "very",
+        "affirmative",
+        "この[本|ほん]はとても[面白|おもしろ]いです。"
+      ],
+      [
+        "ちょっと",
+        "a little, a bit",
+        "affirmative",
+        "このかばんはちょっと[高|たか]いです。"
+      ],
+      [
+        "あまり",
+        "not very, not much",
+        "negative",
+        "この[店|みせ]はあまり[高|たか]くないです。"
+      ],
+      [
+        "[全然|ぜんぜん]",
+        "not at all",
+        "negative",
+        "[全然|ぜんぜん][分|わ]かりません。"
+      ],
+      [
+        "あまり + verb",
+        "not often, not much",
+        "Vません",
+        "[肉|にく]はあまり[食|た]べません。"
+      ],
+      [
+        "With な-adjectives",
+        "same meanings",
+        "same endings",
+        "この[町|まち]はあまり[静|しず]かじゃないです。"
+      ]
+    ],
+    "note": "あまり and [全然|ぜんぜん] need a negative ending: くないです, じゃないです, or ません. Without it the sentence breaks (×あまり[高|たか]いです). とても and ちょっと go with affirmatives. For \"not very,\" use あまり + negative, not とても + negative."
+  },
+  "explanation": "Degree words go right before the adjective or verb they modify. とても (very) strengthens an affirmative: とても[寒|さむ]いです, とても[静|しず]かです. ちょっと (a little) is common in speech and often softens a complaint: ちょっと[高|たか]いです (It's a bit pricey). あまり and [全然|ぜんぜん] work differently. They only go with a negative ending. あまり means \"not very\" with adjectives and \"not often\" or \"not much\" with verbs: あまり[寒|さむ]くないです, あまり[食|た]べません. [全然|ぜんぜん] means \"not at all\": [全然|ぜんぜん][寒|さむ]くないです, [全然|ぜんぜん][分|わ]かりません. The negative can be an い-adjective (くないです), a な-adjective or noun (じゃないです), or a verb (ません). Past negatives work too: あまり[勉強|べんきょう]しませんでした. Leave out the negative and the sentence breaks: ×あまり[寒|さむ]いです.",
+  "senses": [
+    {
+      "label": "とても · very",
+      "body": "Strengthens an affirmative adjective.",
+      "example_ruby": "この[本|ほん]はとても[面白|おもしろ]いです。",
+      "example_en": "This book is very interesting."
+    },
+    {
+      "label": "ちょっと · a little",
+      "body": "Softens. Common in everyday speech, often for a mild complaint.",
+      "example_ruby": "このかばんはちょっと[高|たか]いです。",
+      "example_en": "This bag is a bit expensive."
+    },
+    {
+      "label": "あまり + negative adjective · not very",
+      "body": "あまり + くないです / じゃないです.",
+      "example_ruby": "[今日|きょう]はあまり[寒|さむ]くないです。",
+      "example_en": "It's not very cold today."
+    },
+    {
+      "label": "あまり + negative verb · not often, not much",
+      "body": "あまり + Vません says you rarely do something, or do little of it.",
+      "example_ruby": "[肉|にく]はあまり[食|た]べません。",
+      "example_en": "I don't eat much meat."
+    },
+    {
+      "label": "全然 · not at all",
+      "body": "[全然|ぜんぜん] + negative denies completely.",
+      "example_ruby": "[全然|ぜんぜん][分|わ]かりません。",
+      "example_en": "I don't understand at all."
+    }
+  ],
+  "register_context": "とても is neutral and polite. ちょっと belongs to everyday speech. In formal speech or writing, [少|すこ]し is the polite word for \"a little.\" In polite Japanese, keep あまり and [全然|ぜんぜん] with negatives: あまり[高|たか]くないです / [全然|ぜんぜん][分|わ]かりません. Casual speech sometimes puts [全然|ぜんぜん] with a positive word ([全然|ぜんぜん][大丈夫|だいじょうぶ], \"totally fine\"), but keep that for friends. あまり + negative is also a gentle way to say no: [好|す]きですか。—あまり[好|す]きじゃないです.",
+  "mistakes": [
+    {
+      "wrong_ruby": "あまり[高|たか]いです。",
+      "right_ruby": "あまり[高|たか]くないです。",
+      "why": "あまり needs a negative ending. ×あまり高いです has nothing for あまり to pair with."
+    },
+    {
+      "wrong_ruby": "[全然|ぜんぜん][分|わ]かります。",
+      "right_ruby": "[全然|ぜんぜん][分|わ]かりません。",
+      "why": "In polite Japanese, 全然 pairs with a negative. 全然 with a positive word belongs to casual talk."
+    },
+    {
+      "wrong_ruby": "とても[高|たか]くないです。(Meaning: very not-expensive.)",
+      "right_ruby": "あまり[高|たか]くないです。",
+      "why": "とても goes with affirmatives. For \"not very,\" use あまり + negative."
+    },
+    {
+      "wrong_ruby": "とても[食|た]べます。(Meaning: I eat very.)",
+      "right_ruby": "たくさん[食|た]べます。",
+      "why": "とても mostly goes with adjectives and says how strong a quality is. For an amount, like eating a lot, use たくさん (a lot)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "とても vs あまり",
+      "summary": "とても + affirmative means very. あまり + negative means not very.",
+      "ex_a_ruby": "とても[寒|さむ]いです。",
+      "ex_a_en": "It's very cold.",
+      "ex_b_ruby": "あまり[寒|さむ]くないです。",
+      "ex_b_en": "It's not very cold."
+    },
+    {
+      "other_slug": null,
+      "label": "あまり vs 全然",
+      "summary": "あまり is partial: not very, not much. 全然 is total: not at all.",
+      "ex_a_ruby": "あまり[分|わ]かりません。",
+      "ex_a_en": "I don't really understand.",
+      "ex_b_ruby": "[全然|ぜんぜん][分|わ]かりません。",
+      "ex_b_en": "I don't understand at all."
+    },
+    {
+      "other_slug": null,
+      "label": "ちょっと vs とても",
+      "summary": "ちょっと is a little; とても is very. Both go with affirmatives.",
+      "ex_a_ruby": "ちょっと[高|たか]いです。",
+      "ex_a_en": "It's a bit expensive.",
+      "ex_b_ruby": "とても[高|たか]いです。",
+      "ex_b_en": "It's very expensive."
+    },
+    {
+      "other_slug": null,
+      "label": "あまり with adjectives vs with verbs",
+      "summary": "With an adjective, あまり means not very. With a verb, it means not often or not much.",
+      "ex_a_ruby": "この[店|みせ]はあまり[高|たか]くないです。",
+      "ex_a_en": "This shop isn't very expensive.",
+      "ex_b_ruby": "[映画|えいが]はあまり[見|み]ません。",
+      "ex_b_en": "I don't watch movies much."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "この[本|ほん]はとても[面白|おもしろ]いです。",
+      "english": "This book is very interesting.",
+      "note": "とても · い-adjective"
+    },
+    {
+      "ruby": "この[町|まち]はとても[静|しず]かです。",
+      "english": "This town is very quiet.",
+      "note": "とても · な-adjective"
+    },
+    {
+      "ruby": "このかばんはちょっと[高|たか]いです。",
+      "english": "This bag is a bit expensive.",
+      "note": "ちょっと · mild complaint"
+    },
+    {
+      "ruby": "[今日|きょう]はあまり[寒|さむ]くないです。",
+      "english": "It's not very cold today.",
+      "note": "あまり · い-adjective"
+    },
+    {
+      "ruby": "この[辺|へん]はあまり[便利|べんり]じゃないです。",
+      "english": "This area isn't very convenient.",
+      "note": "あまり · な-adjective"
+    },
+    {
+      "ruby": "[肉|にく]はあまり[食|た]べません。",
+      "english": "I don't eat much meat.",
+      "note": "あまり · verb"
+    },
+    {
+      "ruby": "[週末|しゅうまつ]はあまり[勉強|べんきょう]しませんでした。",
+      "english": "I didn't study much over the weekend.",
+      "note": "あまり · past negative verb"
+    },
+    {
+      "ruby": "[全然|ぜんぜん][分|わ]かりません。",
+      "english": "I don't understand at all.",
+      "note": "全然 · verb"
+    },
+    {
+      "ruby": "[昨日|きのう]のテストは[全然|ぜんぜん][難|むずか]しくなかったです。",
+      "english": "Yesterday's test wasn't difficult at all.",
+      "note": "全然 · past negative adjective"
+    },
+    {
+      "ruby": "[私|わたし]はテニスが[全然|ぜんぜん][上手|じょうず]じゃないです。",
+      "english": "I'm not good at tennis at all.",
+      "note": "全然 · 上手"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "あの[店|みせ]のラーメンはおいしいですか。",
+      "english": "Is the ramen at that shop good?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、とてもおいしいです。",
+      "english": "Yes, it's very good."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[辛|から]いですか。",
+      "english": "Is it spicy?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[全然|ぜんぜん][辛|から]くないです。",
+      "english": "No, it's not spicy at all."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[高|たか]いですか。",
+      "english": "Is it expensive?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、あまり[高|たか]くないです。[八百円|はっぴゃくえん]です。",
+      "english": "No, not very. It's 800 yen."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "今日はあまり寒（　）。",
+      "options": [
+        "いです",
+        "くないです",
+        "かったです"
+      ],
+      "answer_idx": 1,
+      "why": "あまり needs a negative: あまり寒くないです."
+    },
+    {
+      "prompt": "全然（　）。 (I don't understand at all.)",
+      "options": [
+        "分かります",
+        "分かりました",
+        "分かりません"
+      ],
+      "answer_idx": 2,
+      "why": "全然 pairs with a negative: 全然分かりません."
+    },
+    {
+      "prompt": "Which sentence means \"It's very cold\"?",
+      "options": [
+        "とても寒いです。",
+        "あまり寒いです。",
+        "全然寒いです。"
+      ],
+      "answer_idx": 0,
+      "why": "とても goes with affirmatives. あまり and 全然 need a negative ending."
+    },
+    {
+      "prompt": "肉は（　）食べません。 (I don't eat much meat.)",
+      "options": [
+        "とても",
+        "あまり",
+        "ちょっと"
+      ],
+      "answer_idx": 1,
+      "why": "\"Not much\" with a verb is あまり + ません."
+    },
+    {
+      "prompt": "Fix: この本はあまり面白いです。",
+      "options": [
+        "この本はあまり面白いじゃないです。",
+        "この本はとても面白くないです。",
+        "この本はあまり面白くないです。"
+      ],
+      "answer_idx": 2,
+      "why": "あまり + い-adjective negative: あまり面白くないです."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "i-adjective"
+    ],
+    "next": [
+      "yo-ne"
+    ]
+  },
+  "lesson_version": 1
+}

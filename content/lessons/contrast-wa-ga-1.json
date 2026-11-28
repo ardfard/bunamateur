@@ -1,0 +1,257 @@
+{
+  "meaning": "は vs が · known topic vs new or asked-about information",
+  "gist": "だれが[来|き]ましたか asks who; the answer keeps が: [田中|たなか]さんが[来|き]ました. [田中|たなか]さんは[来|き]ましたか starts from Tanaka-san, someone you both have in mind, and asks about them. が goes on the new or asked-about part; は goes on the starting point you comment on.",
+  "formation": {
+    "columns": [
+      "Situation",
+      "Particle",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Asking who / what",
+        "Question word + が",
+        "だれが[来|き]ましたか。"
+      ],
+      [
+        "Answering who / what",
+        "Answer + が",
+        "[田中|たなか]さんが[来|き]ました。"
+      ],
+      [
+        "Asking about a known person",
+        "Topic + は",
+        "[田中|たなか]さんは[来|き]ましたか。"
+      ],
+      [
+        "Something new in a place",
+        "Place に + N が",
+        "[部屋|へや]に[猫|ねこ]がいます。"
+      ],
+      [
+        "More about a known thing",
+        "N は + comment",
+        "[猫|ねこ]は[部屋|へや]にいます。"
+      ],
+      [
+        "Topic and liked thing",
+        "Topic は + N が + [好|す]き",
+        "[私|わたし]はコーヒーが[好|す]きです。"
+      ]
+    ],
+    "note": "Question words (だれ / 何) take が, and so does the word that answers them. は sets up something already on the table, then the rest of the sentence comments on it."
+  },
+  "explanation": "Both は and が can follow the person who came, but they answer different questions. だれが来ましたか asks who: the person is the unknown, so it takes が, and the answer fills that slot with が: 田中さんが来ました. 田中さんは来ましたか starts from Tanaka-san, someone both speakers already have in mind, and asks one thing about them: did they come? The answer comments on that topic: はい、来ました / いいえ、来ませんでした. A quick test: if the noun is the new information, or answers だれ / 何, use が. If it is the starting point you say something about, use は. The same split works with adjectives: 何がおいしいですか — ケーキがおいしいです, but このケーキはおいしいですか — はい、おいしいです. Question words never take は: ×だれは来ましたか.",
+  "senses": [
+    {
+      "label": "が answers だれ / 何",
+      "body": "The asked-about person or thing is new information, in the question and in the answer.",
+      "example_ruby": "だれが[来|き]ましたか。—[田中|たなか]さんが[来|き]ました。",
+      "example_en": "Who came? — Tanaka-san came."
+    },
+    {
+      "label": "は asks about a known topic",
+      "body": "Start from someone you both know, then ask or say one thing about them.",
+      "example_ruby": "[田中|たなか]さんは[来|き]ましたか。—はい、[来|き]ました。",
+      "example_en": "Did Tanaka-san come? — Yes, Tanaka-san did."
+    },
+    {
+      "label": "が presents something new",
+      "body": "In a place, が brings a new person or thing into view.",
+      "example_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "example_en": "There's a cat in the room."
+    },
+    {
+      "label": "は and が in one sentence",
+      "body": "は sets the topic (me); が marks the thing liked.",
+      "example_ruby": "[私|わたし]はコーヒーが[好|す]きです。",
+      "example_en": "I like coffee."
+    }
+  ],
+  "register_context": "Choosing は or が does not change politeness; keep ます / です throughout. Once a topic is clear it is often dropped: 田中さんは来ましたか — はい、来ました. The word that answers だれ / 何 stays in the answer, because it is the new information: 田中さんが来ました.",
+  "mistakes": [
+    {
+      "wrong_ruby": "だれは[来|き]ましたか。",
+      "right_ruby": "だれが[来|き]ましたか。",
+      "why": "Question words take が. ×だれは is ungrammatical."
+    },
+    {
+      "wrong_ruby": "[何|なに]は[好|す]きですか。",
+      "right_ruby": "[何|なに]が[好|す]きですか。",
+      "why": "何 asks about the thing liked, so it takes が, not は."
+    },
+    {
+      "wrong_ruby": "だれが[来|き]ましたか。—[田中|たなか]さんは[来|き]ました。(Meaning: Tanaka-san, at least, came.)",
+      "right_ruby": "だれが[来|き]ましたか。—[田中|たなか]さんが[来|き]ました。",
+      "why": "The answer to だれが takes が. は here sets Tanaka-san against other people, which the question did not ask about."
+    },
+    {
+      "wrong_ruby": "[田中|たなか]さんが[来|き]ましたか。(Meaning: Was it Tanaka-san who came?)",
+      "right_ruby": "[田中|たなか]さんは[来|き]ましたか。",
+      "why": "To ask whether someone you both know came, make that person the topic with は. が asks whether Tanaka-san is the one who came."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "wa-topic",
+      "label": "は: the known topic",
+      "summary": "田中さんは来ましたか starts from Tanaka-san and asks about them. だれが来ましたか starts from the unknown person.",
+      "ex_a_ruby": "[田中|たなか]さんは[来|き]ましたか。",
+      "ex_a_en": "Did Tanaka-san come? (Tanaka-san = known topic)",
+      "ex_b_ruby": "だれが[来|き]ましたか。",
+      "ex_b_en": "Who came? (the person is the unknown)"
+    },
+    {
+      "other_slug": "ga-subject",
+      "label": "が: the new or asked-about subject",
+      "summary": "だれが来ましたか asks who, and the answer keeps が: 田中さんが来ました. A known person takes は: 田中さんは来ましたか.",
+      "ex_a_ruby": "だれが[来|き]ましたか。—[田中|たなか]さんが[来|き]ました。",
+      "ex_a_en": "Who came? — Tanaka-san came. (が answers だれが)",
+      "ex_b_ruby": "[田中|たなか]さんは[来|き]ましたか。—はい、[来|き]ました。",
+      "ex_b_en": "Did Tanaka-san come? — Yes, Tanaka-san did. (は on a known topic)"
+    },
+    {
+      "other_slug": null,
+      "label": "Asking what vs asking about it",
+      "summary": "何がおいしいですか asks which thing; the answer takes が. このケーキはおいしいですか starts from the cake and asks about it.",
+      "ex_a_ruby": "[何|なに]がおいしいですか。—ケーキがおいしいです。",
+      "ex_a_en": "What's good here? — The cake is good.",
+      "ex_b_ruby": "このケーキはおいしいですか。—はい、おいしいです。",
+      "ex_b_en": "Is this cake good? — Yes, it is."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "だれが[来|き]ましたか。",
+      "english": "Who came?",
+      "note": "question word + が"
+    },
+    {
+      "ruby": "[田中|たなか]さんが[来|き]ました。",
+      "english": "Tanaka-san came.",
+      "note": "answer + が"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[来|き]ましたか。",
+      "english": "Did Tanaka-san come?",
+      "note": "known topic + は"
+    },
+    {
+      "ruby": "いいえ、[田中|たなか]さんは[来|き]ませんでした。",
+      "english": "No, Tanaka-san didn't come.",
+      "note": "comment on the topic"
+    },
+    {
+      "ruby": "[何|なに]がおいしいですか。",
+      "english": "What's good here?",
+      "note": "何が + adjective"
+    },
+    {
+      "ruby": "ケーキがおいしいですよ。",
+      "english": "The cake is good.",
+      "note": "answer + が · よ"
+    },
+    {
+      "ruby": "このケーキはおいしいですね。",
+      "english": "This cake is good, isn't it?",
+      "note": "known topic + は · ね"
+    },
+    {
+      "ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "english": "There's a cat in the room.",
+      "note": "new in a place"
+    },
+    {
+      "ruby": "[猫|ねこ]は[部屋|へや]にいます。",
+      "english": "The cat is in the room.",
+      "note": "known topic"
+    },
+    {
+      "ruby": "[私|わたし]はコーヒーが[好|す]きです。",
+      "english": "I like coffee.",
+      "note": "topic は + liked thing が"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[昨日|きのう]のパーティーにだれが[来|き]ましたか。",
+      "english": "Who came to yesterday's party?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[田中|たなか]さんが[来|き]ました。",
+      "english": "Tanaka-san came."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[山田|やまだ]さんは[来|き]ましたか。",
+      "english": "Did Yamada-san come?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[山田|やまだ]さんは[来|き]ませんでした。",
+      "english": "No, Yamada-san didn't come."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "（　）来ましたか。 (Who came?)",
+      "options": [
+        "だれが",
+        "だれは",
+        "だれに"
+      ],
+      "answer_idx": 0,
+      "why": "Question words take が: だれが来ましたか. ×だれは is wrong."
+    },
+    {
+      "prompt": "A: だれが来ましたか。 B: 田中さん（　）来ました。",
+      "options": [
+        "は",
+        "が",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "The answer to だれが takes が: 田中さんが来ました."
+    },
+    {
+      "prompt": "何（　）好きですか。",
+      "options": [
+        "は",
+        "が",
+        "に"
+      ],
+      "answer_idx": 1,
+      "why": "何 asks about the thing liked → 何が好きですか."
+    },
+    {
+      "prompt": "Context: you and A both know Yamada-san. Ask whether Yamada-san came.",
+      "options": [
+        "山田さんは来ましたか。",
+        "だれが来ましたか。",
+        "山田さんを来ましたか。"
+      ],
+      "answer_idx": 0,
+      "why": "A known person is the topic → は. だれが asks something else; を does not mark who comes."
+    },
+    {
+      "prompt": "だれが来ましたか — 田中さんが来ました. Why が on 田中さん?",
+      "options": [
+        "田中さん is the new information that answers だれ.",
+        "田中さん is already the topic.",
+        "来ます always takes が."
+      ],
+      "answer_idx": 0,
+      "why": "が marks the answer to だれ. 来ます takes は too when the person is the topic: 田中さんは来ましたか."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "wa-topic",
+      "ga-subject"
+    ],
+    "next": []
+  },
+  "lesson_version": 1
+}

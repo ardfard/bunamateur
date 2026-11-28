@@ -1,0 +1,307 @@
+{
+  "meaning": "な-adjectives · な before nouns, じゃない, でした",
+  "gist": "At the end of a sentence, a な-adjective works like a noun: [静|しず]かです / [静|しず]かじゃないです / [静|しず]かでした / [静|しず]かじゃなかったです. Before a noun it takes な: [静|しず]かな[町|まち]. きれい and [有名|ゆうめい] end in an い sound but are な-adjectives: きれいじゃないです, [有名|ゆうめい]な[店|みせ].",
+  "formation": {
+    "columns": [
+      "Form",
+      "Plain",
+      "Polite",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Present",
+        "[静|しず]かだ",
+        "[静|しず]かです",
+        "この[町|まち]は[静|しず]かです。"
+      ],
+      [
+        "Negative",
+        "[静|しず]かじゃない",
+        "[静|しず]かじゃないです / [静|しず]かではありません",
+        "この[町|まち]は[静|しず]かじゃないです。"
+      ],
+      [
+        "Past",
+        "[静|しず]かだった",
+        "[静|しず]かでした",
+        "[昨日|きのう]は[暇|ひま]でした。"
+      ],
+      [
+        "Past negative",
+        "[静|しず]かじゃなかった",
+        "[静|しず]かじゃなかったです / [静|しず]かではありませんでした",
+        "[先週|せんしゅう]は[暇|ひま]じゃなかったです。"
+      ],
+      [
+        "Before a noun",
+        "[静|しず]かな + N",
+        "[静|しず]かな + N + です",
+        "[静|しず]かな[町|まち]です。"
+      ],
+      [
+        "い look-alikes",
+        "きれい / [有名|ゆうめい]",
+        "きれいじゃないです / [有名|ゆうめい]な + N",
+        "[有名|ゆうめい]な[店|みせ]です。"
+      ]
+    ],
+    "note": "Sentence-end forms copy noun + です exactly: じゃないです, でした, じゃなかったです. じゃありません and ではありません work too, as they do with nouns. The new piece is な before a noun. な never appears at the end of a sentence (×[静|しず]かなです). きれい and [有名|ゆうめい] never bend their い: ×きれくない, ×[有名|ゆうめい]かった."
+  },
+  "explanation": "な-adjectives also describe qualities: [静|しず]か (quiet), [元気|げんき] (well, lively), [便利|べんり] (convenient), [暇|ひま] (free, not busy), きれい (clean, pretty), [有名|ゆうめい] (famous). At the end of a sentence they behave like nouns, so you already know every form: [静|しず]かです, [静|しず]かじゃないです, [静|しず]かでした, [静|しず]かじゃなかったです. To describe a noun, add な between them: [静|しず]かな[町|まち], [有名|ゆうめい]な[人|ひと]. That な gives the group its name. い-adjectives work differently. They bend their own い ([高|たか]くないです, [高|たか]かったです) and go straight before a noun ([高|たか]い[本|ほん]). Two common words cause mistakes. きれい and [有名|ゆうめい] end in an い sound, but that い is part of the word, not an ending. Treat them as な-adjectives: きれいじゃないです, [有名|ゆうめい]な[店|みせ].",
+  "senses": [
+    {
+      "label": "Present",
+      "body": "な-adjective + です, the same as noun + です.",
+      "example_ruby": "この[町|まち]は[静|しず]かです。",
+      "example_en": "This town is quiet."
+    },
+    {
+      "label": "Negative",
+      "body": "じゃないです, or more formal ではありません.",
+      "example_ruby": "このアパートは[便利|べんり]じゃないです。",
+      "example_en": "This apartment isn't convenient."
+    },
+    {
+      "label": "Past",
+      "body": "でした, the same as a noun.",
+      "example_ruby": "[昨日|きのう]は[暇|ひま]でした。",
+      "example_en": "I was free yesterday."
+    },
+    {
+      "label": "Past negative",
+      "body": "じゃなかったです, or more formal ではありませんでした.",
+      "example_ruby": "[先週|せんしゅう]は[暇|ひま]じゃなかったです。",
+      "example_en": "I wasn't free last week."
+    },
+    {
+      "label": "な before a noun",
+      "body": "Add な between the adjective and the noun it describes.",
+      "example_ruby": "[静|しず]かな[公園|こうえん]で[本|ほん]を[読|よ]みます。",
+      "example_en": "I read a book in a quiet park."
+    },
+    {
+      "label": "きれい and 有名",
+      "body": "They end in an い sound but are な-adjectives.",
+      "example_ruby": "あれは[有名|ゆうめい]なお[寺|てら]です。",
+      "example_en": "That's a famous temple."
+    }
+  ],
+  "register_context": "Polite default copies noun + です: [静|しず]かです / [静|しず]かじゃないです / [静|しず]かでした / [静|しず]かじゃなかったです. ではありません and じゃありません are polite alternatives for the negative, as with nouns. Plain forms: [静|しず]かだ / [静|しず]かじゃない / [静|しず]かだった / [静|しず]かじゃなかった. Casual speech often drops the だ: [静|しず]か。 Before a noun it is always な, in every register: [静|しず]かな[町|まち].",
+  "mistakes": [
+    {
+      "wrong_ruby": "[静|しず]か[町|まち]です。",
+      "right_ruby": "[静|しず]かな[町|まち]です。",
+      "why": "Before a noun, a な-adjective needs な. ×静か町 leaves it out."
+    },
+    {
+      "wrong_ruby": "[静|しず]かなです。",
+      "right_ruby": "[静|しず]かです。",
+      "why": "な appears only before a noun. At the end of a sentence, put です right after the adjective."
+    },
+    {
+      "wrong_ruby": "[便利|べんり]くないです。",
+      "right_ruby": "[便利|べんり]じゃないです。",
+      "why": "くない is the negative for い-adjectives. な-adjectives take じゃないです, like nouns."
+    },
+    {
+      "wrong_ruby": "きれくないです。",
+      "right_ruby": "きれいじゃないです。",
+      "why": "The い in きれい is part of the word, so it never bends. Negate it like a noun: きれいじゃないです."
+    },
+    {
+      "wrong_ruby": "[有名|ゆうめい]の[人|ひと]です。",
+      "right_ruby": "[有名|ゆうめい]な[人|ひと]です。",
+      "why": "A な-adjective takes な before a noun, not の. の joins two nouns (日本の町)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "i-adjective",
+      "label": "い-adjective vs な-adjective before a noun",
+      "summary": "An い-adjective goes straight before the noun: 高い店. A な-adjective adds な: 有名な店.",
+      "ex_a_ruby": "[高|たか]い[店|みせ]です。",
+      "ex_a_en": "It's an expensive shop.",
+      "ex_b_ruby": "[有名|ゆうめい]な[店|みせ]です。",
+      "ex_b_en": "It's a famous shop."
+    },
+    {
+      "other_slug": null,
+      "label": "Negative: くないです vs じゃないです",
+      "summary": "An い-adjective bends its い: 大きくないです. A な-adjective stays whole and adds じゃないです: 静かじゃないです.",
+      "ex_a_ruby": "この[町|まち]は[大|おお]きくないです。",
+      "ex_a_en": "This town isn't big.",
+      "ex_b_ruby": "この[町|まち]は[静|しず]かじゃないです。",
+      "ex_b_en": "This town isn't quiet."
+    },
+    {
+      "other_slug": null,
+      "label": "Past: かったです vs でした",
+      "summary": "An い-adjective bends into the past: 楽しかったです. A な-adjective uses でした, like a noun: 暇でした.",
+      "ex_a_ruby": "[昨日|きのう]は[楽|たの]しかったです。",
+      "ex_a_en": "Yesterday was fun.",
+      "ex_b_ruby": "[昨日|きのう]は[暇|ひま]でした。",
+      "ex_b_en": "I was free yesterday."
+    },
+    {
+      "other_slug": null,
+      "label": "な-adjective + な vs noun + の",
+      "summary": "Before a noun, a な-adjective takes な (静かな町). A noun takes の (日本の町).",
+      "ex_a_ruby": "[静|しず]かな[町|まち]です。",
+      "ex_a_en": "It's a quiet town.",
+      "ex_b_ruby": "[日本|にほん]の[町|まち]です。",
+      "ex_b_en": "It's a Japanese town."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "この[町|まち]は[静|しず]かです。",
+      "english": "This town is quiet.",
+      "note": "present"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[元気|げんき]です。",
+      "english": "Tanaka-san is well.",
+      "note": "present · person"
+    },
+    {
+      "ruby": "このアパートは[便利|べんり]じゃないです。",
+      "english": "This apartment isn't convenient.",
+      "note": "negative · じゃないです"
+    },
+    {
+      "ruby": "この[公園|こうえん]はきれいではありません。",
+      "english": "This park is not clean.",
+      "note": "negative · ではありません (more formal) · look-alike"
+    },
+    {
+      "ruby": "[昨日|きのう]は[暇|ひま]でした。",
+      "english": "I was free yesterday.",
+      "note": "past · でした"
+    },
+    {
+      "ruby": "[先週|せんしゅう]は[暇|ひま]じゃなかったです。",
+      "english": "I wasn't free last week.",
+      "note": "past negative"
+    },
+    {
+      "ruby": "[静|しず]かな[部屋|へや]で[勉強|べんきょう]します。",
+      "english": "I study in a quiet room.",
+      "note": "な + noun · place で"
+    },
+    {
+      "ruby": "あれは[有名|ゆうめい]なお[寺|てら]です。",
+      "english": "That's a famous temple.",
+      "note": "look-alike · な + noun"
+    },
+    {
+      "ruby": "きれいな[花|はな]を[買|か]いました。",
+      "english": "I bought some pretty flowers.",
+      "note": "look-alike · な + noun · object"
+    },
+    {
+      "ruby": "[昔|むかし]、ここは[静|しず]かな[町|まち]でした。",
+      "english": "This used to be a quiet town.",
+      "note": "な + noun + でした"
+    },
+    {
+      "ruby": "[今日|きょう]は[暇|ひま]だ。",
+      "english": "(Thinking aloud) I'm free today.",
+      "note": "plain · present"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[木村|きむら]さんの[町|まち]は[静|しず]かですか。",
+      "english": "Is your town quiet, Kimura-san?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[静|しず]かな[町|まち]です。",
+      "english": "Yes, it's a quiet town."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[便利|べんり]ですか。",
+      "english": "Is it convenient?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[便利|べんり]じゃないです。[駅|えき]が[遠|とお]いです。",
+      "english": "No, it isn't convenient. The station is far."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[有名|ゆうめい]な[店|みせ]がありますか。",
+      "english": "Are there any famous shops?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[有名|ゆうめい]なパン[屋|や]があります。",
+      "english": "Yes, there's a famous bakery."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "（　）町です。 (It's a quiet town.)",
+      "options": [
+        "静か",
+        "静かな",
+        "静かの"
+      ],
+      "answer_idx": 1,
+      "why": "A な-adjective takes な before a noun: 静かな町."
+    },
+    {
+      "prompt": "きれい → polite negative.",
+      "options": [
+        "きれくないです",
+        "きれいくないです",
+        "きれいじゃないです"
+      ],
+      "answer_idx": 2,
+      "why": "きれい is a な-adjective, so it negates like a noun: きれいじゃないです."
+    },
+    {
+      "prompt": "昨日は暇（　）。 (I was free yesterday.)",
+      "options": [
+        "でした",
+        "かったです",
+        "なでした"
+      ],
+      "answer_idx": 0,
+      "why": "A な-adjective takes でした for the past, like a noun."
+    },
+    {
+      "prompt": "Which one is a な-adjective?",
+      "options": [
+        "高い",
+        "有名",
+        "新しい"
+      ],
+      "answer_idx": 1,
+      "why": "有名 ends in an い sound but takes な: 有名な店. 高い and 新しい bend their い."
+    },
+    {
+      "prompt": "Fix: この部屋は静かなです。",
+      "options": [
+        "この部屋は静かです。",
+        "この部屋は静かいです。",
+        "この部屋は静かのです。"
+      ],
+      "answer_idx": 0,
+      "why": "な goes only before a noun. At the end of a sentence: 静かです."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "i-adjective",
+      "ja-nai"
+    ],
+    "next": [
+      "suki-jouzu"
+    ]
+  },
+  "lesson_version": 1
+}

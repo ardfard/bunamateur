@@ -1,0 +1,290 @@
+{
+  "meaning": "よ / ね · new information vs shared ground",
+  "gist": "よ and ね go at the very end of a sentence, after です or ます. よ tells the listener something they don't know: この[店|みせ]は[安|やす]いですよ. ね marks something you both know or feel, or a fact you want to check: [今日|きょう]は[暑|あつ]いですね. よね asks the listener to confirm what you think is true: [明日|あした]は[休|やす]みですよね.",
+  "formation": {
+    "columns": [
+      "Particle",
+      "Job",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "よ",
+        "news for the listener",
+        "です / ます + よ",
+        "この[店|みせ]は[安|やす]いですよ。"
+      ],
+      [
+        "よ",
+        "heads-up or correction",
+        "です / ます + よ",
+        "[電車|でんしゃ]が[来|き]ますよ。"
+      ],
+      [
+        "ね",
+        "shared feeling",
+        "です / ます + ね",
+        "[今日|きょう]は[暑|あつ]いですね。"
+      ],
+      [
+        "ね",
+        "checking a fact",
+        "です / ます + ね",
+        "[明日|あした]のテストは[九時|くじ]ですね。"
+      ],
+      [
+        "よね",
+        "asking the listener to confirm",
+        "です / ます + よね",
+        "[田中|たなか]さんも[来|き]ますよね。"
+      ],
+      [
+        "そうですね",
+        "agreeing with a ね sentence",
+        "set phrase",
+        "そうですね。"
+      ]
+    ],
+    "note": "よ and ね come last, after です or ます. When both appear, the order is always よね, never ×ねよ. In casual speech they attach to plain forms: [高|たか]いよ / [暑|あつ]いね / [学生|がくせい]だよ."
+  },
+  "explanation": "よ and ね go at the very end of a sentence. They show whether the listener already knows what you are saying. よ marks something the listener doesn't know yet, such as news, a tip, a warning, or a correction. この[店|みせ]は[安|やす]いですよ passes on something useful. ね marks shared ground. It can be a feeling you expect the listener to share ([今日|きょう]は[暑|あつ]いですね), or a fact you want to check ([明日|あした]のテストは[九時|くじ]ですね). よね joins the two. You think something is true, and you ask the listener to agree: [田中|たなか]さんも[来|き]ますよね. In polite speech, the particle follows です or ます. The usual reply to a ね sentence is そうですね (Yes, it is). Getting the choice wrong changes the feel. よ on something the listener can plainly see sounds like a lecture. A sentence of small talk without ね can sound cold.",
+  "senses": [
+    {
+      "label": "よ · telling the listener something new",
+      "body": "News, a tip, or a warning the listener doesn't have yet.",
+      "example_ruby": "この[店|みせ]のケーキはおいしいですよ。",
+      "example_en": "The cake at this shop is good, you know."
+    },
+    {
+      "label": "よ · correcting",
+      "body": "Gives the right information when the listener has it wrong.",
+      "example_ruby": "いいえ、[今日|きょう]は[月曜日|げつようび]ですよ。",
+      "example_en": "No, today is Monday."
+    },
+    {
+      "label": "ね · shared feeling",
+      "body": "You expect the listener to feel the same way.",
+      "example_ruby": "[今日|きょう]は[寒|さむ]いですね。",
+      "example_en": "It's cold today, isn't it?"
+    },
+    {
+      "label": "ね · checking a fact",
+      "body": "You confirm something you already heard or expect.",
+      "example_ruby": "[明日|あした]のテストは[九時|くじ]ですね。",
+      "example_en": "Tomorrow's test is at nine, right?"
+    },
+    {
+      "label": "よね · asking for agreement",
+      "body": "You think it is true and want the listener to confirm.",
+      "example_ruby": "[田中|たなか]さんも[来|き]ますよね。",
+      "example_en": "Tanaka-san is coming too, right?"
+    }
+  ],
+  "register_context": "Polite: よ / ね follow です or ます: [高|たか]いですよ / [行|い]きますね. Casual speech attaches them to plain forms: [高|たか]いよ / [暑|あつ]いね / [学生|がくせい]だよ. ね is friendly and very common in small talk. The usual reply is そうですね. よ is useful but strong. Used too often, or with a teacher or boss, it can sound like you are lecturing them. Leave よ off facts the listener obviously knows.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[暑|あつ]いですねよ。",
+      "right_ruby": "[暑|あつ]いですよね。",
+      "why": "When both appear, the order is よね. ×ねよ is wrong."
+    },
+    {
+      "wrong_ruby": "[高|たか]いよです。",
+      "right_ruby": "[高|たか]いですよ。",
+      "why": "In polite speech, よ comes after です, at the very end. ×よです puts it in the middle."
+    },
+    {
+      "wrong_ruby": "[今日|きょう]はいい[天気|てんき]ですよ。(Meaning: said to someone outdoors with you, as if it were news.)",
+      "right_ruby": "[今日|きょう]はいい[天気|てんき]ですね。",
+      "why": "The listener can see the weather too, so it is shared ground. Use ね."
+    },
+    {
+      "wrong_ruby": "[駅|えき]の[前|まえ]に[新|あたら]しいカフェがありますね。(Meaning: telling a friend news, as if they already knew it.)",
+      "right_ruby": "[駅|えき]の[前|まえ]に[新|あたら]しいカフェがありますよ。",
+      "why": "Your friend doesn't know about the café yet, so it is news. Use よ."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "よ vs ね",
+      "summary": "よ gives the listener new information. ね assumes they know or feel it too.",
+      "ex_a_ruby": "この[店|みせ]は[安|やす]いですよ。",
+      "ex_a_en": "This shop is cheap, you know. (news for the listener)",
+      "ex_b_ruby": "この[店|みせ]は[安|やす]いですね。",
+      "ex_b_en": "This shop is cheap, isn't it? (you both see the prices)"
+    },
+    {
+      "other_slug": null,
+      "label": "か vs ね",
+      "summary": "か asks a real question. ね checks something you already expect is true.",
+      "ex_a_ruby": "[田中|たなか]さんは[学生|がくせい]ですか。",
+      "ex_a_en": "Is Tanaka-san a student?",
+      "ex_b_ruby": "[田中|たなか]さんは[学生|がくせい]ですね。",
+      "ex_b_en": "Tanaka-san is a student, right?"
+    },
+    {
+      "other_slug": null,
+      "label": "No particle vs よ",
+      "summary": "Without a particle, the sentence just states a fact. よ points it at the listener as something they should know.",
+      "ex_a_ruby": "[電車|でんしゃ]が[来|き]ます。",
+      "ex_a_en": "The train is coming.",
+      "ex_b_ruby": "[電車|でんしゃ]が[来|き]ますよ。",
+      "ex_b_en": "The train's coming! (heads-up)"
+    },
+    {
+      "other_slug": null,
+      "label": "ね vs よね",
+      "summary": "ね checks a fact or shares a feeling. よね leans on the listener a little more: you think it is true and want them to agree.",
+      "ex_a_ruby": "[明日|あした]は[休|やす]みですね。",
+      "ex_a_en": "Tomorrow's a day off, right?",
+      "ex_b_ruby": "[明日|あした]は[休|やす]みですよね。",
+      "ex_b_en": "Tomorrow's a day off, isn't it? (asking you to confirm)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "この[店|みせ]のケーキはおいしいですよ。",
+      "english": "The cake at this shop is good, you know.",
+      "note": "よ · tip"
+    },
+    {
+      "ruby": "[電車|でんしゃ]が[来|き]ますよ。",
+      "english": "The train's coming!",
+      "note": "よ · heads-up"
+    },
+    {
+      "ruby": "いいえ、[今日|きょう]は[月曜日|げつようび]ですよ。",
+      "english": "No, today is Monday.",
+      "note": "よ · correction"
+    },
+    {
+      "ruby": "その[映画|えいが]はあまり[面白|おもしろ]くないですよ。",
+      "english": "That movie isn't very good, you know.",
+      "note": "よ · warning"
+    },
+    {
+      "ruby": "[今日|きょう]は[寒|さむ]いですね。",
+      "english": "It's cold today, isn't it?",
+      "note": "ね · shared feeling"
+    },
+    {
+      "ruby": "きれいな[花|はな]ですね。",
+      "english": "Those are pretty flowers.",
+      "note": "ね · you both see them"
+    },
+    {
+      "ruby": "[日本語|にほんご]が[上手|じょうず]ですね。",
+      "english": "Your Japanese is good.",
+      "note": "ね · compliment"
+    },
+    {
+      "ruby": "[明日|あした]のテストは[九時|くじ]ですね。",
+      "english": "Tomorrow's test is at nine, right?",
+      "note": "ね · checking"
+    },
+    {
+      "ruby": "[田中|たなか]さんも[来|き]ますよね。",
+      "english": "Tanaka-san is coming too, right?",
+      "note": "よね · asking to confirm"
+    },
+    {
+      "ruby": "そうですね。",
+      "english": "Yes, it is. / That's true.",
+      "note": "reply to ね"
+    },
+    {
+      "ruby": "このラーメン、おいしいね。",
+      "english": "(Casual, to a friend) This ramen is good, huh.",
+      "note": "plain · ね"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]は[暑|あつ]いですね。",
+      "english": "It's hot today, isn't it?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "そうですね。[明日|あした]は[雨|あめ]ですよ。",
+      "english": "It is. Tomorrow it's going to rain, you know."
+    },
+    {
+      "speaker": "A",
+      "ruby": "そうですか。[傘|かさ]がありません。",
+      "english": "Really? I don't have an umbrella."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[駅|えき]の[前|まえ]のコンビニに[安|やす]い[傘|かさ]がありますよ。",
+      "english": "The convenience store in front of the station has cheap umbrellas."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[明日|あした]の[朝|あさ]、[買|か]います。",
+      "english": "I'll buy one tomorrow morning."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Telling a friend news they don't know: あの店は安いです（　）。",
+      "options": [
+        "よ",
+        "ね",
+        "か"
+      ],
+      "answer_idx": 0,
+      "why": "The listener doesn't know yet, so it is news: よ."
+    },
+    {
+      "prompt": "Standing outside together on a hot day: 今日は暑いです（　）。",
+      "options": [
+        "よ",
+        "か",
+        "ね"
+      ],
+      "answer_idx": 2,
+      "why": "You both feel the heat, so it is shared ground: ね."
+    },
+    {
+      "prompt": "Which order is correct?",
+      "options": [
+        "暑いですねよ。",
+        "暑いですよね。",
+        "暑いよですね。"
+      ],
+      "answer_idx": 1,
+      "why": "The order is よね, and it comes after です."
+    },
+    {
+      "prompt": "A: 今日は寒いですね。 B: （　）",
+      "options": [
+        "そうですね。",
+        "寒いですか。",
+        "寒いですねよ。"
+      ],
+      "answer_idx": 0,
+      "why": "そうですね agrees with a ね sentence. Asking 寒いですか back is odd, and ×ねよ is the wrong order."
+    },
+    {
+      "prompt": "A: 今日は火曜日ですね。 B: いいえ、月曜日です（　）。",
+      "options": [
+        "ね",
+        "よ",
+        "か"
+      ],
+      "answer_idx": 1,
+      "why": "B corrects A, which gives A new information: よ."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "desu-da"
+    ],
+    "next": [
+      "wo-kudasai"
+    ]
+  },
+  "lesson_version": 1
+}
