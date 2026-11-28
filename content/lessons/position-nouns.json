@@ -64,7 +64,7 @@
       "example_en": "There is a classroom next to the library."
     }
   ],
-  "register_context": "Polite classroom default: Nの上にNがあります / います. Same が and います/あります habits as earlier Unit 2. Questions: 机の上に何がありますか / 部屋の中にだれがいますか.",
+  "register_context": "Polite classroom default: Nの上にNがあります / います. Keep the same が and います/あります habits. Questions: 机の上に何がありますか / 部屋の中にだれがいますか.",
   "mistakes": [
     {
       "wrong_ruby": "[机|つくえ][上|うえ]に[本|ほん]があります。",

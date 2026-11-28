@@ -124,7 +124,7 @@
       "goal": "Say what exists, where it is, and how many.",
       "sort_order": 2,
       "dojo": "Counter readings: いっぽん, さんぼん, ろっぽん",
-      "reading": "My room: what is where",
+      "reading": "私の部屋: what is where, polite, about 100–120 characters",
       "points": [
         {
           "slug": "ga-subject",
@@ -133,10 +133,10 @@
           "prerequisites": [
             "wa-topic"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 9
         },
         {
@@ -146,10 +146,10 @@
           "prerequisites": [
             "ga-subject"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 10
         },
         {
@@ -159,10 +159,10 @@
           "prerequisites": [
             "aru-iru"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 11
         },
         {
@@ -173,10 +173,10 @@
             "ni-location",
             "no-noun-link"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 12
         },
         {
@@ -186,10 +186,10 @@
           "prerequisites": [
             "desu-da"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 13
         },
         {
@@ -199,10 +199,10 @@
           "prerequisites": [
             "to-and"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 14
         },
         {
@@ -212,24 +212,24 @@
           "prerequisites": [
             "aru-iru"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "point",
-          "source": "new",
+          "source": "keep",
           "sort_order": 15
         },
         {
           "slug": "contrast-to-ya",
           "title": "と vs や (complete vs open list)",
-          "summary": "と lists a complete set; や leaves the list open: パンと卵を買いました / パンや卵を買いました。",
+          "summary": "と lists a complete set; や leaves the list open: 冷蔵庫にパンと卵があります / パンや卵があります。",
           "prerequisites": [
             "to-and",
             "ya-nado"
           ],
-          "status": "planned",
+          "status": "existing",
           "level": "N5",
           "kind": "contrast",
-          "source": "new",
+          "source": "keep",
           "sort_order": 16
         }
       ]
@@ -3261,15 +3261,18 @@
     }
   ],
   "meta": {
-    "seed_slug_count": 70,
+    "seed_slug_count": 78,
     "curriculum_point_count": 216,
     "missing_keep_slugs": [],
     "seeded_in_units": [
+      "aru-iru",
       "ato-de",
       "ba-conditional",
       "bakari",
       "beki-da",
+      "contrast-to-ya",
       "desu-da",
+      "ga-subject",
       "hazu-da",
       "hou-ga-ii",
       "ippou-da",
@@ -3293,6 +3296,7 @@
       "nara-conditional",
       "ni-chigainai",
       "ni-kurabete",
+      "ni-location",
       "ni-taishite",
       "ni-totte",
       "ni-tsuite",
@@ -3302,7 +3306,9 @@
       "no-noun-link",
       "node",
       "noni",
+      "numbers-counters",
       "okage-de",
+      "position-nouns",
       "sei-de",
       "shi-listing",
       "sou-da-hearsay",
@@ -3317,6 +3323,7 @@
       "te-oku",
       "te-shimau",
       "te-wa-ikenai",
+      "to-and",
       "to-iu-koto-da",
       "to-omou",
       "to-shitara",
@@ -3325,6 +3332,7 @@
       "wa-topic",
       "wake-dewa-nai",
       "wake-niwa-ikanai",
+      "ya-nado",
       "yasui-nikui",
       "you-da",
       "you-ni-naru",

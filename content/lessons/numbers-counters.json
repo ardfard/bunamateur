@@ -87,9 +87,9 @@
       "why": "Four people is よにん (not ×よんにん)."
     },
     {
-      "wrong_ruby": "[猫|ねこ]が[二|ふた]つあります。",
-      "right_ruby": "[猫|ねこ]が[二|ふた]ついます。",
-      "why": "Animals take います, not あります — the counter does not change that."
+      "wrong_ruby": "[学生|がくせい]が[三|みっ]ついます。",
+      "right_ruby": "[学生|がくせい]が[三人|さんにん]います。",
+      "why": "People take 〜人, not 〜つ. Three students → 三人."
     }
   ],
   "contrasts": [

@@ -27,7 +27,7 @@
     ],
     "note": "Order is Placeに + Subjectが + います/あります. Do not swap to ×猫が部屋にがいます. に here means location of existence — not a place where you do an action."
   },
-  "explanation": "To say where something is, put the place first with に, then the subject with が, then います or あります: 部屋に猫がいます / 部屋に本があります. Questions keep the same frame: 教室にだれがいますか / 図書館に何がありますか. Place words from Unit 1 work the same way: ここに先生がいます / あそこに駅があります. Remember the が lesson contrast: 部屋に猫がいます presents the cat as new; 猫は部屋にいます talks about a known cat's location. Stick to existence — に + います/あります — for this point.",
+  "explanation": "To say where something is, put the place first with に, then the subject with が, then います or あります: 部屋に猫がいます / 部屋に本があります. Questions keep the same frame: 教室にだれがいますか / 図書館に何がありますか. Place words you already know work the same way: ここに先生がいます / あそこに駅があります. Remember the が contrast: 部屋に猫がいます presents the cat as new; 猫は部屋にいます talks about a known cat's location. Stick to existence — に + います/あります — for this point.",
   "senses": [
     {
       "label": "Placeに + animate がいます",
@@ -49,7 +49,7 @@
     },
     {
       "label": "ここ / そこ / あそこ + に",
-      "body": "Unit 1 place words take に the same way as place nouns.",
+      "body": "ここ / そこ / あそこ take に the same way as place nouns.",
       "example_ruby": "ここに[先生|せんせい]がいます。",
       "example_en": "The teacher is here. / There is a teacher here."
     }

@@ -1,6 +1,6 @@
 {
   "meaning": "subject marker が · marks who/what exists or is asked about",
-  "gist": "が marks the subject when it is new information or a question word: だれがいますか / [何|なに]がありますか. Question words take が — not ×だれは. Builds on topic は from Unit 1; existence forms います / あります appear here with が.",
+  "gist": "が marks the subject when it is new information or a question word: だれがいますか / [何|なに]がありますか. Question words take が — not ×だれは. You already know topic は; here が pairs with existence forms います / あります.",
   "formation": {
     "columns": ["Use", "Pattern", "Example"],
     "rows": [
@@ -54,7 +54,7 @@
       "example_en": "What is there?"
     }
   ],
-  "register_context": "Classroom default stays polite: います / あります / ですか. Same です/だ habits as Unit 1 when you equate (これは本です). Existence questions with が are the focus here.",
+  "register_context": "Classroom default stays polite: います / あります / ですか. Same です/だ habits when you equate (これは本です). Existence questions with が are the focus here.",
   "mistakes": [
     {
       "wrong_ruby": "だれはいますか。",
@@ -178,8 +178,8 @@
       "why": "Question word だれ takes が: だれがいますか. ×だれは is wrong here."
     },
     {
-      "prompt": "何（　）ありますか。",
-      "options": ["は", "の", "が"],
+      "prompt": "何（　）。 (What is there?)",
+      "options": ["はありますか", "のありますか", "がありますか"],
       "answer_idx": 2,
       "why": "何がありますか — question words take が."
     },

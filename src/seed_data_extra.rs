@@ -5302,7 +5302,7 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                     nuance_note: "一本=いっぽん (sound change). Full: 鉛筆が一本あります.",
                 },
                 SeedSentence {
-                    jp_before: "[ペン]が",
+                    jp_before: "ペンが",
                     jp_after: "あります。",
                     answer: "さんぼん",
                     alt_answers: &["三本"],
