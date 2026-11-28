@@ -66,7 +66,7 @@
       "why": "これ cannot sit directly before a noun. Standalone pronoun: これは本です. Before a noun you need この本 (taught in この・その・あの)."
     },
     {
-      "wrong_ruby": "(Meaning: you are holding the book) それは[本|ほん]です。",
+      "wrong_ruby": "(You are holding the book.) それは[本|ほん]です。",
       "right_ruby": "これは[本|ほん]です。",
       "why": "Near the speaker → これ, not それ. If it is in your hands, use これ."
     },
@@ -187,10 +187,10 @@
       "why": "In the speaker's hands → これ (territory near speaker)."
     },
     {
-      "prompt": "(Pointing at the listener's umbrella.) （　）はだれの傘ですか。",
+      "prompt": "(Pointing at an umbrella next to the listener.) （　）はだれの傘ですか。",
       "options": ["これ", "それ", "どれ"],
       "answer_idx": 1,
-      "why": "Near the listener → それ. Asking whose is natural when the object is obvious."
+      "why": "Near the listener → それ."
     },
     {
       "prompt": "(The station is far from both of you.) （　）は駅です。",

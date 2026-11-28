@@ -4083,7 +4083,7 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
             study_path: "Genki I",
             structure: "NのNです / NはだれのNですか / Nは私のです",
             nuance: "の joins nouns — A's B / B of A. Same linker for possession, description, and belonging.",
-            caution: "Do not drop の (×日本語先生 → 日本語の先生). Prefer 大学生 or さくら大学の学生 over bare 大学の学生. この本 is a later pointing form.",
+            caution: "Do not drop の (×日本語先生 → 日本語の先生). この本 is a later pointing form.",
             confusable_with: "私の本 (possession の) vs この本 (pointing この — kono-sono-ano).",
             pitch_note: "の is short and low between the two nouns.",
             match_patterns: &["のです", "私の", "だれの"],
@@ -4116,7 +4116,7 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                     alt_answers: &[],
                     hint: "polite • named school",
                     english: "(He) is a Sakura University student.",
-                    nuance_note: "Named schoolのmember — prefer over bare 大学の学生.",
+                    nuance_note: "School name + の + 学生: a member of that school.",
                 },
                 SeedSentence {
                     jp_before: "[田中|たなか]さん",
@@ -4348,7 +4348,7 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                     nuance_note: "じゃありません is another common polite negative.",
                 },
                 SeedSentence {
-                    jp_before: "[昨日|きのう]は[休み|やすみ]",
+                    jp_before: "[昨日|きのう]は[休|やす]み",
                     jp_after: "。",
                     answer: "じゃなかったです",
                     alt_answers: &["ではありませんでした", "じゃなかった"],
@@ -4357,7 +4357,7 @@ pub static EXPANDED_SEED_GRAMMAR: &[SeedGrammar] = &[
                     nuance_note: "Past negative: ない → なかった (じゃなかったです), not ×じゃないでした.",
                 },
                 SeedSentence {
-                    jp_before: "[先週|せんしゅう]は[休み|やすみ]",
+                    jp_before: "[先週|せんしゅう]は[休|やす]み",
                     jp_after: "。",
                     answer: "ではありませんでした",
                     alt_answers: &["じゃなかったです", "じゃなかった"],
