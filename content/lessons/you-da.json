@@ -1,0 +1,217 @@
+{
+  "meaning": "it seems / appears that · (simile) like / as if",
+  "gist": "Plain clause + ようだ / ようです marks inference from evidence or a sensory impression — \"it seems…\". Nouns take の (雨のようだ); な-adjectives take な (静かなようだ). Also forms similes: 〜のように / 〜のようだ. Casual near-equivalent: みたいだ.",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + ようだ / ようです",
+        "[雨|あめ]が[降|ふ]っているようです"
+      ],
+      [
+        "い-adjective",
+        "い-adj + ようだ",
+        "[忙|いそが]しかったようです"
+      ],
+      [
+        "な-adjective",
+        "な-adj + な + ようだ",
+        "[静|しず]かなようです"
+      ],
+      [
+        "Noun",
+        "N + の + ようだ / のように",
+        "[彼|かれ]の[傘|かさ]のようだ / [春|はる]のように"
+      ]
+    ],
+    "note": "ようだ follows the plain form. Nouns need の (*雨ようだ is wrong); な-adjectives need な. Simile: Noun + のように before verbs/adjectives (春のように暖かい)."
+  },
+  "explanation": "ようだ expresses a conjecture grounded in what you observe or sense: wet umbrellas → 外は雨が降っているようです. It is your inference, not a quote from someone else (that is hearsay そうだ). Nouns take の: これは彼の傘のようだ. The same よう builds similes — 今日は春のように暖かいですね. みたいだ covers much of the same ground in casual speech; らしい often leans toward secondhand info or \"typical of\".",
+  "senses": [
+    {
+      "label": "Inference from evidence",
+      "body": "Also: だれも[部屋|へや]にいないようです。",
+      "example_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているようです。",
+      "example_en": "It seems to be raining outside."
+    },
+    {
+      "label": "Past / state conjecture",
+      "body": "Past plain + ようだ: [風邪|かぜ]をひいたようだ。",
+      "example_ruby": "[彼女|かのじょ]はとても[忙|いそが]しかったようです。",
+      "example_en": "It seems she was very busy."
+    },
+    {
+      "label": "Noun + の + ようだ",
+      "body": "Nouns take の before ようだ — not bare 雨ようだ.",
+      "example_ruby": "これは[彼|かれ]の[傘|かさ]のようだ。",
+      "example_en": "This appears to be his umbrella."
+    },
+    {
+      "label": "Simile 〜のように / 〜のようだ",
+      "body": "Noun + のように modifies a verb or adjective as a comparison.",
+      "example_ruby": "[今日|きょう]は[春|はる]のように[暖|あたた]かいですね。",
+      "example_en": "Today is warm just like spring, isn't it?"
+    }
+  ],
+  "register_context": "ようです is polite/neutral; ようだ is plain and a bit formal or written compared with みたいだ. Use みたいだ in casual chat. Evidence-based ようだ fits when you are looking/listening yourself; switch to hearsay そうだ when the information came from someone else.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[外|そと]は[雨|あめ]ようだ。",
+      "right_ruby": "[外|そと]は[雨|あめ]のようだ。",
+      "why": "Nouns need の before ようだ — 雨のようだ, not *雨ようだ."
+    },
+    {
+      "wrong_ruby": "ここは[静|しず]かだようだ。",
+      "right_ruby": "ここは[静|しず]かなようだ。",
+      "why": "な-adjectives take な before ようだ (静かなようだ), not だ."
+    },
+    {
+      "wrong_ruby": "[雨|あめ]が[降|ふ]っていますようです。",
+      "right_ruby": "[雨|あめ]が[降|ふ]っているようです。",
+      "why": "Attach to the plain form (降っている), not the polite ます-form (*降っていますようだ)."
+    },
+    {
+      "wrong_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているそうです。（Meaning \"Judging from the wet umbrellas, it seems to be raining.\"）",
+      "right_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているようです。",
+      "why": "(Meaning \"Judging from the wet umbrellas, it seems to be raining.\") Your own evidence → ようだ; そうだ would be hearsay from someone else."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "sou-da-hearsay",
+      "label": "ようだ vs そうだ（伝聞）",
+      "summary": "Evidence-based inference you notice yourself vs secondhand report from another source.",
+      "ex_a_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているようです。",
+      "ex_a_en": "It seems to be raining (wet ground / sound)",
+      "ex_b_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているそうです。",
+      "ex_b_en": "I heard it's raining (someone told me)"
+    },
+    {
+      "other_slug": null,
+      "label": "ようだ vs みたいだ",
+      "summary": "Same core meaning; みたいだ is the casual conversational equivalent of ようだ.",
+      "ex_a_ruby": "[彼|かれ]は[風邪|かぜ]をひいたようだ。",
+      "ex_a_en": "It seems he caught a cold (neutral / slightly formal)",
+      "ex_b_ruby": "[彼|かれ]は[風邪|かぜ]をひいたみたいだ。",
+      "ex_b_en": "It seems he caught a cold (casual)"
+    },
+    {
+      "other_slug": null,
+      "label": "ようだ vs らしい",
+      "summary": "ようだ leans on direct observation; らしい often marks secondhand info or \"typical of X\".",
+      "ex_a_ruby": "だれもいないようです。",
+      "ex_a_en": "It appears nobody is here (lights off, silence)",
+      "ex_b_ruby": "だれもいないらしい。",
+      "ex_b_en": "Apparently nobody is here (heard / typical rumor tone)"
+    },
+    {
+      "other_slug": null,
+      "label": "Inference ようだ vs simile のように",
+      "summary": "Clause + ようだ = \"it seems…\"; Noun + のように = \"like / as if…\" modifying another word.",
+      "ex_a_ruby": "[春|はる]のようです。",
+      "ex_a_en": "It seems like spring / feels like spring",
+      "ex_b_ruby": "[春|はる]のように[暖|あたた]かい。",
+      "ex_b_en": "Warm like spring (simile)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているようです。",
+      "english": "It seems to be raining outside.",
+      "note": "polite · evidence"
+    },
+    {
+      "ruby": "[彼|かれ]は[風邪|かぜ]をひいたようだ。",
+      "english": "It seems he caught a cold.",
+      "note": "casual · past verb"
+    },
+    {
+      "ruby": "[今日|きょう]は[春|はる]のように[暖|あたた]かいですね。",
+      "english": "Today is warm just like spring, isn't it?",
+      "note": "simile · のように"
+    },
+    {
+      "ruby": "だれも[部屋|へや]にいないようです。",
+      "english": "It appears nobody is in the room.",
+      "note": "polite · negative"
+    },
+    {
+      "ruby": "[彼女|かのじょ]はとても[忙|いそが]しかったようです。",
+      "english": "It seems she was very busy.",
+      "note": "polite · past い-adj"
+    },
+    {
+      "ruby": "これは[彼|かれ]の[傘|かさ]のようだ。",
+      "english": "This appears to be his umbrella.",
+      "note": "casual · noun + の"
+    },
+    {
+      "ruby": "[子供|こども]のように[喜|よろこ]んでいた。",
+      "english": "He was delighted like a child.",
+      "note": "simile · manner"
+    },
+    {
+      "ruby": "ここは[図書館|としょかん]のように[静|しず]かです。",
+      "english": "It's quiet here like a library.",
+      "note": "simile · polite"
+    },
+    {
+      "ruby": "[彼|かれ]はもう[帰|かえ]ったようです。",
+      "english": "It seems he has already gone home.",
+      "note": "polite · past inference"
+    },
+    {
+      "ruby": "その[話|はなし]は[嘘|うそ]のようだ。",
+      "english": "That story seems like a lie.",
+      "note": "casual · noun + の"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[外|そと]、どう？ [雨|あめ]？",
+      "english": "How's it outside? Rain?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "うん、[降|ふ]っているようです。[傘|かさ]が[濡|ぬ]れてるし。",
+      "english": "Yeah, it seems to be raining — the umbrellas are wet."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[田中|たなか]さんは？",
+      "english": "What about Tanaka?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[風邪|かぜ]をひいたようですよ。[声|こえ]がおかしかったから。",
+      "english": "It seems he caught a cold — his voice sounded off."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "外は雨が降っている（　）。（evidence: wet umbrellas）",
+      "options": ["ようです", "そうです", "かもしれません"],
+      "answer_idx": 0,
+      "why": "Evidence-based inference → ようです (seed cloze). そうです is hearsay; かもしれません is mere possibility."
+    },
+    {
+      "prompt": "今日は春の（　）に暖かいですね。",
+      "options": ["よう", "そう", "かも"],
+      "answer_idx": 0,
+      "why": "Simile Noun + のように → よう (seed: 春のように)."
+    },
+    {
+      "prompt": "これは彼の傘（　）。",
+      "options": ["のようだ", "ようだ", "だようだ"],
+      "answer_idx": 0,
+      "why": "Noun + の + ようだ (seed). Missing の (*傘ようだ) is wrong."
+    }
+  ],
+  "related": {
+    "prerequisites": ["plain form (Dojo)", "の (noun linker)"],
+    "next": ["sou-da-hearsay", "kamo-shirenai"]
+  },
+  "lesson_version": 1
+}

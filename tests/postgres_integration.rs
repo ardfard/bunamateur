@@ -177,7 +177,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
             .fetch_one(&pool)
             .await
             .unwrap();
-    assert_eq!(lesson_count, 19);
+    assert_eq!(lesson_count, 27);
     let te_iru_gist: Option<String> = sqlx::query_scalar(
         "SELECT lesson->>'gist' FROM grammar_points WHERE slug = 'te-iru'",
     )

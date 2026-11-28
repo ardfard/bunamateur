@@ -1,0 +1,217 @@
+{
+  "meaning": "might / maybe / possibly (~50% certainty)",
+  "gist": "Plain clause + かもしれない / かもしれません marks ~50% possibility — \"it might be that…\". Nouns and な-adjectives drop だ (学生かもしれない, not *学生だかもしれない). Casual speech often shortens to かも.",
+  "formation": {
+    "columns": ["Host", "Pattern", "Example"],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + かもしれない / かもしれません",
+        "[雨|あめ]が[降|ふ]るかもしれません"
+      ],
+      [
+        "い-adjective",
+        "い-adj + かもしれない",
+        "[難|むずか]しいかもしれません"
+      ],
+      [
+        "な-adjective / Noun",
+        "な-adj / N + かもしれない (NO だ)",
+        "[本当|ほんとう]かもしれません / [学生|がくせい]かもしれない"
+      ],
+      [
+        "Casual shorten",
+        "plain clause + かも",
+        "[来|こ]ないかも"
+      ]
+    ],
+    "note": "Attach to the plain form. Never insert だ after nouns or な-adjectives before かもしれない (*雨だかもしれない). Polite: かもしれません; casual: かもしれない or bare かも."
+  },
+  "explanation": "かもしれない expresses uncertain possibility — roughly fifty-fifty, not a strong prediction. 午後から雨が降るかもしれません = \"It might rain from this afternoon.\" Affirmative, negative, and past plain forms all work: 来ないかもしれない / 忘れたかもしれない. Strength sits below でしょう (probable) and well below はずだ (logical expectation) or に違いない (strong conviction). Soften a polite guess with かもしれません; among friends, かも is enough.",
+  "senses": [
+    {
+      "label": "Uncertain possibility (~50%)",
+      "body": "Also: この[問題|もんだい]はちょっと[難|むずか]しいかもしれません。",
+      "example_ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかもしれません。",
+      "example_en": "It might rain from this afternoon."
+    },
+    {
+      "label": "Negative / past possibility",
+      "body": "Past: [電車|でんしゃ]に[財布|さいふ]を[忘|わす]れたかもしれない。",
+      "example_ruby": "[彼|かれ]は[今日|きょう][来|こ]ないかもしれない。",
+      "example_en": "He might not come today."
+    },
+    {
+      "label": "Noun / な-adjective (no だ)",
+      "body": "Nouns and な-adjectives attach directly — drop だ.",
+      "example_ruby": "その[話|はなし]は[本当|ほんとう]かもしれません。",
+      "example_en": "That story might be true."
+    },
+    {
+      "label": "Casual かも",
+      "body": "Shortening かもしれない to かも is very common in casual speech.",
+      "example_ruby": "[昨日|きのう]の[試験|しけん]は[合格|ごうかく]できなかったかも。",
+      "example_en": "I might not have passed yesterday's exam."
+    }
+  ],
+  "register_context": "かもしれません is neutral-polite; かもしれない is plain; かも is casual and often sentence-final. Softens assertions without claiming high probability. Prefer でしょう when you want a more confident guess, and はずだ when logic or a schedule backs the expectation.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼|かれ]は[学生|がくせい]だかもしれない。",
+      "right_ruby": "[彼|かれ]は[学生|がくせい]かもしれない。",
+      "why": "Nouns and な-adjectives take NO だ before かもしれない — 学生かもしれない, not *学生だかもしれない."
+    },
+    {
+      "wrong_ruby": "[雨|あめ]が[降|ふ]りますかもしれない。",
+      "right_ruby": "[雨|あめ]が[降|ふ]るかもしれない。",
+      "why": "Attach to the plain form (降る), not the ます-form (*降りますかもしれない)."
+    },
+    {
+      "wrong_ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るのもしれません。",
+      "right_ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかもしれません。",
+      "why": "No の between the plain clause and かもしれない (*降るのもしれない)."
+    },
+    {
+      "wrong_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているはずです。（Meaning \"He might already be at the station.\"）",
+      "right_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているかもしれません。",
+      "why": "(Meaning \"He might already be at the station.\") ~50% possibility is かもしれない; はずだ is a stronger logical expectation."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "hazu-da",
+      "label": "かもしれない vs はずだ",
+      "summary": "Roughly 50% possibility vs strong logical expectation based on facts or a schedule.",
+      "ex_a_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているかもしれない。",
+      "ex_a_en": "He might already be at the station (uncertain guess)",
+      "ex_b_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているはずです。",
+      "ex_b_en": "He should already be at the station (logical expectation)"
+    },
+    {
+      "other_slug": null,
+      "label": "かもしれない vs でしょう",
+      "summary": "かもしれない ≈ 50% \"might\"; でしょう is a more confident probability / speaker's prediction.",
+      "ex_a_ruby": "[明日|あした]は[雨|あめ]が[降|ふ]るかもしれません。",
+      "ex_a_en": "It might rain tomorrow (~50%)",
+      "ex_b_ruby": "[明日|あした]は[雨|あめ]が[降|ふ]るでしょう。",
+      "ex_b_en": "It will probably rain tomorrow (more confident)"
+    },
+    {
+      "other_slug": "ni-chigainai",
+      "label": "かもしれない vs に違いない",
+      "summary": "Weak possibility vs strong conviction (\"must be / no doubt\").",
+      "ex_a_ruby": "[彼|かれ]は[来|こ]ないかもしれない。",
+      "ex_a_en": "He might not come",
+      "ex_b_ruby": "[彼|かれ]は[来|こ]ないに[違|ちが]いない。",
+      "ex_b_en": "He definitely won't come / must not be coming"
+    },
+    {
+      "other_slug": null,
+      "label": "Certainty scale",
+      "summary": "Strength roughly: かもしれない (~50%) < でしょう (probable) < はずだ (logical expectation) < に違いない (strong conviction).",
+      "ex_a_ruby": "[合格|ごうかく]できなかったかもしれない。",
+      "ex_a_en": "I might not have passed (uncertain)",
+      "ex_b_ruby": "[合格|ごうかく]できたはずだ。",
+      "ex_b_en": "I should have passed (based on how I studied)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかもしれません。",
+      "english": "It might rain from this afternoon.",
+      "note": "polite · plain verb"
+    },
+    {
+      "ruby": "[彼|かれ]は[今日|きょう][来|こ]ないかもしれない。",
+      "english": "He might not come today.",
+      "note": "casual · negative"
+    },
+    {
+      "ruby": "その[話|はなし]は[本当|ほんとう]かもしれません。",
+      "english": "That story might be true.",
+      "note": "polite · noun, no だ"
+    },
+    {
+      "ruby": "[電車|でんしゃ]に[財布|さいふ]を[忘|わす]れたかもしれない。",
+      "english": "I might have left my wallet on the train.",
+      "note": "casual · past"
+    },
+    {
+      "ruby": "この[問題|もんだい]はちょっと[難|むずか]しいかもしれません。",
+      "english": "This problem might be a bit difficult.",
+      "note": "polite · い-adj softener"
+    },
+    {
+      "ruby": "[昨日|きのう]の[試験|しけん]は[合格|ごうかく]できなかったかもしれない。",
+      "english": "I might not have passed yesterday's exam.",
+      "note": "casual · past negative"
+    },
+    {
+      "ruby": "[彼|かれ]はもう[家|いえ]に[帰|かえ]ったかも。",
+      "english": "He might already have gone home.",
+      "note": "very casual · かも"
+    },
+    {
+      "ruby": "[明日|あした]は[忙|いそが]しいかもしれません。",
+      "english": "I might be busy tomorrow.",
+      "note": "polite · い-adj"
+    },
+    {
+      "ruby": "あの[人|ひと]は[先生|せんせい]かもしれない。",
+      "english": "That person might be a teacher.",
+      "note": "casual · noun, no だ"
+    },
+    {
+      "ruby": "[鍵|かぎ]をどこかに[落|お]としたかもしれません。",
+      "english": "I might have dropped my keys somewhere.",
+      "note": "polite · past uncertainty"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかな。",
+      "english": "I wonder if it'll rain from this afternoon."
+    },
+    {
+      "speaker": "B",
+      "ruby": "うん、[降|ふ]るかもしれませんね。",
+      "english": "Yeah, it might rain."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[傘|かさ]を[持|も]っていったほうがいい？",
+      "english": "Should I take an umbrella?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "そうだね。[降|ふ]るかも。",
+      "english": "Yeah. It might rain."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "午後から雨が降る（　）。",
+      "options": ["かもしれません", "だかもしれません", "ますかもしれません"],
+      "answer_idx": 0,
+      "why": "Plain verb + かもしれません (seed cloze). No だ and not the ます-form."
+    },
+    {
+      "prompt": "その話は本当（　）。",
+      "options": ["かもしれません", "だかもしれません", "なかもしれません"],
+      "answer_idx": 0,
+      "why": "Noun + かもしれない — no だ (本当かもしれません)."
+    },
+    {
+      "prompt": "彼は今日来ない（　）。（casual · might not）",
+      "options": ["かもしれない", "だかもしれない", "ますかもしれない"],
+      "answer_idx": 0,
+      "why": "Plain negative + かもしれない (seed). No だ after a verb, and not the ます-form."
+    }
+  ],
+  "related": {
+    "prerequisites": ["plain form (Dojo)", "い-adjectives / な-adjectives"],
+    "next": ["hazu-da", "sou-da-hearsay", "you-da"]
+  },
+  "lesson_version": 1
+}

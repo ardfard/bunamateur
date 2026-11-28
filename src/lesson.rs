@@ -444,12 +444,20 @@ mod tests {
             "mae-ni",
             "ato-de",
             "shi-listing",
+            "tara-conditional",
+            "ba-conditional",
+            "nara-conditional",
+            "kamo-shirenai",
+            "sou-da-hearsay",
+            "you-da",
+            "noni",
+            "hazu-da",
         ] {
             assert!(
                 lessons.contains_key(slug),
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 19);
+        assert_eq!(lessons.len(), 27);
     }
 }
