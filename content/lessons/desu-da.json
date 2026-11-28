@@ -1,6 +1,6 @@
 {
   "meaning": "is / am / are (copula) · polite です · plain だ",
-  "gist": "Noun + です (polite) or だ (plain) equates or identifies: X is Y. Default classroom register is です; だ is casual among friends or in plain-form writing. Soften or emphasize with よ: ですよ / だよ.",
+  "gist": "Noun + です (polite) or だ (plain) equates or identifies: X is Y. Default classroom register is です; だ is casual among friends or in plain-form writing. Practice bare Noun + です/だ — topic は comes next.",
   "formation": {
     "columns": ["Register", "Pattern", "Example"],
     "rows": [
@@ -15,23 +15,23 @@
         "[学生|がくせい]だ"
       ],
       [
-        "Polite + soft assert",
-        "Noun + ですよ",
-        "[学生|がくせい]ですよ"
+        "Polite · occupation",
+        "Noun + です",
+        "[会社員|かいしゃいん]です"
       ],
       [
-        "Casual + soft assert",
-        "Noun + だよ",
-        "[学生|がくせい]だよ"
+        "Casual · nationality",
+        "Noun + だ",
+        "[日本人|にほんじん]だ"
       ]
     ],
-    "note": "です and だ are the same copula at different registers — never stack them (×学生だです). Topic は comes in the next lesson; for now practice Noun + です/だ alone."
+    "note": "です and だ are the same copula at different registers — never stack them (×学生だです). The noun comes before the copula (×です学生). Topic は is the next lesson; for now practice Noun + です/だ alone."
   },
-  "explanation": "です / だ is the Japanese copula: it links a noun to what that noun is. 学生です means \"(I/it) am/is a student.\" Use です as the default polite form with teachers, strangers, and in class. Use だ with close friends or when the surrounding sentence is in plain form. Adding よ (ですよ / だよ) softens an assertion or presents the info as news for the listener. Do not combine だ and です in one ending.",
+  "explanation": "です / だ is the Japanese copula: it links a noun to what that noun is. 学生です means \"(I/it) am/is a student.\" Use です as the default polite form with teachers, strangers, and in class. Use だ with close friends or when the surrounding sentence is in plain form. Do not combine だ and です in one ending, and do not put the copula before the noun.",
   "senses": [
     {
       "label": "Identifying / equating",
-      "body": "States what something or someone is.",
+      "body": "States what something or someone is — occupation, role, or identity.",
       "example_ruby": "[学生|がくせい]です。",
       "example_en": "(I) am a student. / It is a student."
     },
@@ -39,16 +39,16 @@
       "label": "Casual identification",
       "body": "Same meaning with plain だ among friends.",
       "example_ruby": "[先生|せんせい]だ。",
-      "example_en": "(He's) a teacher."
+      "example_en": "(He's) a teacher. (to a close friend)"
     },
     {
-      "label": "Soft assertion (よ)",
-      "body": "ですよ / だよ presents the fact as useful news or gentle emphasis.",
-      "example_ruby": "[日本人|にほんじん]ですよ。",
-      "example_en": "(I'm) Japanese, you know."
+      "label": "Nationality / affiliation",
+      "body": "Nationality and group nouns take the same Noun + です/だ pattern.",
+      "example_ruby": "[日本人|にほんじん]です。",
+      "example_en": "(I'm) Japanese."
     }
   ],
-  "register_context": "Default polite: です / ですよ (classroom, strangers, service). Plain/casual: だ / だよ (friends, diary, plain clauses). Never mix: ×学生だです. Negative forms (じゃないです / ではありません) are a later lesson.",
+  "register_context": "Default polite: です (classroom, strangers, service). Plain/casual: だ (friends, diary, plain clauses). Never mix: ×学生だです. Do not insert の before the copula (×学生のです) — bare Noun + です/だ is enough. Negative forms (じゃないです / ではありません) are a later lesson.",
   "mistakes": [
     {
       "wrong_ruby": "[学生|がくせい]だです。",
@@ -56,19 +56,14 @@
       "why": "だ and です are the same copula. Pick one register — never stack them (×だです)."
     },
     {
-      "wrong_ruby": "[学生|がくせい]ですだ。",
-      "right_ruby": "[学生|がくせい]です。",
-      "why": "Same double-copula error in reverse order. End with です or だ, not both."
-    },
-    {
       "wrong_ruby": "です[学生|がくせい]。",
       "right_ruby": "[学生|がくせい]です。",
       "why": "The noun comes first; the copula attaches after it."
     },
     {
-      "wrong_ruby": "[先生|せんせい]で。",
-      "right_ruby": "[先生|せんせい]です。",
-      "why": "で alone is not the polite copula ending. Use です (or casual だ)."
+      "wrong_ruby": "[学生|がくせい]のです。",
+      "right_ruby": "[学生|がくせい]です。",
+      "why": "Do not stick の between the noun and です for simple \"X is Y.\" Bare Noun + です is enough; の linking comes later."
     }
   ],
   "contrasts": [
@@ -103,82 +98,72 @@
   "examples": [
     {
       "ruby": "[学生|がくせい]です。",
-      "english": "(I) am a student.",
-      "note": "polite · default"
+      "english": "(At orientation) I'm a student.",
+      "note": "polite · classroom"
     },
     {
       "ruby": "[先生|せんせい]だ。",
-      "english": "(He's) a teacher.",
-      "note": "casual · plain"
+      "english": "(To a close friend, pointing) He's a teacher.",
+      "note": "casual · occupation"
     },
     {
       "ruby": "[日本人|にほんじん]です。",
-      "english": "(I'm) Japanese.",
+      "english": "(Meeting someone new) I'm Japanese.",
       "note": "polite · nationality"
     },
     {
-      "ruby": "[会社員|かいしゃいん]ですよ。",
-      "english": "(I'm) an office worker.",
-      "note": "polite · soft assert よ"
-    },
-    {
-      "ruby": "[医者|いしゃ]です。",
-      "english": "(She's) a doctor.",
+      "ruby": "[会社員|かいしゃいん]です。",
+      "english": "(At a meetup) I'm an office worker.",
       "note": "polite · occupation"
     },
     {
-      "ruby": "[友達|ともだち]だよ。",
-      "english": "(They're) a friend.",
-      "note": "casual · だよ"
+      "ruby": "[医者|いしゃ]だ。",
+      "english": "(Chatting with a friend) She's a doctor.",
+      "note": "casual · occupation"
     },
     {
-      "ruby": "[猫|ねこ]です。",
-      "english": "It's a cat.",
-      "note": "polite · identifying"
+      "ruby": "[大学生|だいがくせい]です。",
+      "english": "(Self-intro in class) I'm a university student.",
+      "note": "polite · role"
     },
     {
-      "ruby": "[大学|だいがく]です。",
-      "english": "It's a university.",
-      "note": "polite · place identity"
+      "ruby": "[アメリカ人|あめりかじん]です。",
+      "english": "(Nationality check-in) I'm American.",
+      "note": "polite · nationality"
     },
     {
-      "ruby": "[犬|いぬ]だ。",
-      "english": "It's a dog.",
+      "ruby": "[友達|ともだち]だ。",
+      "english": "(To a close friend, about someone nearby) He's a friend.",
       "note": "casual · identifying"
-    },
-    {
-      "ruby": "[学校|がっこう]ですよ。",
-      "english": "It's a school.",
-      "note": "polite · ですよ"
     }
   ],
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[学生|がくせい]です。",
-      "english": "I'm a student."
+      "ruby": "はじめまして。[田中|たなか]です。[学生|がくせい]です。",
+      "english": "Nice to meet you. I'm Tanaka. I'm a student."
     },
     {
       "speaker": "B",
-      "ruby": "あ、[学生|がくせい]ですよ。[先生|せんせい]です。",
-      "english": "Oh, you're a student. I'm a teacher."
+      "ruby": "[山田|やまだ]です。[会社員|かいしゃいん]です。",
+      "english": "I'm Yamada. I'm an office worker."
     },
     {
       "speaker": "A",
-      "ruby": "[日本人|にほんじん]ですよ。",
-      "english": "I'm Japanese."
+      "ruby": "[日本人|にほんじん]です。よろしくおねがいします。",
+      "english": "I'm Japanese. Nice to meet you."
     },
     {
       "speaker": "B",
-      "ruby": "[会社員|かいしゃいん]です。",
-      "english": "I'm an office worker."
+      "ruby": "よろしくおねがいします。",
+      "english": "Nice to meet you too."
     }
   ],
   "checks": [
     {
       "prompt": "学生（　）。 (polite default)",
-      "options": ["です", "だです", "で"],
-      "answer_idx": 0,
+      "options": ["だです", "です", "で"],
+      "answer_idx": 1,
       "why": "Polite copula is です. ×だです stacks two endings; ×で is incomplete."
     },
     {
@@ -189,8 +174,8 @@
     },
     {
       "prompt": "Which ending is the polite default for \"(I) am a doctor\"?",
-      "options": ["医者です。", "医者だ。", "医者だです。"],
-      "answer_idx": 0,
+      "options": ["医者だ。", "医者だです。", "医者です。"],
+      "answer_idx": 2,
       "why": "Classroom/polite default is です. だ is casual; だです is ungrammatical."
     }
   ],
