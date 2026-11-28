@@ -25,6 +25,7 @@ const KANJI_TO_KANA: &[(&str, &str)] = &[
     ("対", "たい"),
     ("代", "か"),
     ("方", "ほう"),
+    ("後ろ", "うしろ"),
     ("後", "あと"),
     ("前", "まえ"),
     ("内", "うち"),
@@ -357,6 +358,14 @@ const REGISTER_PAIRS: &[(&str, &str)] = &[
     ("たかったです", "たかった"),
     ("おかげです", "おかげだ"),
     ("せいです", "せいだ"),
+    // Existence verbs (aru-iru): whole-answer / suffix pairs before short catch-alls
+    // so ない↔ありません and なかった↔ありませんでした win over ません/ない.
+    ("いませんでした", "いなかった"),
+    ("ありませんでした", "なかった"),
+    ("ありました", "あった"),
+    ("あります", "ある"),
+    ("います", "いる"),
+    ("ありません", "ない"),
     ("ました", "た"),
     ("ませんでした", "なかった"),
     ("ません", "ない"),
@@ -722,6 +731,32 @@ fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
     edit_chars.iter().any(|&c| is_particle_morpheme(c))
 }
 
+/// Known wrong readings that must grade Incorrect (never typo forgiveness).
+/// Pairs are (wrong_form, correct_form); both compared after `normalize_jp`.
+/// Covers counter sound-change mistakes taught in numbers-counters.
+const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
+    ("さんほん", "さんぼん"),
+    ("さんほん", "三本"),
+    ("ににん", "ふたり"),
+    ("ににん", "二人"),
+    ("よんにん", "よにん"),
+    ("よんにん", "四人"),
+    ("しにん", "よにん"),
+    ("しにん", "四人"),
+    ("きゅうぼん", "きゅうほん"),
+    ("きゅうぼん", "九本"),
+    ("みつ", "みっつ"),
+    ("みつ", "三つ"),
+];
+
+fn is_known_incorrect_form(norm_in: &str, targets: &[String]) -> bool {
+    KNOWN_INCORRECT_FORMS.iter().any(|(wrong, correct)| {
+        let w = normalize_jp(wrong);
+        let c = normalize_jp(correct);
+        norm_in == w && targets.contains(&c)
+    })
+}
+
 /// Grades a learner's answer with contextual nuance detection (politeness/register, tense,
 /// polarity, confusable grammar synonyms, and 1-character kana typos).
 pub fn grade_answer(
@@ -746,6 +781,11 @@ pub fn grade_answer(
         if !n.is_empty() && !targets.contains(&n) {
             targets.push(n);
         }
+    }
+
+    // 0. Pedagogical near-misses (counter sound changes, etc.) → hard Incorrect
+    if is_known_incorrect_form(&norm_in, &targets) {
+        return GradeOutcome::Incorrect;
     }
 
     // 1. Politeness / Register mismatch
@@ -917,6 +957,62 @@ mod tests {
     }
 
     #[test]
+    fn test_existence_verb_register_pairs() {
+        let cases = [
+            ("いる", "います"),
+            ("ある", "あります"),
+            ("ない", "ありません"),
+            ("あった", "ありました"),
+            ("いなかった", "いませんでした"),
+            ("なかった", "ありませんでした"),
+        ];
+        for (plain, polite) in cases {
+            match grade_answer(plain, polite, &[], "polite • existence") {
+                GradeOutcome::AlmostRight { category, .. } => assert_eq!(
+                    category, "register",
+                    "expected register for {} → {}",
+                    plain, polite
+                ),
+                other => panic!(
+                    "expected register AlmostRight for {} → {}, got {:?}",
+                    plain, polite, other
+                ),
+            }
+            // Still not Correct — target register is polite
+            assert!(
+                !matches!(grade_answer(plain, polite, &[], ""), GradeOutcome::Correct { .. }),
+                "{} must not grade Correct against {}",
+                plain,
+                polite
+            );
+        }
+        // Unrelated answer stays Incorrect (not register)
+        assert_eq!(
+            grade_answer("たべる", "います", &[], "polite"),
+            GradeOutcome::Incorrect
+        );
+        // ない must not fire against non-ありません targets (e.g. い-adj style)
+        assert_eq!(
+            grade_answer("ない", "たい", &[], ""),
+            GradeOutcome::Incorrect
+        );
+    }
+
+    #[test]
+    fn test_ushiro_fold_and_position_grading() {
+        assert_eq!(normalize_jp("後ろ"), "うしろ");
+        assert_eq!(normalize_jp("の後ろに"), "のうしろに");
+        assert!(matches!(
+            grade_answer("の後ろに", "の後ろに", &["のうしろに".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("のうしろに", "の後ろに", &["のうしろに".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+    }
+
+    #[test]
     fn test_kana_kanji_equivalence_positives() {
         assert!(matches!(
             grade_answer("とおもいます", "と思います", &[], ""),
@@ -983,6 +1079,28 @@ mod tests {
             GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "typo"),
             other => panic!("expected typo AlmostRight, got {:?}", other),
         }
+
+        // Counter sound-change mistakes must not get typo forgiveness
+        assert_eq!(
+            grade_answer("さんほん", "三本", &["さんぼん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("よんにん", "四人", &["よにん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ににん", "二人", &["ふたり".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("きゅうぼん", "九本", &["きゅうほん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("みつ", "三つ", &["みっつ".into()], ""),
+            GradeOutcome::Incorrect
+        );
 
         // Wrong grammar form — not Correct
         assert!(!matches!(

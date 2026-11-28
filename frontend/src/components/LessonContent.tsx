@@ -144,7 +144,7 @@ export const LessonContent: React.FC<LessonContentProps> = ({
   highlightKnown,
   mode = 'full',
   exampleLimit = 4,
-  checkLimit = 3,
+  checkLimit = 5,
   checkPicks,
   onCheckPick,
 }) => {

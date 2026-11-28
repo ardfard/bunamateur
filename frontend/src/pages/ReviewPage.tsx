@@ -137,7 +137,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
   const current = queue[index]
   const hasRichLesson = Boolean(current?.mode === 'lesson' && current.lesson)
   const inLessonPreCloze = hasRichLesson && lessonStep !== 'cloze'
-  const checksForStep = current?.lesson?.checks.slice(0, 3) ?? []
+  const checksForStep = current?.lesson?.checks.slice(0, 5) ?? []
   const allChecksAnswered =
     checksForStep.length === 0 ||
     checksForStep.every((_, i) => typeof checkPicks[i] === 'number')
@@ -669,7 +669,7 @@ export const ReviewPage: React.FC<ReviewPageProps> = ({
                   <LessonContent
                     lesson={current.lesson}
                     mode="checks"
-                    checkLimit={3}
+                    checkLimit={5}
                     checkPicks={checkPicks}
                     onCheckPick={(checkIndex, optionIndex) =>
                       setCheckPicks((prev) =>

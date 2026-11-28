@@ -563,13 +563,21 @@ fn test_lesson_loader_validator_and_api_json_shape() {
         "ja-nai",
         "kore-sore-are",
         "kono-sono-ano",
+        "ga-subject",
+        "aru-iru",
+        "ni-location",
+        "position-nouns",
+        "to-and",
+        "ya-nado",
+        "numbers-counters",
+        "contrast-to-ya",
     ] {
         assert!(
             lessons.contains_key(slug),
             "missing embedded lesson '{slug}'"
         );
     }
-    assert_eq!(lessons.len(), 35);
+    assert_eq!(lessons.len(), 43);
 
     let known: HashSet<&str> = all_seed_grammar().iter().map(|g| g.slug).collect();
     for slug in lessons.keys() {

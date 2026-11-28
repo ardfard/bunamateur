@@ -22,14 +22,14 @@ UNITS: list[dict] = [
     ["kono-sono-ano", "この・その・あの / ここ・そこ・あそこ", "Pointing + noun, and the matching place words", "kore-sore-are,no-noun-link", "keep"],
   ], "contrasts": [], "dojo": "です table: polite/plain × present/past × positive/negative", "reading": "自己紹介: a self-introduction, polite, about 80 characters" },
   { "n": 2, "level": "N5", "title": "What is where", "goal": "Say what exists, where it is, and how many.", "points": [
-    ["ga-subject", "が (subject)", "Marks the subject when it is new or asked about: だれがいますか", "wa-topic", "new"],
-    ["aru-iru", "ある / いる", "Existence and having; いる for people and animals", "ga-subject", "new"],
-    ["ni-location", "に (where something is)", "Location of existence: 部屋に猫がいます", "aru-iru", "new"],
-    ["position-nouns", "上・下・中・前・後ろ・隣", "Position words as nouns: 机の上に", "ni-location,no-noun-link", "new"],
-    ["to-and", "と (and)", "Joins nouns into a complete list: パンと卵", "desu-da", "new"],
-    ["ya-nado", "や / など", "Joins nouns into an open list: X, Y and so on", "to-and", "new"],
-    ["numbers-counters", "Numbers and counters", "〜つ・〜人・〜本・〜枚・〜円, sound changes, counter after the particle: りんごが三つあります", "aru-iru", "new"],
-  ], "contrasts": ["contrast-to-ya: と vs や (complete vs open list)"], "dojo": "Counter readings: いっぽん, さんぼん, ろっぽん", "reading": "My room: what is where" },
+    ["ga-subject", "が (subject)", "Marks the subject when it is new or asked about: だれがいますか", "wa-topic", "keep"],
+    ["aru-iru", "ある / いる", "Existence and having; いる for people and animals", "ga-subject", "keep"],
+    ["ni-location", "に (where something is)", "Location of existence: 部屋に猫がいます", "aru-iru", "keep"],
+    ["position-nouns", "上・下・中・前・後ろ・隣", "Position words as nouns: 机の上に", "ni-location,no-noun-link", "keep"],
+    ["to-and", "と (and)", "Joins nouns into a complete list: パンと卵", "desu-da", "keep"],
+    ["ya-nado", "や / など", "Joins nouns into an open list: X, Y and so on", "to-and", "keep"],
+    ["numbers-counters", "Numbers and counters", "〜つ・〜人・〜本・〜枚・〜円, sound changes, counter after the particle: りんごが三つあります", "aru-iru", "keep"],
+  ], "contrasts": ["contrast-to-ya: と vs や (complete vs open list)"], "dojo": "Counter readings: いっぽん, さんぼん, ろっぽん", "reading": "私の部屋: what is where, polite, about 100–120 characters" },
   { "n": 3, "level": "N5", "title": "Doing things", "goal": "Describe a day with ます verbs and the action particles.", "points": [
     ["masu-form", "Verb-ます", "ます・ません・ました・ませんでした; the three verb groups", "desu-da", "new"],
     ["wo-object", "を (object)", "What the action is done to: 本を読みます", "masu-form", "new"],
@@ -251,6 +251,11 @@ UNITS: list[dict] = [
   ], "contrasts": ["contrast-bakari-dake-shika: ばかり vs だけ vs しか"], "dojo": "", "reading": "Complaints about a roommate (casual)" },
 ]
 
+# Contrasts that are already seeded as keep/existing (default: planned/new).
+CONTRAST_SOURCES: dict[str, str] = {
+    "contrast-to-ya": "keep",
+}
+
 # Explicit contrast member overrides when inference from unit points is ambiguous.
 CONTRAST_MEMBERS: dict[str, list[str]] = {
     "contrast-to-ya": ["to-and", "ya-nado"],
@@ -287,7 +292,7 @@ CONTRAST_MEMBERS: dict[str, list[str]] = {
 # Style: one plain-English rule + Japanese minimal pair(s); polite です/ます
 # unless the contrast is about casual speech; standard kanji, no furigana.
 CONTRAST_SUMMARIES: dict[str, str] = {
-    "contrast-to-ya": "と lists a complete set; や leaves the list open: パンと卵を買いました / パンや卵を買いました。",
+    "contrast-to-ya": "と lists a complete set; や leaves the list open: 冷蔵庫にパンと卵があります / パンや卵があります。",
     "contrast-ni-de": "に marks where something exists; で marks where an action happens: 部屋に猫がいます / 部屋で勉強します.",
     "contrast-ni-he": "に and へ both mark destination for movement; only に works for time (and existence/purpose): 学校に行きます / 学校へ行きます / 七時に起きます（×七時へ）。",
     "contrast-wa-ga-1": "は marks the topic; が marks what is new or asked about: だれが来ましたか。—田中さんが来ました / 田中さんは来ましたか。",
@@ -401,6 +406,10 @@ def build() -> dict:
             summary = CONTRAST_SUMMARIES.get(slug)
             if not summary:
                 raise SystemExit(f"Missing contrast summary for {slug}")
+            source = CONTRAST_SOURCES.get(slug, "new")
+            status, _ = parse_source(source)
+            if status == "existing" and slug not in seed:
+                missing_keep.append(slug)
             # Validate members appear in this unit or earlier teaching (checked by Rust too)
             points_out.append(
                 {
@@ -408,10 +417,10 @@ def build() -> dict:
                     "title": title,
                     "summary": summary,
                     "prerequisites": members,
-                    "status": "planned",
+                    "status": status,
                     "level": u["level"],
                     "kind": "contrast",
-                    "source": "new",
+                    "source": source,
                 }
             )
 

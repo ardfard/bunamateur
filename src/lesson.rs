@@ -460,12 +460,20 @@ mod tests {
             "ja-nai",
             "kore-sore-are",
             "kono-sono-ano",
+            "ga-subject",
+            "aru-iru",
+            "ni-location",
+            "position-nouns",
+            "to-and",
+            "ya-nado",
+            "numbers-counters",
+            "contrast-to-ya",
         ] {
             assert!(
                 lessons.contains_key(slug),
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 35);
+        assert_eq!(lessons.len(), 43);
     }
 }

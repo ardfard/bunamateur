@@ -1,0 +1,214 @@
+{
+  "meaning": "and (complete noun list) · A and B (that's all)",
+  "gist": "と joins two or more nouns into a complete list: パンと卵があります means bread and eggs — and you are naming the whole set. It does not join clauses here. Pair with existence: 冷蔵庫にパンと卵があります.",
+  "formation": {
+    "columns": ["Pattern", "Shape", "Example"],
+    "rows": [
+      [
+        "Two nouns",
+        "N₁ と N₂",
+        "パンと[卵|たまご]"
+      ],
+      [
+        "Three nouns",
+        "N₁ と N₂ と N₃",
+        "パンと[卵|たまご]とミルク"
+      ],
+      [
+        "Complete list + existence",
+        "N₁ と N₂ が あります",
+        "パンと[卵|たまご]があります。"
+      ],
+      [
+        "Location + complete list",
+        "Place に N₁ と N₂ が あります",
+        "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。"
+      ],
+      [
+        "People / animals",
+        "N₁ と N₂ が います",
+        "[田中|たなか]さんと[山田|やまだ]さんがいます。"
+      ]
+    ],
+    "note": "と marks an exhaustive noun list — you are saying \"these and no others (for this comment).\" Do not use と to glue whole clauses together in this lesson. Keep particles on the finished list: パンと卵があります (not ×パンとがあります卵)."
+  },
+  "explanation": "と is the \"and\" that closes the set. パンと卵があります tells the listener that bread and eggs are what you mean — a complete pair for that sentence. Add a place with に when you need where: 冷蔵庫にパンと卵があります. People and animals take います the same way: 田中さんと山田さんがいます. Stack more nouns with another と: パンと卵とミルクがあります. Save open, \"for example\" listing for や / など.",
+  "senses": [
+    {
+      "label": "Complete pair",
+      "body": "Two nouns joined with と name the whole set for that comment.",
+      "example_ruby": "パンと[卵|たまご]があります。",
+      "example_en": "There are bread and eggs. (that's the set)"
+    },
+    {
+      "label": "Location + complete list",
+      "body": "Place に comes first; と still joins the nouns that exist there.",
+      "example_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "example_en": "In the fridge there is bread and eggs."
+    },
+    {
+      "label": "Three-item complete list",
+      "body": "Repeat と between each noun when the list is still meant as complete.",
+      "example_ruby": "パンと[卵|たまご]とミルクがあります。",
+      "example_en": "There are bread, eggs, and milk."
+    },
+    {
+      "label": "People with います",
+      "body": "The same と joins people; use います for animate existence.",
+      "example_ruby": "[先生|せんせい]と[学生|がくせい]がいます。",
+      "example_en": "There is a teacher and a student."
+    }
+  ],
+  "register_context": "Classroom default: polite existence — N₁とN₂があります / います. Questions keep か: パンと卵がありますか. Plain thought/writing can drop to ある / いる. と itself does not change register; the predicate does.",
+  "mistakes": [
+    {
+      "wrong_ruby": "パンがありますと[卵|たまご]があります。",
+      "right_ruby": "パンと[卵|たまご]があります。",
+      "why": "と joins nouns, not finished clauses. Put と between the nouns, then one があります."
+    },
+    {
+      "wrong_ruby": "パン[卵|たまご]があります。",
+      "right_ruby": "パンと[卵|たまご]があります。",
+      "why": "Japanese needs と (or another listing particle) between listed nouns — do not stack bare nouns."
+    },
+    {
+      "wrong_ruby": "[田中|たなか]さんと[山田|やまだ]さんがあります。",
+      "right_ruby": "[田中|たなか]さんと[山田|やまだ]さんがいます。",
+      "why": "People take います, not あります — と does not change that rule."
+    },
+    {
+      "wrong_ruby": "(Naming only fridge contents, a complete set) パンや[卵|たまご]があります。",
+      "right_ruby": "パンと[卵|たまご]があります。",
+      "why": "When the list is meant as complete, use と. や leaves the list open (\"bread, eggs, and so on\")."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ya-nado",
+      "label": "と vs や",
+      "summary": "と closes the set (complete list). や gives examples and leaves the list open.",
+      "ex_a_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "ex_a_en": "In the fridge there is bread and eggs. (complete set)",
+      "ex_b_ruby": "パンや[卵|たまご]があります。",
+      "ex_b_en": "There are bread, eggs, and so on. (open list)"
+    },
+    {
+      "other_slug": "contrast-to-ya",
+      "label": "Complete set vs open list",
+      "summary": "Same nouns, different particle: choose と when you mean \"that's all,\" や when you mean \"among others.\"",
+      "ex_a_ruby": "パンと[卵|たまご]があります。",
+      "ex_a_en": "Bread and eggs (that's the list).",
+      "ex_b_ruby": "パンや[卵|たまご]などがあります。",
+      "ex_b_en": "Bread, eggs, and so on."
+    },
+    {
+      "other_slug": null,
+      "label": "Noun と noun (not clause と clause)",
+      "summary": "This と joins nouns into a list. Do not use it here to stick two full clauses together.",
+      "ex_a_ruby": "[本|ほん]と[鞄|かばん]があります。",
+      "ex_a_en": "There is a book and a bag. (noun + と + noun)",
+      "ex_b_ruby": "[本|ほん]があります。[鞄|かばん]もあります。",
+      "ex_b_en": "There is a book. There is a bag, too. (two sentences)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "パンと[卵|たまご]があります。",
+      "english": "There are bread and eggs.",
+      "note": "complete list · existence"
+    },
+    {
+      "ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "english": "In the fridge there is bread and eggs.",
+      "note": "place に · complete list"
+    },
+    {
+      "ruby": "パンと[卵|たまご]とミルクがあります。",
+      "english": "There are bread, eggs, and milk.",
+      "note": "three-item complete list"
+    },
+    {
+      "ruby": "[部屋|へや]に[机|つくえ]と[椅子|いす]があります。",
+      "english": "In the room there is a desk and a chair.",
+      "note": "location · furniture"
+    },
+    {
+      "ruby": "[田中|たなか]さんと[山田|やまだ]さんがいます。",
+      "english": "Tanaka-san and Yamada-san are here.",
+      "note": "people · います"
+    },
+    {
+      "ruby": "[猫|ねこ]と[犬|いぬ]がいます。",
+      "english": "There is a cat and a dog.",
+      "note": "animals · います"
+    },
+    {
+      "ruby": "これは[本|ほん]と[傘|かさ]です。",
+      "english": "These are a book and an umbrella.",
+      "note": "complete list · copula"
+    },
+    {
+      "ruby": "[机|つくえ]の[上|うえ]に[本|ほん]と[電話|でんわ]があります。",
+      "english": "On the desk there is a book and a phone.",
+      "note": "position · complete list"
+    },
+    {
+      "ruby": "パンとミルクがありますか。",
+      "english": "Is there bread and milk?",
+      "note": "complete list · question"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[冷蔵庫|れいぞうこ]に[何|なに]がありますか。",
+      "english": "What is in the fridge?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "パンと[卵|たまご]があります。",
+      "english": "There are bread and eggs."
+    },
+    {
+      "speaker": "A",
+      "ruby": "ミルクもありますか。",
+      "english": "Is there milk too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、ミルクはありません。",
+      "english": "No, there isn't any milk."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Join into a complete list: パン　卵があります。",
+      "options": ["パンや卵があります。", "パンと卵があります。", "パン卵があります。"],
+      "answer_idx": 1,
+      "why": "Complete set → と between the nouns."
+    },
+    {
+      "prompt": "[冷蔵庫|れいぞうこ]に（　）。 (bread and eggs, complete)",
+      "options": ["パンと卵があります", "パンや卵などがあります", "パンがありますと卵"],
+      "answer_idx": 0,
+      "why": "Exhaustive fridge contents for this answer → パンと卵があります."
+    },
+    {
+      "prompt": "田中さん　山田さんがいます。 (complete pair)",
+      "options": ["田中さんや山田さんがいます。", "田中さん山田さんがいます。", "田中さんと山田さんがいます。"],
+      "answer_idx": 2,
+      "why": "Complete pair of people → NとNがいます."
+    },
+    {
+      "prompt": "Fix: 先生と学生があります。",
+      "options": ["先生や学生があります。", "先生と学生がいます。", "先生とがあります学生。"],
+      "answer_idx": 1,
+      "why": "People take います; と stays between the nouns."
+    }
+  ],
+  "related": {
+    "prerequisites": ["desu-da"],
+    "next": ["ya-nado"]
+  },
+  "lesson_version": 1
+}

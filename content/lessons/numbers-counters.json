@@ -1,0 +1,235 @@
+{
+  "meaning": "how many · counters 〜つ・〜人・〜本・〜枚・〜円",
+  "gist": "Say how many with a counter after the particle phrase: りんごが三つあります. Match the counter to the thing (〜つ general, 〜人 people, 〜本 long thin, 〜枚 flat, 〜円 money). Learn the sound changes: いっぽん / さんぼん / ろっぽん, ひとり / ふたり, よにん, and 九 as きゅう (often with 円).",
+  "formation": {
+    "columns": ["Counter", "Use for", "Forms to notice", "Example"],
+    "rows": [
+      [
+        "〜つ",
+        "general things",
+        "ひとつ・ふたつ・みっつ…",
+        "りんごが[三|みっ]つあります。"
+      ],
+      [
+        "〜人",
+        "people",
+        "ひとり・ふたり・さんにん・よにん…",
+        "[学生|がくせい]が[二人|ふたり]います。"
+      ],
+      [
+        "〜本",
+        "long thin things",
+        "いっぽん・にほん・さんぼん・ろっぽん…",
+        "ペンが[三本|さんぼん]あります。"
+      ],
+      [
+        "〜枚",
+        "flat thin things",
+        "いちまい・にまい・さんまい…",
+        "[紙|かみ]が[五枚|ごまい]あります。"
+      ],
+      [
+        "〜円",
+        "yen (money)",
+        "いちえん…・きゅうえん…",
+        "これは[百円|ひゃくえん]です。"
+      ]
+    ],
+    "note": "Main pattern: りんごが三つあります. ×三つりんご (no の) is wrong; 三つのりんご is fine but a different style. あります for things, います for people/animals. Watch 本 and 人 sound changes; 四人 is よにん; 九 is often きゅう with 円."
+  },
+  "explanation": "Japanese counts with counters. Build existence first (Nがあります / います), then place the number+counter after が: りんごが三つあります / 学生が二人います. 〜つ is the general counter for many small things. 〜人 is for people — but 1 and 2 are special: ひとり, ふたり (then さんにん, よにん…). 〜本 counts long thin items and brings sound changes: いっぽん, さんぼん, ろっぽん. 〜枚 is for flat sheets. 〜円 names prices; 九円 is usually きゅうえん. Keep the counter with the counted noun's existence verb.",
+  "senses": [
+    {
+      "label": "〜つ — general count",
+      "body": "Default counter for many everyday objects when a specialty counter is not needed.",
+      "example_ruby": "りんごが[三|みっ]つあります。",
+      "example_en": "There are three apples."
+    },
+    {
+      "label": "〜人 — people (special 1–2)",
+      "body": "ひとり and ふたり are irregular; from three on, さんにん, よにん…",
+      "example_ruby": "[部屋|へや]に[学生|がくせい]が[二人|ふたり]います。",
+      "example_en": "There are two students in the room."
+    },
+    {
+      "label": "〜本 — long thin (sound changes)",
+      "body": "いっぽん, さんぼん, ろっぽん (and じゅっぽん / じっぽん) — do not say ×いちほん for one.",
+      "example_ruby": "ペンが[六本|ろっぽん]あります。",
+      "example_en": "There are six pens."
+    },
+    {
+      "label": "〜枚 and 〜円",
+      "body": "枚 for flat things; 円 for prices. 九 with 円 is usually きゅう.",
+      "example_ruby": "[切手|きって]が[三枚|さんまい]あります。これは[九百円|きゅうひゃくえん]です。",
+      "example_en": "There are three stamps. This is 900 yen."
+    }
+  ],
+  "register_context": "Classroom default: polite あります / います with the counter after が. Prices often use the copula: これは三百円です. Questions: いくつありますか / 何人いますか / いくらですか. Plain speech can use ある / いる with the same counter shapes.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[三|みっ]つりんごがあります。",
+      "right_ruby": "りんごが[三|みっ]つあります。",
+      "why": "×三つりんご drops の. Main pattern: りんごが三つあります (三つのりんご is a different style)."
+    },
+    {
+      "wrong_ruby": "ペンがさんほんあります。",
+      "right_ruby": "ペンがさんぼんあります。",
+      "why": "さん + ほん → さんぼん (rendaku / sound change). Same family: いっぽん, ろっぽん."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]がににんいます。",
+      "right_ruby": "[学生|がくせい]がふたりいます。",
+      "why": "Two people is ふたり, not ×ににん. One person is ひとり."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]がよんにんいます。",
+      "right_ruby": "[学生|がくせい]がよにんいます。",
+      "why": "Four people is よにん (not ×よんにん)."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]が[三|みっ]ついます。",
+      "right_ruby": "[学生|がくせい]が[三人|さんにん]います。",
+      "why": "People take 〜人, not 〜つ. Three students → 三人."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "りんごが三つ vs ×三つりんご",
+      "summary": "Main pattern: りんごが三つあります. ×三つりんご without の is wrong; 三つのりんご is fine but a different style.",
+      "ex_a_ruby": "りんごが[三|みっ]つあります。",
+      "ex_a_en": "There are three apples. (main pattern)",
+      "ex_b_ruby": "[三|みっ]つりんごがあります。",
+      "ex_b_en": "× Missing の — use りんごが三つあります (or 三つのりんご…)."
+    },
+    {
+      "other_slug": null,
+      "label": "あります vs います with counts",
+      "summary": "Things take あります; people and animals take います — the counter does not change that.",
+      "ex_a_ruby": "ペンが[二本|にほん]あります。",
+      "ex_a_en": "There are two pens.",
+      "ex_b_ruby": "[先生|せんせい]が[一人|ひとり]います。",
+      "ex_b_en": "There is one teacher."
+    },
+    {
+      "other_slug": null,
+      "label": "〜本 sound changes",
+      "summary": "1 / 3 / 6 (and 10) reshape ほん: いっぽん, さんぼん, ろっぽん — not ×いちほん / ×さんほん / ×ろくほん.",
+      "ex_a_ruby": "ペンが[一本|いっぽん]あります。",
+      "ex_a_en": "There is one pen. (いっぽん)",
+      "ex_b_ruby": "ペンが[三本|さんぼん]あります。",
+      "ex_b_en": "There are three pens. (さんぼん)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "りんごが[三|みっ]つあります。",
+      "english": "There are three apples.",
+      "note": "〜つ · after が"
+    },
+    {
+      "ruby": "[部屋|へや]に[椅子|いす]が[四|よっ]つあります。",
+      "english": "There are four chairs in the room.",
+      "note": "〜つ · location"
+    },
+    {
+      "ruby": "[学生|がくせい]が[一人|ひとり]います。",
+      "english": "There is one student.",
+      "note": "ひとり"
+    },
+    {
+      "ruby": "[友達|ともだち]が[二人|ふたり]います。",
+      "english": "There are two friends.",
+      "note": "ふたり"
+    },
+    {
+      "ruby": "[教室|きょうしつ]に[学生|がくせい]が[四人|よにん]います。",
+      "english": "There are four students in the classroom.",
+      "note": "よにん"
+    },
+    {
+      "ruby": "ペンが[一本|いっぽん]あります。",
+      "english": "There is one pen.",
+      "note": "いっぽん"
+    },
+    {
+      "ruby": "ペンが[三本|さんぼん]あります。",
+      "english": "There are three pens.",
+      "note": "さんぼん"
+    },
+    {
+      "ruby": "ペンが[六本|ろっぽん]あります。",
+      "english": "There are six pens.",
+      "note": "ろっぽん"
+    },
+    {
+      "ruby": "[紙|かみ]が[五枚|ごまい]あります。",
+      "english": "There are five sheets of paper.",
+      "note": "〜枚"
+    },
+    {
+      "ruby": "これは[九百円|きゅうひゃくえん]です。",
+      "english": "This is 900 yen.",
+      "note": "きゅう · 円"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[教室|きょうしつ]に[学生|がくせい]が[何人|なんにん]いますか。",
+      "english": "How many students are in the classroom?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[四人|よにん]います。",
+      "english": "There are four."
+    },
+    {
+      "speaker": "A",
+      "ruby": "ペンは[何本|なんぼん]ありますか。",
+      "english": "How many pens are there?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[六本|ろっぽん]あります。",
+      "english": "There are six."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Fix: 三つりんごがあります。",
+      "options": ["りんごが三つあります。", "りんごが三つがあります。", "三つがりんごあります。"],
+      "answer_idx": 0,
+      "why": "Main pattern: noun + が + counter + あります. ×三つりんご needs の or the after-が pattern."
+    },
+    {
+      "prompt": "ペンが三本あります — reading of 三本?",
+      "options": ["さんほん", "さんぼん", "みっぽん"],
+      "answer_idx": 1,
+      "why": "さん + ほん → さんぼん."
+    },
+    {
+      "prompt": "学生が（　）います。 (two people)",
+      "options": ["ににん", "ふたつ", "ふたり"],
+      "answer_idx": 2,
+      "why": "Two people → ふたり (not ×ににん)."
+    },
+    {
+      "prompt": "りんごが（　）あります。 (three)",
+      "options": ["三つ", "三本", "三人"],
+      "answer_idx": 0,
+      "why": "Apples take the general counter 〜つ here: 三つ."
+    },
+    {
+      "prompt": "これは（　）です。 (900 yen)",
+      "options": ["くひゃくえん", "きゅうひゃくえん", "ここのひゃくえん"],
+      "answer_idx": 1,
+      "why": "九 with 円 / 百 is usually きゅう → きゅうひゃくえん."
+    }
+  ],
+  "related": {
+    "prerequisites": ["aru-iru"],
+    "next": []
+  },
+  "lesson_version": 1
+}

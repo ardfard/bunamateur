@@ -1,0 +1,199 @@
+{
+  "meaning": "と vs や · complete list vs open list",
+  "gist": "と and や both link nouns, but they do different jobs. 冷蔵庫にパンと卵があります presents a complete set. パンや卵があります (or パンや卵などがあります) offers examples and leaves the list open.",
+  "formation": {
+    "columns": ["Particle", "List type", "Feel", "Example"],
+    "rows": [
+      [
+        "と",
+        "Complete set",
+        "that's all for this comment",
+        "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。"
+      ],
+      [
+        "や",
+        "Open / examples",
+        "these among others",
+        "パンや[卵|たまご]があります。"
+      ],
+      [
+        "や…など",
+        "Open + \"and so on\"",
+        "examples, explicitly unfinished",
+        "パンや[卵|たまご]などがあります。"
+      ],
+      [
+        "と (stationery)",
+        "Complete pair",
+        "exactly these things",
+        "ペンとノートがあります。"
+      ],
+      [
+        "や (stationery)",
+        "Example things",
+        "things like these",
+        "ペンやノートなどがあります。"
+      ]
+    ],
+    "note": "Ask: \"Am I naming the whole set, or giving samples?\" Whole set → と. Samples → や (optional など). Existence verbs stay the same either way: あります / います."
+  },
+  "explanation": "This contrast is about completeness. With と, the listener treats the nouns as the full inventory for your comment: 冷蔵庫にパンと卵があります means bread and eggs — that pair. With や, the same nouns are samples: パンや卵があります invites \"and other things too,\" and など says \"and so on\" out loud. Nothing else in the sentence has to change — place に, が, and あります / います work with both. Choosing the wrong particle does not break grammar; it changes what you claim about the list.",
+  "senses": [
+    {
+      "label": "と — closed inventory",
+      "body": "Use when those nouns are the whole set you mean.",
+      "example_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "example_en": "In the fridge there are bread and eggs. (complete)"
+    },
+    {
+      "label": "や / など — open samples",
+      "body": "Use when you are offering examples, not a finished list.",
+      "example_ruby": "パンや[卵|たまご]などがあります。",
+      "example_en": "There are bread, eggs, and so on."
+    },
+    {
+      "label": "Same scene, different claim",
+      "body": "Identical nouns; the particle alone signals complete vs open.",
+      "example_ruby": "[部屋|へや]に[本|ほん]と[鞄|かばん]があります。 / [部屋|へや]に[本|ほん]や[鞄|かばん]があります。",
+      "example_en": "Room: book and bag (that's it) / books, bags, and so on."
+    }
+  ],
+  "register_context": "Both particles appear in the same polite classroom register with あります / います. など is especially natural when you want to sound careful about not claiming a full inventory. The contrast is meaning, not politeness.",
+  "mistakes": [
+    {
+      "wrong_ruby": "(Fridge contents are only bread and eggs.) パンや[卵|たまご]などがあります。",
+      "right_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "why": "A complete inventory needs と. や / など claims there are other items too."
+    },
+    {
+      "wrong_ruby": "(Giving a few examples of room stuff, not a full list.) [部屋|へや]に[本|ほん]と[鞄|かばん]があります。",
+      "right_ruby": "[部屋|へや]に[本|ほん]や[鞄|かばん]などがあります。",
+      "why": "Open examples → や / など. と makes the list sound finished."
+    },
+    {
+      "wrong_ruby": "(Exactly two people are here: Tanaka and Yamada.) [田中|たなか]さんや[山田|やまだ]さんがいます。",
+      "right_ruby": "[田中|たなか]さんと[山田|やまだ]さんがいます。",
+      "why": "A complete pair of people → と, not open-list や."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "to-and",
+      "label": "と — complete set",
+      "summary": "と closes the list. Pattern: 冷蔵庫にパンと卵があります.",
+      "ex_a_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "ex_a_en": "In the fridge: bread and eggs (complete).",
+      "ex_b_ruby": "パンや[卵|たまご]があります。",
+      "ex_b_en": "Bread, eggs, and so on (open)."
+    },
+    {
+      "other_slug": "ya-nado",
+      "label": "や / など — open list",
+      "summary": "や (and など) leave the list unfinished. Pattern: パンや卵があります.",
+      "ex_a_ruby": "パンや[卵|たまご]などがあります。",
+      "ex_a_en": "Bread, eggs, and so on.",
+      "ex_b_ruby": "パンと[卵|たまご]があります。",
+      "ex_b_en": "Bread and eggs (that's the set)."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
+      "english": "In the fridge there are bread and eggs.",
+      "note": "と · complete"
+    },
+    {
+      "ruby": "パンや[卵|たまご]があります。",
+      "english": "There are bread, eggs, and so on.",
+      "note": "や · open"
+    },
+    {
+      "ruby": "パンや[卵|たまご]などがあります。",
+      "english": "There are bread, eggs, and so on.",
+      "note": "や…など · open"
+    },
+    {
+      "ruby": "[部屋|へや]に[机|つくえ]と[椅子|いす]があります。",
+      "english": "In the room there is a desk and a chair.",
+      "note": "と · furniture pair"
+    },
+    {
+      "ruby": "[部屋|へや]に[本|ほん]や[雑誌|ざっし]などがあります。",
+      "english": "In the room there are books, magazines, and so on.",
+      "note": "や…など · room stuff"
+    },
+    {
+      "ruby": "[田中|たなか]さんと[山田|やまだ]さんがいます。",
+      "english": "Tanaka-san and Yamada-san are here.",
+      "note": "と · complete people"
+    },
+    {
+      "ruby": "ペンやノートなどがあります。",
+      "english": "There are pens, notebooks, and so on.",
+      "note": "や · example stationery"
+    },
+    {
+      "ruby": "[机|つくえ]の[上|うえ]に[本|ほん]と[電話|でんわ]があります。",
+      "english": "On the desk there is a book and a phone.",
+      "note": "と · complete on desk"
+    },
+    {
+      "ruby": "[鞄|かばん]に[本|ほん]や[傘|かさ]などがあります。",
+      "english": "In the bag there are books, umbrellas, and so on.",
+      "note": "や…など · bag contents"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[冷蔵庫|れいぞうこ]に[何|なに]がありますか。",
+      "english": "What is in the fridge?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "パンと[卵|たまご]があります。ミルクはありません。",
+      "english": "There are bread and eggs. There isn't any milk."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[部屋|へや]に[何|なに]がありますか。",
+      "english": "What is in the room?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[本|ほん]や[鞄|かばん]などがあります。",
+      "english": "There are books, bags, and so on."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "Fridge has only bread and eggs. Pick the matching line.",
+      "options": ["パンや卵などがあります。", "冷蔵庫にパンと卵があります。", "パンや卵とあります。"],
+      "answer_idx": 1,
+      "why": "Complete inventory → と."
+    },
+    {
+      "prompt": "You are naming a few examples of what is in the room, not everything.",
+      "options": ["部屋に本と鞄があります。", "部屋に本がありますと鞄。", "部屋に本や鞄などがあります。"],
+      "answer_idx": 2,
+      "why": "Open examples → や…など."
+    },
+    {
+      "prompt": "Exactly Tanaka and Yamada are here (no one else).",
+      "options": ["田中さんや山田さんがいます。", "田中さんと山田さんがいます。", "田中さんや山田さんなどがいます。"],
+      "answer_idx": 1,
+      "why": "Complete pair → と."
+    },
+    {
+      "prompt": "Naming a few examples of fridge food (not a full list).",
+      "options": ["冷蔵庫にパンと卵があります。", "冷蔵庫にパンや卵などがあります。", "冷蔵庫にパンや卵などがいます。"],
+      "answer_idx": 1,
+      "why": "Open food examples → や…など + あります (not complete-list と, and not います)."
+    }
+  ],
+  "related": {
+    "prerequisites": ["to-and", "ya-nado"],
+    "next": []
+  },
+  "lesson_version": 1
+}
