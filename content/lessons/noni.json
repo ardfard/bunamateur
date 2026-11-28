@@ -174,23 +174,23 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[彼|かれ]、[昨日|きのう][来|き]ましたか。",
-      "english": "Did he come yesterday?"
+      "ruby": "[田中|たなか]さん、[昨日|きのう]のパーティーに[来|き]ましたか。",
+      "english": "Did Tanaka-san come to the party yesterday?"
     },
     {
       "speaker": "B",
-      "ruby": "[約束|やくそく]したのに、[来|こ]ませんでした。",
-      "english": "Even though he promised, he didn't come."
+      "ruby": "いいえ。[来|く]ると[約束|やくそく]したのに、[来|き]ませんでした。",
+      "english": "No. Even though he promised to come, he didn't."
     },
     {
       "speaker": "A",
-      "ruby": "そうですか。[雨|あめ]も[降|ふ]っていましたね。",
-      "english": "I see. It was raining too, wasn't it."
+      "ruby": "え、どうしてですか。",
+      "english": "Huh, why?"
     },
     {
       "speaker": "B",
-      "ruby": "はい。[雨|あめ]が[降|ふ]っているのに、[彼|かれ]は[出|で]かけると[言|い]っていました。",
-      "english": "Yes. Even though it was raining, he said he was going out."
+      "ruby": "わかりません。[電話|でんわ]したのに、[出|で]ませんでした。",
+      "english": "No idea. I even called him, but he didn't pick up."
     }
   ],
   "checks": [
