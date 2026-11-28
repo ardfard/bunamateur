@@ -1,0 +1,238 @@
+{
+  "meaning": "if (hypothetical / general condition) · 〜ばいい (advice) · 〜ばよかった (regret)",
+  "gist": "ば highlights the condition itself — \"provided that X, then Y.\" Core uses: general truths, advice (〜ばいい), and regret (〜ばよかった). Verb え-stem + ば; い-adj 〜ければ; N/な often なら(ば).",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (う / る / する / くる)",
+        "え-stem + ば (すれば / くれば…)",
+        "[毎日|まいにち][練習|れんしゅう]すれば"
+      ],
+      [
+        "Verb (negative)",
+        "〜なければ",
+        "わからなければ"
+      ],
+      [
+        "い-adjective",
+        "〜ければ (いい → よければ)",
+        "[天気|てんき]がよければ"
+      ],
+      [
+        "な-adjective / Noun",
+        "〜なら(ば)",
+        "[暇|ひま]ならば / [学生|がくせい]なら"
+      ]
+    ],
+    "note": "Never attach ば to ます (*しますば). Colloquial shortenings: すれば→すりゃ, なければ→なけりゃ, ければ→けりゃ. いい is irregular: よければ."
+  },
+  "explanation": "ば puts the spotlight on the condition: 毎日練習すれば上手になります / 春になれば桜が咲きます. Advice often uses 〜ばいい (\"you should / it'd be good if…\"), and regret uses 〜ばよかった (\"I wish I had…\"): もっと早く出発すればよかった. A common restriction: when the ば-clause is an action verb with the same subject, a volitional or request main clause is awkward — prefer たら there. The ban does not apply to stative predicates: 質問があればメールをください and 安ければ買いましょう are both fine.",
+  "senses": [
+    {
+      "label": "General / hypothetical condition",
+      "body": "Also: [春|はる]になれば、[桜|さくら]が[咲|さ]きます。",
+      "example_ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になります。",
+      "example_en": "If you practice every day, you will become skilled."
+    },
+    {
+      "label": "Advice (〜ばいい)",
+      "body": "ばいい softens advice as \"it'd be good if…\".",
+      "example_ruby": "[分|わ]からなければ、[先生|せんせい]に[聞|き]けばいいです。",
+      "example_en": "If you don't understand, you should ask the teacher."
+    },
+    {
+      "label": "Regret (〜ばよかった)",
+      "body": "Past regret: \"I wish I had… / I should have…\".",
+      "example_ruby": "もっと[早|はや]く[出発|しゅっぱつ]すればよかった。",
+      "example_en": "I wish I had left earlier."
+    },
+    {
+      "label": "Stative ば + request / invitation",
+      "body": "State verbs and adjectives freely take requests or invitations — the same-subject action restriction does not apply.",
+      "example_ruby": "[質問|しつもん]があれば、メールをください。",
+      "example_en": "If you have any questions, please email me."
+    }
+  ],
+  "register_context": "ば is common in explanations, advice, and written-leaning speech. 〜ばいい is everyday advice; 〜ばよかった is a fixed regret pattern. Colloquial すりゃ / なけりゃ appear in casual talk. For \"please do X when you arrive,\" prefer たら over action-verb ば.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[毎日|まいにち][練習|れんしゅう]しますば、[上手|じょうず]になります。",
+      "right_ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になります。",
+      "why": "ば attaches to the え-stem / plain conditional base (すれば), never the ます-form (*しますば)."
+    },
+    {
+      "wrong_ruby": "[天気|てんき]がいければ、[山|やま]が[見|み]える。",
+      "right_ruby": "[天気|てんき]がよければ、[山|やま]が[見|み]える。",
+      "why": "いい is irregular before ば → よければ, not *いければ."
+    },
+    {
+      "wrong_ruby": "わからなれば、いつでも[質問|しつもん]してください。",
+      "right_ruby": "わからなければ、いつでも[質問|しつもん]してください。",
+      "why": "Negative 〜ない conjugates like an い-adjective: 〜なければ, not *なれば."
+    },
+    {
+      "wrong_ruby": "[学生|がくせい]ば、[割引|わりびき]があります。",
+      "right_ruby": "[学生|がくせい]なら、[割引|わりびき]があります。",
+      "why": "Nouns do not take bare ば (*学生ば). Use なら(ば) / であれば for noun conditions."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "tara-conditional",
+      "label": "ば vs たら",
+      "summary": "ば = condition-focused / general; たら = completion and free requests after an event (discovery is shared with と).",
+      "ex_a_ruby": "もっと[早|はや]く[出発|しゅっぱつ]すればよかった。",
+      "ex_a_en": "I wish I had left earlier (ばよかった regret)",
+      "ex_b_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
+      "ex_b_en": "When I opened the window, it was snowing (たら discovery)"
+    },
+    {
+      "other_slug": "nara-conditional",
+      "label": "ば vs なら",
+      "summary": "ば sets a logical condition; なら picks up the listener's topic/plan (often with advice before the planned action).",
+      "ex_a_ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になります。",
+      "ex_a_en": "If you practice every day, you'll improve (ば · general)",
+      "ex_b_ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "ex_b_en": "If you're going to Japan, you'd better buy a JR Pass (なら · contextual)"
+    },
+    {
+      "other_slug": null,
+      "label": "ば vs と",
+      "summary": "と cannot take a volitional, request, command, or invitation main clause. と allows habituals (including past) and past discovery. ば can express advice and regret patterns と cannot.",
+      "ex_a_ruby": "[春|はる]になれば、[桜|さくら]が[咲|さ]きます。",
+      "ex_a_en": "When spring comes, cherry blossoms bloom (ば · general)",
+      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]いた。",
+      "ex_b_en": "When spring came, the cherries bloomed (と · past habitual)"
+    },
+    {
+      "other_slug": null,
+      "label": "Stative ば + invitation (OK)",
+      "summary": "Adjective / state ば + ましょう is fine — do not treat every volitional after ば as wrong.",
+      "ex_a_ruby": "[安|やす]ければ[買|か]いましょう。",
+      "ex_a_en": "If it's cheap, let's buy it (stative ば — natural)",
+      "ex_b_ruby": "[質問|しつもん]があれば、メールをください。",
+      "ex_b_en": "If you have questions, please email (state verb あれば — natural)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になります。",
+      "english": "If you practice every day, you will become skilled.",
+      "note": "general condition · seed"
+    },
+    {
+      "ruby": "[春|はる]になれば、[桜|さくら]が[咲|さ]きます。",
+      "english": "When spring comes, cherry blossoms bloom.",
+      "note": "reliable seasonal · seed"
+    },
+    {
+      "ruby": "わからなければ、いつでも[質問|しつもん]してください。",
+      "english": "If you don't understand, please ask anytime.",
+      "note": "negative なければ · seed"
+    },
+    {
+      "ruby": "[天気|てんき]がよければ、[山|やま]が[見|み]える。",
+      "english": "If the weather is good, you can see the mountains.",
+      "note": "いい → よければ · seed"
+    },
+    {
+      "ruby": "もっと[早|はや]く[出発|しゅっぱつ]すればよかった。",
+      "english": "I wish I had left earlier.",
+      "note": "regret ばよかった · seed"
+    },
+    {
+      "ruby": "[質問|しつもん]があれば、メールをください。",
+      "english": "If you have any questions, please email me.",
+      "note": "state verb + request · seed"
+    },
+    {
+      "ruby": "[安|やす]ければ[買|か]いましょう。",
+      "english": "If it's cheap, let's buy it.",
+      "note": "stative ば + invitation · OK"
+    },
+    {
+      "ruby": "[早|はや]く[寝|ね]れば、[朝|あさ]は[楽|らく]です。",
+      "english": "If you go to bed early, mornings are easier.",
+      "note": "general advice-leaning"
+    },
+    {
+      "ruby": "[時間|じかん]があれば、[手伝|てつだ]います。",
+      "english": "If I have time, I'll help.",
+      "note": "state あれば · offer"
+    },
+    {
+      "ruby": "[静|しず]かならば、ここで[勉強|べんきょう]できます。",
+      "english": "If it's quiet, we can study here.",
+      "note": "な-adj ならば"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[日本語|にほんご]が[上手|じょうず]になりたいんですが。",
+      "english": "I want to get better at Japanese…"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になりますよ。",
+      "english": "If you practice every day, you'll improve."
+    },
+    {
+      "speaker": "A",
+      "ruby": "わからなければどうすればいいですか。",
+      "english": "What should I do if I don't understand?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[質問|しつもん]があれば、メールをください。",
+      "english": "If you have questions, please email me."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "もっと早く（　）よかった。",
+      "options": [
+        "出発すれば",
+        "出発するなら",
+        "出発すると"
+      ],
+      "answer_idx": 0,
+      "why": "Regret pattern 〜ばよかった → 出発すればよかった (seed). ならよかった / とよかった are not the regret pattern."
+    },
+    {
+      "prompt": "毎日（　）、上手になります。",
+      "options": [
+        "練習するば",
+        "練習しますば",
+        "練習すれば"
+      ],
+      "answer_idx": 2,
+      "why": "General condition with する → 練習すれば (seed). *練習するば and *練習しますば are common wrong forms."
+    },
+    {
+      "prompt": "安ければ買いましょう。 — Is this unnatural because of ば + ましょう?",
+      "options": [
+        "Wrong — must use たら",
+        "Natural (stative ば + invitation is fine)"
+      ],
+      "answer_idx": 1,
+      "why": "The restriction targets same-subject action verbs, not stative adjectives. 安ければ買いましょう is fine."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "tara-conditional",
+      "dictionary form (Dojo)",
+      "ない-form (Dojo)"
+    ],
+    "next": [
+      "nara-conditional"
+    ]
+  },
+  "lesson_version": 1
+}

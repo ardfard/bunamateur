@@ -1,0 +1,259 @@
+{
+  "meaning": "should be / is expected to be (logical deduction) · (はずがない) there's no way · (はずだった) was supposed to",
+  "gist": "はずだ after a plain clause marks a strong logical expectation based on facts, schedules, or prior knowledge — not moral \"you should.\" Verb / い-adjective plain + はずだ; な-adjective + な + はずだ; noun + の + はずだ. はずがない = \"there's no way\"; ないはずだ = \"I expect it isn't.\" Past はずだった often means an expectation that failed.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + はずだ / はずです",
+        "[着|つ]いているはずです"
+      ],
+      [
+        "い-adjective",
+        "い-adj + はずだ",
+        "[安|やす]いはずだ"
+      ],
+      [
+        "な-adjective",
+        "な-adj + な + はずだ",
+        "[静|しず]かなはずだ"
+      ],
+      [
+        "Noun",
+        "N + の + はずだ",
+        "[学生|がくせい]のはずだ"
+      ],
+      [
+        "Strong denial",
+        "… + はずがない / はずがありません",
+        "[間違|まちが]えるはずがありません"
+      ],
+      [
+        "Past expectation",
+        "… + はずだった / はずでした",
+        "[始|はじ]まるはずだった"
+      ]
+    ],
+    "note": "Nouns need の (学生のはずだ), not bare *学生はずだ. な-adjectives need な (静かなはずだ), not *静かはずだ. い-adjectives and verbs attach directly. Close with だ / です (or past だった / でした)."
+  },
+  "explanation": "はずだ says that, given the evidence, something is the expected state of affairs: 彼はもう駅に着いているはずです = \"He should have already arrived at the station\" (train schedule, travel time). It is logical expectation, not advice — \"You should study\" is ほうがいい / べきだ, not はずだ. Affirmative expectation uses the plain form + はずだ; ないはずだ means \"I expect it isn't / it shouldn't be (the case)\"; はずがない / はずがありません is stronger \"there's no way.\" Past はずだった / はずでした often signals an expectation that did not hold: 会議は三時から始まるはずだった.",
+  "senses": [
+    {
+      "label": "Logical expectation from facts / schedules",
+      "body": "Based on known rules, timetables, or prior actions — not a guess from thin air.",
+      "example_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているはずです。",
+      "example_en": "He should have already arrived at the station."
+    },
+    {
+      "label": "Noun / な-adjective hosts",
+      "body": "Noun + の + はずだ; な-adj + な + はずだ. Also: [図書館|としょかん]は[静|しず]かなはずです。",
+      "example_ruby": "[彼|かれ]は[学生|がくせい]のはずです。",
+      "example_en": "He should be a student (given what we know)."
+    },
+    {
+      "label": "はずがない — \"there's no way\"",
+      "body": "Strong denial of possibility. Distinct from ないはずだ (\"I expect it's not\").",
+      "example_ruby": "そんな[簡単|かんたん]な[問題|もんだい]を[間違|まちが]えるはずがありません。",
+      "example_en": "There's no way anyone would get such an easy question wrong."
+    },
+    {
+      "label": "はずだった — failed / past expectation",
+      "body": "Often implies the expected event did not happen, or you are talking about a past schedule.",
+      "example_ruby": "[会議|かいぎ]は[三時|さんじ]から[始|はじ]まるはずだった。",
+      "example_en": "The meeting was supposed to start at 3 o'clock."
+    }
+  ],
+  "register_context": "はずです is neutral-polite; はずだ is casual. Soften with んですが when explaining a mismatch (来るはずなんですが…). はずなのに / はずだったのに vent frustration that the expectation failed. Do not use はずだ to give advice or moral pressure — that reading belongs to ほうがいい and べきだ.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼|かれ]は[学生|がくせい]はずだ。",
+      "right_ruby": "[彼|かれ]は[学生|がくせい]のはずだ。",
+      "why": "Nouns need の before はずだ (学生のはずだ) — *学生はずだ is ungrammatical."
+    },
+    {
+      "wrong_ruby": "[部屋|へや]は[静|しず]かはずだ。",
+      "right_ruby": "[部屋|へや]は[静|しず]かなはずだ。",
+      "why": "な-adjectives need な before はずだ (静かなはずだ) — *静かはずだ is ungrammatical."
+    },
+    {
+      "wrong_ruby": "[毎日|まいにち][勉強|べんきょう]するはずです。",
+      "right_ruby": "[毎日|まいにち][勉強|べんきょう]したほうがいいです。",
+      "why": "(Meaning \"You should study every day\" as advice.) はずだ is logical expectation, not moral advice — use ほうがいい / べきだ."
+    },
+    {
+      "wrong_ruby": "[彼|かれ]は[来|こ]ないはずがない。",
+      "right_ruby": "[彼|かれ]は[来|こ]ないはずだ。",
+      "why": "(Meaning \"He shouldn't be coming / I expect he won't come.\") 来ないはずだ = \"I expect he won't come.\" 来ないはずがない is a double negative — \"there's no way he won't come\" = he's definitely coming. Different meaning."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "はずがない vs ないはずだ",
+      "summary": "はずがない = \"there's no way (it happens).\" ないはずだ = \"it shouldn't be / I expect it isn't.\" Polarity and strength differ.",
+      "ex_a_ruby": "[彼|かれ]が[嘘|うそ]をつくはずがない。",
+      "ex_a_en": "There's no way he would lie.",
+      "ex_b_ruby": "[彼|かれ]は[来|こ]ないはずだ。",
+      "ex_b_en": "He shouldn't be coming / I expect he won't come."
+    },
+    {
+      "other_slug": "beki-da",
+      "label": "はずだ vs べきだ",
+      "summary": "はずだ = logical expectation from facts. べきだ = moral / social \"ought to.\"",
+      "ex_a_ruby": "[約束|やくそく]したから、[彼|かれ]は[来|く]るはずだ。",
+      "ex_a_en": "He promised, so he should be coming (expected).",
+      "ex_b_ruby": "[約束|やくそく]したのだから、[来|く]るべきだ。",
+      "ex_b_en": "Since you promised, you ought to come (moral)."
+    },
+    {
+      "other_slug": "ni-chigainai",
+      "label": "はずだ vs に違いない",
+      "summary": "はずだ leans on external facts or schedules. に違いない is a strong personal conviction (\"I'm sure…\").",
+      "ex_a_ruby": "[時刻表|じこくひょう]によると、もう[着|つ]いているはずだ。",
+      "ex_a_en": "According to the timetable, he should have arrived already.",
+      "ex_b_ruby": "[顔|かお]を[見|み]ると、[疲|つか]れているに[違|ちが]いない。",
+      "ex_b_en": "Looking at his face, he must be tired (strong personal conviction)."
+    },
+    {
+      "other_slug": "kamo-shirenai",
+      "label": "はずだ vs かもしれない",
+      "summary": "はずだ = strong logical expectation. かもしれない = weaker possibility (\"might / maybe\").",
+      "ex_a_ruby": "[昨日|きのう]メールを[送|おく]ったから、もう[届|とど]いているはずだ。",
+      "ex_a_en": "I sent the email yesterday, so it should have arrived already.",
+      "ex_b_ruby": "[今日|きょう]は[雨|あめ]が[降|ふ]るかもしれない。",
+      "ex_b_en": "It might rain today."
+    },
+    {
+      "other_slug": "noni",
+      "label": "はずだ vs はずなのに",
+      "summary": "はずだ states the expectation. はずなのに / はずだったのに adds that reality failed that expectation.",
+      "ex_a_ruby": "[鍵|かぎ]はテーブルの[上|うえ]にあるはずだ。",
+      "ex_a_en": "The key should be on the table.",
+      "ex_b_ruby": "[鍵|かぎ]はテーブルの[上|うえ]に[置|お]いたはずなのに、ない。",
+      "ex_b_en": "I'm sure I put the key on the table, yet it's gone."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているはずです。",
+      "english": "He should have already arrived at the station.",
+      "note": "seed · polite · schedule-based"
+    },
+    {
+      "ruby": "[今日|きょう]は[日曜日|にちようび]だから、[図書館|としょかん]は[閉|し]まっているはずです。",
+      "english": "Today is Sunday, so the library should be closed.",
+      "note": "polite · rule / schedule"
+    },
+    {
+      "ruby": "そんな[簡単|かんたん]な[問題|もんだい]を[間違|まちが]えるはずがありません。",
+      "english": "There's no way anyone would get such an easy question wrong.",
+      "note": "はずがない · strong impossibility"
+    },
+    {
+      "ruby": "[鍵|かぎ]はテーブルの[上|うえ]に[置|お]いたはずなのに、ない。",
+      "english": "I'm sure I put the key on the table, yet it's gone.",
+      "note": "はずなのに · failed expectation"
+    },
+    {
+      "ruby": "[会議|かいぎ]は[三時|さんじ]から[始|はじ]まるはずだった。",
+      "english": "The meeting was supposed to start at 3 o'clock.",
+      "note": "はずだった · past expectation"
+    },
+    {
+      "ruby": "[昨日|きのう]メールを[送|おく]ったから、もう[届|とど]いているはずだ。",
+      "english": "I sent the email yesterday, so it should have arrived already.",
+      "note": "casual · prior action → expectation"
+    },
+    {
+      "ruby": "[彼|かれ]は[学生|がくせい]のはずです。",
+      "english": "He should be a student (given what we know).",
+      "note": "noun + の + はず"
+    },
+    {
+      "ruby": "[部屋|へや]は[静|しず]かなはずだ。",
+      "english": "The room should be quiet.",
+      "note": "な-adj + な + はず"
+    },
+    {
+      "ruby": "[今日|きょう]は[休|やす]みだから、[彼|かれ]は[家|いえ]にいるはずです。",
+      "english": "Today is a day off, so he should be at home.",
+      "note": "polite · fact-based"
+    },
+    {
+      "ruby": "この[店|みせ]は[安|やす]いはずなのに、[高|たか]かった。",
+      "english": "This shop was supposed to be cheap, yet it was expensive.",
+      "note": "はずなのに · mismatch"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[彼|かれ]はまだ[来|き]ていませんね。",
+      "english": "He's still not here, is he."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[電車|でんしゃ]の[時刻|じこく]から[考|かんが]えると、もう[着|つ]いているはずです。",
+      "english": "Judging from the train times, he should have arrived already."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[約束|やくそく]したのに、おかしいですね。",
+      "english": "Strange — even though he promised."
+    },
+    {
+      "speaker": "B",
+      "ruby": "ええ。[遅|おく]れるはずがないと[思|おも]うんですが…。",
+      "english": "Yes. I don't think there's any way he'd be late…"
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "彼はもう駅に着いている（　）。（時刻表から考えて）",
+      "options": [
+        "はずです",
+        "べきです",
+        "ほうがいいです"
+      ],
+      "answer_idx": 0,
+      "why": "Logical expectation from the timetable → はずです (seed cloze). べき / ほうがいい are advice, not schedule-based expectation."
+    },
+    {
+      "prompt": "彼は学生（　）。",
+      "options": [
+        "はずだ",
+        "なはずだ",
+        "のはずだ"
+      ],
+      "answer_idx": 2,
+      "why": "Noun + はずだ needs の (学生のはずだ). Bare はずだ and なはずだ are wrong for nouns."
+    },
+    {
+      "prompt": "彼は天才だから、そんな簡単な問題を（　）。",
+      "options": [
+        "間違えないはずがありません",
+        "間違えるはずです",
+        "間違えるはずがありません"
+      ],
+      "answer_idx": 2,
+      "why": "Genius context → \"there's no way he'd get it wrong\": 間違えるはずがありません. 間違えないはずがありません flips the polarity (\"can't fail to get it wrong\"); 間違えるはずです expects an error."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "kamo-shirenai",
+      "plain form (Dojo)",
+      "の (noun modifier)"
+    ],
+    "next": [
+      "beki-da",
+      "ni-chigainai"
+    ]
+  },
+  "lesson_version": 1
+}

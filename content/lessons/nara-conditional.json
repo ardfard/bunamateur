@@ -1,0 +1,234 @@
+{
+  "meaning": "if that's the case / if it is… / speaking of… (contextual conditional)",
+  "gist": "なら picks up a topic or assumption from the conversation — \"if that's what you mean / if you're going to…\". Nouns attach without だ. Advice after なら often happens before the planned action (time can reverse).",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Noun",
+        "N + なら (no だ)",
+        "[寿司|すし]なら / [週末|しゅうまつ]なら"
+      ],
+      [
+        "な-adjective",
+        "な-adj + なら",
+        "[暇|ひま]なら"
+      ],
+      [
+        "Verb / い-adj (plain)",
+        "普通形 + なら",
+        "[日本|にほん]へ[行|い]くなら"
+      ],
+      [
+        "Plain clause + の",
+        "普通形 + のなら",
+        "[行|い]きたくないのなら"
+      ]
+    ],
+    "note": "Nouns take bare なら (*雨だなら is wrong — contrast 雨だったら for たら). のなら softens or clarifies \"if it is the case that…\". Do not use ます before なら (*行きますなら)."
+  },
+  "explanation": "なら reacts to something already on the table — the listener's plan, a mentioned noun, or an assumed fact. 日本へ行くなら、京都がおすすめです offers advice given that plan. Time order can reverse: 日本へ行くなら、JRパスを買ったほうがいい — you buy the pass before going. Nouns attach directly (寿司なら…); *寿司だなら is ungrammatical. Past clauses work too: もう食べたなら、片付けてね. Compared with たら (\"after A, then B\") and ば (condition-focused), なら is the \"given that / speaking of\" conditional.",
+  "senses": [
+    {
+      "label": "Given your plan / topic",
+      "body": "Also: [彼|かれ]が[来|く]るなら、[私|わたし]も[参加|さんか]します。",
+      "example_ruby": "[日本|にほん]へ[行|い]くなら、[京都|きょうと]がおすすめです。",
+      "example_en": "If you are going to Japan, I recommend Kyoto."
+    },
+    {
+      "label": "Noun topic (no だ)",
+      "body": "Bare noun + なら = \"if it's X / if you mean X\".",
+      "example_ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "example_en": "If you want sushi, the shop in front of the station is delicious."
+    },
+    {
+      "label": "Time-reversed advice",
+      "body": "Advice or preparation often comes before the なら action — unlike たら's \"after completion\" order.",
+      "example_ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "example_en": "If you're going to Japan, you'd better buy a JR Pass (buy before going)."
+    },
+    {
+      "label": "Reacting to a stated feeling / fact",
+      "body": "のなら often clarifies \"if that's the case\".",
+      "example_ruby": "[行|い]きたくないのなら、[無理|むり]をしなくてもいいよ。",
+      "example_en": "If you don't want to go (if that's the case), you don't have to force yourself."
+    }
+  ],
+  "register_context": "なら is everyday in advice and topic-picking replies. のなら can sound a bit more explanatory or soft. Casual noun なら is very common (寿司なら…). だったら can also pick up a topic in colloquial speech (寿司だったら…); なら is the standard topic-picking form and だったら is a casual alternative. For \"call me when you arrive,\" use たら, not なら.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[雨|あめ]だなら、ピクニックは[中止|ちゅうし]です。",
+      "right_ruby": "[雨|あめ]なら、ピクニックは[中止|ちゅうし]です。",
+      "why": "Nouns attach to なら without だ (*雨だなら). For たら, use 雨だったら instead."
+    },
+    {
+      "wrong_ruby": "[日本|にほん]へ[行|い]きますなら、[京都|きょうと]がおすすめです。",
+      "right_ruby": "[日本|にほん]へ[行|い]くなら、[京都|きょうと]がおすすめです。",
+      "why": "なら follows the plain form (行くなら), never ます (*行きますなら)."
+    },
+    {
+      "wrong_ruby": "[日本|にほん]へ[行|い]ったら、JRパスを[買|か]ったほうがいい。",
+      "right_ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "why": "(Meaning \"Buy a JR Pass before going.\") Time-reversed prep advice uses なら; 行ったら means after you have gone."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "tara-conditional",
+      "label": "なら vs たら",
+      "summary": "なら: given the plan/topic, advice may come first. たら: B after A is completed; also past discovery.",
+      "ex_a_ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "ex_a_en": "If you're going, you'd better buy a JR Pass first (なら)",
+      "ex_b_ruby": "[日本|にほん]へ[行|い]ったら、[京都|きょうと]に[寄|よ]ってください。",
+      "ex_b_en": "When you go to Japan, please stop by Kyoto (たら · after going)"
+    },
+    {
+      "other_slug": "ba-conditional",
+      "label": "なら vs ば",
+      "summary": "なら picks up conversational context; ば states a general/hypothetical condition (and regret ばよかった).",
+      "ex_a_ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "ex_a_en": "If it's sushi, that shop is good (なら · topic)",
+      "ex_b_ruby": "もっと[早|はや]く[出発|しゅっぱつ]すればよかった。",
+      "ex_b_en": "I wish I had left earlier (ばよかった)"
+    },
+    {
+      "other_slug": null,
+      "label": "なら vs と",
+      "summary": "と cannot take a volitional, request, command, or invitation main clause; it marks automatic/habitual results (including past habituals and past discovery). なら is contextual advice/topic, not a law-like consequence.",
+      "ex_a_ruby": "[週末|しゅうまつ]なら、[時間|じかん]があります。",
+      "ex_a_en": "If it's the weekend, I have time (なら · topic)",
+      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]いた。",
+      "ex_b_en": "When spring came, the cherries bloomed (と · past habitual)"
+    },
+    {
+      "other_slug": null,
+      "label": "Noun なら vs だったら",
+      "summary": "なら is the standard topic-picking form. だったら (たら pattern) is a natural casual alternative for the same topic-picking job, and also covers \"if it turns out to be…\".",
+      "ex_a_ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "ex_a_en": "If it's sushi (standard topic なら)",
+      "ex_b_ruby": "[寿司|すし]だったら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "ex_b_en": "If it's sushi (casual topic だったら — also fine)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[日本|にほん]へ[行|い]くなら、[京都|きょうと]がおすすめです。",
+      "english": "If you are going to Japan, I recommend Kyoto.",
+      "note": "plan + recommendation · seed"
+    },
+    {
+      "ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "english": "If you want sushi, the shop in front of the station is delicious.",
+      "note": "noun なら · seed"
+    },
+    {
+      "ruby": "[行|い]きたくないなら、[無理|むり]をしなくてもいいよ。",
+      "english": "If you don't want to go, you don't have to force yourself.",
+      "note": "feeling + soft advice · seed"
+    },
+    {
+      "ruby": "[彼|かれ]が[来|く]るなら、[私|わたし]も[参加|さんか]します。",
+      "english": "If he is coming, I will participate too.",
+      "note": "contingent on another's plan · seed"
+    },
+    {
+      "ruby": "[週末|しゅうまつ]なら、[時間|じかん]があります。",
+      "english": "If it's the weekend, I have time.",
+      "note": "noun topic · seed"
+    },
+    {
+      "ruby": "もう[食|た]べたなら、[片付|かたづ]けてね。",
+      "english": "If you've already eaten, please clean up.",
+      "note": "past clause · seed"
+    },
+    {
+      "ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "english": "If you're going to Japan, you'd better buy a JR Pass.",
+      "note": "time-reversed advice"
+    },
+    {
+      "ruby": "[車|くるま]で[行|い]くのなら、[高速|こうそく]のほうが[早|はや]いよ。",
+      "english": "If you're going by car, the expressway is faster.",
+      "note": "のなら · soft clarification"
+    },
+    {
+      "ruby": "[明日|あした][暇|ひま]なら、[一緒|いっしょ]に[散歩|さんぽ]しませんか。",
+      "english": "If you're free tomorrow, won't you take a walk together?",
+      "note": "な-adj なら · invitation"
+    },
+    {
+      "ruby": "[英語|えいご]なら、[私|わたし]が[説明|せつめい]できます。",
+      "english": "If it's English, I can explain.",
+      "note": "noun topic · offer"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[来月|らいげつ][日本|にほん]へ[行|い]くんですが。",
+      "english": "I'm going to Japan next month…"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいいよ。",
+      "english": "If you're going to Japan, you'd better buy a JR Pass."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[京都|きょうと]にも[行|い]きたいんですが。",
+      "english": "I'd like to go to Kyoto too…"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[京都|きょうと]なら、お[寺|てら]がたくさんあるよ。",
+      "english": "If it's Kyoto, there are lots of temples."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "日本へ（　）、JRパスを買ったほうがいい。",
+      "options": [
+        "行ったら",
+        "行けば",
+        "行くなら",
+        "行くと"
+      ],
+      "answer_idx": 2,
+      "why": "Prep advice before the trip (time-reversed) → 行くなら. 行ったら means after going; ば/と don't fit this contextual advice."
+    },
+    {
+      "prompt": "（　）、駅の前の店がおいしいよ。",
+      "options": [
+        "寿司だなら",
+        "寿司なら",
+        "寿司だば"
+      ],
+      "answer_idx": 1,
+      "why": "Noun topic-picking → bare 寿司なら (seed). *寿司だなら and *寿司だば are ungrammatical."
+    },
+    {
+      "prompt": "もう（　）、片付けてね。",
+      "options": [
+        "食べたなら",
+        "食べると",
+        "食べれば"
+      ],
+      "answer_idx": 0,
+      "why": "Reacting to an assumed past fact → 食べたなら (seed). と cannot take a request; 食べれば doesn't fit this topic-reaction after もう."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "tara-conditional",
+      "ba-conditional",
+      "dictionary form (Dojo)",
+      "plain forms"
+    ],
+    "next": []
+  },
+  "lesson_version": 1
+}

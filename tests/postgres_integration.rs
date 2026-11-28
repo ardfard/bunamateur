@@ -177,7 +177,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
             .fetch_one(&pool)
             .await
             .unwrap();
-    assert_eq!(lesson_count, 19);
+    assert_eq!(lesson_count, 27);
     let te_iru_gist: Option<String> = sqlx::query_scalar(
         "SELECT lesson->>'gist' FROM grammar_points WHERE slug = 'te-iru'",
     )
@@ -857,7 +857,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     );
     let passages = list_reading_passages(&pool, user_a_id).await.unwrap();
     assert_eq!(passages.len(), SEED_PASSAGES.len());
-    let detected = detect_grammar_in_text(&pool, user_a_id, "雨が降ったのに、ピクニックに行きました。")
+    let detected = detect_grammar_in_text(&pool, user_a_id, "雨が降っているのに、彼はピクニックに行った。")
         .await
         .unwrap();
     assert!(detected.iter().any(|d| d.title == "〜のに"));

@@ -1,0 +1,240 @@
+{
+  "meaning": "I heard that… / They say that… (hearsay)",
+  "gist": "Full plain form + そうだ / そうです reports secondhand information. Keep the whole plain ending — including だ after nouns/な-adjectives (元プロ選手だそうだ) and the final い on い-adjectives (おいしいそうだ). Often paired with 〜によると. Do not confuse with stem + そうだ \"looks like\".",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + そうだ / そうです",
+        "[雪|ゆき]が[降|ふ]るそうです"
+      ],
+      [
+        "い-adjective",
+        "い-adj (keep い) + そうだ",
+        "おいしいそうです"
+      ],
+      [
+        "な-adjective / Noun",
+        "な-adj / N + だ + そうだ",
+        "[元気|げんき]だそうだ / [元|もと]プロ[選手|せんしゅ]だそうだ"
+      ],
+      [
+        "Negative / past",
+        "plain negative or past + そうだ",
+        "[出席|しゅっせき]しないそうです / [難|むずか]しくなかったそうです"
+      ]
+    ],
+    "note": "Hearsay attaches to the FULL plain form. Appearance そう (様態) attaches to the stem: おいしそうだ \"looks tasty\" vs おいしいそうだ \"I heard it's tasty\". Nouns need だ before hearsay そうだ."
+  },
+  "explanation": "伝聞のそうだ reports what you heard from news, a friend, or another source — not your own sensory guess. 天気予報によると、明日は雪が降るそうです = \"According to the forecast, I heard it will snow tomorrow.\" The host stays in the plain form: 結婚するそうだ / 難しくなかったそうです / 選手だそうだ. The biggest trap is mixing this with 様態そう: stem + そうだ means appearance (降りそうだ \"looks like it will rain\"), while plain + そうだ means hearsay (降るそうだ \"I heard it will rain\").",
+  "senses": [
+    {
+      "label": "Hearsay from a source",
+      "body": "Often with 〜によると / 〜の話では: [友達|ともだち]の[話|はなし]では…",
+      "example_ruby": "[天気予報|てんきよほう]によると、[明日|あした]は[雪|ゆき]が[降|ふ]るそうです。",
+      "example_en": "According to the weather forecast, I heard it will snow tomorrow."
+    },
+    {
+      "label": "い-adjective hearsay (keep い)",
+      "body": "Keep the final い — おいしいそうだ is hearsay; おいしそうだ is appearance.",
+      "example_ruby": "あの[店|みせ]のラーメンはとてもおいしいそうです。",
+      "example_en": "I heard that shop's ramen is very delicious."
+    },
+    {
+      "label": "Noun / な-adjective (need だ)",
+      "body": "Nouns and な-adjectives require だ before hearsay そうだ.",
+      "example_ruby": "[彼|かれ]は[元|もと]プロ[選手|せんしゅ]だそうだ。",
+      "example_en": "I heard he is a former pro athlete."
+    },
+    {
+      "label": "Negative / past hearsay",
+      "body": "Also: [彼女|かのじょ]は[会議|かいぎ]に[出席|しゅっせき]しないそうです。",
+      "example_ruby": "[昨日|きのう]の[試験|しけん]はあまり[難|むずか]しくなかったそうです。",
+      "example_en": "I heard yesterday's exam wasn't very difficult."
+    }
+  ],
+  "register_context": "そうです is neutral-polite; そうだ is casual. Pair with によると / の話では when naming the source. Reporting gossip bare can sound assertive — soften with 聞いたんですが or attribute the source. Appearance そうだ (様態) is a different pattern with different attachment.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼|かれ]は[元|もと]プロ[選手|せんしゅ]そうだ。",
+      "right_ruby": "[彼|かれ]は[元|もと]プロ[選手|せんしゅ]だそうだ。",
+      "why": "Nouns need だ before hearsay そうだ — 選手だそうだ, not *選手そうだ."
+    },
+    {
+      "wrong_ruby": "あの[店|みせ]のラーメンはとてもおいしそうです。（Meaning \"I heard that shop's ramen is delicious.\"）",
+      "right_ruby": "あの[店|みせ]のラーメンはとてもおいしいそうです。",
+      "why": "(Meaning \"I heard that shop's ramen is delicious.\") Hearsay keeps full おいしいそうだ; stem おいしそうだ is appearance \"looks delicious.\""
+    },
+    {
+      "wrong_ruby": "[明日|あした]は[雪|ゆき]が[降|ふ]りそうです。（Meaning \"I heard it will snow tomorrow.\"）",
+      "right_ruby": "[明日|あした]は[雪|ゆき]が[降|ふ]るそうです。",
+      "why": "(Meaning \"I heard it will snow.\") Hearsay takes dictionary 降るそうだ; stem 降りそうだ is appearance \"looks like it will snow.\""
+    },
+    {
+      "wrong_ruby": "[田中|たなか]さんは[来月|らいげつ][結婚|けっこん]しますそうだ。",
+      "right_ruby": "[田中|たなか]さんは[来月|らいげつ][結婚|けっこん]するそうだ。",
+      "why": "Hearsay attaches to the plain form (する), never the ます-form (*しますそうだ)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "伝聞そうだ vs 様態そうだ",
+      "summary": "Full plain form + そうだ = hearsay; stem + そうだ = appearance / \"looks like\". Both are grammatical — different meanings.",
+      "ex_a_ruby": "おいしいそうです。",
+      "ex_a_en": "I heard it's delicious (hearsay · full おいしい)",
+      "ex_b_ruby": "おいしそうです。",
+      "ex_b_en": "It looks delicious (appearance · stem おいし)"
+    },
+    {
+      "other_slug": "you-da",
+      "label": "そうだ（伝聞） vs ようだ",
+      "summary": "Secondhand report vs inference from evidence / sensory impression you yourself notice.",
+      "ex_a_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているそうです。",
+      "ex_a_en": "I heard it's raining outside (someone told me / news)",
+      "ex_b_ruby": "[外|そと]は[雨|あめ]が[降|ふ]っているようです。",
+      "ex_b_en": "It seems to be raining outside (wet umbrellas / sound)"
+    },
+    {
+      "other_slug": null,
+      "label": "そうだ（伝聞） vs らしい",
+      "summary": "Both can report secondhand info; らしい also covers \"typical of\" and often feels like reasoned hearsay.",
+      "ex_a_ruby": "[田中|たなか]さんは[結婚|けっこん]するそうだ。",
+      "ex_a_en": "I heard Tanaka is getting married (pure hearsay)",
+      "ex_b_ruby": "[田中|たなか]さんは[結婚|けっこん]するらしい。",
+      "ex_b_en": "Apparently Tanaka is getting married (secondhand / inferred rumor)"
+    },
+    {
+      "other_slug": null,
+      "label": "降るそうだ vs 降りそうだ",
+      "summary": "Same stem pair on verbs: dictionary + そうだ = hearsay; ます-stem + そうだ = imminent appearance.",
+      "ex_a_ruby": "[雨|あめ]が[降|ふ]るそうだ。",
+      "ex_a_en": "I heard it will rain",
+      "ex_b_ruby": "[雨|あめ]が[降|ふ]りそうだ。",
+      "ex_b_en": "It looks like it's about to rain"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[天気予報|てんきよほう]によると、[明日|あした]は[雪|ゆき]が[降|ふ]るそうです。",
+      "english": "According to the weather forecast, I heard it will snow tomorrow.",
+      "note": "polite · によると"
+    },
+    {
+      "ruby": "あの[店|みせ]のラーメンはとてもおいしいそうです。",
+      "english": "I heard that shop's ramen is very delicious.",
+      "note": "polite · い-adj hearsay"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[来月|らいげつ][結婚|けっこん]するそうだよ。",
+      "english": "I heard Tanaka-san is getting married next month.",
+      "note": "casual · verb"
+    },
+    {
+      "ruby": "[昨日|きのう]の[試験|しけん]はあまり[難|むずか]しくなかったそうです。",
+      "english": "I heard yesterday's exam wasn't very difficult.",
+      "note": "polite · past negative"
+    },
+    {
+      "ruby": "[彼|かれ]は[元|もと]プロ[選手|せんしゅ]だそうだ。",
+      "english": "I heard he is a former pro athlete.",
+      "note": "casual · noun + だ"
+    },
+    {
+      "ruby": "[彼女|かのじょ]は[会議|かいぎ]に[出席|しゅっせき]しないそうです。",
+      "english": "I heard she will not attend the meeting.",
+      "note": "polite · negative"
+    },
+    {
+      "ruby": "[新聞|しんぶん]によると、その[店|みせ]は[来月|らいげつ][閉|し]まるそうです。",
+      "english": "According to the newspaper, I heard that shop will close next month.",
+      "note": "polite · source + verb"
+    },
+    {
+      "ruby": "[山田|やまだ]さんは[元気|げんき]だそうです。",
+      "english": "I heard Yamada-san is doing well.",
+      "note": "polite · な-adj + だ"
+    },
+    {
+      "ruby": "[来週|らいしゅう]の[試験|しけん]は[簡単|かんたん]だそうだ。",
+      "english": "I heard next week's exam is easy.",
+      "note": "casual · な-adj + だ"
+    },
+    {
+      "ruby": "[友達|ともだち]の[話|はなし]では、あの[映画|えいが]はつまらないそうです。",
+      "english": "According to a friend, I heard that movie is boring.",
+      "note": "polite · の話では"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[明日|あした]の[天気|てんき]、どう？",
+      "english": "What's the weather like tomorrow?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[天気予報|てんきよほう]によると、[雪|ゆき]が[降|ふ]るそうだよ。それで、[明日|あした]のハイキングは[中止|ちゅうし]になったそうだ。",
+      "english": "According to the forecast, I heard it'll snow. And I heard tomorrow's hike got cancelled."
+    },
+    {
+      "speaker": "A",
+      "ruby": "え、[本当|ほんとう]？じゃあ、[田中|たなか]さんにも[連絡|れんらく]しないと。",
+      "english": "Really? Then I need to let Tanaka-san know too."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[田中|たなか]さんはもう[知|し]っているそうだよ。",
+      "english": "I heard Tanaka-san already knows."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "I heard that shop's ramen is delicious. Choose the hearsay ending: あの店のラーメンはとても（　）。",
+      "options": [
+        "おいしいそうです",
+        "おいしそうです",
+        "おいしいようです"
+      ],
+      "answer_idx": 0,
+      "why": "Hearsay keeps full おいしいそうです (seed). おいしそう is appearance; ようだ is evidence-based inference."
+    },
+    {
+      "prompt": "天気予報によると、明日は雪が降（　）。（I heard / they say）",
+      "options": [
+        "りそうです",
+        "るそうです",
+        "るだそうです"
+      ],
+      "answer_idx": 1,
+      "why": "Source によると forces hearsay: dictionary 降るそうです (seed). 降りそう is appearance; *降るだそうだ is wrong."
+    },
+    {
+      "prompt": "彼は元プロ選手（　）。（I heard）",
+      "options": [
+        "そうだ",
+        "のそうだ",
+        "だそうだ"
+      ],
+      "answer_idx": 2,
+      "why": "Noun hearsay needs だ: 選手だそうだ (seed). Bare *選手そうだ is wrong."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "kamo-shirenai",
+      "plain form (Dojo)",
+      "だ / です"
+    ],
+    "next": [
+      "you-da",
+      "hazu-da"
+    ]
+  },
+  "lesson_version": 1
+}

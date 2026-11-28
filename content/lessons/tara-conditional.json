@@ -1,0 +1,240 @@
+{
+  "meaning": "if / when (after completion) / when I… (discovery)",
+  "gist": "た-form + ら is the broadest N4 conditional: \"if\", \"when (once X is done)\", and past discovery. Unlike ば and と, the second clause freely takes requests, commands, and volitions.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (た-form)",
+        "Vた + ら",
+        "[駅|えき]に[着|つ]いたら"
+      ],
+      [
+        "Verb (negative past)",
+        "Vなかった + ら",
+        "[薬|くすり]を[飲|の]まなかったら"
+      ],
+      [
+        "い-adjective",
+        "〜かったら",
+        "[安|やす]かったら"
+      ],
+      [
+        "な-adjective / Noun",
+        "〜だったら",
+        "[雨|あめ]だったら / [暇|ひま]だったら"
+      ]
+    ],
+    "note": "Build from the plain past (た-form), then add ら — never from ます (*しますたら). い-adjectives use 〜かったら; nouns and な-adjectives use だったら."
+  },
+  "explanation": "たら covers three everyday jobs. First, a one-time \"when / once\": 駅に着いたら連絡してください — the request comes after arrival. Second, a hypothetical \"if\": 安かったら買うつもりだ / 雨だったらピクニックは中止にしよう. Third, past discovery: 窓を開けたら雪が降っていた — you opened the window and found it was snowing. Because たら frames the first clause as completed before the second, it pairs naturally with てください, ましょう, and invitations — something と resists (no request/volition/command/invitation after と) and (often) ば resists when the condition is an action by the same subject.",
+  "senses": [
+    {
+      "label": "When / once (completion + request)",
+      "body": "Also: [家|いえ]に[帰|かえ]ったら、[電話|でんわ]してね。",
+      "example_ruby": "[駅|えき]に[着|つ]いたら、[連絡|れんらく]してください。",
+      "example_en": "Please contact me once you arrive at the station."
+    },
+    {
+      "label": "If (hypothetical)",
+      "body": "Works with invitations and volitions: もし時間があったら、一緒に映画を見ませんか。",
+      "example_ruby": "[安|やす]かったら、[買|か]うつもりだ。",
+      "example_en": "If it's cheap, I plan to buy it."
+    },
+    {
+      "label": "Past discovery",
+      "body": "Past たら + past result = \"when I did X, I found Y.\" と can also mark past discovery (開けると、雪が降っていた); ば / なら do not.",
+      "example_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
+      "example_en": "When I opened the window, it was snowing."
+    },
+    {
+      "label": "Counterfactual past",
+      "body": "Negative past + たら for \"if… hadn't…\":",
+      "example_ruby": "[薬|くすり]を[飲|の]まなかったら、もっと[悪|わる]くなっていたよ。",
+      "example_en": "If you hadn't taken the medicine, it would have gotten worse."
+    }
+  ],
+  "register_context": "たら is neutral and common in both casual and polite speech. Polite requests after たら (着いたら連絡してください) are everyday. Casual: 帰ったら電話してね. もし often softens a pure hypothetical (もし時間があったら). For surprising discoveries, keep both clauses in the past.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[駅|えき]に[着|つ]きますたら、[連絡|れんらく]してください。",
+      "right_ruby": "[駅|えき]に[着|つ]いたら、[連絡|れんらく]してください。",
+      "why": "たら attaches to the plain past (着いたら), never the ます-form (*しますたら / *着きますたら)."
+    },
+    {
+      "wrong_ruby": "[安|やす]いだったら、[買|か]うつもりだ。",
+      "right_ruby": "[安|やす]かったら、[買|か]うつもりだ。",
+      "why": "い-adjectives use 〜かったら (安かったら), not *安いだったら."
+    },
+    {
+      "wrong_ruby": "[雨|あめ]だたら、ピクニックは[中止|ちゅうし]にしよう。",
+      "right_ruby": "[雨|あめ]だったら、ピクニックは[中止|ちゅうし]にしよう。",
+      "why": "Nouns / な-adjectives need だったら (雨だったら), not *だたら."
+    },
+    {
+      "wrong_ruby": "[窓|まど]を[開|あ]けるたら、[雪|ゆき]が[降|ふ]っていた。",
+      "right_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
+      "why": "(Meaning \"When I opened the window, it was snowing.\") Discovery たら needs the past stem 開けた + ら — not dictionary *開けるたら."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ba-conditional",
+      "label": "たら vs ば",
+      "summary": "たら freely takes requests after an action is done; ば focuses on a general/hypothetical condition and resists same-subject action + request.",
+      "ex_a_ruby": "[駅|えき]に[着|つ]いたら、[連絡|れんらく]してください。",
+      "ex_a_en": "Once you arrive, please contact me (たら + request — natural)",
+      "ex_b_ruby": "[毎日|まいにち][練習|れんしゅう]すれば、[上手|じょうず]になります。",
+      "ex_b_en": "If you practice every day, you'll improve (ば · general condition)"
+    },
+    {
+      "other_slug": "nara-conditional",
+      "label": "たら vs なら",
+      "summary": "たら: B after A is completed. なら: given your plan/topic A, advice B (often before A).",
+      "ex_a_ruby": "[日本|にほん]へ[行|い]ったら、[京都|きょうと]に[寄|よ]ってください。",
+      "ex_a_en": "When you go to Japan, please stop by Kyoto (after going)",
+      "ex_b_ruby": "[日本|にほん]へ[行|い]くなら、JRパスを[買|か]ったほうがいい。",
+      "ex_b_en": "If you're going to Japan, you'd better buy a JR Pass (before going)"
+    },
+    {
+      "other_slug": null,
+      "label": "たら vs と",
+      "summary": "と cannot take a volitional, request, command, or invitation main clause. Both たら and と allow past discovery; と also covers habituals (including past habituals). たら freely allows requests/volitions.",
+      "ex_a_ruby": "[窓|まど]を[閉|し]めたら、エアコンをつけてください。",
+      "ex_a_en": "Once you close the window, please turn on the AC (たら + request)",
+      "ex_b_ruby": "[窓|まど]を[開|あ]けると、[雪|ゆき]が[降|ふ]っていた。",
+      "ex_b_en": "When I opened the window, it was snowing (と · past discovery — also fine)"
+    },
+    {
+      "other_slug": null,
+      "label": "Request after arrival",
+      "summary": "Same-subject action + てください: たら is natural; と is out because it cannot take a request main clause.",
+      "ex_a_ruby": "[家|いえ]に[帰|かえ]ったら、[電話|でんわ]してください。",
+      "ex_a_en": "Please call me when you get home (たら)",
+      "ex_b_ruby": "[家|いえ]に[帰|かえ]ると、[電話|でんわ]してください。",
+      "ex_b_en": "Awkward/wrong — と cannot take a request main clause"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[駅|えき]に[着|つ]いたら、[連絡|れんらく]してください。",
+      "english": "Please contact me once you arrive at the station.",
+      "note": "completion + request · seed"
+    },
+    {
+      "ruby": "もし[時間|じかん]があったら、[一緒|いっしょ]に[映画|えいが]を[見|み]ませんか。",
+      "english": "If you have time, won't you watch a movie together?",
+      "note": "hypothetical + invitation · seed"
+    },
+    {
+      "ruby": "[安|やす]かったら、[買|か]うつもりだ。",
+      "english": "If it's cheap, I plan to buy it.",
+      "note": "い-adj かったら · seed"
+    },
+    {
+      "ruby": "[雨|あめ]だったら、ピクニックは[中止|ちゅうし]にしよう。",
+      "english": "If it rains, let's cancel the picnic.",
+      "note": "noun だったら · volitional · seed"
+    },
+    {
+      "ruby": "[薬|くすり]を[飲|の]まなかったら、もっと[悪|わる]くなっていたよ。",
+      "english": "If you hadn't taken the medicine, it would have gotten worse.",
+      "note": "negative past · seed"
+    },
+    {
+      "ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
+      "english": "When I opened the window, it was snowing.",
+      "note": "past discovery · seed"
+    },
+    {
+      "ruby": "[家|いえ]に[帰|かえ]ったら、すぐ[寝|ね]ます。",
+      "english": "When I get home, I'll go to sleep right away.",
+      "note": "completion · future plan"
+    },
+    {
+      "ruby": "[暇|ひま]だったら、[遊|あそ]びに[来|き]てください。",
+      "english": "If you're free, please come over.",
+      "note": "な-adj だったら · request"
+    },
+    {
+      "ruby": "[会議|かいぎ]が[終|お]わったら、[報告|ほうこく]します。",
+      "english": "I'll report once the meeting is over.",
+      "note": "completion · polite"
+    },
+    {
+      "ruby": "[分|わ]からなかったら、[聞|き]いてください。",
+      "english": "If you don't understand, please ask.",
+      "note": "negative past stem · request"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[駅|えき]に[着|つ]いたら、[何|なに]をしますか。",
+      "english": "What will you do once you arrive at the station?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[着|つ]いたら、すぐ[連絡|れんらく]します。",
+      "english": "Once I arrive, I'll contact you right away."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[雨|あめ]だったらどうする？",
+      "english": "What if it rains?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[雨|あめ]だったら、ピクニックは[中止|ちゅうし]にしよう。",
+      "english": "If it rains, let's cancel the picnic."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "窓を（　）、エアコンをつけてください。",
+      "options": [
+        "閉めれば",
+        "閉めたら",
+        "閉めるなら",
+        "閉めると"
+      ],
+      "answer_idx": 1,
+      "why": "Request after closing → 閉めたら. と cannot take a request; same-subject action + request is awkward with ば; なら is topic-picking, not \"once you close\"."
+    },
+    {
+      "prompt": "駅に（　）、連絡してください。",
+      "options": [
+        "着いたら",
+        "着けば",
+        "着くと"
+      ],
+      "answer_idx": 0,
+      "why": "Request after arrival → 着いたら (seed). と cannot take a request; same-subject action + てください is awkward with ば."
+    },
+    {
+      "prompt": "（　）、買うつもりだ。",
+      "options": [
+        "安いだったら",
+        "安くたら",
+        "安かったら"
+      ],
+      "answer_idx": 2,
+      "why": "い-adj + たら → 安かったら (seed). *安いだったら and *安くたら are wrong forms."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "た-form (Dojo)",
+      "ない-form (Dojo)"
+    ],
+    "next": [
+      "ba-conditional",
+      "nara-conditional"
+    ]
+  },
+  "lesson_version": 1
+}
