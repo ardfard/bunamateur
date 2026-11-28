@@ -179,8 +179,8 @@
     }
   ],
   "related": {
-    "prerequisites": ["tsumori", "you-ni-suru"],
-    "next": ["koto-ni-naru"]
+    "prerequisites": ["tsumori"],
+    "next": ["koto-ni-naru", "you-ni-suru"]
   },
   "lesson_version": 1
 }

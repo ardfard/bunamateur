@@ -111,6 +111,66 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     assert_eq!(passage_count as usize, SEED_PASSAGES.len());
     assert_eq!(conj_count as usize, SEED_CONJUGATIONS.len());
 
+    // Curriculum units + placement contract (56 placed existing, 6 sketch unplaced).
+    let units_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM units")
+        .fetch_one(&pool)
+        .await
+        .unwrap();
+    assert_eq!(units_count, 25);
+    let placed_count: i64 =
+        sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE unit_id IS NOT NULL")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(placed_count, 56);
+    let unplaced_count: i64 =
+        sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE unit_id IS NULL")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+    assert_eq!(unplaced_count, 6);
+
+    // Re-seed must clear stale placement when a point moves to sketch / unplaced.
+    let sketch_slug: String = sqlx::query_scalar(
+        "SELECT slug FROM grammar_points WHERE unit_id IS NULL ORDER BY slug LIMIT 1",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    let placed_unit_id: String = sqlx::query_scalar(
+        "SELECT unit_id FROM grammar_points WHERE unit_id IS NOT NULL ORDER BY sort_order LIMIT 1",
+    )
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    sqlx::query(
+        "UPDATE grammar_points
+         SET unit_id = $1, sort_order = 9999, prerequisites = ARRAY['stale'], kind = 'contrast'
+         WHERE slug = $2",
+    )
+    .bind(&placed_unit_id)
+    .bind(&sketch_slug)
+    .execute(&pool)
+    .await
+    .unwrap();
+    seed_content(&pool)
+        .await
+        .expect("re-seed should clear stale sketch placement");
+    let cleared: (Option<String>, Option<i32>, Vec<String>, String) = sqlx::query_as(
+        "SELECT unit_id, sort_order, prerequisites, kind FROM grammar_points WHERE slug = $1",
+    )
+    .bind(&sketch_slug)
+    .fetch_one(&pool)
+    .await
+    .unwrap();
+    assert_eq!(cleared.0, None, "re-seed must clear unit_id for sketch slug");
+    assert_eq!(cleared.1, None, "re-seed must clear sort_order for sketch slug");
+    assert!(
+        cleared.2.is_empty(),
+        "re-seed must clear prerequisites for sketch slug"
+    );
+    assert_eq!(cleared.3, "point");
+
     // Rich lessons seeded for sample + N5 batch-1/2 slugs; others remain NULL (short-field fallback).
     let lesson_count: i64 =
         sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE lesson IS NOT NULL")
@@ -542,6 +602,12 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
         .await
         .unwrap();
     assert!(!n4_grammar.is_empty());
+    assert!(
+        n4_grammar
+            .iter()
+            .any(|g| g.unit_id.is_some() && g.unit_title.is_some() && g.sort_order.is_some()),
+        "at least one N4 grammar summary should expose unit placement fields"
+    );
 
     // 7b. Verify content version, zero-state onboarding, contextual nuance grading,
     //     Vacation Mode, Ghost Intensity, and JSON/CSV progress export + import

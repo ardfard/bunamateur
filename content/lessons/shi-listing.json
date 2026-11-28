@@ -211,7 +211,7 @@
   ],
   "related": {
     "prerequisites": ["い-adjectives", "な-adjectives", "だ / です"],
-    "next": ["kara-reason", "node"]
+    "next": []
   },
   "lesson_version": 1
 }

@@ -1,0 +1,3335 @@
+{
+  "version": 1,
+  "units": [
+    {
+      "id": "u01",
+      "n": 1,
+      "level": "N5",
+      "title": "Saying what things are",
+      "goal": "Introduce yourself and identify objects with です.",
+      "sort_order": 1,
+      "dojo": "です table: polite/plain × present/past × positive/negative",
+      "reading": "自己紹介: a self-introduction, polite, about 80 characters",
+      "points": [
+        {
+          "slug": "desu-da",
+          "title": "だ / です",
+          "summary": "The copula: X is Y; polite です and plain だ",
+          "prerequisites": [],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 1
+        },
+        {
+          "slug": "wa-topic",
+          "title": "は (topic)",
+          "summary": "Marks what the sentence is about: 私は学生です",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 2
+        },
+        {
+          "slug": "ka-question",
+          "title": "か and question words",
+          "summary": "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot",
+          "prerequisites": [
+            "wa-topic"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 3
+        },
+        {
+          "slug": "no-noun-link",
+          "title": "の (noun + noun)",
+          "summary": "Possession, belonging, description: 私の本, 日本語の先生",
+          "prerequisites": [
+            "wa-topic"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 4
+        },
+        {
+          "slug": "mo-also",
+          "title": "も (also)",
+          "summary": "Too / also; replaces は rather than stacking on it",
+          "prerequisites": [
+            "wa-topic"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 5
+        },
+        {
+          "slug": "ja-nai",
+          "title": "じゃないです / ではありません (and past)",
+          "summary": "Negative and past of です, polite and plain",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 6
+        },
+        {
+          "slug": "kore-sore-are",
+          "title": "これ・それ・あれ・どれ",
+          "summary": "Pointing words chosen by distance from speaker and listener",
+          "prerequisites": [
+            "wa-topic"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 7
+        },
+        {
+          "slug": "kono-sono-ano",
+          "title": "この・その・あの / ここ・そこ・あそこ",
+          "summary": "Pointing + noun, and the matching place words",
+          "prerequisites": [
+            "kore-sore-are",
+            "no-noun-link"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 8
+        }
+      ]
+    },
+    {
+      "id": "u02",
+      "n": 2,
+      "level": "N5",
+      "title": "What is where",
+      "goal": "Say what exists, where it is, and how many.",
+      "sort_order": 2,
+      "dojo": "Counter readings: いっぽん, さんぼん, ろっぽん",
+      "reading": "My room: what is where",
+      "points": [
+        {
+          "slug": "ga-subject",
+          "title": "が (subject)",
+          "summary": "Marks the subject when it is new or asked about: だれがいますか",
+          "prerequisites": [
+            "wa-topic"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 9
+        },
+        {
+          "slug": "aru-iru",
+          "title": "ある / いる",
+          "summary": "Existence and having; いる for people and animals",
+          "prerequisites": [
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 10
+        },
+        {
+          "slug": "ni-location",
+          "title": "に (where something is)",
+          "summary": "Location of existence: 部屋に猫がいます",
+          "prerequisites": [
+            "aru-iru"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 11
+        },
+        {
+          "slug": "position-nouns",
+          "title": "上・下・中・前・後ろ・隣",
+          "summary": "Position words as nouns: 机の上に",
+          "prerequisites": [
+            "ni-location",
+            "no-noun-link"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 12
+        },
+        {
+          "slug": "to-and",
+          "title": "と (and)",
+          "summary": "Joins nouns into a complete list: パンと卵",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 13
+        },
+        {
+          "slug": "ya-nado",
+          "title": "や / など",
+          "summary": "Joins nouns into an open list: X, Y and so on",
+          "prerequisites": [
+            "to-and"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 14
+        },
+        {
+          "slug": "numbers-counters",
+          "title": "Numbers and counters",
+          "summary": "〜つ・〜人・〜本・〜枚・〜円, sound changes, counter after the particle: りんごが三つあります",
+          "prerequisites": [
+            "aru-iru"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 15
+        },
+        {
+          "slug": "contrast-to-ya",
+          "title": "と vs や (complete vs open list)",
+          "summary": "と lists a complete set; や leaves the list open: パンと卵を買いました / パンや卵を買いました。",
+          "prerequisites": [
+            "to-and",
+            "ya-nado"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 16
+        }
+      ]
+    },
+    {
+      "id": "u03",
+      "n": 3,
+      "level": "N5",
+      "title": "Doing things",
+      "goal": "Describe a day with ます verbs and the action particles.",
+      "sort_order": 3,
+      "dojo": "ます forms of every verb group, including する and 来る",
+      "reading": "My weekend: a polite diary entry",
+      "points": [
+        {
+          "slug": "masu-form",
+          "title": "Verb-ます",
+          "summary": "ます・ません・ました・ませんでした; the three verb groups",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 17
+        },
+        {
+          "slug": "wo-object",
+          "title": "を (object)",
+          "summary": "What the action is done to: 本を読みます",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 18
+        },
+        {
+          "slug": "de-place",
+          "title": "で (place of action)",
+          "summary": "Where an action happens: 図書館で勉強します",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 19
+        },
+        {
+          "slug": "ni-destination",
+          "title": "に (destination)",
+          "summary": "Where you go, come or return to",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 20
+        },
+        {
+          "slug": "he-direction",
+          "title": "へ (direction)",
+          "summary": "Toward; overlaps with に for movement",
+          "prerequisites": [
+            "ni-destination"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 21
+        },
+        {
+          "slug": "ni-time",
+          "title": "に (time) and telling time",
+          "summary": "〜時・〜分・曜日に, ごろ; no に with 今日 or 毎日",
+          "prerequisites": [
+            "masu-form",
+            "numbers-counters"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 22
+        },
+        {
+          "slug": "de-means",
+          "title": "で (means)",
+          "summary": "Tool, transport, language: バスで, 日本語で",
+          "prerequisites": [
+            "de-place"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 23
+        },
+        {
+          "slug": "to-with",
+          "title": "と (together with)",
+          "summary": "Doing something with someone: 友達と",
+          "prerequisites": [
+            "to-and",
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 24
+        },
+        {
+          "slug": "contrast-ni-de",
+          "title": "に vs で for places (exists there vs happens there)",
+          "summary": "に marks where something exists; で marks where an action happens: 部屋に猫がいます / 部屋で勉強します.",
+          "prerequisites": [
+            "ni-location",
+            "de-place"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 25
+        },
+        {
+          "slug": "contrast-ni-he",
+          "title": "に vs へ (both fine for movement; where only に works)",
+          "summary": "に and へ both mark destination for movement; only に works for time (and existence/purpose): 学校に行きます / 学校へ行きます / 七時に起きます（×七時へ）。",
+          "prerequisites": [
+            "ni-destination",
+            "he-direction"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 26
+        }
+      ]
+    },
+    {
+      "id": "u04",
+      "n": 4,
+      "level": "N5",
+      "title": "Describing and asking",
+      "goal": "Describe things, say what you like, order and invite.",
+      "sort_order": 4,
+      "dojo": "い- and な-adjective forms",
+      "reading": "At a café: a short ordering dialogue",
+      "points": [
+        {
+          "slug": "i-adjective",
+          "title": "い-adjectives",
+          "summary": "Present, negative, past, before nouns; いい→よくない",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 27
+        },
+        {
+          "slug": "na-adjective",
+          "title": "な-adjectives",
+          "summary": "な before nouns; じゃない, でした",
+          "prerequisites": [
+            "i-adjective",
+            "ja-nai"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 28
+        },
+        {
+          "slug": "suki-jouzu",
+          "title": "が with 好き・上手・分かる",
+          "summary": "The thing liked, good at or understood takes が",
+          "prerequisites": [
+            "ga-subject",
+            "na-adjective"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 29
+        },
+        {
+          "slug": "amari-zenzen",
+          "title": "あまり / 全然 + negative",
+          "summary": "Degree words that need a negative; とても, ちょっと",
+          "prerequisites": [
+            "i-adjective"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 30
+        },
+        {
+          "slug": "yo-ne",
+          "title": "よ / ね",
+          "summary": "よ for news to the listener, ね for shared ground",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 31
+        },
+        {
+          "slug": "wo-kudasai",
+          "title": "N をください",
+          "summary": "Asking for things in shops and restaurants",
+          "prerequisites": [
+            "wo-object",
+            "numbers-counters"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 32
+        },
+        {
+          "slug": "kara-made",
+          "title": "から / まで (from / until)",
+          "summary": "Start and end points in time and space",
+          "prerequisites": [
+            "ni-time"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 33
+        },
+        {
+          "slug": "masenka-mashou",
+          "title": "〜ませんか / 〜ましょう(か)",
+          "summary": "Inviting, suggesting and offering",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 34
+        },
+        {
+          "slug": "demo-suggestion",
+          "title": "でも (suggestion)",
+          "summary": "Suggestion でも for offering an example option: お茶でも飲みませんか",
+          "prerequisites": [
+            "masenka-mashou"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 35
+        },
+        {
+          "slug": "contrast-wa-ga-1",
+          "title": "は vs が, first pass (topic vs new information)",
+          "summary": "は marks the topic; が marks what is new or asked about: だれが来ましたか。—田中さんが来ました / 田中さんは来ましたか。",
+          "prerequisites": [
+            "wa-topic",
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 36
+        }
+      ]
+    },
+    {
+      "id": "u05",
+      "n": 5,
+      "level": "N5",
+      "title": "Wanting and comparing",
+      "goal": "Say what you want, why, and which is better.",
+      "sort_order": 5,
+      "dojo": "",
+      "reading": "Planning a trip: a polite message to a friend",
+      "points": [
+        {
+          "slug": "hoshii",
+          "title": "〜がほしい",
+          "summary": "Wanting a thing",
+          "prerequisites": [
+            "suki-jouzu"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 37
+        },
+        {
+          "slug": "tai",
+          "title": "〜たい",
+          "summary": "Wanting to do",
+          "prerequisites": [
+            "masu-form",
+            "hoshii"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 38
+        },
+        {
+          "slug": "ni-iku",
+          "title": "Verb stem + に行く",
+          "summary": "Going somewhere to do something",
+          "prerequisites": [
+            "masu-form",
+            "ni-destination"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 39
+        },
+        {
+          "slug": "kara-reason",
+          "title": "〜から (reason)",
+          "summary": "Giving a reason; polite clauses now, plain ones in Unit 7",
+          "prerequisites": [
+            "masu-form",
+            "i-adjective"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 40
+        },
+        {
+          "slug": "naru",
+          "title": "〜になる / 〜くなる",
+          "summary": "Becoming: 高くなる, 医者になる",
+          "prerequisites": [
+            "i-adjective",
+            "na-adjective"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 41
+        },
+        {
+          "slug": "yori-hou-ga",
+          "title": "より / ほうが / どちら",
+          "summary": "Comparing two things",
+          "prerequisites": [
+            "i-adjective"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 42
+        },
+        {
+          "slug": "ichiban",
+          "title": "〜の中で〜が一番",
+          "summary": "Superlatives",
+          "prerequisites": [
+            "yori-hou-ga"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 43
+        }
+      ]
+    },
+    {
+      "id": "u06",
+      "n": 6,
+      "level": "N5",
+      "title": "The て-form",
+      "goal": "Link actions, make requests, give and refuse permission.",
+      "sort_order": 6,
+      "dojo": "て-form across every godan ending, plus 行く→行って",
+      "reading": "Dormitory rules: a notice with てください and てはいけない",
+      "points": [
+        {
+          "slug": "te-form",
+          "title": "Verb-て (and then)",
+          "summary": "Linking actions in order; the て-form sound changes",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 44
+        },
+        {
+          "slug": "soshite-sorekara",
+          "title": "そして / それから / でも",
+          "summary": "Sentence connectors for sequence and contrast",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 45
+        },
+        {
+          "slug": "te-kudasai",
+          "title": "〜てください",
+          "summary": "Asking someone to do something",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 46
+        },
+        {
+          "slug": "te-iru",
+          "title": "〜ている",
+          "summary": "Ongoing action and resulting state",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 47
+        },
+        {
+          "slug": "te-mo-ii",
+          "title": "〜てもいい",
+          "summary": "Giving and asking permission",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 48
+        },
+        {
+          "slug": "te-wa-ikenai",
+          "title": "〜てはいけない",
+          "summary": "Prohibition",
+          "prerequisites": [
+            "te-mo-ii"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 49
+        },
+        {
+          "slug": "te-kara",
+          "title": "〜てから",
+          "summary": "After doing X, then Y",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 50
+        },
+        {
+          "slug": "adj-te",
+          "title": "〜くて / 〜で",
+          "summary": "Linking adjectives and nouns: 安くておいしい",
+          "prerequisites": [
+            "te-form",
+            "na-adjective"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 51
+        }
+      ]
+    },
+    {
+      "id": "u07",
+      "n": 7,
+      "level": "N5",
+      "title": "Plain forms and casual speech",
+      "goal": "Talk to friends and build clauses that modify nouns.",
+      "sort_order": 7,
+      "dojo": "ない and た forms; casual ↔ polite conversion",
+      "reading": "A LINE chat between two friends (casual)",
+      "points": [
+        {
+          "slug": "plain-nonpast",
+          "title": "Dictionary form and ない-form",
+          "summary": "Plain present, positive and negative",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 52
+        },
+        {
+          "slug": "plain-past",
+          "title": "た / なかった",
+          "summary": "Plain past, positive and negative",
+          "prerequisites": [
+            "plain-nonpast",
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 53
+        },
+        {
+          "slug": "casual-speech",
+          "title": "Casual speech",
+          "summary": "Dropping です/ます; だ, よ and rising questions between friends",
+          "prerequisites": [
+            "plain-past",
+            "yo-ne"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 54
+        },
+        {
+          "slug": "to-omou",
+          "title": "〜と思う",
+          "summary": "Saying what you think",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 55
+        },
+        {
+          "slug": "to-itte-ita",
+          "title": "〜と言っていました",
+          "summary": "Reporting what someone said",
+          "prerequisites": [
+            "to-omou"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 56
+        },
+        {
+          "slug": "naide-kudasai",
+          "title": "〜ないでください",
+          "summary": "Asking someone not to do something",
+          "prerequisites": [
+            "plain-nonpast",
+            "te-kudasai"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 57
+        },
+        {
+          "slug": "noun-modifier",
+          "title": "Clause + noun",
+          "summary": "Relative clauses: 昨日買った本, 眼鏡をかけている人",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 58
+        },
+        {
+          "slug": "n-desu",
+          "title": "〜んです",
+          "summary": "Explaining, and asking for an explanation",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 59
+        }
+      ]
+    },
+    {
+      "id": "u08",
+      "n": 8,
+      "level": "N5",
+      "title": "Time and experience",
+      "goal": "Sequence events and talk about experiences.",
+      "sort_order": 8,
+      "dojo": "",
+      "reading": "A travel diary",
+      "points": [
+        {
+          "slug": "mae-ni",
+          "title": "〜前に",
+          "summary": "Before doing X",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 60
+        },
+        {
+          "slug": "ato-de",
+          "title": "〜あとで",
+          "summary": "After doing X",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 61
+        },
+        {
+          "slug": "toki",
+          "title": "〜とき",
+          "summary": "When X; how tense inside とき works",
+          "prerequisites": [
+            "plain-past",
+            "noun-modifier"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 62
+        },
+        {
+          "slug": "nagara",
+          "title": "〜ながら",
+          "summary": "Doing two things at once",
+          "prerequisites": [
+            "masu-form",
+            "te-iru"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 63
+        },
+        {
+          "slug": "tari-tari",
+          "title": "〜たり〜たりする",
+          "summary": "Listing example actions",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 64
+        },
+        {
+          "slug": "ta-koto-ga-aru",
+          "title": "〜たことがある",
+          "summary": "Having done something before",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 65
+        },
+        {
+          "slug": "mou-mada",
+          "title": "もう〜た / まだ〜ていない",
+          "summary": "Already done, not yet done",
+          "prerequisites": [
+            "te-iru",
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 66
+        },
+        {
+          "slug": "contrast-mae-ato-tekara",
+          "title": "前に vs あとで vs てから",
+          "summary": "前に means before doing; あとで means after doing; てから means after X, then Y: 行く前に電話します / 行ったあとで電話します / 行ってから電話します。",
+          "prerequisites": [
+            "mae-ni",
+            "ato-de",
+            "te-kara"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 67
+        }
+      ]
+    },
+    {
+      "id": "u09",
+      "n": 9,
+      "level": "N5",
+      "title": "Ability, advice and obligation",
+      "goal": "Say what you can, should, must and needn't do.",
+      "sort_order": 9,
+      "dojo": "",
+      "reading": "Advice from a clinic: a short notice",
+      "points": [
+        {
+          "slug": "koto-ga-dekiru",
+          "title": "〜ことができる",
+          "summary": "Ability and possibility",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 68
+        },
+        {
+          "slug": "no-ga-jouzu",
+          "title": "〜のが上手 / 好き",
+          "summary": "Turning a verb into a noun to like it or be good at it",
+          "prerequisites": [
+            "suki-jouzu",
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 69
+        },
+        {
+          "slug": "hou-ga-ii",
+          "title": "〜ほうがいい",
+          "summary": "Advice",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 70
+        },
+        {
+          "slug": "sugiru",
+          "title": "〜すぎる",
+          "summary": "Too much",
+          "prerequisites": [
+            "i-adjective",
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 71
+        },
+        {
+          "slug": "nakereba-naranai",
+          "title": "〜なければならない",
+          "summary": "Obligation; also なきゃ and ないといけない",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 72
+        },
+        {
+          "slug": "nakute-mo-ii",
+          "title": "〜なくてもいい",
+          "summary": "No need to",
+          "prerequisites": [
+            "nakereba-naranai",
+            "te-mo-ii"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 73
+        },
+        {
+          "slug": "deshou",
+          "title": "でしょう / だろう",
+          "summary": "Probably; checking with the listener",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 74
+        },
+        {
+          "slug": "contrast-permission-obligation",
+          "title": "てもいい / てはいけない / なければならない / なくてもいい as one grid",
+          "summary": "てもいい allows; てはいけない forbids; なければならない obliges; なくてもいい means no need: 食べてもいいです / 食べてはいけません / 食べなければなりません / 食べなくてもいいです。",
+          "prerequisites": [
+            "te-mo-ii",
+            "te-wa-ikenai",
+            "nakereba-naranai",
+            "nakute-mo-ii"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 75
+        }
+      ]
+    },
+    {
+      "id": "u10",
+      "n": 10,
+      "level": "N5",
+      "title": "Plans, reasons and linking",
+      "goal": "Wrap up N5: intentions, soft reasons, but-clauses.",
+      "sort_order": 10,
+      "dojo": "Mixed review of every N5 form",
+      "reading": "An email to a teacher",
+      "points": [
+        {
+          "slug": "tsumori",
+          "title": "〜つもり",
+          "summary": "Intention",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 76
+        },
+        {
+          "slug": "node",
+          "title": "〜ので",
+          "summary": "Softer, more explanatory reason",
+          "prerequisites": [
+            "kara-reason",
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N5",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 77
+        },
+        {
+          "slug": "kedo-ga",
+          "title": "〜けど / 〜が (but)",
+          "summary": "Linking contrasting clauses; softening a request",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 78
+        },
+        {
+          "slug": "nanika-nanimo",
+          "title": "何か / 何も and family",
+          "summary": "Something / nothing, somewhere / nowhere, someone / no one",
+          "prerequisites": [
+            "ka-question",
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 79
+        },
+        {
+          "slug": "contrast-kara-node",
+          "title": "から vs ので (tone and politeness, not right vs wrong)",
+          "summary": "から states a reason more assertively; ので is softer and more explanatory: 雨が降ったから行きませんでした / 雨が降ったので行きませんでした。",
+          "prerequisites": [
+            "kara-reason",
+            "node"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 80
+        },
+        {
+          "slug": "contrast-wa-ga-2",
+          "title": "は vs が, second pass (contrast, exhaustive が, は in negatives)",
+          "summary": "は marks contrastive focus; が marks the subject inside a subordinate clause: 魚は食べますが、肉は食べません / 雨が降ったとき、家にいました。",
+          "prerequisites": [
+            "wa-topic",
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N5",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 81
+        }
+      ]
+    },
+    {
+      "id": "u11",
+      "n": 11,
+      "level": "N4",
+      "title": "Can, looks like, try",
+      "goal": "Ability with the potential form, appearances, limits.",
+      "sort_order": 11,
+      "dojo": "Potential form; ら-dropped 見れる flagged as casual",
+      "reading": "What I can and can't do at my new job",
+      "points": [
+        {
+          "slug": "potential",
+          "title": "Potential form",
+          "summary": "Can do: 読める, 食べられる; が or を with it",
+          "prerequisites": [
+            "plain-nonpast",
+            "koto-ga-dekiru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 82
+        },
+        {
+          "slug": "you-ni-naru",
+          "title": "〜ようになる",
+          "summary": "Coming to be able to; gradual change",
+          "prerequisites": [
+            "potential"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 83
+        },
+        {
+          "slug": "sou-appearance",
+          "title": "〜そう (looks like)",
+          "summary": "おいしそう, 雨が降りそう: judging from appearance",
+          "prerequisites": [
+            "i-adjective",
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 84
+        },
+        {
+          "slug": "te-miru",
+          "title": "〜てみる",
+          "summary": "Try doing and see",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 85
+        },
+        {
+          "slug": "shi-listing",
+          "title": "〜し、〜し",
+          "summary": "Listing reasons",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep:N5→N4",
+          "sort_order": 86
+        },
+        {
+          "slug": "toka-toka",
+          "title": "〜とか〜とか",
+          "summary": "Casual example listing",
+          "prerequisites": [
+            "ya-nado",
+            "casual-speech"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 87
+        },
+        {
+          "slug": "dake",
+          "title": "だけ",
+          "summary": "Only, just",
+          "prerequisites": [
+            "numbers-counters"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 88
+        },
+        {
+          "slug": "kai-mo",
+          "title": "〜に〜回 / 〜も",
+          "summary": "Frequency (〜回) and emphatic も (as many as)",
+          "prerequisites": [
+            "dake"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 89
+        },
+        {
+          "slug": "shika-negative",
+          "title": "〜しか〜ない",
+          "summary": "Nothing but / only, with a negative",
+          "prerequisites": [
+            "dake"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 90
+        },
+        {
+          "slug": "contrast-shika-dake",
+          "title": "しか〜ない vs だけ",
+          "summary": "だけ means only (neutral); しか〜ない means nothing but and needs a negative: 水だけ飲みます / 水しか飲みません。",
+          "prerequisites": [
+            "shika-negative",
+            "dake"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 91
+        }
+      ]
+    },
+    {
+      "id": "u12",
+      "n": 12,
+      "level": "N4",
+      "title": "Giving, receiving and favors",
+      "goal": "Get the viewpoint of giving verbs right.",
+      "sort_order": 12,
+      "dojo": "",
+      "reading": "Thank-you note after a homestay",
+      "points": [
+        {
+          "slug": "ni-recipient",
+          "title": "に (person: to / from)",
+          "summary": "に marks the person receiving with あげる/教える/貸す and the source with もらう/借りる/習う, and から can replace に for the source: 友達に本をあげます / 友達に（から）本をもらいました.",
+          "prerequisites": [
+            "ni-destination",
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 92
+        },
+        {
+          "slug": "ageru-kureru-morau",
+          "title": "あげる / くれる / もらう",
+          "summary": "Who gives to whom, from whose viewpoint; person に (recipient) and に/から (giver with もらう)",
+          "prerequisites": [
+            "ni-recipient",
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 93
+        },
+        {
+          "slug": "te-ageru-morau",
+          "title": "〜てあげる / 〜てもらう",
+          "summary": "Doing and receiving favors",
+          "prerequisites": [
+            "ageru-kureru-morau",
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 94
+        },
+        {
+          "slug": "te-kureru",
+          "title": "〜てくれる",
+          "summary": "Someone does something for me",
+          "prerequisites": [
+            "te-ageru-morau"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 95
+        },
+        {
+          "slug": "te-hoshii",
+          "title": "〜てほしい",
+          "summary": "Wanting someone else to do something",
+          "prerequisites": [
+            "te-kureru",
+            "hoshii"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 96
+        },
+        {
+          "slug": "itadakemasenka",
+          "title": "〜ていただけませんか / 〜てくれない？",
+          "summary": "Polite and casual requests",
+          "prerequisites": [
+            "te-kureru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 97
+        },
+        {
+          "slug": "te-yokatta",
+          "title": "〜てよかった / 〜てくれてありがとう",
+          "summary": "Relief, and thanks for an action",
+          "prerequisites": [
+            "te-kureru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 98
+        },
+        {
+          "slug": "contrast-giving",
+          "title": "あげる vs くれる vs もらう (viewpoint)",
+          "summary": "あげる gives outward from my side; くれる gives toward me; もらう means I receive: 私は友達に本をあげます / 友達が私に本をくれます / 私は友達に本をもらいます。",
+          "prerequisites": [
+            "ageru-kureru-morau",
+            "te-ageru-morau",
+            "te-kureru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 99
+        }
+      ]
+    },
+    {
+      "id": "u13",
+      "n": 13,
+      "level": "N4",
+      "title": "Intentions and decisions",
+      "goal": "Plans, decisions, and questions inside sentences.",
+      "sort_order": 13,
+      "dojo": "Volitional form",
+      "reading": "An email about weekend plans",
+      "points": [
+        {
+          "slug": "volitional",
+          "title": "Volitional 〜よう / 〜おう",
+          "summary": "Let's, in plain speech",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 100
+        },
+        {
+          "slug": "you-to-omou",
+          "title": "〜(よ)うと思う",
+          "summary": "Thinking of doing",
+          "prerequisites": [
+            "volitional",
+            "to-omou"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 101
+        },
+        {
+          "slug": "te-oku",
+          "title": "〜ておく",
+          "summary": "Doing in advance; leaving as is",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 102
+        },
+        {
+          "slug": "koto-ni-suru",
+          "title": "〜ことにする",
+          "summary": "Deciding to do",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 103
+        },
+        {
+          "slug": "koto-ni-naru",
+          "title": "〜ことになる",
+          "summary": "It has been decided; it turns out",
+          "prerequisites": [
+            "koto-ni-suru"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep:N3→N4",
+          "sort_order": 104
+        },
+        {
+          "slug": "yotei",
+          "title": "〜予定だ",
+          "summary": "Scheduled plans",
+          "prerequisites": [
+            "noun-modifier"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 105
+        },
+        {
+          "slug": "kadouka",
+          "title": "〜か / 〜かどうか",
+          "summary": "Questions inside sentences: 何時か分からない",
+          "prerequisites": [
+            "ka-question",
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 106
+        },
+        {
+          "slug": "contrast-intention",
+          "title": "つもり vs (よ)うと思う vs 予定",
+          "summary": "つもり is intention; (よ)うと思う is thinking of doing; 予定 is a scheduled plan: 日本へ行くつもりです / 日本へ行こうと思います / 日本へ行く予定です。",
+          "prerequisites": [
+            "tsumori",
+            "you-to-omou",
+            "yotei"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 107
+        },
+        {
+          "slug": "contrast-koto-ni-suru-naru",
+          "title": "ことにする vs ことになる",
+          "summary": "ことにする is a decision I make; ことになる is decided for me or turns out that way: 毎日走ることにしました / 毎日走ることになりました。",
+          "prerequisites": [
+            "koto-ni-suru",
+            "koto-ni-naru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 108
+        }
+      ]
+    },
+    {
+      "id": "u14",
+      "n": 14,
+      "level": "N4",
+      "title": "Conditions",
+      "goal": "The four conditionals, regret, hope and even-if.",
+      "sort_order": 14,
+      "dojo": "ば-form and たら-form",
+      "reading": "Directions to a friend's house",
+      "points": [
+        {
+          "slug": "to-conditional",
+          "title": "〜と (whenever)",
+          "summary": "Automatic results; directions",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 109
+        },
+        {
+          "slug": "tara-conditional",
+          "title": "〜たら",
+          "summary": "If / when; the widest conditional",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 110
+        },
+        {
+          "slug": "ba-conditional",
+          "title": "〜ば",
+          "summary": "If (hypothetical, general condition)",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 111
+        },
+        {
+          "slug": "ba-ii",
+          "title": "〜ばいい / どうしたらいいですか",
+          "summary": "Advice with ばいい, and asking what one should do: どうしたらいいですか",
+          "prerequisites": [
+            "ba-conditional",
+            "tara-conditional"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 112
+        },
+        {
+          "slug": "tara-dou",
+          "title": "〜たらどうですか",
+          "summary": "Suggestions",
+          "prerequisites": [
+            "tara-conditional"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 113
+        },
+        {
+          "slug": "nara-conditional",
+          "title": "〜なら",
+          "summary": "If that's the case; speaking of",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 114
+        },
+        {
+          "slug": "ba-yokatta",
+          "title": "〜ばよかった",
+          "summary": "Regret: I should have",
+          "prerequisites": [
+            "ba-conditional"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 115
+        },
+        {
+          "slug": "to-ii",
+          "title": "〜といい(ですね)",
+          "summary": "Hoping",
+          "prerequisites": [
+            "to-conditional"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 116
+        },
+        {
+          "slug": "te-mo-even-if",
+          "title": "〜ても",
+          "summary": "Even if",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 117
+        },
+        {
+          "slug": "baai-wa",
+          "title": "〜場合（は）",
+          "summary": "In the case that: 〜場合は / 〜場合に",
+          "prerequisites": [
+            "plain-past",
+            "no-noun-link"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 118
+        },
+        {
+          "slug": "contrast-conditionals",
+          "title": "と / ば / たら / なら",
+          "summary": "と is an automatic result; ば is hypothetical; たら is widest if/when; なら is if that's the case: 春になると暖かくなります / 安ければ買います / 雨が降ったら行きません / 行くなら早く行ってください。",
+          "prerequisites": [
+            "to-conditional",
+            "ba-conditional",
+            "tara-conditional",
+            "nara-conditional"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 119
+        }
+      ]
+    },
+    {
+      "id": "u15",
+      "n": 15,
+      "level": "N4",
+      "title": "Guessing, hearsay and feelings",
+      "goal": "Mark how sure you are and where you heard it.",
+      "sort_order": 15,
+      "dojo": "",
+      "reading": "Office gossip: a casual dialogue",
+      "points": [
+        {
+          "slug": "kamo-shirenai",
+          "title": "〜かもしれない",
+          "summary": "Might",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 120
+        },
+        {
+          "slug": "sou-da-hearsay",
+          "title": "〜そうだ (hearsay)",
+          "summary": "I heard that",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 121
+        },
+        {
+          "slug": "you-da",
+          "title": "〜ようだ",
+          "summary": "It seems, from evidence",
+          "prerequisites": [
+            "plain-past",
+            "noun-modifier"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 122
+        },
+        {
+          "slug": "mitai",
+          "title": "〜みたい",
+          "summary": "Seems; like (casual)",
+          "prerequisites": [
+            "you-da",
+            "casual-speech"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 123
+        },
+        {
+          "slug": "rashii",
+          "title": "〜らしい",
+          "summary": "Apparently; typical of",
+          "prerequisites": [
+            "sou-da-hearsay"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 124
+        },
+        {
+          "slug": "hazu-da",
+          "title": "〜はずだ",
+          "summary": "Should be (logical expectation)",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 125
+        },
+        {
+          "slug": "hazu-ga-nai",
+          "title": "〜はずがない",
+          "summary": "Can't possibly be",
+          "prerequisites": [
+            "hazu-da"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 126
+        },
+        {
+          "slug": "tte",
+          "title": "〜って",
+          "summary": "Casual quoting and topic marking",
+          "prerequisites": [
+            "to-itte-ita",
+            "casual-speech"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 127
+        },
+        {
+          "slug": "garu",
+          "title": "〜がる / 〜たがる",
+          "summary": "Other people's feelings and wishes",
+          "prerequisites": [
+            "tai",
+            "i-adjective"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 128
+        },
+        {
+          "slug": "contrast-evidential",
+          "title": "そう (looks) / そうだ (heard) / ようだ / らしい / みたい",
+          "summary": "そう is looks like; そうだ is hearsay; ようだ is from evidence; らしい is apparently; みたい is casual seems: 雨が降りそうです / 雨が降るそうです / 雨が降るようです / 雨が降るらしいです / 雨が降るみたいです。",
+          "prerequisites": [
+            "sou-appearance",
+            "sou-da-hearsay",
+            "you-da",
+            "rashii",
+            "mitai"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 129
+        },
+        {
+          "slug": "contrast-certainty",
+          "title": "はずだ vs でしょう vs かもしれない",
+          "summary": "はずだ is logical expectation; でしょう is probably; かもしれない is might: 彼は来るはずです / 彼は来るでしょう / 彼は来るかもしれません。",
+          "prerequisites": [
+            "hazu-da",
+            "deshou",
+            "kamo-shirenai"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 130
+        }
+      ]
+    },
+    {
+      "id": "u16",
+      "n": 16,
+      "level": "N4",
+      "title": "Completion, states and change",
+      "goal": "Finished actions, states left behind, change over time.",
+      "sort_order": 16,
+      "dojo": "Transitive/intransitive pair drill",
+      "reading": "Moving into a new apartment",
+      "points": [
+        {
+          "slug": "te-shimau",
+          "title": "〜てしまう",
+          "summary": "Finish completely; regret; ちゃう",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 131
+        },
+        {
+          "slug": "jidoushi-tadoushi",
+          "title": "Transitive / intransitive pairs",
+          "summary": "開ける・開く, 消す・消える: who did it vs what happened",
+          "prerequisites": [
+            "wo-object",
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 132
+        },
+        {
+          "slug": "te-aru",
+          "title": "〜てある",
+          "summary": "A state someone left on purpose",
+          "prerequisites": [
+            "jidoushi-tadoushi",
+            "te-iru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 133
+        },
+        {
+          "slug": "tokoro-da",
+          "title": "〜ところだ",
+          "summary": "About to, in the middle of, just did",
+          "prerequisites": [
+            "plain-past",
+            "te-iru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 134
+        },
+        {
+          "slug": "ta-bakari",
+          "title": "〜たばかり",
+          "summary": "Just did, recently",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "split:bakari",
+          "sort_order": 135
+        },
+        {
+          "slug": "te-kuru-iku",
+          "title": "〜てくる / 〜ていく",
+          "summary": "Change toward now or onward; go and come back",
+          "prerequisites": [
+            "te-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 136
+        },
+        {
+          "slug": "mama",
+          "title": "〜まま",
+          "summary": "Leaving a state unchanged",
+          "prerequisites": [
+            "noun-modifier"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 137
+        },
+        {
+          "slug": "naide-without",
+          "title": "〜ないで (without doing)",
+          "summary": "Doing Y without doing X",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 138
+        },
+        {
+          "slug": "fukugou-doushi",
+          "title": "〜始める / 〜終わる / 〜続ける / 〜出す",
+          "summary": "Start, finish, keep doing",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 139
+        },
+        {
+          "slug": "contrast-te-iru-te-aru",
+          "title": "開いている vs 開けてある",
+          "summary": "ている is a resulting state; てある is a state left on purpose: 窓が開いています / 窓が開けてあります。",
+          "prerequisites": [
+            "te-iru",
+            "te-aru"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 140
+        },
+        {
+          "slug": "contrast-just-did",
+          "title": "たところ vs たばかり",
+          "summary": "たところ is the moment right after; たばかり is recently from the speaker's view and can stretch to weeks: 今着いたところです / 先週日本に来たばかりです（×先週来たところです）。",
+          "prerequisites": [
+            "tokoro-da",
+            "ta-bakari"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 141
+        }
+      ]
+    },
+    {
+      "id": "u17",
+      "n": 17,
+      "level": "N4",
+      "title": "Purpose, effort and concession",
+      "goal": "Goals, deadlines, how-to, and even-though.",
+      "sort_order": 17,
+      "dojo": "",
+      "reading": "A study-tips column",
+      "points": [
+        {
+          "slug": "tame-ni",
+          "title": "〜ために",
+          "summary": "In order to (purpose)",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 142
+        },
+        {
+          "slug": "you-ni-purpose",
+          "title": "〜ように (so that)",
+          "summary": "Purpose with non-volitional and potential verbs",
+          "prerequisites": [
+            "potential"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 143
+        },
+        {
+          "slug": "you-ni-suru",
+          "title": "〜ようにする",
+          "summary": "Making an effort to",
+          "prerequisites": [
+            "you-ni-purpose"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 144
+        },
+        {
+          "slug": "made-ni",
+          "title": "〜までに",
+          "summary": "By (a deadline)",
+          "prerequisites": [
+            "kara-made"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 145
+        },
+        {
+          "slug": "yasui-nikui",
+          "title": "〜やすい / 〜にくい",
+          "summary": "Easy / hard to do",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 146
+        },
+        {
+          "slug": "kata",
+          "title": "〜方",
+          "summary": "How to do",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 147
+        },
+        {
+          "slug": "noni",
+          "title": "〜のに",
+          "summary": "Even though (unexpected)",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 148
+        },
+        {
+          "slug": "no-you-na",
+          "title": "〜のような / 〜のように",
+          "summary": "Like N: similes and examples",
+          "prerequisites": [
+            "you-da"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 149
+        },
+        {
+          "slug": "koto-ga-aru-sometimes",
+          "title": "〜ことがある (sometimes)",
+          "summary": "There are times when",
+          "prerequisites": [
+            "ta-koto-ga-aru"
+          ],
+          "status": "existing",
+          "level": "N4",
+          "kind": "point",
+          "source": "keep:N3→N4",
+          "sort_order": 150
+        },
+        {
+          "slug": "contrast-tame-youni",
+          "title": "ために vs ように",
+          "summary": "ために marks purpose with controllable actions; ように marks purpose so a state or ability holds: 合格するために勉強します / 忘れないようにノートに書きます。",
+          "prerequisites": [
+            "tame-ni",
+            "you-ni-purpose"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 151
+        },
+        {
+          "slug": "contrast-made-madeni",
+          "title": "まで vs までに",
+          "summary": "まで means until (continuing through); までに means by a deadline: 五時まで勉強します / 五時までに宿題を出します。",
+          "prerequisites": [
+            "kara-made",
+            "made-ni"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 152
+        }
+      ]
+    },
+    {
+      "id": "u18",
+      "n": 18,
+      "level": "N4",
+      "title": "Voice and politeness",
+      "goal": "Passive, causative and the basics of keigo.",
+      "sort_order": 18,
+      "dojo": "Passive, causative, causative-passive, imperative, keigo verb swaps",
+      "reading": "A shop announcement and a polite business email",
+      "points": [
+        {
+          "slug": "passive",
+          "title": "Passive 〜られる",
+          "summary": "Direct passive and the suffering passive",
+          "prerequisites": [
+            "plain-nonpast",
+            "jidoushi-tadoushi"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 153
+        },
+        {
+          "slug": "causative",
+          "title": "Causative 〜させる",
+          "summary": "Make or let someone do",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 154
+        },
+        {
+          "slug": "causative-passive",
+          "title": "Causative-passive 〜させられる",
+          "summary": "Being made to do",
+          "prerequisites": [
+            "causative",
+            "passive"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 155
+        },
+        {
+          "slug": "sasete-kudasai",
+          "title": "〜させてください",
+          "summary": "Let me do",
+          "prerequisites": [
+            "causative",
+            "te-kudasai"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 156
+        },
+        {
+          "slug": "meireikei",
+          "title": "Imperative and 〜な",
+          "summary": "Commands, signs, sports",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 157
+        },
+        {
+          "slug": "nasai",
+          "title": "〜なさい",
+          "summary": "Instructions from parents and teachers",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 158
+        },
+        {
+          "slug": "sonkeigo",
+          "title": "Honorific speech (尊敬語)",
+          "summary": "いらっしゃる, お〜になる: raising the other person",
+          "prerequisites": [
+            "masu-form",
+            "passive"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 159
+        },
+        {
+          "slug": "kenjougo",
+          "title": "Humble speech (謙譲語)",
+          "summary": "参る, お〜する: lowering yourself",
+          "prerequisites": [
+            "sonkeigo"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 160
+        },
+        {
+          "slug": "contrast-rareru",
+          "title": "られる as potential, passive or honorific",
+          "summary": "The same られる shape is potential, passive, or honorific by context: 私は刺身が食べられます / ケーキを弟に食べられました / 先生はもう食べられました。",
+          "prerequisites": [
+            "potential",
+            "passive",
+            "sonkeigo"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 161
+        },
+        {
+          "slug": "contrast-voice",
+          "title": "passive vs causative vs causative-passive",
+          "summary": "Passive is done-to; causative is make/let do; causative-passive is being made to: 先生に褒められました / 子供に野菜を食べさせます / 野菜を食べさせられました。",
+          "prerequisites": [
+            "passive",
+            "causative",
+            "causative-passive"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 162
+        }
+      ]
+    },
+    {
+      "id": "u19",
+      "n": 19,
+      "level": "N3",
+      "title": "Cause, result and attitude",
+      "goal": "Reasons that carry the speaker's attitude.",
+      "sort_order": 19,
+      "dojo": "",
+      "reading": "A short opinion column",
+      "points": [
+        {
+          "slug": "okage-de",
+          "title": "〜おかげで",
+          "summary": "Thanks to (good result)",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 163
+        },
+        {
+          "slug": "sei-de",
+          "title": "〜せいで",
+          "summary": "Because of (blame)",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 164
+        },
+        {
+          "slug": "tame-ni-cause",
+          "title": "〜ために (because of)",
+          "summary": "Formal cause; a separate sense from purpose",
+          "prerequisites": [
+            "tame-ni",
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 165
+        },
+        {
+          "slug": "wake-da",
+          "title": "〜わけだ",
+          "summary": "That's why; so it follows",
+          "prerequisites": [
+            "n-desu"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 166
+        },
+        {
+          "slug": "wake-dewa-nai",
+          "title": "〜わけではない",
+          "summary": "It doesn't mean that",
+          "prerequisites": [
+            "wake-da"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 167
+        },
+        {
+          "slug": "wake-ga-nai",
+          "title": "〜わけがない",
+          "summary": "There's no way that",
+          "prerequisites": [
+            "wake-da"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 168
+        },
+        {
+          "slug": "kara-koso",
+          "title": "〜からこそ",
+          "summary": "Precisely because",
+          "prerequisites": [
+            "kara-reason"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 169
+        },
+        {
+          "slug": "contrast-okage-sei",
+          "title": "おかげで vs せいで vs ために",
+          "summary": "おかげで is thanks to (good result); せいで is because of (blame); ために is formal cause: 先生のおかげで合格しました / 雨のせいで遅れました / 事故のために遅れました。",
+          "prerequisites": [
+            "okage-de",
+            "sei-de",
+            "tame-ni-cause"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 170
+        }
+      ]
+    },
+    {
+      "id": "u20",
+      "n": 20,
+      "level": "N3",
+      "title": "Talking about a topic",
+      "goal": "Relation phrases for news, essays and work talk.",
+      "sort_order": 20,
+      "dojo": "",
+      "reading": "A news-style paragraph about a survey",
+      "points": [
+        {
+          "slug": "ni-tsuite",
+          "title": "〜について",
+          "summary": "About",
+          "prerequisites": [
+            "no-noun-link"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 171
+        },
+        {
+          "slug": "ni-kanshite",
+          "title": "〜に関して",
+          "summary": "Concerning (more formal)",
+          "prerequisites": [
+            "ni-tsuite"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 172
+        },
+        {
+          "slug": "ni-taishite",
+          "title": "〜に対して",
+          "summary": "Toward, against, in contrast to",
+          "prerequisites": [
+            "ni-tsuite"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 173
+        },
+        {
+          "slug": "ni-totte",
+          "title": "〜にとって",
+          "summary": "For, from the standpoint of",
+          "prerequisites": [
+            "ni-tsuite"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 174
+        },
+        {
+          "slug": "to-shite",
+          "title": "〜として",
+          "summary": "As (in the role of)",
+          "prerequisites": [
+            "desu-da"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 175
+        },
+        {
+          "slug": "ni-yotte",
+          "title": "〜によって",
+          "summary": "Depending on, by, due to (senses taught separately)",
+          "prerequisites": [
+            "passive"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 176
+        },
+        {
+          "slug": "ni-yoru-to",
+          "title": "〜によると",
+          "summary": "According to",
+          "prerequisites": [
+            "sou-da-hearsay"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 177
+        },
+        {
+          "slug": "ni-kurabete",
+          "title": "〜に比べて",
+          "summary": "Compared to",
+          "prerequisites": [
+            "yori-hou-ga"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 178
+        },
+        {
+          "slug": "contrast-topic-phrases",
+          "title": "について vs に対して vs にとって",
+          "summary": "について is about; に対して is toward or against; にとって is for from a standpoint: 日本の歴史について話します / 質問に対して答えます / 私にとって大切です。",
+          "prerequisites": [
+            "ni-tsuite",
+            "ni-taishite",
+            "ni-totte"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 179
+        }
+      ]
+    },
+    {
+      "id": "u21",
+      "n": 21,
+      "level": "N3",
+      "title": "Time, sequence and change",
+      "goal": "Timing and gradual change in narratives.",
+      "sort_order": 21,
+      "dojo": "",
+      "reading": "How my town has changed",
+      "points": [
+        {
+          "slug": "uchi-ni",
+          "title": "〜うちに",
+          "summary": "While (before things change)",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 180
+        },
+        {
+          "slug": "ta-totan",
+          "title": "〜たとたん",
+          "summary": "The moment that",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 181
+        },
+        {
+          "slug": "tsuide-ni",
+          "title": "〜ついでに",
+          "summary": "While you're at it",
+          "prerequisites": [
+            "noun-modifier"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 182
+        },
+        {
+          "slug": "tokoro-e",
+          "title": "〜ところに / 〜ところへ",
+          "summary": "Just as something happened",
+          "prerequisites": [
+            "tokoro-da"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 183
+        },
+        {
+          "slug": "ni-tsurete",
+          "title": "〜につれて",
+          "summary": "As X changes, Y changes",
+          "prerequisites": [
+            "naru"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 184
+        },
+        {
+          "slug": "ippou-da",
+          "title": "〜一方だ",
+          "summary": "Keeps getting more and more",
+          "prerequisites": [
+            "naru"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 185
+        },
+        {
+          "slug": "hodo",
+          "title": "〜ほど / 〜くらい",
+          "summary": "Extent and rough amounts",
+          "prerequisites": [
+            "yori-hou-ga"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 186
+        },
+        {
+          "slug": "ba-hodo",
+          "title": "〜ば〜ほど",
+          "summary": "The more…, the more…",
+          "prerequisites": [
+            "ba-conditional",
+            "hodo"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 187
+        },
+        {
+          "slug": "contrast-change",
+          "title": "につれて vs 一方だ vs ようになる",
+          "summary": "につれて is as X changes, Y changes; 一方だ keeps getting more; ようになる is come to be able or become: 年を取るにつれて忘れやすくなります / 物価は上がる一方です / 日本語が話せるようになりました。",
+          "prerequisites": [
+            "ni-tsurete",
+            "ippou-da",
+            "you-ni-naru"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 188
+        }
+      ]
+    },
+    {
+      "id": "u22",
+      "n": 22,
+      "level": "N3",
+      "title": "Concession, alternatives and assumption",
+      "goal": "Even-though, even-if and instead.",
+      "sort_order": 22,
+      "dojo": "",
+      "reading": "A product review",
+      "points": [
+        {
+          "slug": "to-shitara",
+          "title": "〜としたら",
+          "summary": "Assuming that",
+          "prerequisites": [
+            "tara-conditional"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 189
+        },
+        {
+          "slug": "to-shite-mo",
+          "title": "〜としても",
+          "summary": "Even supposing",
+          "prerequisites": [
+            "te-mo-even-if",
+            "to-shitara"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 190
+        },
+        {
+          "slug": "ni-shite-wa",
+          "title": "〜にしては",
+          "summary": "For (considering that)",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 191
+        },
+        {
+          "slug": "kuse-ni",
+          "title": "〜くせに",
+          "summary": "Even though (critical)",
+          "prerequisites": [
+            "noni"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 192
+        },
+        {
+          "slug": "nagara-mo",
+          "title": "〜ながらも",
+          "summary": "Although (concessive ながら)",
+          "prerequisites": [
+            "nagara"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 193
+        },
+        {
+          "slug": "kawari-ni",
+          "title": "〜かわりに",
+          "summary": "Instead of; in exchange for",
+          "prerequisites": [
+            "noun-modifier"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 194
+        },
+        {
+          "slug": "contrast-concession",
+          "title": "のに vs くせに vs ながらも vs にしては",
+          "summary": "のに is even though (unexpected); くせに is even though (critical); ながらも is although; にしては is for/considering: 勉強したのに忘れました / 学生のくせに生意気です / 小さいながらも強いです / 初心者にしては上手です。",
+          "prerequisites": [
+            "noni",
+            "kuse-ni",
+            "nagara-mo",
+            "ni-shite-wa"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 195
+        }
+      ]
+    },
+    {
+      "id": "u23",
+      "n": 23,
+      "level": "N3",
+      "title": "Judgment and necessity",
+      "goal": "Should, must, can't, no need.",
+      "sort_order": 23,
+      "dojo": "",
+      "reading": "An advice-column reply",
+      "points": [
+        {
+          "slug": "beki-da",
+          "title": "〜べきだ",
+          "summary": "Should (duty or logic)",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 196
+        },
+        {
+          "slug": "koto-wa-nai",
+          "title": "〜ことはない",
+          "summary": "There's no need to",
+          "prerequisites": [
+            "plain-nonpast"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 197
+        },
+        {
+          "slug": "wake-niwa-ikanai",
+          "title": "〜わけにはいかない",
+          "summary": "Can't very well",
+          "prerequisites": [
+            "wake-da"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 198
+        },
+        {
+          "slug": "ni-chigainai",
+          "title": "〜に違いない",
+          "summary": "Must be (strong guess)",
+          "prerequisites": [
+            "hazu-da"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep:N2→N3",
+          "sort_order": 199
+        },
+        {
+          "slug": "shika-nai",
+          "title": "〜しかない",
+          "summary": "Have no choice but",
+          "prerequisites": [
+            "shika-negative"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 200
+        },
+        {
+          "slug": "koto-da",
+          "title": "〜ことだ (advice)",
+          "summary": "The best thing is to",
+          "prerequisites": [
+            "plain-nonpast",
+            "hou-ga-ii",
+            "beki-da"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 201
+        },
+        {
+          "slug": "mono-da",
+          "title": "〜ものだ",
+          "summary": "That's how things are; used to; should",
+          "prerequisites": [
+            "plain-past"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 202
+        },
+        {
+          "slug": "contrast-should",
+          "title": "べきだ vs ほうがいい vs ことだ",
+          "summary": "べきだ is should (duty or logic); ほうがいい is advice; ことだ is the best thing is to: もっと運動するべきです / もっと運動したほうがいいです / もっと運動することです。",
+          "prerequisites": [
+            "beki-da",
+            "hou-ga-ii",
+            "koto-da"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 203
+        },
+        {
+          "slug": "contrast-wake",
+          "title": "わけだ / わけではない / わけがない / わけにはいかない",
+          "summary": "わけだ means that's why; わけではない means it doesn't mean; わけがない means no way; わけにはいかない means can't very well: 三時間しか寝ていないなら、眠いわけです / 行きたくないわけではありません / 彼がうそをつくわけがありません / 今帰るわけにはいきません。",
+          "prerequisites": [
+            "wake-da",
+            "wake-dewa-nai",
+            "wake-ga-nai",
+            "wake-niwa-ikanai"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 204
+        }
+      ]
+    },
+    {
+      "id": "u24",
+      "n": 24,
+      "level": "N3",
+      "title": "Quoting, naming and explaining",
+      "goal": "Define, report and pass on requests.",
+      "sort_order": 24,
+      "dojo": "",
+      "reading": "A blog post explaining a custom",
+      "points": [
+        {
+          "slug": "to-iu-noun",
+          "title": "〜という N",
+          "summary": "Called; the fact that",
+          "prerequisites": [
+            "to-itte-ita"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 205
+        },
+        {
+          "slug": "to-iu-koto-da",
+          "title": "〜ということだ",
+          "summary": "It means that; I heard that",
+          "prerequisites": [
+            "to-iu-noun"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 206
+        },
+        {
+          "slug": "to-iu-no-wa",
+          "title": "〜というのは",
+          "summary": "Defining a word or idea",
+          "prerequisites": [
+            "to-iu-noun"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 207
+        },
+        {
+          "slug": "you-ni-iu",
+          "title": "〜ように言う / 頼む",
+          "summary": "Reported requests and orders",
+          "prerequisites": [
+            "you-ni-purpose"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 208
+        }
+      ]
+    },
+    {
+      "id": "u25",
+      "n": 25,
+      "level": "N3",
+      "title": "Degree, extent and emphasis",
+      "goal": "How much, how often, and even.",
+      "sort_order": 25,
+      "dojo": "",
+      "reading": "Complaints about a roommate (casual)",
+      "points": [
+        {
+          "slug": "bakari",
+          "title": "〜ばかり (nothing but)",
+          "summary": "Only / nothing but; たばかり moved to its own point",
+          "prerequisites": [
+            "dake"
+          ],
+          "status": "existing",
+          "level": "N3",
+          "kind": "point",
+          "source": "keep",
+          "sort_order": 209
+        },
+        {
+          "slug": "gachi",
+          "title": "〜がち",
+          "summary": "Tend to (usually bad)",
+          "prerequisites": [
+            "masu-form"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 210
+        },
+        {
+          "slug": "ppoi",
+          "title": "〜っぽい",
+          "summary": "-ish; seems like",
+          "prerequisites": [
+            "casual-speech"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 211
+        },
+        {
+          "slug": "dake-de-naku",
+          "title": "〜だけでなく",
+          "summary": "Not only … but also",
+          "prerequisites": [
+            "dake"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 212
+        },
+        {
+          "slug": "sae",
+          "title": "〜さえ",
+          "summary": "Even",
+          "prerequisites": [
+            "mo-also"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 213
+        },
+        {
+          "slug": "ue-ni",
+          "title": "〜うえに",
+          "summary": "On top of that",
+          "prerequisites": [
+            "noun-modifier"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 214
+        },
+        {
+          "slug": "ppanashi",
+          "title": "〜っぱなし",
+          "summary": "Left on; left undone",
+          "prerequisites": [
+            "mama"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 215
+        },
+        {
+          "slug": "contrast-bakari-dake-shika",
+          "title": "ばかり vs だけ vs しか",
+          "summary": "ばかり means nothing but; だけ means only; しか〜ない means only with a negative: ゲームばかりします / ゲームだけします / ゲームしかしません。",
+          "prerequisites": [
+            "bakari",
+            "dake",
+            "shika-negative"
+          ],
+          "status": "planned",
+          "level": "N3",
+          "kind": "contrast",
+          "source": "new",
+          "sort_order": 216
+        }
+      ]
+    }
+  ],
+  "sketch": [
+    {
+      "level": "N2",
+      "target": "35–40 points (sketch)",
+      "themes": "Formal connectors and written register: にもかかわらず, ものの, に際して, にあたって, をめぐって, をはじめ, に伴って; inevitability and emotion: ざるを得ない, ずにはいられない, ようがない, かねる; scope: に限らず, を問わず, ばかりに, ばかりか.",
+      "existing": [
+        {
+          "slug": "ni-mo-kakawarazu",
+          "title": "〜にもかかわらず",
+          "status": "existing",
+          "note": "Keep at N2"
+        },
+        {
+          "slug": "mono-no",
+          "title": "〜ものの",
+          "status": "existing",
+          "note": "Keep at N2"
+        },
+        {
+          "slug": "zaru-o-enai",
+          "title": "〜ざるを得ない",
+          "status": "existing",
+          "note": "Move N1→N2"
+        },
+        {
+          "slug": "ni-kagirazu",
+          "title": "〜に限らず",
+          "status": "existing",
+          "note": "Move N1→N2"
+        },
+        {
+          "slug": "wo-towazu",
+          "title": "〜を問わず",
+          "status": "existing",
+          "note": "Move N1→N2"
+        }
+      ]
+    },
+    {
+      "level": "N1",
+      "target": "20–30 points (sketch)",
+      "themes": "Literary and formal: であれ, ともなると, をもって, をよそに, なりに, ずじまい, たところで, んばかり, ゆえに, に堪える.",
+      "existing": [
+        {
+          "slug": "ni-taeru",
+          "title": "〜に堪える",
+          "status": "existing",
+          "note": "Only point references agree is N1"
+        }
+      ]
+    }
+  ],
+  "meta": {
+    "seed_slug_count": 62,
+    "curriculum_point_count": 216,
+    "missing_keep_slugs": [],
+    "seeded_in_units": [
+      "ato-de",
+      "ba-conditional",
+      "bakari",
+      "beki-da",
+      "hazu-da",
+      "hou-ga-ii",
+      "ippou-da",
+      "kamo-shirenai",
+      "kara-reason",
+      "kawari-ni",
+      "koto-ga-aru-sometimes",
+      "koto-ga-dekiru",
+      "koto-ni-naru",
+      "koto-ni-suru",
+      "koto-wa-nai",
+      "mae-ni",
+      "nagara",
+      "nakereba-naranai",
+      "nakute-mo-ii",
+      "nara-conditional",
+      "ni-chigainai",
+      "ni-kurabete",
+      "ni-taishite",
+      "ni-totte",
+      "ni-tsuite",
+      "ni-tsurete",
+      "ni-yotte",
+      "no-ga-jouzu",
+      "node",
+      "noni",
+      "okage-de",
+      "sei-de",
+      "shi-listing",
+      "sou-da-hearsay",
+      "ta-koto-ga-aru",
+      "tai",
+      "tame-ni",
+      "tara-conditional",
+      "te-iru",
+      "te-kureru",
+      "te-miru",
+      "te-mo-ii",
+      "te-oku",
+      "te-shimau",
+      "te-wa-ikenai",
+      "to-iu-koto-da",
+      "to-omou",
+      "to-shitara",
+      "tsumori",
+      "uchi-ni",
+      "wake-dewa-nai",
+      "wake-niwa-ikanai",
+      "yasui-nikui",
+      "you-da",
+      "you-ni-naru",
+      "you-ni-suru"
+    ],
+    "seeded_in_sketch": [
+      "mono-no",
+      "ni-kagirazu",
+      "ni-mo-kakawarazu",
+      "ni-taeru",
+      "wo-towazu",
+      "zaru-o-enai"
+    ],
+    "orphan_seed_slugs": []
+  }
+}

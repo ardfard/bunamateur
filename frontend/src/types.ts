@@ -45,6 +45,9 @@ export interface GrammarPointSummary {
   wk_readiness_pct: number
   wk_known_kanji: number
   wk_total_kanji: number
+  unit_id?: string | null
+  unit_title?: string | null
+  sort_order?: number | null
 }
 
 export interface FormationTable {
