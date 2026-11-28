@@ -2,7 +2,11 @@
   "meaning": "if / when (after completion) / when I… (discovery)",
   "gist": "た-form + ら is the broadest N4 conditional: \"if\", \"when (once X is done)\", and past discovery. Unlike ば and と, the second clause freely takes requests, commands, and volitions.",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (た-form)",
@@ -27,7 +31,7 @@
     ],
     "note": "Build from the plain past (た-form), then add ら — never from ます (*しますたら). い-adjectives use 〜かったら; nouns and な-adjectives use だったら."
   },
-  "explanation": "たら covers three everyday jobs. First, a one-time \"when / once\": 駅に着いたら連絡してください — the request comes after arrival. Second, a hypothetical \"if\": 安かったら買うつもりだ / 雨だったらピクニックは中止にしよう. Third, past discovery: 窓を開けたら雪が降っていた — you opened the window and found it was snowing. Because たら frames the first clause as completed before the second, it pairs naturally with てください, ましょう, and invitations — something と and (often) ば resist when the condition is an action by the same subject.",
+  "explanation": "たら covers three everyday jobs. First, a one-time \"when / once\": 駅に着いたら連絡してください — the request comes after arrival. Second, a hypothetical \"if\": 安かったら買うつもりだ / 雨だったらピクニックは中止にしよう. Third, past discovery: 窓を開けたら雪が降っていた — you opened the window and found it was snowing. Because たら frames the first clause as completed before the second, it pairs naturally with てください, ましょう, and invitations — something と resists (no request/volition/command/invitation after と) and (often) ば resists when the condition is an action by the same subject.",
   "senses": [
     {
       "label": "When / once (completion + request)",
@@ -43,7 +47,7 @@
     },
     {
       "label": "Past discovery",
-      "body": "Past たら + past result = \"when I did X, I found Y.\" ば / なら / と do not carry this discovery reading.",
+      "body": "Past たら + past result = \"when I did X, I found Y.\" と can also mark past discovery (開けると、雪が降っていた); ば / なら do not.",
       "example_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
       "example_en": "When I opened the window, it was snowing."
     },
@@ -99,16 +103,16 @@
     {
       "other_slug": null,
       "label": "たら vs と",
-      "summary": "と = natural/habitual consequence (present/future only); no request or volition in the main clause. たら allows both and also past discovery.",
-      "ex_a_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
-      "ex_a_en": "When I opened the window, it was snowing (discovery — たら only)",
-      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]く。",
-      "ex_b_en": "When spring comes, the cherries bloom (habitual と)"
+      "summary": "と cannot take a volitional, request, command, or invitation main clause. Both たら and と allow past discovery; と also covers habituals (including past habituals). たら freely allows requests/volitions.",
+      "ex_a_ruby": "[窓|まど]を[閉|し]めたら、エアコンをつけてください。",
+      "ex_a_en": "Once you close the window, please turn on the AC (たら + request)",
+      "ex_b_ruby": "[窓|まど]を[開|あ]けると、[雪|ゆき]が[降|ふ]っていた。",
+      "ex_b_en": "When I opened the window, it was snowing (と · past discovery — also fine)"
     },
     {
       "other_slug": null,
       "label": "Request after arrival",
-      "summary": "Same-subject action + てください: たら is the natural choice; と is out, and action-verb ば is awkward.",
+      "summary": "Same-subject action + てください: たら is natural; と is out because it cannot take a request main clause.",
       "ex_a_ruby": "[家|いえ]に[帰|かえ]ったら、[電話|でんわ]してください。",
       "ex_a_en": "Please call me when you get home (たら)",
       "ex_b_ruby": "[家|いえ]に[帰|かえ]ると、[電話|でんわ]してください。",
@@ -192,26 +196,45 @@
   "checks": [
     {
       "prompt": "窓を閉め（　）、エアコンをつけてください。",
-      "options": ["たら", "ば", "なら", "と"],
-      "answer_idx": 0,
-      "why": "Request after opening → たら. と cannot take a request; same-subject action + てください is awkward with ば; なら is topic-picking, not \"once you open\"."
+      "options": [
+        "ば",
+        "たら",
+        "なら",
+        "と"
+      ],
+      "answer_idx": 1,
+      "why": "Request after closing → たら. と cannot take a request; same-subject action + てください is awkward with ば; なら is topic-picking, not \"once you close\"."
     },
     {
       "prompt": "駅に着い（　）、連絡してください。",
-      "options": ["たら", "ば", "と"],
+      "options": [
+        "たら",
+        "ば",
+        "と"
+      ],
       "answer_idx": 0,
       "why": "Request after arrival → たら. Same-subject action + てください is awkward with ば; と cannot take a request (seed cloze)."
     },
     {
       "prompt": "安かっ（　）、買うつもりだ。",
-      "options": ["たら", "れば", "なら"],
-      "answer_idx": 0,
+      "options": [
+        "れば",
+        "なら",
+        "たら"
+      ],
+      "answer_idx": 2,
       "why": "い-adj past stem 安かっ + たら (seed). 安ければ is ば-form; bare なら needs a different host shape."
     }
   ],
   "related": {
-    "prerequisites": ["た-form (Dojo)", "ない-form (Dojo)"],
-    "next": ["ba-conditional", "nara-conditional"]
+    "prerequisites": [
+      "た-form (Dojo)",
+      "ない-form (Dojo)"
+    ],
+    "next": [
+      "ba-conditional",
+      "nara-conditional"
+    ]
   },
   "lesson_version": 1
 }

@@ -2,7 +2,11 @@
   "meaning": "I heard that… / They say that… (hearsay)",
   "gist": "Full plain form + そうだ / そうです reports secondhand information. Keep the whole plain ending — including だ after nouns/な-adjectives (元プロ選手だそうだ) and the final い on い-adjectives (おいしいそうだ). Often paired with 〜によると. Do not confuse with stem + そうだ \"looks like\".",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (plain)",
@@ -192,26 +196,45 @@
   "checks": [
     {
       "prompt": "I heard that shop's ramen is delicious. Choose the hearsay ending: あの店のラーメンはとても（　）。",
-      "options": ["おいしいそうです", "おいしそうです", "おいしいようです"],
+      "options": [
+        "おいしいそうです",
+        "おいしそうです",
+        "おいしいようです"
+      ],
       "answer_idx": 0,
       "why": "Hearsay keeps full おいしいそうです (seed). おいしそう is appearance; ようだ is evidence-based inference."
     },
     {
-      "prompt": "天気予報によると、明日は雪が降る（　）。（I heard / they say）",
-      "options": ["そうです", "りそうです", "だそうです"],
-      "answer_idx": 0,
-      "why": "Hearsay after plain 降る → そうです (seed). 降りそう is appearance; *降るだそうだ is wrong."
+      "prompt": "天気予報によると、明日は雪が降（　）。（I heard / they say）",
+      "options": [
+        "りそうです",
+        "るそうです",
+        "るだそうです"
+      ],
+      "answer_idx": 1,
+      "why": "Source によると forces hearsay: dictionary 降るそうです (seed). 降りそう is appearance; *降るだそうだ is wrong."
     },
     {
       "prompt": "彼は元プロ選手（　）。（I heard）",
-      "options": ["だそうだ", "そうだ", "のそうだ"],
-      "answer_idx": 0,
+      "options": [
+        "そうだ",
+        "のそうだ",
+        "だそうだ"
+      ],
+      "answer_idx": 2,
       "why": "Noun hearsay needs だ: 選手だそうだ (seed). Bare *選手そうだ is wrong."
     }
   ],
   "related": {
-    "prerequisites": ["plain form (Dojo)", "だ / です"],
-    "next": ["you-da", "kamo-shirenai"]
+    "prerequisites": [
+      "kamo-shirenai",
+      "plain form (Dojo)",
+      "だ / です"
+    ],
+    "next": [
+      "you-da",
+      "hazu-da"
+    ]
   },
   "lesson_version": 1
 }

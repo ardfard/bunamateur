@@ -2,7 +2,11 @@
   "meaning": "even though / despite (unexpected, frustrating result)",
   "gist": "のに after a plain clause marks a real situation whose outcome contradicts expectation — surprise, regret, or frustration. Verb / い-adjective plain + のに; nouns and な-adjectives take な + のに (日曜日なのに). Do not follow のに with a command, request, or volitional; for \"even if, let's…\" use ても.",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (plain)",
@@ -27,7 +31,7 @@
     ],
     "note": "Attach のに to the plain form — never ます/です (*降りますのに). Nouns and な-adjectives need な (日曜日なのに), not だ (*日曜日だのに). い-adjectives take no な (*忙しいなのに)."
   },
-  "explanation": "のに links a known fact to a result that goes against what you expected: 雨が降ったのに、ピクニックに行きました = \"Even though it rained, we went on a picnic.\" The first clause is real (not hypothetical); the second carries surprise, disappointment, or frustration. Nouns and な-adjectives insert な: 日曜日なのに、会社で働かなければなりません. Unlike softer けど / けれど, のに does not lead into invitations or requests — *雨が降っているのに、行きましょう is unnatural; use ても for \"even if / even though, let's…\". A different N3 のに marks purpose (電車に間に合うのに走る \"run in order to catch the train\") — same form, different meaning.",
+  "explanation": "のに links a known fact to a result that goes against what you expected: 雨が降ったのに、ピクニックに行きました = \"Even though it rained, we went on a picnic.\" The first clause is real (not hypothetical); the second carries surprise, disappointment, or frustration. Nouns and な-adjectives insert な: 日曜日なのに、会社で働かなければなりません. Unlike softer けど / けれど, のに does not lead into invitations or requests — *雨が降っているのに、行きましょう is unnatural; use ても for \"even if / even though, let's…\". A different N3 のに marks purpose with evaluative / utility predicates (かかる, 使う, 便利だ, 必要だ, 役に立つ): 駅まで行くのに十分かかります — same form, different meaning. Regular volitional motion verbs like 走る take ために / ように, not purpose のに.",
   "senses": [
     {
       "label": "Despite a real fact (surprise / frustration)",
@@ -99,11 +103,11 @@
     {
       "other_slug": null,
       "label": "Concessive のに vs purpose のに (N3)",
-      "summary": "Same surface form, different grammar. Concessive のに = \"even though.\" Purpose のに (N3) = \"in order to\" (電車に間に合うのに走る).",
+      "summary": "Same surface form, different grammar. Concessive のに = \"even though.\" Purpose のに (N3) = \"in order to / for doing,\" pairing with かかる / 使う / 便利だ / 必要だ / 役に立つ-type predicates — not regular volitional motion verbs like 走る (use ために / ように).",
       "ex_a_ruby": "[薬|くすり]を[飲|の]んだのに、まだ[熱|ねつ]が[下|さ]がらない。",
       "ex_a_en": "Even though I took medicine, my fever still won't go down.",
-      "ex_b_ruby": "[電車|でんしゃ]に[間|ま]に[合|あ]うのに[走|はし]る。",
-      "ex_b_en": "I run in order to catch the train. (purpose のに — N3)"
+      "ex_b_ruby": "[駅|えき]まで[行|い]くのに[十分|じゅっぷん]かかります。",
+      "ex_b_en": "It takes ten minutes to get to the station. (purpose のに — N3)"
     },
     {
       "other_slug": "hazu-da",
@@ -170,7 +174,7 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[昨日|きのう]のピクニック、どうだった？",
+      "ruby": "[昨日|きのう]のピクニックはどうでしたか。",
       "english": "How was yesterday's picnic?"
     },
     {
@@ -180,38 +184,52 @@
     },
     {
       "speaker": "A",
-      "ruby": "え、[寒|さむ]かったでしょう。",
-      "english": "Wow — it must have been cold."
+      "ruby": "[寒|さむ]かったでしょうね。",
+      "english": "It must have been cold."
     },
     {
       "speaker": "B",
-      "ruby": "うん。[傘|かさ]を[持|も]っていったのに、[服|ふく]がぬれてしまった。",
-      "english": "Yeah. Even though I brought an umbrella, my clothes still got wet."
+      "ruby": "はい。[傘|かさ]を[持|も]っていったのに、[服|ふく]がぬれてしまいました。",
+      "english": "Yes. Even though I brought an umbrella, my clothes still got wet."
     }
   ],
   "checks": [
     {
       "prompt": "一生懸命勉強した（　）、試験に落ちた。",
-      "options": ["のに", "から", "ために"],
-      "answer_idx": 0,
+      "options": [
+        "から",
+        "のに",
+        "ために"
+      ],
+      "answer_idx": 1,
       "why": "Frustration at unmet expectation → のに. から / ために would give a reason or purpose reading, not \"even though.\""
     },
     {
       "prompt": "日曜日（　）、仕事をしなければなりません。",
-      "options": ["なのに", "だのに", "のに"],
+      "options": [
+        "なのに",
+        "だのに",
+        "のに"
+      ],
       "answer_idx": 0,
       "why": "Noun + のに needs な (日曜日なのに). *だのに and bare のに after a noun are wrong."
     },
     {
-      "prompt": "雨が降っている（　）、行きましょう。",
-      "options": ["ても", "のに"],
-      "answer_idx": 0,
-      "why": "Invitation / volitional after contrast → ても, not のに (*…のに、行きましょう)."
+      "prompt": "雨が降って（　）、行きましょう。",
+      "options": [
+        "いるのに",
+        "いても"
+      ],
+      "answer_idx": 1,
+      "why": "Invitation after contrast → て + いても (降っていても). *降っているても is ungrammatical; いるのに cannot lead into 行きましょう."
     }
   ],
   "related": {
-    "prerequisites": ["plain form (Dojo)", "な-adjective + な"],
-    "next": ["hazu-da"]
+    "prerequisites": [
+      "plain form (Dojo)",
+      "な-adjective + な"
+    ],
+    "next": []
   },
   "lesson_version": 1
 }

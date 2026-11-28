@@ -2,7 +2,11 @@
   "meaning": "it seems / appears that · (simile) like / as if",
   "gist": "Plain clause + ようだ / ようです marks inference from evidence or a sensory impression — \"it seems…\". Nouns take の (雨のようだ); な-adjectives take な (静かなようだ). Also forms similes: 〜のように / 〜のようだ. Casual near-equivalent: みたいだ.",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (plain)",
@@ -170,48 +174,67 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[外|そと]、どう？ [雨|あめ]？",
-      "english": "How's it outside? Rain?"
+      "ruby": "[外|そと]、どうですか。[雨|あめ]ですか。",
+      "english": "How's it outside? Is it raining?"
     },
     {
       "speaker": "B",
-      "ruby": "うん、[降|ふ]っているようです。[傘|かさ]が[濡|ぬ]れてるし。",
-      "english": "Yeah, it seems to be raining — the umbrellas are wet."
+      "ruby": "はい、[降|ふ]っているようです。[傘|かさ]が[濡|ぬ]れています。",
+      "english": "Yes, it seems to be raining — the umbrellas are wet."
     },
     {
       "speaker": "A",
-      "ruby": "[田中|たなか]さんは？",
+      "ruby": "[田中|たなか]さんはどうですか。",
       "english": "What about Tanaka?"
     },
     {
       "speaker": "B",
-      "ruby": "[風邪|かぜ]をひいたようですよ。[声|こえ]がおかしかったから。",
+      "ruby": "[風邪|かぜ]をひいたようです。[声|こえ]がおかしかったからです。",
       "english": "It seems he caught a cold — his voice sounded off."
     }
   ],
   "checks": [
     {
       "prompt": "外は雨が降っている（　）。（evidence: wet umbrellas）",
-      "options": ["ようです", "そうです", "のようです"],
-      "answer_idx": 0,
+      "options": [
+        "そうです",
+        "のようです",
+        "ようです"
+      ],
+      "answer_idx": 2,
       "why": "Evidence-based inference → ようです (seed cloze). そうです is hearsay; *降っているのようです wrongly inserts の after a verb."
     },
     {
       "prompt": "今日は春の（　）に暖かいですね。",
-      "options": ["よう", "そう", "かも"],
+      "options": [
+        "よう",
+        "そう",
+        "かも"
+      ],
       "answer_idx": 0,
       "why": "Simile Noun + のように → よう (seed: 春のように)."
     },
     {
       "prompt": "これは彼の傘（　）。",
-      "options": ["のようだ", "ようだ", "だようだ"],
-      "answer_idx": 0,
+      "options": [
+        "ようだ",
+        "のようだ",
+        "だようだ"
+      ],
+      "answer_idx": 1,
       "why": "Noun + の + ようだ (seed). Missing の (*傘ようだ) is wrong."
     }
   ],
   "related": {
-    "prerequisites": ["plain form (Dojo)", "の (noun linker)"],
-    "next": ["sou-da-hearsay", "kamo-shirenai"]
+    "prerequisites": [
+      "sou-da-hearsay",
+      "kamo-shirenai",
+      "plain form (Dojo)",
+      "の (noun linker)"
+    ],
+    "next": [
+      "hazu-da"
+    ]
   },
   "lesson_version": 1
 }

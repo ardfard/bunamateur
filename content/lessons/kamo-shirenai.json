@@ -2,7 +2,11 @@
   "meaning": "might / maybe / possibly (~50% certainty)",
   "gist": "Plain clause + かもしれない / かもしれません marks ~50% possibility — \"it might be that…\". Nouns and な-adjectives drop だ (学生かもしれない, not *学生だかもしれない). Casual speech often shortens to かも.",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (plain)",
@@ -67,9 +71,9 @@
       "why": "Attach to the plain form (降る), not the ます-form (*降りますかもしれない)."
     },
     {
-      "wrong_ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るのもしれません。",
-      "right_ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかもしれません。",
-      "why": "No の between the plain clause and かもしれない (*降るのもしれない)."
+      "wrong_ruby": "ここは[静|しず]かなかもしれない。",
+      "right_ruby": "ここは[静|しず]かかもしれない。",
+      "why": "な-adjectives take NO な before かもしれない — 静かかもしれない, not *静かなかもしれない. (Explanatory のかもしれない after a clause is fine and different.)"
     },
     {
       "wrong_ruby": "[彼|かれ]はもう[駅|えき]に[着|つ]いているはずです。（Meaning \"He might already be at the station.\"）",
@@ -170,48 +174,67 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るかな。",
-      "english": "I wonder if it'll rain from this afternoon."
+      "ruby": "[午後|ごご]から[雨|あめ]が[降|ふ]るでしょうか。",
+      "english": "Do you think it will rain from this afternoon?"
     },
     {
       "speaker": "B",
-      "ruby": "うん、[降|ふ]るかもしれませんね。",
-      "english": "Yeah, it might rain."
+      "ruby": "ええ、[降|ふ]るかもしれませんね。",
+      "english": "Yes, it might rain."
     },
     {
       "speaker": "A",
-      "ruby": "[傘|かさ]を[持|も]っていったほうがいい？",
+      "ruby": "[傘|かさ]を[持|も]っていったほうがいいですか。",
       "english": "Should I take an umbrella?"
     },
     {
       "speaker": "B",
-      "ruby": "そうだね。[降|ふ]るかも。",
-      "english": "Yeah. It might rain."
+      "ruby": "そうですね。[降|ふ]るかもしれません。",
+      "english": "Yes — it might rain."
     }
   ],
   "checks": [
     {
       "prompt": "午後から雨が降る（　）。",
-      "options": ["かもしれません", "だかもしれません", "ますかもしれません"],
-      "answer_idx": 0,
+      "options": [
+        "だかもしれません",
+        "かもしれません",
+        "ますかもしれません"
+      ],
+      "answer_idx": 1,
       "why": "Plain verb + かもしれません (seed cloze). No だ and not the ます-form."
     },
     {
       "prompt": "その話は本当（　）。",
-      "options": ["かもしれません", "だかもしれません", "なかもしれません"],
-      "answer_idx": 0,
+      "options": [
+        "だかもしれません",
+        "なかもしれません",
+        "かもしれません"
+      ],
+      "answer_idx": 2,
       "why": "Noun + かもしれない — no だ (本当かもしれません)."
     },
     {
       "prompt": "彼は今日来ない（　）。（casual · might not）",
-      "options": ["かもしれない", "だかもしれない", "ますかもしれない"],
+      "options": [
+        "かもしれない",
+        "だかもしれない",
+        "ますかもしれない"
+      ],
       "answer_idx": 0,
       "why": "Plain negative + かもしれない (seed). No だ after a verb, and not the ます-form."
     }
   ],
   "related": {
-    "prerequisites": ["plain form (Dojo)", "い-adjectives / な-adjectives"],
-    "next": ["hazu-da", "sou-da-hearsay", "you-da"]
+    "prerequisites": [
+      "plain form (Dojo)",
+      "い-adjectives / な-adjectives"
+    ],
+    "next": [
+      "sou-da-hearsay",
+      "you-da",
+      "hazu-da"
+    ]
   },
   "lesson_version": 1
 }

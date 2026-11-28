@@ -2,7 +2,11 @@
   "meaning": "if (hypothetical / general condition) · 〜ばいい (advice) · 〜ばよかった (regret)",
   "gist": "ば highlights the condition itself — \"provided that X, then Y.\" Core uses: general truths, advice (〜ばいい), and regret (〜ばよかった). Verb え-stem + ば; い-adj 〜ければ; N/な often なら(ば).",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (う / る / する / くる)",
@@ -81,7 +85,7 @@
     {
       "other_slug": "tara-conditional",
       "label": "ば vs たら",
-      "summary": "ば = condition-focused / general; たら = completion, discovery, and free requests after an event.",
+      "summary": "ば = condition-focused / general; たら = completion and free requests after an event (discovery is shared with と).",
       "ex_a_ruby": "もっと[早|はや]く[出発|しゅっぱつ]すればよかった。",
       "ex_a_en": "I wish I had left earlier (ばよかった regret)",
       "ex_b_ruby": "[窓|まど]を[開|あ]けたら、[雪|ゆき]が[降|ふ]っていた。",
@@ -99,11 +103,11 @@
     {
       "other_slug": null,
       "label": "ば vs と",
-      "summary": "と = natural/habitual consequence, present/future only, no volitional/request main clause. ば can express advice and regret patterns と cannot.",
+      "summary": "と cannot take a volitional, request, command, or invitation main clause. と allows habituals (including past) and past discovery. ば can express advice and regret patterns と cannot.",
       "ex_a_ruby": "[春|はる]になれば、[桜|さくら]が[咲|さ]きます。",
       "ex_a_en": "When spring comes, cherry blossoms bloom (ば · general)",
-      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]く。",
-      "ex_b_en": "When spring comes, the cherries bloom (と · habitual/natural)"
+      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]いた。",
+      "ex_b_en": "When spring came, the cherries bloomed (と · past habitual)"
     },
     {
       "other_slug": null,
@@ -192,26 +196,43 @@
   "checks": [
     {
       "prompt": "もっと早く出発す（　）よかった。",
-      "options": ["れば", "たら", "なら"],
+      "options": [
+        "れば",
+        "たら",
+        "なら"
+      ],
       "answer_idx": 0,
-      "why": "Regret pattern is 〜ばよかった (すればよかった) — seed cloze. Not たらよかった / ならよかった here."
+      "why": "Regret pattern with this cloze stem: す + れば → すればよかった (seed). Colloquial 出発したらよかった is also fine in other shapes; here the stem す needs れば."
     },
     {
       "prompt": "毎日練習す（　）、上手になります。",
-      "options": ["れば", "たら", "と"],
-      "answer_idx": 0,
+      "options": [
+        "たら",
+        "と",
+        "れば"
+      ],
+      "answer_idx": 2,
       "why": "General \"if you practice…\" with する → すれば (seed). The cloze stem す needs れば."
     },
     {
       "prompt": "安ければ買いましょう。 — Is this unnatural because of ば + ましょう?",
-      "options": ["Natural (stative ば + invitation is fine)", "Wrong — must use たら"],
-      "answer_idx": 0,
+      "options": [
+        "Wrong — must use たら",
+        "Natural (stative ば + invitation is fine)"
+      ],
+      "answer_idx": 1,
       "why": "The restriction targets same-subject action verbs, not stative adjectives. 安ければ買いましょう is fine."
     }
   ],
   "related": {
-    "prerequisites": ["dictionary form (Dojo)", "ない-form (Dojo)"],
-    "next": ["tara-conditional", "nara-conditional", "hou-ga-ii"]
+    "prerequisites": [
+      "tara-conditional",
+      "dictionary form (Dojo)",
+      "ない-form (Dojo)"
+    ],
+    "next": [
+      "nara-conditional"
+    ]
   },
   "lesson_version": 1
 }

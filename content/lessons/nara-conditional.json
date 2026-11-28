@@ -2,7 +2,11 @@
   "meaning": "if that's the case / if it is… / speaking of… (contextual conditional)",
   "gist": "なら picks up a topic or assumption from the conversation — \"if that's what you mean / if you're going to…\". Nouns attach without だ. Advice after なら often happens before the planned action (time can reverse).",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Noun",
@@ -94,11 +98,11 @@
     {
       "other_slug": null,
       "label": "なら vs と",
-      "summary": "と = natural/habitual consequence (present/future only), no request/volition in the main clause. なら is contextual advice/topic, not a law-like consequence.",
+      "summary": "と cannot take a volitional, request, command, or invitation main clause; it marks automatic/habitual results (including past habituals and past discovery). なら is contextual advice/topic, not a law-like consequence.",
       "ex_a_ruby": "[週末|しゅうまつ]なら、[時間|じかん]があります。",
       "ex_a_en": "If it's the weekend, I have time (なら · topic)",
-      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]く。",
-      "ex_b_en": "When spring comes, the cherries bloom (と · habitual/natural)"
+      "ex_b_ruby": "[春|はる]になると、[桜|さくら]が[咲|さ]いた。",
+      "ex_b_en": "When spring came, the cherries bloomed (と · past habitual)"
     },
     {
       "other_slug": null,
@@ -180,33 +184,51 @@
     },
     {
       "speaker": "B",
-      "ruby": "[京都|きょうと]なら、[寺|てら]がたくさんあるよ。",
+      "ruby": "[京都|きょうと]なら、お[寺|てら]がたくさんあるよ。",
       "english": "If it's Kyoto, there are lots of temples."
     }
   ],
   "checks": [
     {
       "prompt": "日本へ行く（　）、JRパスを買ったほうがいい。",
-      "options": ["なら", "たら", "ば", "と"],
-      "answer_idx": 0,
+      "options": [
+        "たら",
+        "ば",
+        "なら",
+        "と"
+      ],
+      "answer_idx": 2,
       "why": "Prep advice before the trip (time-reversed) → なら. 行ったら would mean after going; ば/と don't fit this contextual advice."
     },
     {
       "prompt": "寿司（　）、駅の前の店がおいしいよ。",
-      "options": ["なら", "だなら", "だば"],
-      "answer_idx": 0,
+      "options": [
+        "だなら",
+        "なら",
+        "だば"
+      ],
+      "answer_idx": 1,
       "why": "Noun topic-picking → bare なら (seed cloze). *だなら and *だば are ungrammatical."
     },
     {
       "prompt": "もう食べた（　）、片付けてね。",
-      "options": ["なら", "と", "ば"],
+      "options": [
+        "なら",
+        "と",
+        "ば"
+      ],
       "answer_idx": 0,
       "why": "Reacting to an assumed past fact → なら / のなら (seed). と cannot take a request; bare ば doesn't fit this topic-reaction."
     }
   ],
   "related": {
-    "prerequisites": ["dictionary form (Dojo)", "plain forms"],
-    "next": ["tara-conditional", "ba-conditional", "hou-ga-ii"]
+    "prerequisites": [
+      "tara-conditional",
+      "ba-conditional",
+      "dictionary form (Dojo)",
+      "plain forms"
+    ],
+    "next": []
   },
   "lesson_version": 1
 }

@@ -2,7 +2,11 @@
   "meaning": "should be / is expected to be (logical deduction) · (はずがない) there's no way · (はずだった) was supposed to",
   "gist": "はずだ after a plain clause marks a strong logical expectation based on facts, schedules, or prior knowledge — not moral \"you should.\" Verb / い-adjective plain + はずだ; な-adjective + な + はずだ; noun + の + はずだ. はずがない = \"there's no way\"; ないはずだ = \"I expect it isn't.\" Past はずだった often means an expectation that failed.",
   "formation": {
-    "columns": ["Host", "Pattern", "Example"],
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
     "rows": [
       [
         "Verb (plain)",
@@ -84,7 +88,7 @@
     {
       "wrong_ruby": "[彼|かれ]は[来|こ]ないはずがない。",
       "right_ruby": "[彼|かれ]は[来|こ]ないはずだ。",
-      "why": "(Meaning \"He shouldn't be coming / I expect he won't come.\") ないはずだ = expect not; はずがない = \"there's no way (he comes)\" — opposite force. For \"I expect he won't,\" use 来ないはずだ."
+      "why": "(Meaning \"He shouldn't be coming / I expect he won't come.\") 来ないはずだ = \"I expect he won't come.\" 来ないはずがない is a double negative — \"there's no way he won't come\" = he's definitely coming. Different meaning."
     }
   ],
   "contrasts": [
@@ -189,8 +193,8 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[彼|かれ]、まだ[来|き]てないね。",
-      "english": "He's still not here, huh."
+      "ruby": "[彼|かれ]はまだ[来|き]ていませんね。",
+      "english": "He's still not here, is he."
     },
     {
       "speaker": "B",
@@ -199,38 +203,57 @@
     },
     {
       "speaker": "A",
-      "ruby": "[約束|やくそく]したのに、おかしいね。",
-      "english": "Weird — even though he promised."
+      "ruby": "[約束|やくそく]したのに、おかしいですね。",
+      "english": "Strange — even though he promised."
     },
     {
       "speaker": "B",
-      "ruby": "うん。[遅|おく]れるはずがないと[思|おも]うんだけど…。",
-      "english": "Yeah. There's no way he should be late, I think…"
+      "ruby": "ええ。[遅|おく]れるはずがないと[思|おも]うんですが…。",
+      "english": "Yes. I don't think there's any way he'd be late…"
     }
   ],
   "checks": [
     {
       "prompt": "彼はもう駅に着いている（　）。（時刻表から考えて）",
-      "options": ["はずです", "べきです", "ほうがいいです"],
+      "options": [
+        "はずです",
+        "べきです",
+        "ほうがいいです"
+      ],
       "answer_idx": 0,
       "why": "Logical expectation from the timetable → はずです (seed cloze). べき / ほうがいい are advice, not schedule-based expectation."
     },
     {
       "prompt": "彼は学生（　）。",
-      "options": ["のはずだ", "はずだ", "なはずだ"],
-      "answer_idx": 0,
+      "options": [
+        "はずだ",
+        "なはずだ",
+        "のはずだ"
+      ],
+      "answer_idx": 2,
       "why": "Noun + はずだ needs の (学生のはずだ). Bare はずだ and なはずだ are wrong for nouns."
     },
     {
-      "prompt": "彼は天才だから、そんな簡単な問題を間違える（　）。",
-      "options": ["はずがありません", "ないはずです", "はずではありませんから"],
-      "answer_idx": 0,
-      "why": "\"There's no way…\" (expectation from \"he's a genius\") → はずがない / はずがありません. ないはずです means \"I expect it isn't\"; *はずではありませんから is a broken form."
+      "prompt": "彼は天才だから、そんな簡単な問題を（　）。",
+      "options": [
+        "間違えるはずです",
+        "間違えるはずがあります",
+        "間違えないはずです"
+      ],
+      "answer_idx": 2,
+      "why": "Genius context → expect he will NOT get it wrong: 間違えないはずです (ないはずだ). Affirmative 間違えるはずです claims the opposite; *間違えるはずがあります is not a standard はず pattern."
     }
   ],
   "related": {
-    "prerequisites": ["plain form (Dojo)", "の (noun modifier)"],
-    "next": ["kamo-shirenai", "beki-da", "ni-chigainai"]
+    "prerequisites": [
+      "kamo-shirenai",
+      "plain form (Dojo)",
+      "の (noun modifier)"
+    ],
+    "next": [
+      "beki-da",
+      "ni-chigainai"
+    ]
   },
   "lesson_version": 1
 }
