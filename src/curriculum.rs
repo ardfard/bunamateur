@@ -364,16 +364,16 @@ mod tests {
         assert_eq!(order.len(), 216);
 
         let seeded = seeded_from_catalog();
-        assert_eq!(seeded.len(), 62);
+        assert_eq!(seeded.len(), 70);
 
         validate_curriculum(&curriculum, &seeded).unwrap_or_else(|errs| {
             panic!("real curriculum should pass validation:\n{}", errs.join("\n"));
         });
 
         let existing = curriculum.existing_points();
-        assert_eq!(existing.len(), 56);
+        assert_eq!(existing.len(), 64);
         assert_eq!(curriculum.sketch_existing_slugs().len(), 6);
-        assert_eq!(existing.len() + curriculum.sketch_existing_slugs().len(), 62);
+        assert_eq!(existing.len() + curriculum.sketch_existing_slugs().len(), 70);
     }
 
     #[test]

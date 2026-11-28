@@ -111,7 +111,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     assert_eq!(passage_count as usize, SEED_PASSAGES.len());
     assert_eq!(conj_count as usize, SEED_CONJUGATIONS.len());
 
-    // Curriculum units + placement contract (56 placed existing, 6 sketch unplaced).
+    // Curriculum units + placement contract (64 placed existing, 6 sketch unplaced).
     let units_count: i64 = sqlx::query_scalar("SELECT COUNT(*) FROM units")
         .fetch_one(&pool)
         .await
@@ -122,7 +122,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
             .fetch_one(&pool)
             .await
             .unwrap();
-    assert_eq!(placed_count, 56);
+    assert_eq!(placed_count, 64);
     let unplaced_count: i64 =
         sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE unit_id IS NULL")
             .fetch_one(&pool)
@@ -177,7 +177,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
             .fetch_one(&pool)
             .await
             .unwrap();
-    assert_eq!(lesson_count, 27);
+    assert_eq!(lesson_count, 35);
     let te_iru_gist: Option<String> = sqlx::query_scalar(
         "SELECT lesson->>'gist' FROM grammar_points WHERE slug = 'te-iru'",
     )
