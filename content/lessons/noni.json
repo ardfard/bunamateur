@@ -191,10 +191,10 @@
   ],
   "checks": [
     {
-      "prompt": "雨が降った（　）、ピクニックに行きました。",
-      "options": ["のに", "ても", "から"],
+      "prompt": "一生懸命勉強した（　）、試験に落ちた。",
+      "options": ["のに", "から", "ために"],
       "answer_idx": 0,
-      "why": "Real past fact + unexpected result → concessive のに (seed cloze). ても is \"even if\"; から is \"because.\""
+      "why": "Frustration at unmet expectation → のに. から / ために would give a reason or purpose reading, not \"even though.\""
     },
     {
       "prompt": "日曜日（　）、仕事をしなければなりません。",

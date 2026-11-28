@@ -222,10 +222,10 @@
       "why": "Noun + はずだ needs の (学生のはずだ). Bare はずだ and なはずだ are wrong for nouns."
     },
     {
-      "prompt": "そんな簡単な問題を間違える（　）。",
-      "options": ["はずがありません", "ないはずです", "べきではありません"],
+      "prompt": "彼は天才だから、そんな簡単な問題を間違える（　）。",
+      "options": ["はずがありません", "ないはずです", "はずではありませんから"],
       "answer_idx": 0,
-      "why": "\"There's no way…\" → はずがない / はずがありません. ないはずです means \"I expect it isn't\"; べきではありません is moral \"mustn't.\""
+      "why": "\"There's no way…\" (expectation from \"he's a genius\") → はずがない / はずがありません. ないはずです means \"I expect it isn't\"; *はずではありませんから is a broken form."
     }
   ],
   "related": {

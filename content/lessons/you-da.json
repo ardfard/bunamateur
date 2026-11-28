@@ -192,9 +192,9 @@
   "checks": [
     {
       "prompt": "外は雨が降っている（　）。（evidence: wet umbrellas）",
-      "options": ["ようです", "そうです", "かもしれません"],
+      "options": ["ようです", "そうです", "のようです"],
       "answer_idx": 0,
-      "why": "Evidence-based inference → ようです (seed cloze). そうです is hearsay; かもしれません is mere possibility."
+      "why": "Evidence-based inference → ようです (seed cloze). そうです is hearsay; *降っているのようです wrongly inserts の after a verb."
     },
     {
       "prompt": "今日は春の（　）に暖かいですね。",

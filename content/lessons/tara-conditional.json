@@ -191,10 +191,10 @@
   ],
   "checks": [
     {
-      "prompt": "窓を開け（　）、雪が降っていた。",
+      "prompt": "窓を開け（　）、エアコンをつけてください。",
       "options": ["たら", "ば", "なら", "と"],
       "answer_idx": 0,
-      "why": "Past discovery (opened → found snow) only works with たら among these conditionals (seed cloze)."
+      "why": "Request after opening → たら. と cannot take a request; same-subject action + てください is awkward with ば; なら is topic-picking, not \"once you open\"."
     },
     {
       "prompt": "駅に着い（　）、連絡してください。",

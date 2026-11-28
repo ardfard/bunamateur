@@ -54,7 +54,7 @@
       "example_en": "If you don't want to go, you don't have to force yourself."
     }
   ],
-  "register_context": "なら is everyday in advice and topic-picking replies. のなら can sound a bit more explanatory or soft. Casual noun なら is very common (寿司なら…). For \"call me when you arrive,\" use たら, not なら.",
+  "register_context": "なら is everyday in advice and topic-picking replies. のなら can sound a bit more explanatory or soft. Casual noun なら is very common (寿司なら…). だったら can also pick up a topic in colloquial speech (寿司だったら…); なら is the standard topic-picking form and だったら is a casual alternative. For \"call me when you arrive,\" use たら, not なら.",
   "mistakes": [
     {
       "wrong_ruby": "[雨|あめ]だなら、ピクニックは[中止|ちゅうし]です。",
@@ -65,11 +65,6 @@
       "wrong_ruby": "[日本|にほん]へ[行|い]きますなら、[京都|きょうと]がおすすめです。",
       "right_ruby": "[日本|にほん]へ[行|い]くなら、[京都|きょうと]がおすすめです。",
       "why": "なら follows the plain form (行くなら), never ます (*行きますなら)."
-    },
-    {
-      "wrong_ruby": "[寿司|すし]だったら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
-      "right_ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
-      "why": "(Meaning \"If it's sushi you want…\") Topic-picking noun replies take なら, not だったら — だったら is the たら noun pattern for \"if it turns out to be…\"."
     },
     {
       "wrong_ruby": "[日本|にほん]へ[行|い]ったら、JRパスを[買|か]ったほうがいい。",
@@ -108,11 +103,11 @@
     {
       "other_slug": null,
       "label": "Noun なら vs だったら",
-      "summary": "Topic \"if it's X\" → Nなら. Hypothetical \"if it turns out to be X\" → Nだったら (たら pattern).",
-      "ex_a_ruby": "[週末|しゅうまつ]なら、[時間|じかん]があります。",
-      "ex_a_en": "If it's the weekend (topic なら)",
-      "ex_b_ruby": "[雨|あめ]だったら、ピクニックは[中止|ちゅうし]にしよう。",
-      "ex_b_en": "If it rains / turns out rainy (だったら)"
+      "summary": "なら is the standard topic-picking form. だったら (たら pattern) is a natural casual alternative for the same topic-picking job, and also covers \"if it turns out to be…\".",
+      "ex_a_ruby": "[寿司|すし]なら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "ex_a_en": "If it's sushi (standard topic なら)",
+      "ex_b_ruby": "[寿司|すし]だったら、[駅|えき]の[前|まえ]の[店|みせ]がおいしいよ。",
+      "ex_b_en": "If it's sushi (casual topic だったら — also fine)"
     }
   ],
   "examples": [
@@ -198,9 +193,9 @@
     },
     {
       "prompt": "寿司（　）、駅の前の店がおいしいよ。",
-      "options": ["なら", "だなら", "だったら"],
+      "options": ["なら", "だなら", "だば"],
       "answer_idx": 0,
-      "why": "Noun topic-picking → bare なら (seed cloze). *だなら is ungrammatical; だったら is the たら noun pattern, not this topic reply."
+      "why": "Noun topic-picking → bare なら (seed cloze). *だなら and *だば are ungrammatical."
     },
     {
       "prompt": "もう食べた（　）、片付けてね。",
