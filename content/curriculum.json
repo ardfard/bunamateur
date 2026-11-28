@@ -367,7 +367,7 @@
         {
           "slug": "contrast-ni-he",
           "title": "に vs へ (both fine for movement; where only に works)",
-          "summary": "に and へ both mark destination for movement; only に marks existence, time, or purpose: 学校に行きます / 学校へ行きます。",
+          "summary": "に and へ both mark destination for movement; only に works for time (and existence/purpose): 学校に行きます / 学校へ行きます / 七時に起きます（×七時へ）。",
           "prerequisites": [
             "ni-destination",
             "he-direction"
@@ -1460,7 +1460,7 @@
         {
           "slug": "contrast-giving",
           "title": "あげる vs くれる vs もらう (viewpoint)",
-          "summary": "あげる gives outward from my side; くれる gives toward me; もらう means I receive: 私が友達に本をあげます / 友達が私に本をくれます / 私が友達に本をもらいます。",
+          "summary": "あげる gives outward from my side; くれる gives toward me; もらう means I receive: 私は友達に本をあげます / 友達が私に本をくれます / 私は友達に本をもらいます。",
           "prerequisites": [
             "ageru-kureru-morau",
             "te-ageru-morau",
@@ -2080,7 +2080,7 @@
         {
           "slug": "contrast-just-did",
           "title": "たところ vs たばかり",
-          "summary": "たところ is just completed (immediate); たばかり is just/recently (looser): 今着いたところです / 今着いたばかりです。",
+          "summary": "たところ is the moment right after; たばかり is recently from the speaker's view and can stretch to weeks: 今着いたところです / 先週日本に来たばかりです（×先週来たところです）。",
           "prerequisites": [
             "tokoro-da",
             "ta-bakari"
@@ -2371,7 +2371,7 @@
         {
           "slug": "contrast-rareru",
           "title": "られる as potential, passive or honorific",
-          "summary": "The same られる shape is potential, passive, or honorific by context: この本が読めます / 先生に呼ばれました / 先生はもう来られました。",
+          "summary": "The same られる shape is potential, passive, or honorific by context: 私は刺身が食べられます / ケーキを弟に食べられました / 先生はもう食べられました。",
           "prerequisites": [
             "potential",
             "passive",
@@ -3010,7 +3010,7 @@
         {
           "slug": "contrast-wake",
           "title": "わけだ / わけではない / わけがない / わけにはいかない",
-          "summary": "わけだ means that's why; わけではない means it doesn't mean; わけがない means no way; わけにはいかない means can't very well: 疲れていたわけです / 行きたくないわけではありません / 彼がうそをつくわけがありません / 今帰るわけにはいきません。",
+          "summary": "わけだ means that's why; わけではない means it doesn't mean; わけがない means no way; わけにはいかない means can't very well: 三時間しか寝ていないなら、眠いわけです / 行きたくないわけではありません / 彼がうそをつくわけがありません / 今帰るわけにはいきません。",
           "prerequisites": [
             "wake-da",
             "wake-dewa-nai",
