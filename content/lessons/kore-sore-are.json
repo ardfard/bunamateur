@@ -1,6 +1,6 @@
 {
   "meaning": "this one / that one (near you) / that one over there / which one",
-  "gist": "これ・それ・あれ pick a thing by whose territory it is in (or by distance). They stand alone as pronouns — これは本です — not これ本. どれ asks \"which one?\" Soft polite cousins こちら / どちら appear only as a short note.",
+  "gist": "これ・それ・あれ pick a thing by whose territory it is in (or by distance). They stand alone as pronouns — これは本です — not これ本. どれ asks \"which one?\" Soft polite cousins こちら / どちら show up in service talk.",
   "formation": {
     "columns": ["Word", "Territory model", "Distance model", "Example"],
     "rows": [
@@ -14,7 +14,7 @@
         "それ",
         "near the listener",
         "a little away (by you)",
-        "それは[傘|かさ]ですか。"
+        "それはだれの[傘|かさ]ですか。"
       ],
       [
         "あれ",
@@ -29,9 +29,9 @@
         "どれですか。 / [私|わたし]の[鞄|かばん]はどれですか。"
       ]
     ],
-    "note": "これ / それ / あれ / どれ are pronouns: they replace a noun. To modify a noun (this book), you need この / その / あの — taught next. Soft/polite note only: こちら ≈ this way / this one; どちら ≈ which (one/way)."
+    "note": "これ / それ / あれ / どれ are pronouns: they replace a noun. To modify a noun (this book), you need この / その / あの — taught next. Soft/polite: こちら ≈ this way / this one; どちら ≈ which (one/way)."
   },
-  "explanation": "Japanese pointing words track speaker and listener, not only meters on the floor. Territory model: これ is in the speaker's space (in your hand, at your desk); それ is in the listener's space (what they are holding or just mentioned); あれ is outside both spaces (across the room, that building over there). Distance model is the same three-way split taught as near / mid / far when territory is unclear. どれ asks which one among options: どれですか / 私の鞄はどれですか. Keep the copula in polite classroom speech: これは本です. Soft polite cousins こちら and どちら appear in service talk — treat them as a brief note, not a new system yet.",
+  "explanation": "Japanese pointing words track speaker and listener, not only meters on the floor. Territory model: これ is in the speaker's space (in your hand, at your desk); それ is in the listener's space (what they are holding or just mentioned); あれ is outside both spaces (across the room, that building over there). Distance model is the same three-way split taught as near / mid / far when territory is unclear. どれ asks which one among options: どれですか / 私の鞄はどれですか. Keep the copula in polite classroom speech: これは本です. Soft polite cousins こちら and どちら appear in service talk.",
   "senses": [
     {
       "label": "これ — near the speaker",
@@ -53,12 +53,12 @@
     },
     {
       "label": "どれ — which one",
-      "body": "Question word for choosing among things. Soft polite cousin (note only): どちらですか.",
+      "body": "Question word for choosing among things. Soft polite cousin: どちらですか.",
       "example_ruby": "[私|わたし]の[鞄|かばん]はどれですか。",
       "example_en": "Which one is my bag?"
     }
   ],
-  "register_context": "Classroom default: これ／それ／あれ＋です. Casual plain: これだ / それだ. Soft/polite service style often prefers こちら／そちら／あちら and どちら over bare これ／どれ — learn those as a short note for now. Negatives from earlier Unit 1 still attach normally: これは鞄じゃないです / あれは駅ではありません.",
+  "register_context": "Classroom default: これ／それ／あれ＋です. Plain form: これだ / それだ. Soft/polite service style often prefers こちら／そちら／あちら and どちら over bare これ／どれ. Negatives from earlier Unit 1 still attach normally: これは鞄じゃないです / あれは駅ではありません.",
   "mistakes": [
     {
       "wrong_ruby": "これ[本|ほん]です。",
@@ -66,9 +66,9 @@
       "why": "これ cannot sit directly before a noun. Standalone pronoun: これは本です. Before a noun you need この本 (taught in この・その・あの)."
     },
     {
-      "wrong_ruby": "それは[本|ほん]です。",
+      "wrong_ruby": "(Meaning: you are holding the book) それは[本|ほん]です。",
       "right_ruby": "これは[本|ほん]です。",
-      "why": "(You are holding the book.) Near the speaker → これ, not それ. English context decides the swap: if it is in your hands, use これ."
+      "why": "Near the speaker → これ, not それ. If it is in your hands, use これ."
     },
     {
       "wrong_ruby": "どれは[私|わたし]の[鞄|かばん]ですか。",
@@ -187,10 +187,10 @@
       "why": "In the speaker's hands → これ (territory near speaker)."
     },
     {
-      "prompt": "(Pointing at the listener's umbrella.) （　）は傘ですか。",
+      "prompt": "(Pointing at the listener's umbrella.) （　）はだれの傘ですか。",
       "options": ["これ", "それ", "どれ"],
       "answer_idx": 1,
-      "why": "Near the listener → それ."
+      "why": "Near the listener → それ. Asking whose is natural when the object is obvious."
     },
     {
       "prompt": "(The station is far from both of you.) （　）は駅です。",

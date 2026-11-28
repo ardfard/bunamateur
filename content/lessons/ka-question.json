@@ -1,6 +1,6 @@
 {
   "meaning": "question particle か · yes/no questions · 何・だれ・どこ・いつ · はい / いいえ",
-  "gist": "Add か after です to ask: [学生|がくせい]ですか。 Question words sit in the answer's slot — [何|なん]ですか, だれですか, どこですか, いつですか — not before は as a new topic. Answer yes/no with はい / いいえ. Read [何|なん] before です/だ (and で・と・の・に); often [何|なに] before other sounds. Plain questions usually drop both だ and か and rise in pitch: [学生|がくせい]？ (×学生だか; bare か can sound blunt).",
+  "gist": "Add か after です to ask: [学生|がくせい]ですか。 Question words sit in the answer's slot — [何|なん]ですか, だれですか, どこですか, いつですか — not before は as a new topic. Answer yes/no with はい / いいえ. Read [何|なん] before です/だ (and で・と・の); often [何|なに] before other sounds. Plain questions usually drop both だ and か and rise in pitch: [学生|がくせい]？ (×学生だか; bare か can sound blunt).",
   "formation": {
     "columns": ["Type", "Pattern", "Example"],
     "rows": [
@@ -37,7 +37,7 @@
     ],
     "note": "[何|なん] before です/だ (なんです). Often [何|なに] before other sounds (casual なに？). Plain questions usually drop だ and か — rising 学生？; bare か can sound blunt. Do not keep か when answering."
   },
-  "explanation": "か turns a polite statement into a question. Polite default: keep です and add か — 学生ですか。 For content questions, put 何・だれ・どこ・いつ where the answer noun would go: 名前は何ですか (not ×何は名前ですか). Yes/no replies use はい or いいえ; after いいえ, you can offer the real noun (いいえ、先生です) — negatives like じゃないです come later. Reading of 何: なん before です/だ (and before で・と・の・に); often なに elsewhere, including a bare casual なに？ In plain style, questions usually drop both だ and か and rise in pitch — 学生？ — never ×学生だか. Bare か after a plain noun (学生か) can sound blunt or abrupt.",
+  "explanation": "か turns a polite statement into a question. Polite default: keep です and add か — 学生ですか。 For content questions, put 何・だれ・どこ・いつ where the answer noun would go: 名前は何ですか (not ×何は名前ですか). Yes/no replies use はい or いいえ; after いいえ, you can offer the real noun (いいえ、先生です) — negatives like じゃないです come later. Reading of 何: なん before です/だ (and before で・と・の); often なに elsewhere, including a bare casual なに？ In plain style, questions usually drop both だ and か and rise in pitch — 学生？ — never ×学生だか. Bare か after a plain noun (学生か) can sound blunt or abrupt.",
   "senses": [
     {
       "label": "Yes / no with か",
@@ -64,7 +64,7 @@
       "example_en": "What is (your) name?"
     }
   ],
-  "register_context": "Default polite: Nですか / [何|なん]ですか. Plain/casual among friends: drop だ and usually か — rising 学生？ / なに？ Bare か can sound blunt. Never ×学生だか. Teach です questions first.",
+  "register_context": "Default polite: Nですか / [何|なん]ですか. Plain/casual: drop だ and usually か — rising 学生？ / なに？ Bare か can sound blunt. Never ×学生だか.",
   "mistakes": [
     {
       "wrong_ruby": "[学生|がくせい]だか。",
@@ -158,8 +158,8 @@
       "note": "polite · classroom"
     },
     {
-      "ruby": "[友達|ともだち]はだれですか。",
-      "english": "Who is (your) friend?",
+      "ruby": "[教室|きょうしつ]の[先生|せんせい]はだれですか。",
+      "english": "Who is the classroom teacher?",
       "note": "polite · だれ"
     },
     {

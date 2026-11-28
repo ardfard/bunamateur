@@ -59,7 +59,7 @@
       "example_en": "Is Kimura-san an office worker too?"
     }
   ],
-  "register_context": "Default polite: NもNです / NもNですか. Plain/casual: NもNだ. Same register rules as です/だ — teach です first; use だ among friends or in plain writing.",
+  "register_context": "Default polite: NもNです / NもNですか. Plain form: NもNだ (writing, thoughts, later clauses). Spoken casual often drops だ: NもN。 Same です/だ habits as earlier lessons.",
   "mistakes": [
     {
       "wrong_ruby": "[私|わたし]はも[学生|がくせい]です。",
@@ -136,7 +136,7 @@
     {
       "ruby": "[私|わたし]の[先生|せんせい]も[日本人|にほんじん]だ。",
       "english": "My teacher is Japanese too.",
-      "note": "plain · だ"
+      "note": "plain form · だ"
     },
     {
       "ruby": "[山田|やまだ]さんは[医者|いしゃ]です。[木村|きむら]さんも[医者|いしゃ]です。",

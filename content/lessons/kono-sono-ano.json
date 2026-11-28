@@ -18,18 +18,18 @@
       ],
       [
         "あ-",
-        "あの[駅|えき] / あの[人|ひと]",
+        "あの[建物|たてもの] / あの[人|ひと]",
         "あそこ",
         "—"
       ]
     ],
     "note": "この／その／あの always need a following noun. Alone, use これ／それ／あれ. Places: ここ／そこ／あそこ stand alone like nouns (ここは図書館です). どの + noun = which〜; どこ = where."
   },
-  "explanation": "Once you can point with これ・それ・あれ, add a noun with この・その・あの: この本は私のです / その傘は先生のですか / あの駅は大学の駅です / あの人はだれですか. The same こ・そ・あ territory (or distance) rules apply. Place words ここ・そこ・あそこ are the \"where\" set: ここは教室です / そこはトイレですか / あそこは図書館です. To ask which noun, use どの: どの鞄ですか. どこ asks where: トイレはどこですか. Common traps: ×このは私のです → これは私のです (no noun after この); ×これ本 → この本 (pronoun cannot glue onto a noun); ×どれ鞄ですか → どの鞄ですか.",
+  "explanation": "Once you can point with これ・それ・あれ, add a noun with この・その・あの: この本は私のです / その傘は先生のですか / あの建物は大学です / あの人はだれですか. The same こ・そ・あ territory (or distance) rules apply. Place words ここ・そこ・あそこ are the \"where\" set: ここは教室です / そこはトイレですか / あそこは図書館です. To ask which noun, use どの: どの鞄ですか. どこ asks where: トイレはどこですか. Soft polite こちら is natural for introducing people: こちらは田中先生です. Common traps: ×このは私のです → これは私のです (no noun after この); ×これ本 → この本 (pronoun cannot glue onto a noun); ×どれ鞄ですか → どの鞄ですか.",
   "senses": [
     {
       "label": "この / その / あの + noun",
-      "body": "Same territory map as これ・それ・あれ, but a noun must follow — including people: この人 / あの人.",
+      "body": "Same territory map as これ・それ・あれ, but a noun must follow — including people: この人 / あの人. For polite introductions, こちらは… is softer than この人は….",
       "example_ruby": "この[本|ほん]は[私|わたし]のです。",
       "example_en": "This book is mine."
     },
@@ -52,7 +52,7 @@
       "example_en": "Where is the bathroom?"
     }
   ],
-  "register_context": "Polite default: この本です / ここは駅です / どこですか / あの人はだれですか. Soft service style may prefer こちら／そちら／あちら for places and offerings — a short note only. Negatives and も from earlier Unit 1 still apply: この本も友達のです / あそこは学校じゃないです.",
+  "register_context": "Polite default: この本です / ここは駅です / どこですか / あの人はだれですか. Soft service style may prefer こちら／そちら／あちら for places, offerings, and introductions (こちらは田中先生です). Negatives and も from earlier Unit 1 still apply: この本も友達のです / あそこは学校じゃないです.",
   "mistakes": [
     {
       "wrong_ruby": "このは[私|わたし]のです。",
@@ -116,9 +116,9 @@
       "note": "その · the one you're holding"
     },
     {
-      "ruby": "あの[駅|えき]は[大学|だいがく]の[駅|えき]です。",
-      "english": "That station over there is the university station.",
-      "note": "あの · の description"
+      "ruby": "あの[建物|たてもの]は[大学|だいがく]です。",
+      "english": "That building over there is the university.",
+      "note": "あの · identifying a building"
     },
     {
       "ruby": "あの[人|ひと]はだれですか。",
@@ -126,9 +126,9 @@
       "note": "あの人 · だれ"
     },
     {
-      "ruby": "この[人|ひと]は[田中|たなか][先生|せんせい]です。",
-      "english": "This person is Tanaka-sensei.",
-      "note": "この人 · near speaker"
+      "ruby": "こちらは[田中|たなか][先生|せんせい]です。",
+      "english": "This is Tanaka-sensei. (polite introduction)",
+      "note": "こちら · polite intro"
     },
     {
       "ruby": "ここは[図書館|としょかん]です。",

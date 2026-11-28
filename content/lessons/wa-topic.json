@@ -1,6 +1,6 @@
 {
   "meaning": "topic marker は (read わ) · \"as for X…\"",
-  "gist": "は marks the topic — what the sentence is about — then the rest comments on it: [私|わたし]は[学生|がくせい]です. Write は, say わ. Builds on Noun + です/だ; still no question か, の, or も.",
+  "gist": "は marks the topic — what the sentence is about — then the rest comments on it: [私|わたし]は[学生|がくせい]です. Write は, say わ. Builds on Noun + です/だ.",
   "formation": {
     "columns": ["Pattern", "Reading note", "Example"],
     "rows": [
@@ -27,7 +27,7 @@
     ],
     "note": "Particle は is always written は and pronounced わ (not like the mora は in はな). Do not write the particle as わ. も (\"also\") replaces は — they do not stack (taught in mo-also)."
   },
-  "explanation": "は sets the topic frame: \"as for X, (it/I) am Y.\" [私|わたし]は[学生|がくせい]です means \"As for me, (I) am a student.\" The noun before は is what you are talking about; です/だ still does the equating. Pronunciation is the key beginner trap: the topic particle looks like は but sounds like わ. Keep register from the previous lesson — polite です by default, casual だ with friends.",
+  "explanation": "は sets the topic frame: \"as for X, (it/I) am Y.\" [私|わたし]は[学生|がくせい]です means \"As for me, (I) am a student.\" The noun before は is what you are talking about; です/だ still does the equating. Pronunciation is the key beginner trap: the topic particle looks like は but sounds like わ. Keep register from the previous lesson — polite です by default; だ for plain form; spoken casual often uses a bare noun (私は学生。).",
   "senses": [
     {
       "label": "Self as topic",
@@ -48,7 +48,7 @@
       "example_en": "My major is Japanese."
     }
   ],
-  "register_context": "Topic は is register-neutral; politeness still lives in です vs だ. Polite: 私は学生です. Casual: 私は学生だ. Dropping は after a clear topic (私学生です) is common in casual speech — not a hard error, but write は in careful / classroom Japanese. Do not attach さん to your own name: ×私は田中さんです → 私は田中です.",
+  "register_context": "Topic は is register-neutral; politeness still lives in です vs だ. Polite: 私は学生です. Plain form: 私は学生だ. Spoken casual often drops だ: 私は学生。. Dropping は after a clear topic (私学生です) is also common in casual speech — not a hard error, but write は in careful / classroom Japanese. Do not attach さん to your own name: ×私は田中さんです → 私は田中です.",
   "mistakes": [
     {
       "wrong_ruby": "[私|わたし]わ[学生|がくせい]です。",
@@ -65,7 +65,7 @@
     {
       "other_slug": "mo-also",
       "label": "は vs も",
-      "summary": "は marks the topic (\"as for X\"); も means \"also/too\" and replaces は rather than stacking on it. The mo-also lesson reciprocates this contrast.",
+      "summary": "は marks the topic (\"as for X\"); も means \"also/too\" and replaces は rather than stacking on it.",
       "ex_a_ruby": "[私|わたし]は[学生|がくせい]です。",
       "ex_a_en": "I am a student. (topic は)",
       "ex_b_ruby": "[私|わたし]も[学生|がくせい]です。",
@@ -114,8 +114,8 @@
     },
     {
       "ruby": "[私|わたし]は[大学生|だいがくせい]だ。",
-      "english": "(To a close friend) I'm a university student.",
-      "note": "casual · だ"
+      "english": "(Plain form) I'm a university student.",
+      "note": "plain form · だ"
     },
     {
       "ruby": "[友達|ともだち]は[医者|いしゃ]です。",

@@ -30,7 +30,7 @@
         "[本|ほん]は[私|わたし]のです"
       ]
     ],
-    "note": "Order is modifierのhead — [私|わたし]の[本|ほん]. Prefer [大学生|だいがくせい] or さくら[大学|だいがく]の[学生|がくせい] over bare [大学|だいがく]の[学生|がくせい]. の does not replace は: [私|わたし]の[本|ほん]は… when you need a topic."
+    "note": "Order is modifierのhead — [私|わたし]の[本|ほん]. [大学|だいがく]の[学生|がくせい] and さくら[大学|だいがく]の[学生|がくせい] are both fine (or the compound [大学生|だいがくせい]). の does not replace は: [私|わたし]の[本|ほん]は… when you need a topic."
   },
   "explanation": "の joins two nouns so the first modifies the second. Possession is the clearest case: 私の本 \"my book.\" The same linker describes kind or field — 日本語の先生 \"a Japanese-language teacher\" — and belonging or group — さくら大学の学生 \"a Sakura University student,\" or the compound 大学生. Questions keep か: 傘はだれのですか / 本は私のです. Never glue the nouns with no linker (×日本語先生). この本 (\"this book\") is a later pointing form; it is not the same as 私の本 (\"my book\").",
   "senses": [
@@ -59,7 +59,7 @@
       "example_en": "Whose book is it?"
     }
   ],
-  "register_context": "Default polite: NのNです / NのNですか. Plain/casual: NのNだ. Same です/だ and か habits as earlier lessons — teach です first.",
+  "register_context": "Default polite: NのNです / NのNですか. Plain form: NのNだ (writing, thoughts, later clauses). Spoken casual often drops だ: NのN。 Same です/だ and か habits as earlier lessons.",
   "mistakes": [
     {
       "wrong_ruby": "[日本語|にほんご][先生|せんせい]です。",

@@ -1,6 +1,6 @@
 {
   "meaning": "is / am / are (copula) · polite です · plain だ",
-  "gist": "Noun + です (polite) or だ (plain) equates or identifies: X is Y. Default classroom register is です; だ is casual among friends or in plain-form writing. Practice bare Noun + です/だ — topic は comes next.",
+  "gist": "Noun + です (polite) or だ (plain) equates or identifies: X is Y. Default classroom register is です; だ is the plain form (writing, thoughts, later clauses). Casual spoken often uses a bare noun (学生。) without だ. Practice bare Noun + です/だ — topic は comes next.",
   "formation": {
     "columns": ["Register", "Pattern", "Example"],
     "rows": [
@@ -10,9 +10,14 @@
         "[学生|がくせい]です"
       ],
       [
-        "Plain / casual",
+        "Plain form",
         "Noun + だ",
         "[学生|がくせい]だ"
+      ],
+      [
+        "Spoken casual",
+        "bare Noun",
+        "[学生|がくせい]。"
       ],
       [
         "Polite · occupation",
@@ -20,26 +25,26 @@
         "[会社員|かいしゃいん]です"
       ],
       [
-        "Casual · nationality",
+        "Plain · nationality",
         "Noun + だ",
         "[日本人|にほんじん]だ"
       ]
     ],
-    "note": "です and だ are the same copula at different registers — never stack them (×学生だです). The noun comes before the copula (×です学生). Topic は is the next lesson; for now practice Noun + です/だ alone."
+    "note": "です and だ are the same copula at different registers — never stack them (×学生だです). だ is plain form (writing, thoughts, later clauses); spoken casual often drops to a bare noun (学生。). The noun comes before the copula (×です学生). Topic は is the next lesson; for now practice Noun + です/だ alone."
   },
-  "explanation": "です / だ is the Japanese copula: it links a noun to what that noun is. 学生です means \"(I/it) am/is a student.\" Use です as the default polite form with teachers, strangers, and in class. Use だ with close friends or when the surrounding sentence is in plain form. Do not combine だ and です in one ending, and do not put the copula before the noun.",
+  "explanation": "です / だ is the Japanese copula: it links a noun to what that noun is. 学生です means \"(I/he) am/is a student.\" Use です as the default polite form with teachers, strangers, and in class. だ is the plain form — common in writing, thoughts, and later clauses — not simply \"how friends talk.\" In casual speech, people often say a bare noun with falling intonation (学生。) without だ. Do not combine だ and です in one ending, and do not put the copula before the noun.",
   "senses": [
     {
       "label": "Identifying / equating",
       "body": "States what something or someone is — occupation, role, or identity.",
       "example_ruby": "[学生|がくせい]です。",
-      "example_en": "(I) am a student. / It is a student."
+      "example_en": "(Self-intro) I'm a student. / (Identifying) He's a student."
     },
     {
-      "label": "Casual identification",
-      "body": "Same meaning with plain だ among friends.",
+      "label": "Plain-form identification",
+      "body": "Same meaning with plain だ — writing, thoughts, later clauses. Spoken casual often drops だ: 先生。",
       "example_ruby": "[先生|せんせい]だ。",
-      "example_en": "(He's) a teacher. (to a close friend)"
+      "example_en": "(Plain form) He's a teacher."
     },
     {
       "label": "Nationality / affiliation",
@@ -48,7 +53,7 @@
       "example_en": "(I'm) Japanese."
     }
   ],
-  "register_context": "Default polite: です (classroom, strangers, service). Plain/casual: だ (friends, diary, plain clauses). Never mix: ×学生だです. Do not insert の before the copula (×学生のです) — bare Noun + です/だ is enough. Negative forms (じゃないです / ではありません) are a later lesson.",
+  "register_context": "Default polite: です (classroom, strangers, service). Plain form: だ (writing, thoughts, later clauses). Spoken casual often uses a bare noun (学生。) without だ. Never mix: ×学生だです. Do not insert の before the copula (×学生のです) — bare Noun + です/だ is enough. Negative forms (じゃないです / ではありません) are a later lesson.",
   "mistakes": [
     {
       "wrong_ruby": "[学生|がくせい]だです。",
@@ -70,11 +75,11 @@
     {
       "other_slug": null,
       "label": "です vs だ (register)",
-      "summary": "Same \"is\" meaning; です is polite default, だ is plain/casual. Choose by situation, not by different grammar jobs.",
+      "summary": "Same \"is\" meaning; です is polite default, だ is plain form. Spoken casual often uses a bare noun instead of だ.",
       "ex_a_ruby": "[医者|いしゃ]です。",
       "ex_a_en": "(I'm) a doctor. (polite)",
       "ex_b_ruby": "[医者|いしゃ]だ。",
-      "ex_b_en": "(I'm) a doctor. (casual)"
+      "ex_b_en": "(I'm) a doctor. (plain form)"
     },
     {
       "other_slug": "ja-nai",
@@ -103,8 +108,13 @@
     },
     {
       "ruby": "[先生|せんせい]だ。",
-      "english": "(To a close friend, pointing) He's a teacher.",
-      "note": "casual · occupation"
+      "english": "(Plain form, identifying) He's a teacher.",
+      "note": "plain form · occupation"
+    },
+    {
+      "ruby": "[先生|せんせい]。",
+      "english": "(Spoken casual, identifying) He's a teacher.",
+      "note": "spoken casual · bare noun"
     },
     {
       "ruby": "[日本人|にほんじん]です。",
@@ -118,8 +128,8 @@
     },
     {
       "ruby": "[医者|いしゃ]だ。",
-      "english": "(Chatting with a friend) She's a doctor.",
-      "note": "casual · occupation"
+      "english": "(Plain form) She's a doctor.",
+      "note": "plain form · occupation"
     },
     {
       "ruby": "[大学生|だいがくせい]です。",
@@ -133,8 +143,8 @@
     },
     {
       "ruby": "[友達|ともだち]だ。",
-      "english": "(To a close friend, about someone nearby) He's a friend.",
-      "note": "casual · identifying"
+      "english": "(Plain form, about someone nearby) He's a friend.",
+      "note": "plain form · identifying"
     }
   ],
   "dialogue": [
@@ -167,16 +177,16 @@
       "why": "Polite copula is です. ×だです stacks two endings; ×で is incomplete."
     },
     {
-      "prompt": "先生（　）。 (talking to a close friend)",
+      "prompt": "先生（　）。 (plain form)",
       "options": ["だ", "だです", "ですだ"],
       "answer_idx": 0,
-      "why": "Casual register → plain だ. Never combine だ and です."
+      "why": "Plain form → だ. Never combine だ and です. (Spoken casual often uses bare 先生。 instead.)"
     },
     {
       "prompt": "Which ending is the polite default for \"(I) am a doctor\"?",
       "options": ["医者だ。", "医者だです。", "医者です。"],
       "answer_idx": 2,
-      "why": "Classroom/polite default is です. だ is casual; だです is ungrammatical."
+      "why": "Classroom/polite default is です. だ is plain form; だです is ungrammatical."
     }
   ],
   "related": {
