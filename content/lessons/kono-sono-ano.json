@@ -18,18 +18,18 @@
       ],
       [
         "あ-",
-        "あの[駅|えき]",
+        "あの[駅|えき] / あの[人|ひと]",
         "あそこ",
         "—"
       ]
     ],
     "note": "この／その／あの always need a following noun. Alone, use これ／それ／あれ. Places: ここ／そこ／あそこ stand alone like nouns (ここは図書館です). どの + noun = which〜; どこ = where."
   },
-  "explanation": "Once you can point with これ・それ・あれ, add a noun with この・その・あの: この本は私のです / その傘は先生のですか / あの駅は大学の駅です. The same こ・そ・あ territory (or distance) rules apply. Place words ここ・そこ・あそこ are the \"where\" set: ここは教室です / そこはトイレですか / あそこは図書館です. To ask which noun, use どの: どの鞄ですか. どこ asks where: トイレはどこですか / ここはどこですか. Common traps: ×このは私のです → これは私のです (no noun after この); ×これ本 → この本 (pronoun cannot glue onto a noun).",
+  "explanation": "Once you can point with これ・それ・あれ, add a noun with この・その・あの: この本は私のです / その傘は先生のですか / あの駅は大学の駅です / あの人はだれですか. The same こ・そ・あ territory (or distance) rules apply. Place words ここ・そこ・あそこ are the \"where\" set: ここは教室です / そこはトイレですか / あそこは図書館です. To ask which noun, use どの: どの鞄ですか. どこ asks where: トイレはどこですか. Common traps: ×このは私のです → これは私のです (no noun after この); ×これ本 → この本 (pronoun cannot glue onto a noun); ×どれ鞄ですか → どの鞄ですか.",
   "senses": [
     {
       "label": "この / その / あの + noun",
-      "body": "Same territory map as これ・それ・あれ, but a noun must follow.",
+      "body": "Same territory map as これ・それ・あれ, but a noun must follow — including people: この人 / あの人.",
       "example_ruby": "この[本|ほん]は[私|わたし]のです。",
       "example_en": "This book is mine."
     },
@@ -52,7 +52,7 @@
       "example_en": "Where is the bathroom?"
     }
   ],
-  "register_context": "Polite default: この本です / ここは駅です / どこですか. Soft service style may prefer こちら／そちら／あちら for places and offerings (こちらです). Negatives and も from earlier Unit 1 still apply: この猫も友達のです / あそこは学校じゃないです.",
+  "register_context": "Polite default: この本です / ここは駅です / どこですか / あの人はだれですか. Soft service style may prefer こちら／そちら／あちら for places and offerings — a short note only. Negatives and も from earlier Unit 1 still apply: この本も友達のです / あそこは学校じゃないです.",
   "mistakes": [
     {
       "wrong_ruby": "このは[私|わたし]のです。",
@@ -60,8 +60,8 @@
       "why": "この needs a noun after it. With no noun, use the pronoun これ: これは私のです."
     },
     {
-      "wrong_ruby": "これ[本|ほん]は[私|わたし]のです。",
-      "right_ruby": "この[本|ほん]は[私|わたし]のです。",
+      "wrong_ruby": "これ[本|ほん]。",
+      "right_ruby": "この[本|ほん]。",
       "why": "これ cannot sit before a noun. Use この本 (or say これは本です with no noun glued on)."
     },
     {
@@ -72,7 +72,7 @@
     {
       "wrong_ruby": "どれ[鞄|かばん]ですか。",
       "right_ruby": "どの[鞄|かばん]ですか。",
-      "why": "どれ stands alone (どれですか). Before a noun, use どの."
+      "why": "どれ stands alone (どれですか). Before a noun, use どの — not どれ鞄."
     }
   ],
   "contrasts": [
@@ -88,7 +88,7 @@
     {
       "other_slug": "no-noun-link",
       "label": "この本 vs 私の本",
-      "summary": "この／その／あの point; の links two nouns (possession/description). They often combine: 私のこの本 is rare in beginner speech — prefer この本は私のです.",
+      "summary": "この／その／あの point; の links two nouns (possession/description). They often combine: prefer この本は私のです over stacking 私のこの本 in beginner speech.",
       "ex_a_ruby": "この[本|ほん]は[私|わたし]のです。",
       "ex_a_en": "This book is mine. (pointing + の)",
       "ex_b_ruby": "[私|わたし]の[本|ほん]です。",
@@ -121,6 +121,16 @@
       "note": "あの · の description"
     },
     {
+      "ruby": "あの[人|ひと]はだれですか。",
+      "english": "Who is that person over there?",
+      "note": "あの人 · だれ"
+    },
+    {
+      "ruby": "この[人|ひと]は[田中|たなか][先生|せんせい]です。",
+      "english": "This person is Tanaka-sensei.",
+      "note": "この人 · near speaker"
+    },
+    {
       "ruby": "ここは[図書館|としょかん]です。",
       "english": "Here is the library.",
       "note": "ここ · place"
@@ -144,16 +154,6 @@
       "ruby": "トイレはどこですか。",
       "english": "Where is the bathroom?",
       "note": "どこ · where"
-    },
-    {
-      "ruby": "この[猫|ねこ]も[友達|ともだち]のです。",
-      "english": "This cat is my friend's, too.",
-      "note": "この · も"
-    },
-    {
-      "ruby": "あそこは[会社|かいしゃ]ではありません。",
-      "english": "That place over there is not a company.",
-      "note": "あそこ · formal negative"
     }
   ],
   "dialogue": [
@@ -174,8 +174,18 @@
     },
     {
       "speaker": "B",
-      "ruby": "あそこです。あそこはトイレです。",
-      "english": "Over there. That place over there is the bathroom."
+      "ruby": "あそこです。",
+      "english": "Over there."
+    },
+    {
+      "speaker": "A",
+      "ruby": "あの[人|ひと]はだれですか。",
+      "english": "Who is that person over there?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[田中|たなか][先生|せんせい]です。",
+      "english": "That's Tanaka-sensei."
     }
   ],
   "checks": [
@@ -187,20 +197,20 @@
     },
     {
       "prompt": "（　）は私のです。 (no noun after the blank)",
-      "options": ["これ", "この", "どの"],
-      "answer_idx": 0,
+      "options": ["この", "どの", "これ"],
+      "answer_idx": 2,
       "why": "No following noun → pronoun これ, not この."
     },
     {
       "prompt": "トイレは（　）ですか。",
-      "options": ["どこ", "どれ", "どの"],
-      "answer_idx": 0,
+      "options": ["どれ", "どこ", "どの"],
+      "answer_idx": 1,
       "why": "Asking where → どこ. どれ/どの are for choosing things."
     },
     {
       "prompt": "（　）鞄ですか。",
-      "options": ["どの", "どれ", "どこ"],
-      "answer_idx": 0,
+      "options": ["どれ", "どこ", "どの"],
+      "answer_idx": 2,
       "why": "Which + noun → どの鞄. どれ cannot take a noun after it."
     }
   ],
