@@ -76,14 +76,14 @@
       "why": "い-adjectives attach directly to し. Do not insert だ (*安いだし)."
     },
     {
-      "wrong_ruby": "ここは[静|しず]かし、いい[部屋|へや]だ。",
+      "wrong_ruby": "ここは[静|しず]かなし、いい[部屋|へや]だ。",
       "right_ruby": "ここは[静|しず]かだし、いい[部屋|へや]だ。",
-      "why": "な-adjectives need だ before し in plain style: 静かだし."
+      "why": "な-adjectives take だ before し (静かだし). Do not borrow the な from なので (*静かなし)."
     },
     {
-      "wrong_ruby": "[今日|きょう]は[雨|あめ]し、[寒|さむ]いし、[家|いえ]にいよう。",
-      "right_ruby": "[今日|きょう]は[雨|あめ]だし、[寒|さむ]いし、[家|いえ]にいよう。",
-      "why": "Noun 雨 needs だ before し: 雨だし."
+      "wrong_ruby": "この[店|みせ]は[安|やす]いだったし、おいしかったです。",
+      "right_ruby": "この[店|みせ]は[安|やす]かったし、おいしかったです。",
+      "why": "Past い-adjectives use 〜かったし (安かったし) — not *安いだったし."
     }
   ],
   "contrasts": [

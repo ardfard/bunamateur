@@ -76,9 +76,9 @@
       "why": "(Meaning \"I plan to clean this weekend.\") Future intention takes dictionary / ない-form + つもり — not the た-form (*したつもり, which is a different \"I thought I had…\" pattern)."
     },
     {
-      "wrong_ruby": "[会社|かいしゃ]を[辞|や]めないつもりです。",
-      "right_ruby": "[会社|かいしゃ]を[辞|や]めるつもりはありません。",
-      "why": "(Strong denial of quitting.) ないつもり = \"I intend not to…\"; つもりはない = \"I have no intention of…\" — use つもりはない for a firm denial."
+      "wrong_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するのつもりです。",
+      "right_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "why": "つもり attaches directly to the plain verb — no の between them (*するのつもり)."
     }
   ],
   "contrasts": [
@@ -99,6 +99,15 @@
       "ex_a_en": "I'm planning to go (intention, can change)",
       "ex_b_ruby": "[日本|にほん]へ[行|い]くことにしました。",
       "ex_b_en": "I've decided to go (settled)"
+    },
+    {
+      "other_slug": null,
+      "label": "ないつもり vs つもりはない",
+      "summary": "Both are grammatical. ないつもり = \"I intend not to…\"; つもりはない = stronger denial of having any intention.",
+      "ex_a_ruby": "[会社|かいしゃ]を[辞|や]めないつもりです。",
+      "ex_a_en": "I intend not to quit (deliberate plan to stay)",
+      "ex_b_ruby": "[会社|かいしゃ]を[辞|や]めるつもりはありません。",
+      "ex_b_en": "I have no intention of quitting (stronger denial)"
     },
     {
       "other_slug": null,
@@ -196,9 +205,9 @@
   "checks": [
     {
       "prompt": "週末は部屋を掃除する（　）。",
-      "options": ["つもりです", "たいです", "予定"],
+      "options": ["つもりです", "たいです", "つもりをします"],
       "answer_idx": 0,
-      "why": "Personal intention after a plain verb → つもりです (seed cloze)."
+      "why": "Personal intention after a plain verb → つもりです (seed cloze). *つもりをします is not a pattern."
     },
     {
       "prompt": "今夜はお酒を（　）つもりです。",

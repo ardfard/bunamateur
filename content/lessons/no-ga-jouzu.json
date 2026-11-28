@@ -63,7 +63,7 @@
       "example_en": "He's been good at drawing since childhood."
     }
   ],
-  "register_context": "のが上手です / 好きです is neutral-polite; casual ends in 上手だ / 好きだ. Do not use 上手 to praise your own skill — it sounds boastful. Prefer 得意です, できます, or modest phrasing (まだ下手です / 上手ではありません). Praising others with 上手 is natural and common.",
+  "register_context": "のが上手です / 好きです is neutral-polite; casual ends in 上手だ / 好きだ. 私は…が上手です is grammatical but sounds boastful about yourself — prefer 得意です, できます, or modest phrasing (まだ下手です / 上手ではありません). Praising others with 上手 is natural and common.",
   "mistakes": [
     {
       "wrong_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]りますのが[上手|じょうず]です。",
@@ -76,9 +76,9 @@
       "why": "上手 / 好き take が on the nominalized subject — not を."
     },
     {
-      "wrong_ruby": "[私|わたし]は[日本語|にほんご]が[上手|じょうず]です。",
-      "right_ruby": "[私|わたし]は[日本語|にほんご]が[得意|とくい]です。",
-      "why": "(Talking about yourself.) Self-praise with 上手 is socially awkward; textbooks teach 得意 / できます for your own skills."
+      "wrong_ruby": "[歌|うた]うが[上手|じょうず]です。",
+      "right_ruby": "[歌|うた]うのが[上手|じょうず]です。",
+      "why": "Nominalize the verb with の before が — *歌うが上手 drops the required の."
     },
     {
       "wrong_ruby": "[泳|およ]ぐの[好|す]きです。",
