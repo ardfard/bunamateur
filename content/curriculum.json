@@ -221,7 +221,7 @@
         {
           "slug": "contrast-to-ya",
           "title": "と vs や (complete vs open list)",
-          "summary": "と vs や (complete vs open list)",
+          "summary": "と closes a complete list; や leaves the list open (…など). e.g. パンと卵 vs パンや卵など.",
           "prerequisites": [
             "to-and",
             "ya-nado"
@@ -353,7 +353,7 @@
         {
           "slug": "contrast-ni-de",
           "title": "に vs で for places (exists there vs happens there)",
-          "summary": "に vs で for places (exists there vs happens there)",
+          "summary": "Existence/location takes に (部屋に猫がいる); action place takes で (部屋で勉強する).",
           "prerequisites": [
             "ni-location",
             "de-place"
@@ -367,7 +367,7 @@
         {
           "slug": "contrast-ni-he",
           "title": "に vs へ (both fine for movement; where only に works)",
-          "summary": "に vs へ (both fine for movement; where only に works)",
+          "summary": "に and へ both work for movement; only に marks existence, time, or purpose (友達に会う).",
           "prerequisites": [
             "ni-destination",
             "he-direction"
@@ -500,7 +500,7 @@
         {
           "slug": "contrast-wa-ga-1",
           "title": "は vs が, first pass (topic vs new information)",
-          "summary": "は vs が, first pass (topic vs new information)",
+          "summary": "は marks the topic (what the sentence is about); が marks new or focused subject information.",
           "prerequisites": [
             "wa-topic",
             "ga-subject"
@@ -555,7 +555,7 @@
           "title": "Verb stem + に行く",
           "summary": "Going somewhere to do something",
           "prerequisites": [
-            "tai",
+            "masu-form",
             "ni-destination"
           ],
           "status": "planned",
@@ -963,7 +963,7 @@
         {
           "slug": "contrast-mae-ato-tekara",
           "title": "前に vs あとで vs てから",
-          "summary": "前に vs あとで vs てから",
+          "summary": "前に = before doing; あとで = after doing; てから = after X, then Y (tight sequence).",
           "prerequisites": [
             "mae-ni",
             "ato-de",
@@ -1084,7 +1084,7 @@
         {
           "slug": "contrast-permission-obligation",
           "title": "てもいい / てはいけない / なければならない / なくてもいい as one grid",
-          "summary": "てもいい / てはいけない / なければならない / なくてもいい as one grid",
+          "summary": "てもいい (allowed), てはいけない (forbidden), なければならない (must), なくてもいい (needn't) as one grid.",
           "prerequisites": [
             "te-mo-ii",
             "te-wa-ikenai",
@@ -1166,7 +1166,7 @@
         {
           "slug": "contrast-kara-node",
           "title": "から vs ので (tone and politeness, not right vs wrong)",
-          "summary": "から vs ので (tone and politeness, not right vs wrong)",
+          "summary": "Both mean 'because'; から is more assertive, ので is softer and more explanatory/polite.",
           "prerequisites": [
             "kara-reason",
             "node"
@@ -1180,7 +1180,7 @@
         {
           "slug": "contrast-wa-ga-2",
           "title": "は vs が, second pass (contrast, exhaustive が, は in negatives)",
-          "summary": "は vs が, second pass (contrast, exhaustive が, は in negatives)",
+          "summary": "Second pass: contrastive は, exhaustive が answers, and は with negatives.",
           "prerequisites": [
             "wa-topic",
             "ga-subject"
@@ -1326,7 +1326,7 @@
         {
           "slug": "contrast-shika-dake",
           "title": "しか〜ない vs だけ",
-          "summary": "しか〜ない vs だけ",
+          "summary": "だけ = only (neutral); しか〜ない = nothing but / only, and always needs a negative.",
           "prerequisites": [
             "shika-negative",
             "dake"
@@ -1350,9 +1350,9 @@
       "reading": "Thank-you note after a homestay",
       "points": [
         {
-          "slug": "ageru-kureru-morau",
-          "title": "あげる / くれる / もらう",
-          "summary": "Who gives to whom, from whose viewpoint",
+          "slug": "ni-person",
+          "title": "に / から (person)",
+          "summary": "に marks the recipient/target person; with もらう often に or から for the giver",
           "prerequisites": [
             "ni-destination",
             "ga-subject"
@@ -1362,6 +1362,20 @@
           "kind": "point",
           "source": "new",
           "sort_order": 91
+        },
+        {
+          "slug": "ageru-kureru-morau",
+          "title": "あげる / くれる / もらう",
+          "summary": "Who gives to whom, from whose viewpoint; person に (recipient) and に/から (giver with もらう)",
+          "prerequisites": [
+            "ni-person",
+            "ga-subject"
+          ],
+          "status": "planned",
+          "level": "N4",
+          "kind": "point",
+          "source": "new",
+          "sort_order": 92
         },
         {
           "slug": "te-ageru-morau",
@@ -1375,7 +1389,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 92
+          "sort_order": 93
         },
         {
           "slug": "te-kureru",
@@ -1388,7 +1402,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 93
+          "sort_order": 94
         },
         {
           "slug": "te-hoshii",
@@ -1402,7 +1416,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 94
+          "sort_order": 95
         },
         {
           "slug": "itadakemasenka",
@@ -1415,7 +1429,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 95
+          "sort_order": 96
         },
         {
           "slug": "te-yokatta",
@@ -1428,12 +1442,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 96
+          "sort_order": 97
         },
         {
           "slug": "contrast-giving",
           "title": "あげる vs くれる vs もらう (viewpoint)",
-          "summary": "あげる vs くれる vs もらう (viewpoint)",
+          "summary": "あげる = give outward from speaker's side; くれる = give toward me; もらう = receive (viewpoint).",
           "prerequisites": [
             "ageru-kureru-morau",
             "te-ageru-morau",
@@ -1443,7 +1457,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 97
+          "sort_order": 98
         }
       ]
     },
@@ -1468,7 +1482,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 98
+          "sort_order": 99
         },
         {
           "slug": "you-to-omou",
@@ -1482,7 +1496,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 99
+          "sort_order": 100
         },
         {
           "slug": "te-oku",
@@ -1495,7 +1509,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 100
+          "sort_order": 101
         },
         {
           "slug": "koto-ni-suru",
@@ -1508,7 +1522,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 101
+          "sort_order": 102
         },
         {
           "slug": "koto-ni-naru",
@@ -1521,7 +1535,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep:N3→N4",
-          "sort_order": 102
+          "sort_order": 103
         },
         {
           "slug": "yotei",
@@ -1534,7 +1548,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 103
+          "sort_order": 104
         },
         {
           "slug": "kadouka",
@@ -1548,12 +1562,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 104
+          "sort_order": 105
         },
         {
           "slug": "contrast-intention",
           "title": "つもり vs (よ)うと思う vs 予定",
-          "summary": "つもり vs (よ)うと思う vs 予定",
+          "summary": "つもり = intention; (よ)うと思う = thinking of doing; 予定 = a scheduled plan.",
           "prerequisites": [
             "tsumori",
             "you-to-omou",
@@ -1563,12 +1577,12 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 105
+          "sort_order": 106
         },
         {
           "slug": "contrast-koto-ni-suru-naru",
           "title": "ことにする vs ことになる",
-          "summary": "ことにする vs ことになる",
+          "summary": "ことにする = I decide to; ことになる = it has been decided / it turns out that.",
           "prerequisites": [
             "koto-ni-suru",
             "koto-ni-naru"
@@ -1577,7 +1591,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 106
+          "sort_order": 107
         }
       ]
     },
@@ -1602,7 +1616,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 107
+          "sort_order": 108
         },
         {
           "slug": "tara-conditional",
@@ -1615,7 +1629,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 108
+          "sort_order": 109
         },
         {
           "slug": "tara-dou",
@@ -1628,7 +1642,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 109
+          "sort_order": 110
         },
         {
           "slug": "ba-conditional",
@@ -1641,7 +1655,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 110
+          "sort_order": 111
         },
         {
           "slug": "nara-conditional",
@@ -1654,7 +1668,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 111
+          "sort_order": 112
         },
         {
           "slug": "ba-yokatta",
@@ -1667,7 +1681,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 112
+          "sort_order": 113
         },
         {
           "slug": "to-ii",
@@ -1680,7 +1694,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 113
+          "sort_order": 114
         },
         {
           "slug": "te-mo-even-if",
@@ -1693,12 +1707,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 114
+          "sort_order": 115
         },
         {
           "slug": "contrast-conditionals",
           "title": "と / ば / たら / なら",
-          "summary": "と / ば / たら / なら",
+          "summary": "と = automatic result; ば = hypothetical/general; たら = widest if/when; なら = if that's the case.",
           "prerequisites": [
             "to-conditional",
             "ba-conditional",
@@ -1709,7 +1723,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 115
+          "sort_order": 116
         }
       ]
     },
@@ -1734,21 +1748,20 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 116
+          "sort_order": 117
         },
         {
           "slug": "sou-da-hearsay",
           "title": "〜そうだ (hearsay)",
           "summary": "I heard that",
           "prerequisites": [
-            "plain-past",
-            "sou-appearance"
+            "plain-past"
           ],
           "status": "existing",
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 117
+          "sort_order": 118
         },
         {
           "slug": "you-da",
@@ -1762,7 +1775,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 118
+          "sort_order": 119
         },
         {
           "slug": "mitai",
@@ -1776,7 +1789,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 119
+          "sort_order": 120
         },
         {
           "slug": "rashii",
@@ -1789,7 +1802,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 120
+          "sort_order": 121
         },
         {
           "slug": "hazu-da",
@@ -1802,7 +1815,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 121
+          "sort_order": 122
         },
         {
           "slug": "hazu-ga-nai",
@@ -1815,7 +1828,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 122
+          "sort_order": 123
         },
         {
           "slug": "tte",
@@ -1829,7 +1842,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 123
+          "sort_order": 124
         },
         {
           "slug": "garu",
@@ -1843,12 +1856,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 124
+          "sort_order": 125
         },
         {
           "slug": "contrast-evidential",
           "title": "そう (looks) / そうだ (heard) / ようだ / らしい / みたい",
-          "summary": "そう (looks) / そうだ (heard) / ようだ / らしい / みたい",
+          "summary": "そう (looks like) vs そうだ (I heard) vs ようだ (from evidence) vs らしい vs みたい.",
           "prerequisites": [
             "sou-appearance",
             "sou-da-hearsay",
@@ -1860,12 +1873,12 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 125
+          "sort_order": 126
         },
         {
           "slug": "contrast-certainty",
           "title": "はずだ vs でしょう vs かもしれない",
-          "summary": "はずだ vs でしょう vs かもしれない",
+          "summary": "はずだ = should be (logical expectation); でしょう = probably; かもしれない = might.",
           "prerequisites": [
             "hazu-da",
             "deshou",
@@ -1875,7 +1888,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 126
+          "sort_order": 127
         }
       ]
     },
@@ -1900,7 +1913,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 127
+          "sort_order": 128
         },
         {
           "slug": "jidoushi-tadoushi",
@@ -1914,7 +1927,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 128
+          "sort_order": 129
         },
         {
           "slug": "te-aru",
@@ -1928,7 +1941,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 129
+          "sort_order": 130
         },
         {
           "slug": "tokoro-da",
@@ -1942,7 +1955,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 130
+          "sort_order": 131
         },
         {
           "slug": "ta-bakari",
@@ -1955,7 +1968,7 @@
           "level": "N4",
           "kind": "point",
           "source": "split:bakari",
-          "sort_order": 131
+          "sort_order": 132
         },
         {
           "slug": "te-kuru-iku",
@@ -1968,7 +1981,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 132
+          "sort_order": 133
         },
         {
           "slug": "mama",
@@ -1981,7 +1994,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 133
+          "sort_order": 134
         },
         {
           "slug": "naide-without",
@@ -1994,7 +2007,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 134
+          "sort_order": 135
         },
         {
           "slug": "fukugou-doushi",
@@ -2007,12 +2020,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 135
+          "sort_order": 136
         },
         {
           "slug": "contrast-te-iru-te-aru",
           "title": "開いている vs 開けてある",
-          "summary": "開いている vs 開けてある",
+          "summary": "開いている = is open (state); 開けてある = was left open on purpose.",
           "prerequisites": [
             "te-iru",
             "te-aru"
@@ -2021,12 +2034,12 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 136
+          "sort_order": 137
         },
         {
           "slug": "contrast-just-did",
           "title": "たところ vs たばかり",
-          "summary": "たところ vs たばかり",
+          "summary": "たところ = just completed (immediate); たばかり = just did / recently (looser timing).",
           "prerequisites": [
             "tokoro-da",
             "ta-bakari"
@@ -2035,7 +2048,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 137
+          "sort_order": 138
         }
       ]
     },
@@ -2060,7 +2073,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 138
+          "sort_order": 139
         },
         {
           "slug": "you-ni-purpose",
@@ -2073,7 +2086,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 139
+          "sort_order": 140
         },
         {
           "slug": "you-ni-suru",
@@ -2086,7 +2099,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 140
+          "sort_order": 141
         },
         {
           "slug": "made-ni",
@@ -2099,7 +2112,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 141
+          "sort_order": 142
         },
         {
           "slug": "yasui-nikui",
@@ -2112,7 +2125,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 142
+          "sort_order": 143
         },
         {
           "slug": "kata",
@@ -2125,7 +2138,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 143
+          "sort_order": 144
         },
         {
           "slug": "noni",
@@ -2138,7 +2151,7 @@
           "level": "N4",
           "kind": "point",
           "source": "keep",
-          "sort_order": 144
+          "sort_order": 145
         },
         {
           "slug": "no-you-na",
@@ -2151,7 +2164,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 145
+          "sort_order": 146
         },
         {
           "slug": "koto-ga-aru-sometimes",
@@ -2164,12 +2177,12 @@
           "level": "N4",
           "kind": "point",
           "source": "keep:N3→N4",
-          "sort_order": 146
+          "sort_order": 147
         },
         {
           "slug": "contrast-tame-youni",
           "title": "ために vs ように",
-          "summary": "ために vs ように",
+          "summary": "ために = in order to (volitional purpose); ように = so that (non-volitional or potential).",
           "prerequisites": [
             "tame-ni",
             "you-ni-purpose"
@@ -2178,12 +2191,12 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 147
+          "sort_order": 148
         },
         {
           "slug": "contrast-made-madeni",
           "title": "まで vs までに",
-          "summary": "まで vs までに",
+          "summary": "まで = until (continuing through); までに = by (a deadline).",
           "prerequisites": [
             "kara-made",
             "made-ni"
@@ -2192,7 +2205,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 148
+          "sort_order": 149
         }
       ]
     },
@@ -2218,7 +2231,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 149
+          "sort_order": 150
         },
         {
           "slug": "causative",
@@ -2231,7 +2244,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 150
+          "sort_order": 151
         },
         {
           "slug": "causative-passive",
@@ -2245,7 +2258,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 151
+          "sort_order": 152
         },
         {
           "slug": "sasete-kudasai",
@@ -2259,7 +2272,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 152
+          "sort_order": 153
         },
         {
           "slug": "meireikei",
@@ -2272,7 +2285,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 153
+          "sort_order": 154
         },
         {
           "slug": "nasai",
@@ -2285,7 +2298,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 154
+          "sort_order": 155
         },
         {
           "slug": "sonkeigo",
@@ -2299,7 +2312,7 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 155
+          "sort_order": 156
         },
         {
           "slug": "kenjougo",
@@ -2312,12 +2325,12 @@
           "level": "N4",
           "kind": "point",
           "source": "new",
-          "sort_order": 156
+          "sort_order": 157
         },
         {
           "slug": "contrast-rareru",
           "title": "られる as potential, passive or honorific",
-          "summary": "られる as potential, passive or honorific",
+          "summary": "The same られる shape can be potential, passive, or honorific — context decides.",
           "prerequisites": [
             "potential",
             "passive",
@@ -2327,12 +2340,12 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 157
+          "sort_order": 158
         },
         {
           "slug": "contrast-voice",
           "title": "passive vs causative vs causative-passive",
-          "summary": "passive vs causative vs causative-passive",
+          "summary": "Passive (〜られる), causative (〜させる), and causative-passive (〜させられる) as one voice system.",
           "prerequisites": [
             "passive",
             "causative",
@@ -2342,7 +2355,7 @@
           "level": "N4",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 158
+          "sort_order": 159
         }
       ]
     },
@@ -2367,7 +2380,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 159
+          "sort_order": 160
         },
         {
           "slug": "sei-de",
@@ -2380,7 +2393,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 160
+          "sort_order": 161
         },
         {
           "slug": "tame-ni-cause",
@@ -2394,7 +2407,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 161
+          "sort_order": 162
         },
         {
           "slug": "wake-da",
@@ -2407,7 +2420,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 162
+          "sort_order": 163
         },
         {
           "slug": "wake-dewa-nai",
@@ -2420,7 +2433,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 163
+          "sort_order": 164
         },
         {
           "slug": "wake-ga-nai",
@@ -2433,7 +2446,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 164
+          "sort_order": 165
         },
         {
           "slug": "kara-koso",
@@ -2446,12 +2459,12 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 165
+          "sort_order": 166
         },
         {
           "slug": "contrast-okage-sei",
           "title": "おかげで vs せいで vs ために",
-          "summary": "おかげで vs せいで vs ために",
+          "summary": "おかげで = thanks to (good result); せいで = because of (blame); ために = formal cause.",
           "prerequisites": [
             "okage-de",
             "sei-de",
@@ -2461,7 +2474,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 166
+          "sort_order": 167
         }
       ]
     },
@@ -2486,7 +2499,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 167
+          "sort_order": 168
         },
         {
           "slug": "ni-kanshite",
@@ -2499,7 +2512,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 168
+          "sort_order": 169
         },
         {
           "slug": "ni-taishite",
@@ -2512,7 +2525,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 169
+          "sort_order": 170
         },
         {
           "slug": "ni-totte",
@@ -2525,7 +2538,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 170
+          "sort_order": 171
         },
         {
           "slug": "to-shite",
@@ -2538,7 +2551,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 171
+          "sort_order": 172
         },
         {
           "slug": "ni-yotte",
@@ -2551,7 +2564,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 172
+          "sort_order": 173
         },
         {
           "slug": "ni-yoru-to",
@@ -2564,7 +2577,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 173
+          "sort_order": 174
         },
         {
           "slug": "ni-kurabete",
@@ -2577,12 +2590,12 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 174
+          "sort_order": 175
         },
         {
           "slug": "contrast-topic-phrases",
           "title": "について vs に対して vs にとって",
-          "summary": "について vs に対して vs にとって",
+          "summary": "について = about; に対して = toward / against / in contrast; にとって = for (standpoint).",
           "prerequisites": [
             "ni-tsuite",
             "ni-taishite",
@@ -2592,7 +2605,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 175
+          "sort_order": 176
         }
       ]
     },
@@ -2617,7 +2630,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 176
+          "sort_order": 177
         },
         {
           "slug": "ta-totan",
@@ -2630,7 +2643,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 177
+          "sort_order": 178
         },
         {
           "slug": "tsuide-ni",
@@ -2643,7 +2656,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 178
+          "sort_order": 179
         },
         {
           "slug": "tokoro-e",
@@ -2656,7 +2669,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 179
+          "sort_order": 180
         },
         {
           "slug": "ni-tsurete",
@@ -2669,7 +2682,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 180
+          "sort_order": 181
         },
         {
           "slug": "ippou-da",
@@ -2682,7 +2695,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 181
+          "sort_order": 182
         },
         {
           "slug": "hodo",
@@ -2695,7 +2708,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 182
+          "sort_order": 183
         },
         {
           "slug": "ba-hodo",
@@ -2709,12 +2722,12 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 183
+          "sort_order": 184
         },
         {
           "slug": "contrast-change",
           "title": "につれて vs 一方だ vs ようになる",
-          "summary": "につれて vs 一方だ vs ようになる",
+          "summary": "につれて = as X changes, Y changes; 一方だ = keeps getting more; ようになる = come to be able / become.",
           "prerequisites": [
             "ni-tsurete",
             "ippou-da",
@@ -2724,7 +2737,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 184
+          "sort_order": 185
         }
       ]
     },
@@ -2749,7 +2762,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 185
+          "sort_order": 186
         },
         {
           "slug": "to-shite-mo",
@@ -2763,7 +2776,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 186
+          "sort_order": 187
         },
         {
           "slug": "ni-shite-wa",
@@ -2776,7 +2789,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 187
+          "sort_order": 188
         },
         {
           "slug": "kuse-ni",
@@ -2789,7 +2802,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 188
+          "sort_order": 189
         },
         {
           "slug": "nagara-mo",
@@ -2802,7 +2815,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 189
+          "sort_order": 190
         },
         {
           "slug": "kawari-ni",
@@ -2815,12 +2828,12 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 190
+          "sort_order": 191
         },
         {
           "slug": "contrast-concession",
           "title": "のに vs くせに vs ながらも vs にしては",
-          "summary": "のに vs くせに vs ながらも vs にしては",
+          "summary": "のに = even though (unexpected); くせに = even though (critical); ながらも = although; にしては = for / considering.",
           "prerequisites": [
             "noni",
             "kuse-ni",
@@ -2831,7 +2844,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 191
+          "sort_order": 192
         }
       ]
     },
@@ -2856,7 +2869,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 192
+          "sort_order": 193
         },
         {
           "slug": "koto-wa-nai",
@@ -2869,7 +2882,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 193
+          "sort_order": 194
         },
         {
           "slug": "wake-niwa-ikanai",
@@ -2882,7 +2895,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 194
+          "sort_order": 195
         },
         {
           "slug": "ni-chigainai",
@@ -2895,7 +2908,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep:N2→N3",
-          "sort_order": 195
+          "sort_order": 196
         },
         {
           "slug": "shika-nai",
@@ -2908,7 +2921,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 196
+          "sort_order": 197
         },
         {
           "slug": "koto-da",
@@ -2923,7 +2936,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 197
+          "sort_order": 198
         },
         {
           "slug": "mono-da",
@@ -2936,12 +2949,12 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 198
+          "sort_order": 199
         },
         {
           "slug": "contrast-should",
           "title": "べきだ vs ほうがいい vs ことだ",
-          "summary": "べきだ vs ほうがいい vs ことだ",
+          "summary": "べきだ = should (duty or logic); ほうがいい = advice; ことだ = the best thing is to.",
           "prerequisites": [
             "beki-da",
             "hou-ga-ii",
@@ -2951,12 +2964,12 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 199
+          "sort_order": 200
         },
         {
           "slug": "contrast-wake",
           "title": "わけだ / わけではない / わけがない / わけにはいかない",
-          "summary": "わけだ / わけではない / わけがない / わけにはいかない",
+          "summary": "わけだ = that's why; わけではない = it doesn't mean; わけがない = no way; わけにはいかない = can't very well.",
           "prerequisites": [
             "wake-da",
             "wake-dewa-nai",
@@ -2967,7 +2980,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 200
+          "sort_order": 201
         }
       ]
     },
@@ -2992,7 +3005,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 201
+          "sort_order": 202
         },
         {
           "slug": "to-iu-koto-da",
@@ -3005,7 +3018,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 202
+          "sort_order": 203
         },
         {
           "slug": "to-iu-no-wa",
@@ -3018,7 +3031,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 203
+          "sort_order": 204
         },
         {
           "slug": "you-ni-iu",
@@ -3031,7 +3044,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 204
+          "sort_order": 205
         }
       ]
     },
@@ -3056,7 +3069,7 @@
           "level": "N3",
           "kind": "point",
           "source": "keep",
-          "sort_order": 205
+          "sort_order": 206
         },
         {
           "slug": "gachi",
@@ -3069,7 +3082,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 206
+          "sort_order": 207
         },
         {
           "slug": "ppoi",
@@ -3082,7 +3095,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 207
+          "sort_order": 208
         },
         {
           "slug": "dake-de-naku",
@@ -3095,7 +3108,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 208
+          "sort_order": 209
         },
         {
           "slug": "sae",
@@ -3108,7 +3121,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 209
+          "sort_order": 210
         },
         {
           "slug": "ue-ni",
@@ -3121,7 +3134,7 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 210
+          "sort_order": 211
         },
         {
           "slug": "ppanashi",
@@ -3134,12 +3147,12 @@
           "level": "N3",
           "kind": "point",
           "source": "new",
-          "sort_order": 211
+          "sort_order": 212
         },
         {
           "slug": "contrast-bakari-dake-shika",
           "title": "ばかり vs だけ vs しか",
-          "summary": "ばかり vs だけ vs しか",
+          "summary": "ばかり = nothing but; だけ = only; しか〜ない = only with an obligatory negative.",
           "prerequisites": [
             "bakari",
             "dake",
@@ -3149,7 +3162,7 @@
           "level": "N3",
           "kind": "contrast",
           "source": "new",
-          "sort_order": 212
+          "sort_order": 213
         }
       ]
     }
@@ -3208,7 +3221,7 @@
   ],
   "meta": {
     "seed_slug_count": 62,
-    "curriculum_point_count": 212,
+    "curriculum_point_count": 213,
     "missing_keep_slugs": [],
     "seeded_in_units": [
       "ato-de",

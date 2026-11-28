@@ -53,7 +53,7 @@ UNITS: list[dict] = [
   { "n": 5, "level": "N5", "title": "Wanting and comparing", "goal": "Say what you want, why, and which is better.", "points": [
     ["hoshii", "〜がほしい", "Wanting a thing", "suki-jouzu", "new"],
     ["tai", "〜たい", "Wanting to do", "masu-form,hoshii", "keep"],
-    ["ni-iku", "Verb stem + に行く", "Going somewhere to do something", "tai,ni-destination", "new"],
+    ["ni-iku", "Verb stem + に行く", "Going somewhere to do something", "masu-form,ni-destination", "new"],
     ["kara-reason", "〜から (reason)", "Giving a reason; polite clauses now, plain ones in Unit 7", "masu-form,i-adjective", "keep"],
     ["naru", "〜になる / 〜くなる", "Becoming: 高くなる, 医者になる", "i-adjective,na-adjective", "new"],
     ["yori-hou-ga", "より / ほうが / どちら", "Comparing two things", "i-adjective", "new"],
@@ -115,7 +115,8 @@ UNITS: list[dict] = [
     ["shika-negative", "〜しか〜ない", "Nothing but / only, with a negative", "dake", "new"],
   ], "contrasts": ["contrast-shika-dake: しか〜ない vs だけ"], "dojo": "Potential form; ら-dropped 見れる flagged as casual", "reading": "What I can and can't do at my new job" },
   { "n": 12, "level": "N4", "title": "Giving, receiving and favors", "goal": "Get the viewpoint of giving verbs right.", "points": [
-    ["ageru-kureru-morau", "あげる / くれる / もらう", "Who gives to whom, from whose viewpoint", "ni-destination,ga-subject", "new"],
+    ["ni-person", "に / から (person)", "に marks the recipient/target person; with もらう often に or から for the giver", "ni-destination,ga-subject", "new"],
+    ["ageru-kureru-morau", "あげる / くれる / もらう", "Who gives to whom, from whose viewpoint; person に (recipient) and に/から (giver with もらう)", "ni-person,ga-subject", "new"],
     ["te-ageru-morau", "〜てあげる / 〜てもらう", "Doing and receiving favors", "ageru-kureru-morau,te-form", "new"],
     ["te-kureru", "〜てくれる", "Someone does something for me", "te-ageru-morau", "keep"],
     ["te-hoshii", "〜てほしい", "Wanting someone else to do something", "te-kureru,hoshii", "new"],
@@ -143,7 +144,7 @@ UNITS: list[dict] = [
   ], "contrasts": ["contrast-conditionals: と / ば / たら / なら"], "dojo": "ば-form and たら-form", "reading": "Directions to a friend's house" },
   { "n": 15, "level": "N4", "title": "Guessing, hearsay and feelings", "goal": "Mark how sure you are and where you heard it.", "points": [
     ["kamo-shirenai", "〜かもしれない", "Might", "plain-past", "keep"],
-    ["sou-da-hearsay", "〜そうだ (hearsay)", "I heard that", "plain-past,sou-appearance", "keep"],
+    ["sou-da-hearsay", "〜そうだ (hearsay)", "I heard that", "plain-past", "keep"],
     ["you-da", "〜ようだ", "It seems, from evidence", "plain-past,noun-modifier", "keep"],
     ["mitai", "〜みたい", "Seems; like (casual)", "you-da,casual-speech", "new"],
     ["rashii", "〜らしい", "Apparently; typical of", "sou-da-hearsay", "new"],
@@ -279,6 +280,38 @@ CONTRAST_MEMBERS: dict[str, list[str]] = {
     "contrast-bakari-dake-shika": ["bakari", "dake", "shika-negative"],
 }
 
+# Pedagogical summaries for contrast points (title stays the short label).
+CONTRAST_SUMMARIES: dict[str, str] = {
+    "contrast-to-ya": "と closes a complete list; や leaves the list open (…など). e.g. パンと卵 vs パンや卵など.",
+    "contrast-ni-de": "Existence/location takes に (部屋に猫がいる); action place takes で (部屋で勉強する).",
+    "contrast-ni-he": "に and へ both work for movement; only に marks existence, time, or purpose (友達に会う).",
+    "contrast-wa-ga-1": "は marks the topic (what the sentence is about); が marks new or focused subject information.",
+    "contrast-mae-ato-tekara": "前に = before doing; あとで = after doing; てから = after X, then Y (tight sequence).",
+    "contrast-permission-obligation": "てもいい (allowed), てはいけない (forbidden), なければならない (must), なくてもいい (needn't) as one grid.",
+    "contrast-kara-node": "Both mean 'because'; から is more assertive, ので is softer and more explanatory/polite.",
+    "contrast-wa-ga-2": "Second pass: contrastive は, exhaustive が answers, and は with negatives.",
+    "contrast-shika-dake": "だけ = only (neutral); しか〜ない = nothing but / only, and always needs a negative.",
+    "contrast-giving": "あげる = give outward from speaker's side; くれる = give toward me; もらう = receive (viewpoint).",
+    "contrast-intention": "つもり = intention; (よ)うと思う = thinking of doing; 予定 = a scheduled plan.",
+    "contrast-koto-ni-suru-naru": "ことにする = I decide to; ことになる = it has been decided / it turns out that.",
+    "contrast-conditionals": "と = automatic result; ば = hypothetical/general; たら = widest if/when; なら = if that's the case.",
+    "contrast-evidential": "そう (looks like) vs そうだ (I heard) vs ようだ (from evidence) vs らしい vs みたい.",
+    "contrast-certainty": "はずだ = should be (logical expectation); でしょう = probably; かもしれない = might.",
+    "contrast-te-iru-te-aru": "開いている = is open (state); 開けてある = was left open on purpose.",
+    "contrast-just-did": "たところ = just completed (immediate); たばかり = just did / recently (looser timing).",
+    "contrast-tame-youni": "ために = in order to (volitional purpose); ように = so that (non-volitional or potential).",
+    "contrast-made-madeni": "まで = until (continuing through); までに = by (a deadline).",
+    "contrast-rareru": "The same られる shape can be potential, passive, or honorific — context decides.",
+    "contrast-voice": "Passive (〜られる), causative (〜させる), and causative-passive (〜させられる) as one voice system.",
+    "contrast-okage-sei": "おかげで = thanks to (good result); せいで = because of (blame); ために = formal cause.",
+    "contrast-topic-phrases": "について = about; に対して = toward / against / in contrast; にとって = for (standpoint).",
+    "contrast-change": "につれて = as X changes, Y changes; 一方だ = keeps getting more; ようになる = come to be able / become.",
+    "contrast-concession": "のに = even though (unexpected); くせに = even though (critical); ながらも = although; にしては = for / considering.",
+    "contrast-should": "べきだ = should (duty or logic); ほうがいい = advice; ことだ = the best thing is to.",
+    "contrast-wake": "わけだ = that's why; わけではない = it doesn't mean; わけがない = no way; わけにはいかない = can't very well.",
+    "contrast-bakari-dake-shika": "ばかり = nothing but; だけ = only; しか〜ない = only with an obligatory negative.",
+}
+
 SKETCH = [
     {
         "level": "N2",
@@ -360,12 +393,15 @@ def build() -> dict:
             members = CONTRAST_MEMBERS.get(slug)
             if not members:
                 raise SystemExit(f"Missing contrast member map for {slug}")
+            summary = CONTRAST_SUMMARIES.get(slug)
+            if not summary:
+                raise SystemExit(f"Missing contrast summary for {slug}")
             # Validate members appear in this unit or earlier teaching (checked by Rust too)
             points_out.append(
                 {
                     "slug": slug,
                     "title": title,
-                    "summary": title,
+                    "summary": summary,
                     "prerequisites": members,
                     "status": "planned",
                     "level": u["level"],
@@ -440,7 +476,7 @@ def main() -> None:
     meta = data["meta"]
     print(f"Wrote {out}")
     print(f"units={len(data['units'])} points={meta['curriculum_point_count']}")
-    print(f"orphan_seeds={meta['orphan_seed_slugs']}")
+    print(f"missing_keep={meta['missing_keep_slugs']} orphan_seeds={meta['orphan_seed_slugs']}")
     print(f"seeded_in_sketch={meta['seeded_in_sketch']}")
 
 

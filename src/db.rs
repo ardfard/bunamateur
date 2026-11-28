@@ -299,6 +299,13 @@ pub async fn seed_content(pool: &PgPool) -> Result<()> {
     }
 
     // Second pass: upsert curriculum units and attach metadata to existing grammar rows.
+    //
+    // Interim gating policy for planned prerequisites:
+    // Many Existing (seeded) points list Planned slugs as prerequisites. Those Planned
+    // slugs have no `grammar_points` row yet. Until early units are authored, treat
+    // missing/planned prerequisite slugs as satisfied for unlock purposes so today's
+    // placed points with planned-only prereqs remain reachable in Learn New.
+    // (Alternative deferred: walk to the nearest Existing ancestor in teaching order.)
     for unit in &curriculum.units {
         sqlx::query(
             "INSERT INTO units (id, n, level, title, goal, sort_order)
