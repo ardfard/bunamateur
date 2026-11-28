@@ -35,7 +35,7 @@
         "[図書館|としょかん]の[隣|となり]に[教室|きょうしつ]があります"
       ]
     ],
-    "note": "Always Nの + position + に for existence location. ×机上に and ×上の机に (for \"on the desk\") miss the pattern. の is the same linker as 私の本 — here the head noun is the position word."
+    "note": "Always Nの + position + に for existence location. ×机に上に drops の. 上の机 means \"the upper desk,\" not \"on top of the desk.\" の is the same linker as 私の本 — here the head noun is the position word."
   },
   "explanation": "上・下・中・前・後ろ・隣 are nouns meaning on/above, under, inside, in front, behind, and next to. Glue them to another noun with の, then mark the whole phrase as a place with に: 机の上に本があります / 部屋の中に猫がいます / 図書館の隣に教室があります. The existence verb still follows が: people and animals います, things あります. These positions refine bare placeに from the previous lesson — 部屋に本があります (in the room) vs 机の上に本があります (on the desk).",
   "senses": [
@@ -67,14 +67,14 @@
   "register_context": "Polite classroom default: Nの上にNがあります / います. Keep the same が and います/あります habits. Questions: 机の上に何がありますか / 部屋の中にだれがいますか.",
   "mistakes": [
     {
-      "wrong_ruby": "[机|つくえ][上|うえ]に[本|ほん]があります。",
+      "wrong_ruby": "[机|つくえ]に[上|うえ]に[本|ほん]があります。",
       "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
-      "why": "Position nouns need の: 机の上に, not ×机上に."
+      "why": "Position nouns need の: 机の上に, not ×机に上に."
     },
     {
-      "wrong_ruby": "[上|うえ]の[机|つくえ]に[本|ほん]があります。",
+      "wrong_ruby": "(Meaning: on top of the desk) [上|うえ]の[机|つくえ]に[本|ほん]があります。",
       "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
-      "why": "Order is landmarkのposition: 机の上, not ×上の机 for \"on the desk.\""
+      "why": "For \"on top of the desk,\" order is landmarkのposition: 机の上に. 上の机 means \"the upper desk.\""
     },
     {
       "wrong_ruby": "[机|つくえ]の[上|うえ]が[本|ほん]があります。",
@@ -195,9 +195,9 @@
     },
     {
       "prompt": "Context: There is a book on the desk.",
-      "options": ["上の机に本があります。", "机上に本があります。", "机の上に本があります。"],
+      "options": ["上の机に本があります。", "机に上に本があります。", "机の上に本があります。"],
       "answer_idx": 2,
-      "why": "Landmarkのpositionに: 机の上に本があります。"
+      "why": "Landmarkのpositionに: 机の上に本があります. ×机に上に drops の; 上の机 means a different desk."
     },
     {
       "prompt": "図書館の（　）に教室があります。 (next to)",

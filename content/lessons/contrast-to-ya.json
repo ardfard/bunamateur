@@ -71,11 +71,6 @@
       "why": "Open examples → や / など. と makes the list sound finished."
     },
     {
-      "wrong_ruby": "パンと[卵|たまご]やミルクがあります。",
-      "right_ruby": "パンや[卵|たまご]やミルクがあります。",
-      "why": "Do not mix と and や in one list. Pick complete (all と) or open (all や)."
-    },
-    {
       "wrong_ruby": "(Exactly two people are here: Tanaka and Yamada.) [田中|たなか]さんや[山田|やまだ]さんがいます。",
       "right_ruby": "[田中|たなか]さんと[山田|やまだ]さんがいます。",
       "why": "A complete pair of people → と, not open-list や."
@@ -161,13 +156,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "[部屋|へや]にも[何|なに]がありますか。",
-      "english": "What is in the room too?"
+      "ruby": "[部屋|へや]に[何|なに]がありますか。",
+      "english": "What is in the room?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、[本|ほん]や[鞄|かばん]などがあります。",
-      "english": "Yes — books, bags, and so on."
+      "ruby": "[本|ほん]や[鞄|かばん]などがあります。",
+      "english": "There are books, bags, and so on."
     }
   ],
   "checks": [
@@ -190,10 +185,10 @@
       "why": "Complete pair → と."
     },
     {
-      "prompt": "Fix the mixed list: パンと卵やミルクがあります。",
-      "options": ["パンや卵やミルクがあります。", "パンとがあります卵やミルク。", "パンなどと卵やミルクがあります。"],
-      "answer_idx": 0,
-      "why": "One listing style only — here an open list with や."
+      "prompt": "Naming a few examples of who is in the classroom (not a full list).",
+      "options": ["教室に学生と先生がいます。", "教室に学生や先生などがいます。", "教室に学生や先生などがあります。"],
+      "answer_idx": 1,
+      "why": "Open examples of people → や…など + います (not complete-list と, and not あります)."
     }
   ],
   "related": {

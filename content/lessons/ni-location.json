@@ -25,9 +25,9 @@
         "あそこに[駅|えき]があります"
       ]
     ],
-    "note": "Order is Placeに + Subjectが + います/あります. Do not swap to ×猫が部屋にがいます. に here means location of existence — not a place where you do an action."
+    "note": "Placeに + Nが + います/あります is the usual order for presenting what is there. に always stays on the place. に here marks location of existence."
   },
-  "explanation": "To say where something is, put the place first with に, then the subject with が, then います or あります: 部屋に猫がいます / 部屋に本があります. Questions keep the same frame: 教室にだれがいますか / 図書館に何がありますか. Place words you already know work the same way: ここに先生がいます / あそこに駅があります. Remember the が contrast: 部屋に猫がいます presents the cat as new; 猫は部屋にいます talks about a known cat's location. Stick to existence — に + います/あります — for this point.",
+  "explanation": "To say where something is, mark the place with に and the subject with が, then use います or あります: 部屋に猫がいます / 部屋に本があります. Questions keep the same frame: 教室にだれがいますか / 図書館に何がありますか. Place words you already know work the same way: ここに先生がいます / あそこに駅があります. Remember the が contrast: 部屋に猫がいます presents the cat as new; 猫は部屋にいます talks about a known cat's location.",
   "senses": [
     {
       "label": "Placeに + animate がいます",
@@ -70,11 +70,6 @@
       "wrong_ruby": "[部屋|へや]に[本|ほん]がいます。",
       "right_ruby": "[部屋|へや]に[本|ほん]があります。",
       "why": "Books are things → あります even when a place に is present."
-    },
-    {
-      "wrong_ruby": "(Meaning: there is a cat in the room) [部屋|へや]は[猫|ねこ]がいます。",
-      "right_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
-      "why": "For \"there is a cat in the room,\" mark the place with に: 部屋に猫がいます."
     }
   ],
   "contrasts": [
@@ -161,13 +156,13 @@
     },
     {
       "speaker": "A",
-      "ruby": "[本|ほん]もありますか。",
-      "english": "Is there a book too?"
+      "ruby": "[猫|ねこ]もいますか。",
+      "english": "Is there a cat too?"
     },
     {
       "speaker": "B",
-      "ruby": "はい、[机|つくえ]に[本|ほん]があります。",
-      "english": "Yes, there is a book on/at the desk."
+      "ruby": "いいえ、[猫|ねこ]はいません。",
+      "english": "No, there isn't a cat."
     }
   ],
   "checks": [
@@ -184,16 +179,16 @@
       "why": "Books → があります even with place に."
     },
     {
-      "prompt": "図書館に（　）がいますか。",
+      "prompt": "図書館に（　）がいますか。 (Who is in the library?)",
       "options": ["だれ", "何", "どこ"],
       "answer_idx": 0,
-      "why": "Asking who → だれがいますか. 何 goes with あります; どこ asks where."
+      "why": "Asking who → だれがいますか. 何 can ask \"what animal\"; どこ asks where."
     },
     {
       "prompt": "Context: There is a teacher here.",
-      "options": ["ここは先生がいます。", "ここに先生がいます。", "ここが先生にいます。"],
+      "options": ["先生がここいます。", "ここに先生がいます。", "ここが先生にいます。"],
       "answer_idx": 1,
-      "why": "Place word + に + subjectが + います."
+      "why": "Place word + に + subjectが + います. ×先生がここいます drops に."
     }
   ],
   "related": {

@@ -152,8 +152,8 @@
       "note": "negative · thing"
     },
     {
-      "ruby": "[昨日|きのう]、[先生|せんせい]がいました。",
-      "english": "The teacher was here yesterday.",
+      "ruby": "[昨日|きのう]、[教室|きょうしつ]に[先生|せんせい]がいました。",
+      "english": "Yesterday, the teacher was in the classroom.",
       "note": "past · いました"
     },
     {
@@ -166,7 +166,7 @@
     {
       "speaker": "A",
       "ruby": "[猫|ねこ]がいますか。",
-      "english": "Do you have a cat? / Is there a cat?"
+      "english": "Do you have a cat?"
     },
     {
       "speaker": "B",
@@ -175,19 +175,19 @@
     },
     {
       "speaker": "A",
-      "ruby": "[時間|じかん]がありますか。",
-      "english": "Do you have time?"
+      "ruby": "そうですか。[私|わたし]は[犬|いぬ]がいます。",
+      "english": "I see. I have a dog."
     },
     {
       "speaker": "B",
-      "ruby": "いいえ、[時間|じかん]がありません。",
-      "english": "No, I don't have time."
+      "ruby": "そうですか。",
+      "english": "I see."
     }
   ],
   "checks": [
     {
       "prompt": "本（　）。",
-      "options": ["があります", "がいます", "ですいます"],
+      "options": ["があります", "がいます", "にあります"],
       "answer_idx": 0,
       "why": "Books are things → 本があります."
     },

@@ -35,9 +35,9 @@
         "これは[百円|ひゃくえん]です。"
       ]
     ],
-    "note": "Quantity comes after the noun + particle: りんごが三つあります — not ×三つりんごがあります as the main classroom pattern. あります for things, います for people/animals. Watch 本 and 人 sound changes; 四人 is よにん; 九 is often きゅう with 円."
+    "note": "Main pattern: りんごが三つあります. ×三つりんご (no の) is wrong; 三つのりんご is fine but a different style. あります for things, います for people/animals. Watch 本 and 人 sound changes; 四人 is よにん; 九 is often きゅう with 円."
   },
-  "explanation": "Japanese counts with counters, not bare numbers stuck in front of the noun. Build existence first (Nがあります / います), then place the number+counter after が: りんごが三つあります / 学生が二人います. 〜つ is the general counter for many small things. 〜人 is for people — but 1 and 2 are special: ひとり, ふたり (then さんにん, よにん…). 〜本 counts long thin items and brings sound changes: いっぽん, さんぼん, ろっぽん. 〜枚 is for flat sheets. 〜円 names prices; 九円 is usually きゅうえん. Keep the counter with the counted noun's existence verb.",
+  "explanation": "Japanese counts with counters. Build existence first (Nがあります / います), then place the number+counter after が: りんごが三つあります / 学生が二人います. 〜つ is the general counter for many small things. 〜人 is for people — but 1 and 2 are special: ひとり, ふたり (then さんにん, よにん…). 〜本 counts long thin items and brings sound changes: いっぽん, さんぼん, ろっぽん. 〜枚 is for flat sheets. 〜円 names prices; 九円 is usually きゅうえん. Keep the counter with the counted noun's existence verb.",
   "senses": [
     {
       "label": "〜つ — general count",
@@ -69,7 +69,7 @@
     {
       "wrong_ruby": "[三|みっ]つりんごがあります。",
       "right_ruby": "りんごが[三|みっ]つあります。",
-      "why": "Main pattern: noun + が + counter + あります — quantity after the particle phrase."
+      "why": "×三つりんご drops の. Main pattern: りんごが三つあります (三つのりんご is a different style)."
     },
     {
       "wrong_ruby": "ペンが[三本|さんほん]あります。",
@@ -95,12 +95,12 @@
   "contrasts": [
     {
       "other_slug": null,
-      "label": "Counter after が vs number before the noun",
-      "summary": "Classroom pattern puts quantity after the particle: りんごが三つあります. Leading with the number (三つのりんご…) is a different style — not the main pattern here.",
+      "label": "りんごが三つ vs ×三つりんご",
+      "summary": "Main pattern: りんごが三つあります. ×三つりんご without の is wrong; 三つのりんご is fine but a different style.",
       "ex_a_ruby": "りんごが[三|みっ]つあります。",
-      "ex_a_en": "There are three apples. (counter after が)",
+      "ex_a_en": "There are three apples. (main pattern)",
       "ex_b_ruby": "[三|みっ]つりんごがあります。",
-      "ex_b_en": "× Avoid as the main pattern — move 三つ after が."
+      "ex_b_en": "× Missing の — use りんごが三つあります (or 三つのりんご…)."
     },
     {
       "other_slug": null,
@@ -176,23 +176,23 @@
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "りんごがいくつありますか。",
-      "english": "How many apples are there?"
+      "ruby": "[教室|きょうしつ]に[学生|がくせい]が[何人|なんにん]いますか。",
+      "english": "How many students are in the classroom?"
     },
     {
       "speaker": "B",
-      "ruby": "[三|みっ]つあります。",
-      "english": "There are three."
+      "ruby": "[四人|よにん]います。",
+      "english": "There are four."
     },
     {
       "speaker": "A",
-      "ruby": "[学生|がくせい]は[何人|なんにん]いますか。",
-      "english": "How many students are there?"
+      "ruby": "ペンは[何本|なんぼん]ありますか。",
+      "english": "How many pens are there?"
     },
     {
       "speaker": "B",
-      "ruby": "[四人|よにん]います。ペンは[六本|ろっぽん]あります。",
-      "english": "There are four students. There are six pens."
+      "ruby": "[六本|ろっぽん]あります。",
+      "english": "There are six."
     }
   ],
   "checks": [
@@ -215,10 +215,10 @@
       "why": "Two people → ふたり (not ×ににん)."
     },
     {
-      "prompt": "Fix word order: 三つりんごがあります。",
-      "options": ["りんごが三つあります。", "りんご三つがあります。", "三つがりんごあります。"],
+      "prompt": "Fix: 三つりんごがあります。",
+      "options": ["りんごが三つあります。", "りんごが三つがあります。", "三つがりんごあります。"],
       "answer_idx": 0,
-      "why": "Noun + が + counter + あります."
+      "why": "Main pattern: noun + が + counter + あります. ×三つりんご needs の or the after-が pattern."
     },
     {
       "prompt": "これは（　）です。 (900 yen)",

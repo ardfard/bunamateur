@@ -176,8 +176,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "いいえ、パンと[卵|たまご]です。ミルクはありません。",
-      "english": "No — bread and eggs. There isn't any milk."
+      "ruby": "いいえ、ミルクはありません。",
+      "english": "No, there isn't any milk."
     }
   ],
   "checks": [

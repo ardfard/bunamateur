@@ -62,11 +62,6 @@
   "register_context": "Polite classroom speech: N₁やN₂があります / などがあります. など is common in careful polite talk when you do not want to sound like you finished the list. Questions: パンや卵がありますか. Plain forms use ある / いる the same way.",
   "mistakes": [
     {
-      "wrong_ruby": "パンと[卵|たまご]やミルクがあります。",
-      "right_ruby": "パンや[卵|たまご]やミルクがあります。",
-      "why": "Stay with one listing style. For an open list, use や throughout (or close the set with と only)."
-    },
-    {
       "wrong_ruby": "パンなどや[卵|たまご]があります。",
       "right_ruby": "パンや[卵|たまご]などがあります。",
       "why": "など follows the example nouns; put it after the last sample, not between them."
@@ -153,9 +148,9 @@
       "note": "open list · question"
     },
     {
-      "ruby": "ここは[本|ほん]や[雑誌|ざっし]などです。",
-      "english": "Around here it's books, magazines, and the like.",
-      "note": "open list · copula"
+      "ruby": "ここに[本|ほん]や[雑誌|ざっし]などがあります。",
+      "english": "Here there are books, magazines, and so on.",
+      "note": "open list · location"
     }
   ],
   "dialogue": [
