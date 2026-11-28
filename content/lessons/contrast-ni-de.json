@@ -1,0 +1,257 @@
+{
+  "meaning": "に vs で for places · existence vs action location",
+  "gist": "[部屋|へや]に[猫|ねこ]がいます says where something exists. [部屋|へや]で[勉強|べんきょう]します says where an action happens. Same place noun; the particle follows the verb's job — existence (います / あります) vs action (勉強します / 読みます).",
+  "formation": {
+    "columns": [
+      "Job",
+      "Particle",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Existence location",
+        "Place に + がいます / があります",
+        "[部屋|へや]に[猫|ねこ]がいます"
+      ],
+      [
+        "Action location",
+        "Place で + action Vます",
+        "[部屋|へや]で[勉強|べんきょう]します"
+      ],
+      [
+        "Library · existence",
+        "図書館に + があります",
+        "[図書館|としょかん]に[本|ほん]があります"
+      ],
+      [
+        "Library · action",
+        "図書館で + を読みます",
+        "[図書館|としょかん]で[本|ほん]を[読|よ]みます"
+      ],
+      [
+        "Classroom pair",
+        "に exists / で acts",
+        "[教室|きょうしつ]に[学生|がくせい]がいます / [教室|きょうしつ]で[話|はな]します"
+      ]
+    ],
+    "note": "Ask: am I saying what is there, or what someone does there? Exists → に. Action happens → で."
+  },
+  "explanation": "に and で both sit after place nouns, but they answer different questions. 部屋に猫がいます / 図書館に本があります locate existence — something is in that place. 部屋で勉強します / 図書館で本を読みます locate an action — you do something in that place. The verb chooses the particle: います / あります take existence に; action verbs take place で. Mixing them changes the claim: ×部屋で猫がいます and ×部屋に勉強します both miss the job.",
+  "senses": [
+    {
+      "label": "に — where it exists",
+      "body": "Placeに + がいます / があります.",
+      "example_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "example_en": "There is a cat in the room."
+    },
+    {
+      "label": "で — where you act",
+      "body": "Placeで + action verb.",
+      "example_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "example_en": "I study in the room."
+    },
+    {
+      "label": "Same place, two jobs",
+      "body": "図書館に本があります vs 図書館で本を読みます.",
+      "example_ruby": "[図書館|としょかん]に[本|ほん]があります。 / [図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+      "example_en": "There are books in the library. / I read a book at the library."
+    }
+  ],
+  "register_context": "Polite classroom pairs: PlaceにNがあります / います and PlaceでVます. Keep existence and action in separate sentences when drilling the contrast; one place noun can appear in both patterns across turns.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[部屋|へや]で[猫|ねこ]がいます。",
+      "right_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "why": "Existence location takes に, not action で."
+    },
+    {
+      "wrong_ruby": "[部屋|へや]に[勉強|べんきょう]します。",
+      "right_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "why": "Action location takes で, not existence に."
+    },
+    {
+      "wrong_ruby": "[図書館|としょかん]で[本|ほん]があります。",
+      "right_ruby": "[図書館|としょかん]に[本|ほん]があります。",
+      "why": "本があります is existence → に."
+    },
+    {
+      "wrong_ruby": "[図書館|としょかん]に[本|ほん]を[読|よ]みます。",
+      "right_ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+      "why": "Reading is an action at the library → で."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "に — existence location",
+      "summary": "部屋に猫がいます / 図書館に本があります — where something is.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room. (existence に)",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room. (action で)"
+    },
+    {
+      "other_slug": null,
+      "label": "で — action location",
+      "summary": "部屋で勉強します / 図書館で本を読みます — where you do something.",
+      "ex_a_ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+      "ex_a_en": "I read a book at the library. (action で)",
+      "ex_b_ruby": "[図書館|としょかん]に[本|ほん]があります。",
+      "ex_b_en": "There are books in the library. (existence に)"
+    },
+    {
+      "other_slug": "ni-location",
+      "label": "に — existence location",
+      "summary": "に marks where something exists with います / あります.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat in the room.",
+      "ex_b_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study in the room."
+    },
+    {
+      "other_slug": "de-place",
+      "label": "で — action location",
+      "summary": "で marks where an action happens.",
+      "ex_a_ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "ex_a_en": "I study in the room.",
+      "ex_b_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_b_en": "There is a cat in the room."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "english": "There is a cat in the room.",
+      "note": "existence に"
+    },
+    {
+      "ruby": "[部屋|へや]で[勉強|べんきょう]します。",
+      "english": "I study in the room.",
+      "note": "action で"
+    },
+    {
+      "ruby": "[図書館|としょかん]に[本|ほん]があります。",
+      "english": "There are books in the library.",
+      "note": "existence に"
+    },
+    {
+      "ruby": "[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+      "english": "I read a book at the library.",
+      "note": "action で"
+    },
+    {
+      "ruby": "[教室|きょうしつ]に[学生|がくせい]がいます。",
+      "english": "There are students in the classroom.",
+      "note": "existence に"
+    },
+    {
+      "ruby": "[教室|きょうしつ]で[日本語|にほんご]を[話|はな]します。",
+      "english": "I speak Japanese in the classroom.",
+      "note": "action で"
+    },
+    {
+      "ruby": "カフェにだれがいますか。",
+      "english": "Who is at the café?",
+      "note": "existence question"
+    },
+    {
+      "ruby": "カフェでコーヒーを[飲|の]みます。",
+      "english": "I drink coffee at a café.",
+      "note": "action で"
+    },
+    {
+      "ruby": "[家|いえ]に[友達|ともだち]がいます。",
+      "english": "There is a friend at home.",
+      "note": "existence に"
+    },
+    {
+      "ruby": "[家|いえ]で[音楽|おんがく]を[聞|き]きます。",
+      "english": "I listen to music at home.",
+      "note": "action で"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]、どこで[勉強|べんきょう]しますか。",
+      "english": "Where will you study today?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I'll study at the library."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[図書館|としょかん]に[山田|やまだ]さんもいますか。",
+      "english": "Is Yamada-san at the library too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、います。",
+      "english": "Yes, she is."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "部屋（　）猫がいます。",
+      "options": [
+        "で",
+        "に",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "Existence location → に."
+    },
+    {
+      "prompt": "部屋（　）勉強します。",
+      "options": [
+        "に",
+        "が",
+        "で"
+      ],
+      "answer_idx": 2,
+      "why": "Action location → で."
+    },
+    {
+      "prompt": "図書館に本があります vs 図書館で本を読みます — which is existence?",
+      "options": [
+        "図書館で本を読みます",
+        "図書館に本があります",
+        "both"
+      ],
+      "answer_idx": 1,
+      "why": "があります → existence に."
+    },
+    {
+      "prompt": "Fix: 教室に話します。",
+      "options": [
+        "教室で話します。",
+        "教室が話します。",
+        "教室を話します。"
+      ],
+      "answer_idx": 0,
+      "why": "Talking is an action at the place → で."
+    },
+    {
+      "prompt": "カフェ（　）コーヒーを飲みます。",
+      "options": [
+        "に",
+        "で",
+        "と"
+      ],
+      "answer_idx": 1,
+      "why": "Drinking is an action → place で."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "ni-location",
+      "de-place"
+    ],
+    "next": [
+      "contrast-ni-he"
+    ]
+  },
+  "lesson_version": 1
+}

@@ -1,0 +1,243 @@
+{
+  "meaning": "で (means) · by / with / in (tool, transport, language)",
+  "gist": "で marks how you do something: [電車|でんしゃ]で[行|い]きます / [箸|はし]で[食|た]べます / [日本語|にほんご]で[話|はな]します. Same particle shape as place で, but here the noun is a vehicle, tool, or language. [一人|ひとり]で means alone.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Transport",
+        "Vehicle で + Vます",
+        "バスで[行|い]きます"
+      ],
+      [
+        "Tool",
+        "Tool で + Vます",
+        "[箸|はし]で[食|た]べます"
+      ],
+      [
+        "Language",
+        "Language で + Vます",
+        "[日本語|にほんご]で[話|はな]します"
+      ],
+      [
+        "Alone",
+        "一人で + Vます",
+        "[一人|ひとり]で[勉強|べんきょう]します"
+      ],
+      [
+        "Time + means",
+        "Timeに + meansで + Vます",
+        "[八時|はちじ]に[電車|でんしゃ]で[行|い]きます"
+      ]
+    ],
+    "note": "で on a vehicle, tool, or language answers \"by what / with what / in what.\" 一人で is the set phrase for alone. Place で (where an action happens) uses the same particle with a different noun type."
+  },
+  "explanation": "Means で names the vehicle, tool, or language that carries out the action: バスで行きます / ペンで書きます / 日本語で話します. Transport nouns (バス・電車・自転車) and tools (箸・ペン) sit before で, then the verb. 一人で means \"alone\" — it is this で, not と. You already know place で (カフェで食べます); means で answers how, not where. Stack with earlier Unit 3 pieces when needed: 八時に電車で学校に行きます.",
+  "senses": [
+    {
+      "label": "Transport / vehicle",
+      "body": "Go by bus, train, bike — Vehicleで行きます.",
+      "example_ruby": "バスで[学校|がっこう]に[行|い]きます。",
+      "example_en": "I go to school by bus."
+    },
+    {
+      "label": "Tool",
+      "body": "The instrument you use for the action.",
+      "example_ruby": "[箸|はし]で[食|た]べます。",
+      "example_en": "I eat with chopsticks."
+    },
+    {
+      "label": "Language",
+      "body": "Speak or write in a language: Languageで話します.",
+      "example_ruby": "[日本語|にほんご]で[話|はな]します。",
+      "example_en": "I speak in Japanese."
+    },
+    {
+      "label": "一人で — alone",
+      "body": "一人で means alone (not ×一人と).",
+      "example_ruby": "[一人|ひとり]で[映画|えいが]を[見|み]ます。",
+      "example_en": "I watch a movie alone."
+    }
+  ],
+  "register_context": "Polite default: MeansでVます. Questions: 何で行きますか / 日本語で話しますか. Combines cleanly with time に and destination に / へ: 七時に自転車で駅に行きます.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[電車|でんしゃ]に[行|い]きます。",
+      "right_ruby": "[電車|でんしゃ]で[行|い]きます。",
+      "why": "Transport as means takes で, not destination に. (駅に行きます = go to the station.)"
+    },
+    {
+      "wrong_ruby": "[箸|はし]を[食|た]べます。(Meaning: I eat the chopsticks.)",
+      "right_ruby": "[箸|はし]で[食|た]べます。",
+      "why": "The tool is で; を marks the thing eaten (ご飯を食べます)."
+    },
+    {
+      "wrong_ruby": "[一人|ひとり]と[勉強|べんきょう]します。",
+      "right_ruby": "[一人|ひとり]で[勉強|べんきょう]します。",
+      "why": "Alone is 一人で, not ×一人と."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "で means vs で place",
+      "summary": "電車で = by train (means). カフェで = at the café (place of action).",
+      "ex_a_ruby": "[電車|でんしゃ]で[行|い]きます。",
+      "ex_a_en": "I go by train. (means)",
+      "ex_b_ruby": "カフェで[食|た]べます。",
+      "ex_b_en": "I eat at a café. (place of action)"
+    },
+    {
+      "other_slug": null,
+      "label": "Means で vs destination に",
+      "summary": "バスで行きます (how). 学校に行きます (where to).",
+      "ex_a_ruby": "バスで[行|い]きます。",
+      "ex_a_en": "I go by bus.",
+      "ex_b_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_b_en": "I go to school."
+    },
+    {
+      "other_slug": null,
+      "label": "で means vs で place",
+      "summary": "Same particle: place of action vs tool/transport/language.",
+      "ex_a_ruby": "バスで[行|い]きます。",
+      "ex_a_en": "I go by bus.",
+      "ex_b_ruby": "[図書館|としょかん]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study at the library."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "バスで[行|い]きます。",
+      "english": "I go by bus.",
+      "note": "transport"
+    },
+    {
+      "ruby": "[電車|でんしゃ]で[駅|えき]に[行|い]きます。",
+      "english": "I go to the station by train.",
+      "note": "means + destination"
+    },
+    {
+      "ruby": "[自転車|じてんしゃ]で[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school by bicycle.",
+      "note": "bicycle"
+    },
+    {
+      "ruby": "[箸|はし]で[食|た]べます。",
+      "english": "I eat with chopsticks.",
+      "note": "tool"
+    },
+    {
+      "ruby": "ペンで[書|か]きます。",
+      "english": "I write with a pen.",
+      "note": "tool"
+    },
+    {
+      "ruby": "[日本語|にほんご]で[話|はな]します。",
+      "english": "I speak in Japanese.",
+      "note": "language"
+    },
+    {
+      "ruby": "[一人|ひとり]で[勉強|べんきょう]します。",
+      "english": "I study alone.",
+      "note": "一人で"
+    },
+    {
+      "ruby": "[八時|はちじ]に[電車|でんしゃ]で[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school by train at eight.",
+      "note": "time + means + destination"
+    },
+    {
+      "ruby": "[土曜日|どようび]に[一人|ひとり]で[映画|えいが]を[見|み]ます。",
+      "english": "On Saturday I watch a movie alone.",
+      "note": "weekday + 一人で"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[学校|がっこう]に[何|なに]で[行|い]きますか。",
+      "english": "How do you get to school?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[電車|でんしゃ]で[行|い]きます。",
+      "english": "I go by train."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[田中|たなか]さんも[電車|でんしゃ]で[行|い]きますか。",
+      "english": "Does Tanaka-san go by train too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[田中|たなか]さんは[自転車|じてんしゃ]で[行|い]きます。",
+      "english": "No, Tanaka-san goes by bike."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "電車（　）行きます。 (by train)",
+      "options": [
+        "に",
+        "で",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "Transport as means → 電車で."
+    },
+    {
+      "prompt": "箸（　）食べます。",
+      "options": [
+        "で",
+        "を",
+        "に"
+      ],
+      "answer_idx": 0,
+      "why": "Tool → 箸で食べます."
+    },
+    {
+      "prompt": "Alone: （　）勉強します。",
+      "options": [
+        "一人と",
+        "一人で",
+        "一人に"
+      ],
+      "answer_idx": 1,
+      "why": "Alone is 一人で."
+    },
+    {
+      "prompt": "日本語（　）手紙を書きます。",
+      "options": [
+        "を",
+        "に",
+        "で"
+      ],
+      "answer_idx": 2,
+      "why": "Language as means → 日本語で (を is already on 手紙)."
+    },
+    {
+      "prompt": "カフェで食べます vs 電車で行きます — which is means で?",
+      "options": [
+        "カフェで食べます",
+        "電車で行きます",
+        "both are place で"
+      ],
+      "answer_idx": 1,
+      "why": "電車で = by train (means). カフェで = at the café (place)."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "de-place"
+    ],
+    "next": [
+      "to-with"
+    ]
+  },
+  "lesson_version": 1
+}

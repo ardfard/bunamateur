@@ -740,9 +740,10 @@ fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
     edit_chars.iter().any(|&c| is_particle_morpheme(c))
 }
 
-/// Known wrong readings that must grade Incorrect (never typo forgiveness).
+/// Known wrong readings/forms that must grade Incorrect (never typo forgiveness).
 /// Pairs are (wrong_form, correct_form); both compared after `normalize_jp`.
-/// Covers counter sound-change mistakes taught in numbers-counters.
+/// Covers counter sound changes, clock/minute misreadings, and masu-form
+/// formation mistakes taught in Unit 3 (must not get Levenshtein-1 typo retry).
 const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("さんほん", "さんぼん"),
     ("さんほん", "三本"),
@@ -756,7 +757,39 @@ const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("きゅうぼん", "九本"),
     ("みつ", "みっつ"),
     ("みつ", "三つ"),
+    // Clock hours (ni-time). ななじ is accepted for 七時 — not listed here.
+    ("よんじ", "よじ"),
+    ("よんじ", "四時"),
+    ("きゅうじ", "くじ"),
+    ("きゅうじ", "九時"),
+    // Minutes (ni-time)
+    ("いちぷん", "いっぷん"),
+    ("いちぷん", "一分"),
+    ("さんふん", "さんぷん"),
+    ("さんふん", "三分"),
+    ("ろくふん", "ろっぷん"),
+    ("ろくふん", "六分"),
+    ("じゅうふん", "じゅっぷん"),
+    ("じゅうふん", "十分"),
+    ("じゅうふん", "じっぷん"),
+    ("じっふん", "じゅっぷん"),
+    ("じっふん", "十分"),
+    ("じっふん", "じっぷん"),
+    // masu-form formation mistakes (Unit 3)
+    ("くます", "きます"),
+    ("くます", "来ます"),
+    ("こます", "きます"),
+    ("こます", "来ます"),
+    ("するます", "します"),
+    ("かえます", "かえります"),
+    ("かえます", "帰ります"),
+    ("帰ます", "帰ります"),
+    ("かえませんでした", "かえりませんでした"),
+    ("かえませんでした", "帰りませんでした"),
+    ("帰ませんでした", "帰りませんでした"),
 ];
+// Note: じっぷん is a valid alternate of じゅっぷん — do not list it as incorrect.
+// Note: ななじ is accepted for 七時 (textbook しちじ remains canonical).
 
 fn is_known_incorrect_form(norm_in: &str, targets: &[String]) -> bool {
     KNOWN_INCORRECT_FORMS.iter().any(|(wrong, correct)| {
@@ -1110,6 +1143,86 @@ mod tests {
             grade_answer("みつ", "三つ", &["みっつ".into()], ""),
             GradeOutcome::Incorrect
         );
+
+        // Clock / minute misreadings (ni-time) must not get typo forgiveness
+        assert_eq!(
+            grade_answer("よんじ", "四時", &["よじ".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("きゅうじ", "九時", &["くじ".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("いちぷん", "一分", &["いっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("さんふん", "三分", &["さんぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("ろくふん", "六分", &["ろっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("じゅうふん", "十分", &["じゅっぷん".into(), "じっぷん".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        // じっぷん is a valid alternate reading, not a known-incorrect form
+        assert!(matches!(
+            grade_answer("じっぷん", "十分", &["じゅっぷん".into(), "じっぷん".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        // ななじ is accepted for 七時 (textbook しちじ remains canonical)
+        assert!(matches!(
+            grade_answer("ななじ", "七時", &["しちじ".into(), "ななじ".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("しちじ", "七時", &["しちじ".into(), "ななじ".into()], ""),
+            GradeOutcome::Correct { .. }
+        ));
+
+        // masu-form formation mistakes must not get typo forgiveness
+        assert_eq!(
+            grade_answer("くます", "来ます", &["きます".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("こます", "来ます", &["きます".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("するます", "します", &[], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("かえます", "帰ります", &["かえります".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("帰ます", "帰ります", &["かえります".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("かえませんでした", "帰りませんでした", &["かえりませんでした".into()], ""),
+            GradeOutcome::Incorrect
+        );
+        assert_eq!(
+            grade_answer("帰ませんでした", "帰りませんでした", &["かえりませんでした".into()], ""),
+            GradeOutcome::Incorrect
+        );
+
+        // に / へ movement destination cards accept either particle
+        assert!(matches!(
+            grade_answer("へ", "に", &["へ".into()], "go to school"),
+            GradeOutcome::Correct { .. }
+        ));
+        assert!(matches!(
+            grade_answer("に", "へ", &["に".into()], "go to school"),
+            GradeOutcome::Correct { .. }
+        ));
 
         // Wrong grammar form — not Correct
         assert!(!matches!(

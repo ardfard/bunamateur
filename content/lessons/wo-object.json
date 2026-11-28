@@ -1,0 +1,243 @@
+{
+  "meaning": "を · object marker (\"does X to Y\")",
+  "gist": "[本|ほん]を[読|よ]みます。 を marks the direct object — the thing the verb acts on. Say を as お. Pattern: Object + を + verb-ます. Do not use が for this object role, and do not put を after the verb.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Object",
+      "Verb",
+      "Full sentence"
+    ],
+    "rows": [
+      [
+        "Nを + Vます",
+        "[本|ほん]",
+        "[読|よ]みます",
+        "[本|ほん]を[読|よ]みます。"
+      ],
+      [
+        "Nを + Vます",
+        "コーヒー",
+        "[飲|の]みます",
+        "コーヒーを[飲|の]みます。"
+      ],
+      [
+        "Nを + Vます",
+        "[映画|えいが]",
+        "[見|み]ます",
+        "[映画|えいが]を[見|み]ます。"
+      ],
+      [
+        "Topic + object",
+        "[私|わたし]は + [手紙|てがみ]を",
+        "[書|か]きます",
+        "[私|わたし]は[手紙|てがみ]を[書|か]きます。"
+      ]
+    ],
+    "note": "を comes right after the object noun. Pronounce を as お. Topic は / も can still frame the sentence: [私|わたし]は本を読みます / [田中|たなか]さんもコーヒーを飲みます."
+  },
+  "explanation": "When a verb acts on something, mark that something with を: [本|ほん]を[読|よ]みます (read a book), コーヒーを[飲|の]みます (drink coffee), [映画|えいが]を[見|み]ます (watch a movie). The particle is written を but pronounced お. Keep the order Object + を + verb — never ×[読|よ]みますを. For the thing being read, watched, or drunk, use を, not が: ×[本|ほん]が[読|よ]みます is wrong for \"(I) read a book.\"",
+  "senses": [
+    {
+      "label": "Object of an action",
+      "body": "を marks what the verb acts on: books, coffee, movies, music.",
+      "example_ruby": "[本|ほん]を[読|よ]みます。",
+      "example_en": "I read a book. / I read books."
+    },
+    {
+      "label": "Food and drink",
+      "body": "Things you eat or drink take を before the verb.",
+      "example_ruby": "コーヒーを[飲|の]みます。",
+      "example_en": "I drink coffee."
+    },
+    {
+      "label": "Media and speech",
+      "body": "Movies, music, letters, and languages also take を.",
+      "example_ruby": "[映画|えいが]を[見|み]ます。",
+      "example_en": "I watch a movie. / I watch movies."
+    },
+    {
+      "label": "Topic + object",
+      "body": "は / も can mark the topic while を still marks the object.",
+      "example_ruby": "[私|わたし]は[手紙|てがみ]を[書|か]きます。",
+      "example_en": "I write a letter. / I write letters."
+    }
+  ],
+  "register_context": "Polite classroom speech: Objectを + verb-ます. Pronounce を as お even though the kana is を. Keep topics with は / も when useful; the object still needs を.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[本|ほん]が[読|よ]みます。",
+      "right_ruby": "[本|ほん]を[読|よ]みます。",
+      "why": "The thing you read is the object → を, not が. (が marks a subject of existence or focus, not this object role.)"
+    },
+    {
+      "wrong_ruby": "[本|ほん][読|よ]みますを。",
+      "right_ruby": "[本|ほん]を[読|よ]みます。",
+      "why": "を attaches to the object noun before the verb — never after the verb."
+    },
+    {
+      "wrong_ruby": "を[本|ほん][読|よ]みます。",
+      "right_ruby": "[本|ほん]を[読|よ]みます。",
+      "why": "を comes after the object: 本を読みます."
+    },
+    {
+      "wrong_ruby": "コーヒーは[飲|の]みます。(Meaning: stating what you drink as the object, not contrasting topics)",
+      "right_ruby": "コーヒーを[飲|の]みます。",
+      "why": "For a plain object reading, use を. は on the object is contrast/topic, not the basic pattern."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "Bare verb vs object + を",
+      "summary": "[読|よ]みます names the action. [本|ほん]を[読|よ]みます names what you read.",
+      "ex_a_ruby": "[読|よ]みます。",
+      "ex_a_en": "I read.",
+      "ex_b_ruby": "[本|ほん]を[読|よ]みます。",
+      "ex_b_en": "I read a book."
+    },
+    {
+      "other_slug": null,
+      "label": "が (subject) vs を (object)",
+      "summary": "が marks who/what exists or is focused as subject. を marks the thing acted on.",
+      "ex_a_ruby": "[本|ほん]があります。",
+      "ex_a_en": "There is a book.",
+      "ex_b_ruby": "[本|ほん]を[読|よ]みます。",
+      "ex_b_en": "I read a book."
+    },
+    {
+      "other_slug": null,
+      "label": "Pronunciation: を = お",
+      "summary": "Written を, spoken お — same particle either way.",
+      "ex_a_ruby": "[本|ほん]を[読|よ]みます。",
+      "ex_a_en": "(Say: ほんをよみます → ほんおよみます)",
+      "ex_b_ruby": "コーヒーを[飲|の]みます。",
+      "ex_b_en": "(Say: コーヒーをのみます → コーヒーおのみます)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[本|ほん]を[読|よ]みます。",
+      "english": "I read a book. / I read books.",
+      "note": "object · read"
+    },
+    {
+      "ruby": "コーヒーを[飲|の]みます。",
+      "english": "I drink coffee.",
+      "note": "object · drink"
+    },
+    {
+      "ruby": "[映画|えいが]を[見|み]ます。",
+      "english": "I watch a movie.",
+      "note": "object · watch"
+    },
+    {
+      "ruby": "[音楽|おんがく]を[聞|き]きます。",
+      "english": "I listen to music.",
+      "note": "object · listen"
+    },
+    {
+      "ruby": "[手紙|てがみ]を[書|か]きます。",
+      "english": "I write a letter.",
+      "note": "object · write"
+    },
+    {
+      "ruby": "[日本語|にほんご]を[話|はな]します。",
+      "english": "I speak Japanese.",
+      "note": "object · speak"
+    },
+    {
+      "ruby": "[新聞|しんぶん]を[買|か]います。",
+      "english": "I buy a newspaper.",
+      "note": "object · buy"
+    },
+    {
+      "ruby": "[私|わたし]は[本|ほん]を[読|よ]みます。",
+      "english": "I read a book.",
+      "note": "topic + object"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[何|なに]を[読|よ]みますか。",
+      "english": "What will you read? / What do you read?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[本|ほん]を[読|よ]みます。[新聞|しんぶん]も[読|よ]みます。",
+      "english": "I read books. I read the newspaper too."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[音楽|おんがく]を[聞|き]きますか。",
+      "english": "Do you listen to music?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[聞|き]きます。[日本|にほん]の[音楽|おんがく]も[聞|き]きます。",
+      "english": "Yes, I do. I listen to Japanese music too."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "本（　）読みます。",
+      "options": [
+        "を",
+        "が",
+        "に"
+      ],
+      "answer_idx": 0,
+      "why": "Object of reading takes を: 本を読みます."
+    },
+    {
+      "prompt": "コーヒー（　）飲みます。",
+      "options": [
+        "が",
+        "を",
+        "に"
+      ],
+      "answer_idx": 1,
+      "why": "Object of drinking takes を: コーヒーを飲みます."
+    },
+    {
+      "prompt": "How do you pronounce を in 本を読みます?",
+      "options": [
+        "を (wo)",
+        "お (o)",
+        "う (u)"
+      ],
+      "answer_idx": 1,
+      "why": "を is pronounced お."
+    },
+    {
+      "prompt": "Context: I watch a movie.",
+      "options": [
+        "映画が見ます。",
+        "映画を見ます。",
+        "見ますを映画。"
+      ],
+      "answer_idx": 1,
+      "why": "Object + を + verb. ×映画が見ます uses the wrong particle; ×見ますを映画 puts を in the wrong place."
+    },
+    {
+      "prompt": "日本語（　）話します。",
+      "options": [
+        "が",
+        "に",
+        "を"
+      ],
+      "answer_idx": 2,
+      "why": "Language as object of 話す takes を."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masu-form"
+    ],
+    "next": [
+      "de-place"
+    ]
+  },
+  "lesson_version": 1
+}

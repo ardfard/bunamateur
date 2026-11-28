@@ -1,0 +1,240 @@
+{
+  "meaning": "に · destination of go / come / return",
+  "gist": "[学校|がっこう]に[行|い]きます。 に marks where you go, come, or return to. Use it with [行|い]きます / [来|き]ます / [帰|かえ]ります. [行|い]きます takes に — never ×[学校|がっこう]を[行|い]きます. Both うちに[帰|かえ]ります and [家|いえ]に[帰|かえ]ります are fine.",
+  "formation": {
+    "columns": [
+      "Verb",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "[行|い]きます",
+        "Place + に + [行|い]きます",
+        "[学校|がっこう]に[行|い]きます。"
+      ],
+      [
+        "[帰|かえ]ります",
+        "うち / [家|いえ] + に + [帰|かえ]ります",
+        "うちに[帰|かえ]ります。 / [家|いえ]に[帰|かえ]ります。"
+      ],
+      [
+        "[来|き]ます",
+        "Place + に + [来|き]ます",
+        "[日本|にほん]に[来|き]ます。"
+      ],
+      [
+        "With prior particles",
+        "Placeに + Placeで / Nを…",
+        "[学校|がっこう]に[行|い]きます。[図書館|としょかん]で[勉強|べんきょう]します。"
+      ]
+    ],
+    "note": "Destination に pairs with movement verbs. うち and [家|いえ] both work for \"home\" with [帰|かえ]ります. Do not use を with [行|い]きます."
+  },
+  "explanation": "To say where you are headed, mark the destination with に: [学校|がっこう]に[行|い]きます (go to school), うちに[帰|かえ]ります / [家|いえ]に[帰|かえ]ります (go home — both うち and 家 are natural), [日本|にほん]に[来|き]ます (come to Japan). Movement verbs take に, not object を: ×[学校|がっこう]を[行|い]きます is wrong. You can still use place-of-action で and object を once you arrive: [学校|がっこう]に[行|い]きます。[図書館|としょかん]で[本|ほん]を[読|よ]みます。",
+  "senses": [
+    {
+      "label": "Go to a place",
+      "body": "Place + に + [行|い]きます.",
+      "example_ruby": "[学校|がっこう]に[行|い]きます。",
+      "example_en": "I go to school. / I will go to school."
+    },
+    {
+      "label": "Return home — うち / 家",
+      "body": "Both うちに帰ります and 家に帰ります mean go/return home.",
+      "example_ruby": "うちに[帰|かえ]ります。",
+      "example_en": "I go home. / I return home."
+    },
+    {
+      "label": "Come to a place",
+      "body": "Place + に + [来|き]ます.",
+      "example_ruby": "[日本|にほん]に[来|き]ます。",
+      "example_en": "I come to Japan. / (Someone) comes to Japan."
+    },
+    {
+      "label": "Station, library, café as goals",
+      "body": "Any place noun can be the destination with に.",
+      "example_ruby": "[駅|えき]に[行|い]きます。",
+      "example_en": "I go to the station."
+    },
+    {
+      "label": "Destination then action",
+      "body": "Arrive with に, then act with で / を.",
+      "example_ruby": "[図書館|としょかん]に[行|い]きます。[本|ほん]を[読|よ]みます。",
+      "example_en": "I go to the library. I read a book."
+    }
+  ],
+  "register_context": "Polite classroom movement: Placeに行きます / 来ます / 帰ります. Master に on destinations first.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[学校|がっこう]を[行|い]きます。",
+      "right_ruby": "[学校|がっこう]に[行|い]きます。",
+      "why": "[行|い]きます takes destination に, not object を."
+    },
+    {
+      "wrong_ruby": "[行|い]きますに[学校|がっこう]。",
+      "right_ruby": "[学校|がっこう]に[行|い]きます。",
+      "why": "に attaches to the place before the verb."
+    },
+    {
+      "wrong_ruby": "[学校|がっこう]で[行|い]きます。",
+      "right_ruby": "[学校|がっこう]に[行|い]きます。",
+      "why": "で marks where an action happens; destination of going takes に."
+    },
+    {
+      "wrong_ruby": "[家|いえ]が[帰|かえ]ります。(Meaning: The house goes home.)",
+      "right_ruby": "[家|いえ]に[帰|かえ]ります。",
+      "why": "Home as destination needs に: 家に帰ります (or うちに帰ります)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "に (destination) vs で (action place)",
+      "summary": "学校に行きます = go to school. 学校で勉強します = study at school.",
+      "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_a_en": "I go to school.",
+      "ex_b_ruby": "[学校|がっこう]で[勉強|べんきょう]します。",
+      "ex_b_en": "I study at school."
+    },
+    {
+      "other_slug": null,
+      "label": "に (destination) vs を (object)",
+      "summary": "学校に行きます uses に. 本を読みます uses を. Never ×学校を行きます.",
+      "ex_a_ruby": "[学校|がっこう]に[行|い]きます。",
+      "ex_a_en": "I go to school.",
+      "ex_b_ruby": "[本|ほん]を[読|よ]みます。",
+      "ex_b_en": "I read a book."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school.",
+      "note": "destination · go"
+    },
+    {
+      "ruby": "うちに[帰|かえ]ります。",
+      "english": "I go home. / I return home.",
+      "note": "うち · return"
+    },
+    {
+      "ruby": "[家|いえ]に[帰|かえ]ります。",
+      "english": "I go home. / I return home.",
+      "note": "家 · return"
+    },
+    {
+      "ruby": "[日本|にほん]に[来|き]ます。",
+      "english": "I come to Japan.",
+      "note": "destination · come"
+    },
+    {
+      "ruby": "[駅|えき]に[行|い]きます。",
+      "english": "I go to the station.",
+      "note": "station"
+    },
+    {
+      "ruby": "[図書館|としょかん]に[行|い]きます。",
+      "english": "I go to the library.",
+      "note": "library"
+    },
+    {
+      "ruby": "カフェに[行|い]きます。コーヒーを[飲|の]みます。",
+      "english": "I go to a café. I drink coffee.",
+      "note": "destination then object"
+    },
+    {
+      "ruby": "[友達|ともだち]は[学校|がっこう]に[行|い]きます。",
+      "english": "My friend goes to school.",
+      "note": "topic + destination"
+    },
+    {
+      "ruby": "[私|わたし]もうちに[帰|かえ]ります。",
+      "english": "I go home too.",
+      "note": "も + うちに"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "どこに[行|い]きますか。",
+      "english": "Where are you going?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[学校|がっこう]に[行|い]きます。それから[図書館|としょかん]で[勉強|べんきょう]します。",
+      "english": "I'm going to school. Then I'll study at the library."
+    },
+    {
+      "speaker": "A",
+      "ruby": "それから、うちに[帰|かえ]りますか。",
+      "english": "And then, are you going home?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[友達|ともだち]の[家|いえ]に[行|い]きます。",
+      "english": "No, I'm going to a friend's house."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "学校（　）行きます。",
+      "options": [
+        "を",
+        "で",
+        "に"
+      ],
+      "answer_idx": 2,
+      "why": "Destination of 行く → 学校に行きます. Not を or action-place で."
+    },
+    {
+      "prompt": "Context: I go home.",
+      "options": [
+        "家を帰ります。",
+        "家に帰ります。",
+        "家で帰ります。"
+      ],
+      "answer_idx": 1,
+      "why": "Return destination → 家に帰ります (うちに帰ります also OK)."
+    },
+    {
+      "prompt": "日本（　）来ます。",
+      "options": [
+        "に",
+        "を",
+        "が"
+      ],
+      "answer_idx": 0,
+      "why": "Come-to destination → 日本に来ます."
+    },
+    {
+      "prompt": "学校で勉強します vs 学校に行きます — which particle marks destination?",
+      "options": [
+        "で",
+        "に",
+        "を"
+      ],
+      "answer_idx": 1,
+      "why": "Destination uses に; で is place of action."
+    },
+    {
+      "prompt": "Pick the grammatical line.",
+      "options": [
+        "学校を行きます。",
+        "学校に行きます。",
+        "行きますに学校。"
+      ],
+      "answer_idx": 1,
+      "why": "Place + に + 行きます. ×を and post-verb に are wrong."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masu-form"
+    ],
+    "next": [
+      "he-direction"
+    ]
+  },
+  "lesson_version": 1
+}

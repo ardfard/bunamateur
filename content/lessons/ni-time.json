@@ -1,0 +1,275 @@
+{
+  "meaning": "に (time) and telling time · at 〜時 / on 曜日",
+  "gist": "Mark a specific clock time or weekday with に: [七時|しちじ]に[起|お]きます / [土曜日|どようび]に[映画|えいが]を[見|み]ます. Learn hour and minute readings (よじ・しちじ・くじ; いっぷん・さんぷん・ろっぷん・じゅっぷん). Skip に after relative words like 今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Clock + に",
+        "〜時に + Vます",
+        "[七時|しちじ]に[起|お]きます"
+      ],
+      [
+        "Half past",
+        "〜時半に + Vます",
+        "[八時半|はちじはん]に[学校|がっこう]に[行|い]きます"
+      ],
+      [
+        "Minutes",
+        "〜時〜分に + Vます",
+        "[三時|さんじ][五分|ごふん]に[来|き]ます"
+      ],
+      [
+        "About (ごろ)",
+        "〜時ごろ(に) + Vます",
+        "[十一時|じゅういちじ]ごろ[寝|ね]ます"
+      ],
+      [
+        "Weekday + に",
+        "〜曜日に + Vます",
+        "[土曜日|どようび]に[映画|えいが]を[見|み]ます"
+      ]
+    ],
+    "note": "に marks a specific time point (clock or weekday). ごろ softens \"about\"; に after ごろ is optional. Do not put に on 今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩."
+  },
+  "explanation": "Time に pins an action to a clock time or a named weekday: 七時に起きます / 土曜日に映画を見ます. Hours use 〜時; half past is 〜時半; minutes are 〜分. Watch irregular hour readings: 四時 is よじ (not ×よんじ), 七時 is しちじ (ななじ is also heard in speech), 九時 is くじ (not ×きゅうじ). Minutes reshape too: 一分いっぷん, 三分さんぷん, 六分ろっぷん, 十分じゅっぷん / じっぷん. ごろ means \"about\": 十一時ごろ(に)寝ます. Relative time words already place the day, so skip に: 今日学校に行きます (not ×今日に).",
+  "senses": [
+    {
+      "label": "Clock time + に",
+      "body": "〜時に marks when the action happens.",
+      "example_ruby": "[七時|しちじ]に[起|お]きます。",
+      "example_en": "I get up at seven."
+    },
+    {
+      "label": "Half past · 半",
+      "body": "〜時半 is half past; keep に after the whole time phrase.",
+      "example_ruby": "[八時半|はちじはん]に[学校|がっこう]に[行|い]きます。",
+      "example_en": "I go to school at eight-thirty."
+    },
+    {
+      "label": "ごろ — about",
+      "body": "ごろ softens the time; に after ごろ is optional.",
+      "example_ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "example_en": "I go to bed around eleven."
+    },
+    {
+      "label": "Weekday + に",
+      "body": "〜曜日に marks a day of the week for the action.",
+      "example_ruby": "[土曜日|どようび]に[映画|えいが]を[見|み]ます。",
+      "example_en": "I watch a movie on Saturday."
+    },
+    {
+      "label": "No に on relative days",
+      "body": "今日 / 明日 / 毎日 already set the day — do not add に.",
+      "example_ruby": "[今日|きょう][学校|がっこう]に[行|い]きます。",
+      "example_en": "I go to school today."
+    }
+  ],
+  "register_context": "Polite classroom default: TimeにVます / Timeごろ(に)Vます. Questions: 何時に起きますか / 土曜日に何をしますか. Time に stacks with destination and object: 八時に学校に行きます / 土曜日に映画を見ます.",
+  "mistakes": [
+    {
+      "wrong_ruby": "よんじに[起|お]きます。",
+      "right_ruby": "よじに[起|お]きます。",
+      "why": "四時 is よじ, not ×よんじ."
+    },
+    {
+      "wrong_ruby": "きゅうじに[寝|ね]ます。",
+      "right_ruby": "くじに[寝|ね]ます。",
+      "why": "九時 is くじ, not ×きゅうじ."
+    },
+    {
+      "wrong_ruby": "いちぷん[待|ま]ちます。",
+      "right_ruby": "いっぷん[待|ま]ちます。",
+      "why": "一分 is いっぷん, not ×いちぷん."
+    },
+    {
+      "wrong_ruby": "さんじさんふんに[来|き]ます。",
+      "right_ruby": "さんじさんぷんに[来|き]ます。",
+      "why": "三分 is さんぷん, not ×さんふん."
+    },
+    {
+      "wrong_ruby": "ろくじろくふんに[来|き]ます。",
+      "right_ruby": "ろくじろっぷんに[来|き]ます。",
+      "why": "六分 is ろっぷん, not ×ろくふん."
+    },
+    {
+      "wrong_ruby": "にじじゅうふんに[来|き]ます。",
+      "right_ruby": "にじじゅっぷんに[来|き]ます。",
+      "why": "十分 is じゅっぷん / じっぷん, not ×じゅうふん."
+    },
+    {
+      "wrong_ruby": "[今日|きょう]に[学校|がっこう]に[行|い]きます。",
+      "right_ruby": "[今日|きょう][学校|がっこう]に[行|い]きます。",
+      "why": "今日 / 明日 / 毎日 / 毎朝 / 先週 / 来週 / 今晩 take no に. Use に for clock times and 曜日."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "Clock / weekday に vs relative day (no に)",
+      "summary": "七時に / 土曜日に take に. 今日 / 明日 / 毎日 do not.",
+      "ex_a_ruby": "[七時|しちじ]に[起|お]きます。",
+      "ex_a_en": "I get up at seven. (clock → に)",
+      "ex_b_ruby": "[今日|きょう][学校|がっこう]に[行|い]きます。",
+      "ex_b_en": "I go to school today. (relative day → no に)"
+    },
+    {
+      "other_slug": null,
+      "label": "Exact time vs ごろ",
+      "summary": "〜時に is a point; 〜時ごろ(に) is approximate.",
+      "ex_a_ruby": "[十一時|じゅういちじ]に[寝|ね]ます。",
+      "ex_a_en": "I go to bed at eleven.",
+      "ex_b_ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "ex_b_en": "I go to bed around eleven."
+    },
+    {
+      "other_slug": null,
+      "label": "Irregular hour readings",
+      "summary": "よじ / しちじ / くじ — not ×よんじ / ×きゅうじ; 七時 is しちじ (ななじ is also heard; textbooks teach しちじ).",
+      "ex_a_ruby": "[四時|よじ]に[帰|かえ]ります。",
+      "ex_a_en": "I go home at four. (よじ)",
+      "ex_b_ruby": "[九時|くじ]に[寝|ね]ます。",
+      "ex_b_en": "I go to bed at nine. (くじ)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[七時|しちじ]に[起|お]きます。",
+      "english": "I get up at seven.",
+      "note": "しちじ · clock に"
+    },
+    {
+      "ruby": "[八時|はちじ]に[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school at eight.",
+      "note": "time + destination"
+    },
+    {
+      "ruby": "[八時半|はちじはん]に[家|いえ]に[帰|かえ]ります。",
+      "english": "I go home at eight-thirty.",
+      "note": "半"
+    },
+    {
+      "ruby": "[四時|よじ]に[帰|かえ]ります。",
+      "english": "I go home at four.",
+      "note": "よじ"
+    },
+    {
+      "ruby": "[九時|くじ]に[寝|ね]ます。",
+      "english": "I go to bed at nine.",
+      "note": "くじ"
+    },
+    {
+      "ruby": "[三時|さんじ][三分|さんぷん]に[会|あ]います。",
+      "english": "We'll meet at 3:03.",
+      "note": "さんぷん"
+    },
+    {
+      "ruby": "[六時|ろくじ][六分|ろっぷん]に[駅|えき]に[行|い]きます。",
+      "english": "I go to the station at 6:06.",
+      "note": "ろっぷん"
+    },
+    {
+      "ruby": "[十一時|じゅういちじ]ごろ[寝|ね]ます。",
+      "english": "I go to bed around eleven.",
+      "note": "ごろ"
+    },
+    {
+      "ruby": "[土曜日|どようび]に[映画|えいが]を[見|み]ます。",
+      "english": "I watch a movie on Saturday.",
+      "note": "曜日に"
+    },
+    {
+      "ruby": "[今日|きょう][学校|がっこう]に[行|い]きます。",
+      "english": "I go to school today.",
+      "note": "今日 · no に"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[土曜日|どようび]に[何|なに]をしますか。",
+      "english": "What will you do on Saturday?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[映画|えいが]を[見|み]ます。[一時|いちじ]に[駅|えき]に[行|い]きます。",
+      "english": "I'll watch a movie. I'll go to the station at one."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[日曜日|にちようび]は[何|なに]をしますか。",
+      "english": "What will you do on Sunday?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[家|いえ]で[本|ほん]を[読|よ]みます。[九時|くじ]ごろ[寝|ね]ます。",
+      "english": "I'll read a book at home. I'll go to bed around nine."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "七時（　）起きます。",
+      "options": [
+        "が",
+        "を",
+        "に"
+      ],
+      "answer_idx": 2,
+      "why": "Specific clock time takes に: 七時に起きます."
+    },
+    {
+      "prompt": "四時に帰ります — reading of 四時?",
+      "options": [
+        "よんじ",
+        "よじ",
+        "しじ"
+      ],
+      "answer_idx": 1,
+      "why": "四時 is よじ, not ×よんじ."
+    },
+    {
+      "prompt": "三分 — reading?",
+      "options": [
+        "さんふん",
+        "さんぷん",
+        "みっぷん"
+      ],
+      "answer_idx": 1,
+      "why": "三分 is さんぷん (not ×さんふん)."
+    },
+    {
+      "prompt": "Pick the correct line (today / go to school).",
+      "options": [
+        "今日に学校に行きます。",
+        "今日学校に行きます。",
+        "今日が学校に行きます。"
+      ],
+      "answer_idx": 1,
+      "why": "Relative time 今日 takes no に. Destination 学校に is fine."
+    },
+    {
+      "prompt": "土曜日（　）映画を見ます。",
+      "options": [
+        "に",
+        "を",
+        "が"
+      ],
+      "answer_idx": 0,
+      "why": "Weekday for an action → 土曜日に."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "masu-form",
+      "numbers-counters"
+    ],
+    "next": [
+      "de-means"
+    ]
+  },
+  "lesson_version": 1
+}

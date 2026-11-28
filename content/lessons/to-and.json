@@ -109,6 +109,15 @@
       "ex_a_en": "There is a book and a bag. (noun + と + noun)",
       "ex_b_ruby": "[本|ほん]があります。[鞄|かばん]もあります。",
       "ex_b_en": "There is a book. There is a bag, too. (two sentences)"
+    },
+    {
+      "other_slug": "to-with",
+      "label": "と-and vs と-with",
+      "summary": "パンと卵があります lists nouns. 友達と映画を見ます marks a companion.",
+      "ex_a_ruby": "パンと[卵|たまご]があります。",
+      "ex_a_en": "There are bread and eggs. (complete list)",
+      "ex_b_ruby": "[友達|ともだち]と[映画|えいが]を[見|み]ます。",
+      "ex_b_en": "I watch a movie with a friend. (companion)"
     }
   ],
   "examples": [
