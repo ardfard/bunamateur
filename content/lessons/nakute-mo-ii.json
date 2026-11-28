@@ -83,7 +83,7 @@
     {
       "wrong_ruby": "[昨日|きのう][会社|かいしゃ]に[行|い]かなくてもいいです。",
       "right_ruby": "[昨日|きのう][会社|かいしゃ]に[行|い]かなくてもよかったです。",
-      "why": "Past \"didn't have to\" conjugates いい → よかった."
+      "why": "(Looking back: it turned out you didn't need to go.) Past \"didn't have to\" conjugates いい → よかった."
     }
   ],
   "contrasts": [

@@ -88,14 +88,14 @@
       "why": "Learner meant \"I have eaten sushi before,\" but dictionary + ことがある = \"sometimes\"; experience needs the た-form."
     },
     {
-      "wrong_ruby": "[今朝|けさ][駅|えき]に[行|い]ったことがあります。",
-      "right_ruby": "[今朝|けさ][駅|えき]に[行|い]きました。",
-      "why": "\"I went to the station this morning\" is a specific past event — use plain past, not experience たことがある."
+      "wrong_ruby": "[一度|いちど]も[納豆|なっとう]を[食|た]べたことがあります。",
+      "right_ruby": "[一度|いちど]も[納豆|なっとう]を[食|た]べたことがありません。",
+      "why": "一度も (\"not even once\") requires a negative: たことがない / たことがありません."
     },
     {
-      "wrong_ruby": "[日本|にほん]へ[行|い]くことがありますか。",
-      "right_ruby": "[日本|にほん]へ[行|い]ったことがありますか。",
-      "why": "\"Have you ever…?\" needs た-form + ことがありますか, not dictionary form."
+      "wrong_ruby": "[富士山|ふじさん]に[登|のぼ]ったのことがあります。",
+      "right_ruby": "[富士山|ふじさん]に[登|のぼ]ったことがあります。",
+      "why": "Experience is た-form + ことがある — no の between た and こと."
     }
   ],
   "contrasts": [
@@ -206,10 +206,10 @@
       "why": "Experience needs た-form; dictionary + ことがある means \"sometimes\"."
     },
     {
-      "prompt": "納豆はまだ（　）。",
-      "options": ["食べたことがありません", "食べませんでした"],
+      "prompt": "納豆は一度も（　）。",
+      "options": ["食べたことがありません", "食べたことがあります"],
       "answer_idx": 0,
-      "why": "\"Have never…\" is たことがありません; 食べませんでした is \"didn't eat (on a specific occasion).\""
+      "why": "一度も needs a negative: たことがありません / たことがない."
     }
   ],
   "related": {

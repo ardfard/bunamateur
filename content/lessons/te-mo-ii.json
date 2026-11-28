@@ -73,7 +73,7 @@
     {
       "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいいですか。",
       "right_ruby": "[明日|あした][早|はや]く[起|お]きてもいいですか。",
-      "why": "てもいい = \"is it okay if I do?\"; なくてもいい = \"is it okay if I don't?\" (no obligation)."
+      "why": "(You want permission to get up early.) てもいい = \"is it okay if I do?\"; なくてもいい = \"is it okay if I don't?\""
     },
     {
       "wrong_ruby": "[酒|さけ]を[飲|の]ってもいいですか。",

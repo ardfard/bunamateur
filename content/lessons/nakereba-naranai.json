@@ -73,12 +73,12 @@
     {
       "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいいです。",
       "right_ruby": "[明日|あした][早|はや]く[起|お]きなければなりません。",
-      "why": "なくてもいい = \"don't have to\"; なければならない = \"must\". Opposites."
+      "why": "(You have an early train tomorrow and must get up.) なくてもいい = \"don't have to\"; なければならない = \"must\"."
     },
     {
-      "wrong_ruby": "[漢字|かんじ]を[覚|おぼ]えますなければならない。",
-      "right_ruby": "[漢字|かんじ]を[覚|おぼ]えなければならない。",
-      "why": "Build from the ない-form (覚えない → 覚え), never from the ます-form (*覚えますなければならない)."
+      "wrong_ruby": "[来週|らいしゅう]レポートを[出|だ]さなければなりませんでした。",
+      "right_ruby": "[来週|らいしゅう]レポートを[出|だ]さなければなりません。",
+      "why": "(Future obligation.) なりませんでした / ならなかった is past \"had to\" — use non-past なりません for something still ahead."
     },
     {
       "wrong_ruby": "[昨日|きのう][残業|ざんぎょう]をしなければなりません。",

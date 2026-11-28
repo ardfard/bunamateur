@@ -1,6 +1,6 @@
 {
   "meaning": "because / since (soft, objective)",
-  "gist": "ので after a plain clause gives a reason that sounds more factual and courteous than から — the go-to for polite requests and excuses. Verbs and い-adjectives attach in the plain form; nouns and な-adjectives take な (not だ): [祝日|しゅくじつ]なので、[有名|ゆうめい]なので. Avoid pairing ので with strong invitations or volitionals (〜ましょう / 〜よう) in careful speech.",
+  "gist": "ので after a plain clause gives a reason that sounds more explanatory and polite than から — often preferred for requests and excuses, especially to superiors. Verbs and い-adjectives attach in the plain form; nouns and な-adjectives take な (not だ): [祝日|しゅくじつ]なので、[有名|ゆうめい]なので. Everyday speech also allows ので before ましょう; the \"avoid ので + volitional\" rule is only a style tendency.",
   "formation": {
     "columns": ["Host", "Pattern", "Example"],
     "rows": [
@@ -32,7 +32,7 @@
     ],
     "note": "Standard N5 teaching: nouns / な-adjectives → なので. ×だので is nonstandard/colloquial — do not use it. ので itself already softens; you do not add です before it in the usual pattern."
   },
-  "explanation": "ので presents the reason as a circumstance rather than a pushy personal claim. That makes it preferred for soft requests and apologies: 頭が痛いので、早く帰ってもいいですか / 電車が遅れたので、申し訳ありません. It also states neutral facts: 今日は祝日なので、銀行は休みです. Compared with から, it is less assertive — so 時間がないので、タクシーで行きます is natural, while 時間がないので、行きましょう sounds less careful than the から version.",
+  "explanation": "ので presents the reason as a circumstance rather than a pushy personal claim. That makes it preferred for soft requests and apologies, especially to superiors: 頭が痛いので、早く帰ってもいいですか / 電車が遅れたので、申し訳ありません. It also states neutral facts: 今日は祝日なので、銀行は休みです. から is more personal and assertive; both 時間がないから、行きましょう and 時間がないので、行きましょう are natural in modern everyday speech.",
   "senses": [
     {
       "label": "Soft request or excuse",
@@ -53,7 +53,7 @@
       "example_en": "It's snowing, so please drive carefully."
     }
   ],
-  "register_context": "Softer and more polite than から. Default textbook pattern is plain clause + ので (痛いので、遅れたので、なので). Use it for 〜てもいいですか, apologies, and factual explanations. Prefer から before 〜ましょう / 〜よう / firm volitionals. Formal speech sometimes allows ます/です + ので, but N5 drills stick to the plain + ので pattern.",
+  "register_context": "ので sounds more explanatory and polite than から; requests or excuses to superiors usually take ので. から is more personal and assertive. Some style guides avoid ので before ましょう or commands, but everyday speech allows it. Default textbook pattern: plain clause + ので (痛いので、遅れたので、なので). Formal speech sometimes allows ます/です + ので.",
   "mistakes": [
     {
       "wrong_ruby": "[学生|がくせい]だので、[割引|わりびき]があります。",
@@ -61,30 +61,25 @@
       "why": "Nouns and な-adjectives take な before ので. だので is nonstandard — teach なので."
     },
     {
-      "wrong_ruby": "[お腹|おなか]が[空|す]いたから、[食|た]べてもいいですか。",
-      "right_ruby": "[お腹|おなか]が[空|す]いたので、[食|た]べてもいいですか。",
-      "why": "Soft permission requests prefer ので; から feels more assertive as an excuse."
+      "wrong_ruby": "[忙|いそが]しいなので、[返事|へんじ]ができませんでした。",
+      "right_ruby": "[忙|いそが]しかったので、[返事|へんじ]ができませんでした。",
+      "why": "い-adjectives attach directly (忙しいので / past 忙しかったので). Do not insert な after an い-adjective."
     },
     {
-      "wrong_ruby": "[時間|じかん]がないので、タクシーで[行|い]きましょう。",
-      "right_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
-      "why": "Careful speech avoids ので + strong invitations/volitionals; use から before 行きましょう (or keep ので with a plain statement: 行きます)."
-    },
-    {
-      "wrong_ruby": "[有名|ゆうめい]だから、いつも[混|こ]んでいる。",
-      "right_ruby": "[有名|ゆうめい]なので、いつも[混|こ]んでいる。",
-      "why": "When the target pattern is ので, な-adjectives need な — だから is the から pattern, not ので."
+      "wrong_ruby": "[雨|あめ]だので、[傘|かさ]を[持|も]っていきます。",
+      "right_ruby": "[雨|あめ]なので、[傘|かさ]を[持|も]っていきます。",
+      "why": "Noun + ので → なので, not ×だので."
     }
   ],
   "contrasts": [
     {
       "other_slug": "kara-reason",
       "label": "ので vs から",
-      "summary": "Softer objective reason (requests, excuses) vs subjective / assertive reason (invitations, volitionals).",
+      "summary": "Register, not a hard ban: ので is more explanatory/polite (especially to superiors); から is more personal/assertive. Everyday speech allows either before ましょう.",
       "ex_a_ruby": "[頭|あたま]が[痛|いた]いので、[早|はや]く[帰|かえ]ってもいいですか。",
-      "ex_a_en": "I have a headache, so may I go home early? (request → ので)",
+      "ex_a_en": "I have a headache, so may I go home early? (polite request → ので)",
       "ex_b_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
-      "ex_b_en": "We don't have time, so let's go by taxi. (invitation → から)"
+      "ex_b_en": "We don't have time, so let's go by taxi. (personal から; のでも also fine here)"
     },
     {
       "other_slug": null,
@@ -97,12 +92,12 @@
     },
     {
       "other_slug": null,
-      "label": "ので + statement vs から + volitional",
-      "summary": "Same reason, different follow-up: ので + 行きます is soft/neutral; から + 行きましょう urges jointly.",
-      "ex_a_ruby": "[時間|じかん]がないので、タクシーで[行|い]きます。",
-      "ex_a_en": "Since we don't have time, we'll go by taxi.",
-      "ex_b_ruby": "[時間|じかん]がないから、タクシーで[行|い]きましょう。",
-      "ex_b_en": "We don't have time, so let's go by taxi."
+      "label": "Polite excuse vs casual explanation",
+      "summary": "Telling a teacher why you were late usually takes ので; から is fine with friends.",
+      "ex_a_ruby": "[電車|でんしゃ]が[遅|おく]れたので、[遅|おく]れました。",
+      "ex_a_en": "The train was delayed, so I was late. (polite excuse)",
+      "ex_b_ruby": "[電車|でんしゃ]が[遅|おく]れたから、[遅|おく]れたよ。",
+      "ex_b_en": "The train was late, so I was late. (casual)"
     }
   ],
   "examples": [
@@ -129,7 +124,7 @@
     {
       "ruby": "[時間|じかん]がないので、タクシーで[行|い]きます。",
       "english": "Since we don't have time, we'll go by taxi.",
-      "note": "objective reason · statement (not ましょう)"
+      "note": "objective reason · statement"
     },
     {
       "ruby": "[雪|ゆき]が[降|ふ]っているので、[気|き]をつけて[運転|うんてん]してください。",
@@ -181,22 +176,22 @@
   ],
   "checks": [
     {
-      "prompt": "今日は祝日（　）、銀行は休みです。",
-      "options": ["なので", "だから", "だので"],
+      "prompt": "今日は祝日（　）、銀行は休みです。（ので pattern）",
+      "options": ["なので", "だので", "から"],
       "answer_idx": 0,
-      "why": "Nouns take な before ので. だから is the から pattern; だので is nonstandard."
+      "why": "Noun + ので → なので. ×だので is nonstandard; bare から after a noun is also wrong."
     },
     {
-      "prompt": "頭が痛い（　）、早く帰ってもいいですか。",
-      "options": ["ので", "から"],
+      "prompt": "有名（　）、いつも混んでいる。（ので pattern）",
+      "options": ["なので", "だので"],
       "answer_idx": 0,
-      "why": "Soft permission requests prefer ので over assertive から."
+      "why": "な-adjective + ので → なので, not ×だので."
     },
     {
-      "prompt": "時間がない（　）、タクシーで行きましょう。",
-      "options": ["ので", "から"],
-      "answer_idx": 1,
-      "why": "Strong invitations like 行きましょう pair with から; avoid ので + ましょう in careful speech."
+      "prompt": "Which sounds more polite when telling your teacher why you were late?",
+      "options": ["電車が遅れたので、遅れました。", "電車が遅れたから、遅れました。"],
+      "answer_idx": 0,
+      "why": "Excuses to superiors usually take ので; から is grammatical but more personal/assertive."
     }
   ],
   "related": {

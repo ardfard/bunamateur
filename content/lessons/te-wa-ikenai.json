@@ -73,7 +73,7 @@
     {
       "wrong_ruby": "[明日|あした][早|はや]く[起|お]きなくてもいい。",
       "right_ruby": "[明日|あした][早|はや]く[起|お]きてはいけない。",
-      "why": "なくてもいい = \"don't have to\"; てはいけない = \"must not\". Opposite meanings."
+      "why": "(House rule: getting up early is forbidden tomorrow.) なくてもいい = \"don't have to\"; てはいけない = \"must not\"."
     },
     {
       "wrong_ruby": "[運転|うんてん]のとき、[酒|さけ]を[飲|の]ってはいけません。",

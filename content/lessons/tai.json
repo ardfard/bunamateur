@@ -75,9 +75,9 @@
       "why": "Bare たい is for the speaker (or a direct question to the listener). Third-person desire needs たがる / たがっている or たいと言っている."
     },
     {
-      "wrong_ruby": "[水|みず]をほしいです。",
-      "right_ruby": "[水|みず]がほしいです。",
-      "why": "ほしい takes が for the wanted thing (*をほしい). To say \"want to drink water,\" use verb + たい: 水を飲みたい."
+      "wrong_ruby": "[寿司|すし]が[食|た]べたいでした。",
+      "right_ruby": "[寿司|すし]が[食|た]べたかったです。",
+      "why": "Past tense conjugates たい like an い-adjective: たかった / たかったです — not *たいでした."
     },
     {
       "wrong_ruby": "[彼|かれ]は[日本|にほん]に[行|い]きたい。",
@@ -202,10 +202,10 @@
       "why": "Third-person desire needs たがっている (or たいと言っている), not bare たい."
     },
     {
-      "prompt": "冷たい水（　）ほしいです。",
-      "options": ["が", "を"],
+      "prompt": "昨日は寿司が食べ（　）。",
+      "options": ["たかったです", "たいでした"],
       "answer_idx": 0,
-      "why": "ほしい takes が for the wanted thing. For \"want to drink,\" use 飲みたい."
+      "why": "Past of たい is たかったです (い-adjective conjugation), not *たいでした."
     }
   ],
   "related": {
