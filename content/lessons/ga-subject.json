@@ -97,6 +97,15 @@
       "ex_b_en": "Tanaka-san is here. / There is Tanaka-san."
     },
     {
+      "other_slug": "contrast-wa-ga-1",
+      "label": "が new information vs は topic",
+      "summary": "が marks what is new or asked about; は marks the topic: だれがいますか — 田中さんがいます / 田中さんはいますか。",
+      "ex_a_ruby": "だれがいますか。—[田中|たなか]さんがいます。",
+      "ex_a_en": "Who is there? — Tanaka-san is there. (が answers だれが)",
+      "ex_b_ruby": "[田中|たなか]さんはいますか。",
+      "ex_b_en": "Is Tanaka-san here? (Tanaka = known topic)"
+    },
+    {
       "other_slug": null,
       "label": "だれが vs known person は",
       "summary": "Answer だれがいますか with が (山田さんがいます). Use nameは… when that person is already the topic (山田さんはどこにいますか → 山田さんは教室にいます).",

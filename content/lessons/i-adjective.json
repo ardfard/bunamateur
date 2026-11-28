@@ -1,0 +1,287 @@
+{
+  "meaning": "い-adjectives · present, negative, past, before nouns",
+  "gist": "An い-adjective ends in い and changes that い itself: [高|たか]いです / [高|たか]くないです / [高|たか]かったです / [高|たか]くなかったです. To describe a noun, put it straight in front: [高|たか]い[本|ほん]. いい (good) is the odd one: its changed forms start with よ, as in よくない and よかった.",
+  "formation": {
+    "columns": [
+      "Form",
+      "Plain",
+      "Polite",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Present",
+        "[高|たか]い",
+        "[高|たか]いです",
+        "このかばんは[高|たか]いです。"
+      ],
+      [
+        "Negative",
+        "い → くない",
+        "くないです / くありません",
+        "このかばんは[高|たか]くないです。"
+      ],
+      [
+        "Past",
+        "い → かった",
+        "かったです",
+        "[昨日|きのう]は[寒|さむ]かったです。"
+      ],
+      [
+        "Past negative",
+        "い → くなかった",
+        "くなかったです / くありませんでした",
+        "[昨日|きのう]は[寒|さむ]くなかったです。"
+      ],
+      [
+        "Before a noun",
+        "[高|たか]い + N",
+        "[高|たか]い + N + です",
+        "これは[高|たか]いかばんです。"
+      ],
+      [
+        "いい (good)",
+        "いい / よくない / よかった / よくなかった",
+        "いいです / よくないです / よかったです / よくなかったです",
+        "[天気|てんき]がよかったです。"
+      ]
+    ],
+    "note": "Polite is the plain form + です. です only adds politeness, so the past lives inside the adjective: [寒|さむ]かったです, not ×[寒|さむ]いでした. ～くありません / ～くありませんでした is a more formal polite negative than ～くないです. いい comes from older よい, so every changed form starts with よ: ×いくない, ×いかった."
+  },
+  "explanation": "An い-adjective describes a quality: [高|たか]い (expensive, tall), [新|あたら]しい (new), [寒|さむ]い (cold). It ends in い and conjugates on its own. For the present, add です: [高|たか]いです. For the negative, change the last い to くない: [高|たか]くない, polite [高|たか]くないです. For the past, change い to かった: [高|たか]かった, polite [高|たか]かったです. For the past negative, change い to くなかった: [高|たか]くなかったです. The final です never carries the past. Nouns put the past on the copula ([雨|あめ]でした), but い-adjectives bend themselves, so ×[高|たか]いでした is wrong. To describe a noun, put the plain adjective right before it with nothing in between: [新|あたら]しい[車|くるま], [大|おお]きい[犬|いぬ]. No の goes there. いい is irregular. Its present stays いい, but the negative and past forms switch to よ: よくない, よかった, よくなかった. In formal speech you will also hear ～くありません for the polite negative: [高|たか]くありません.",
+  "senses": [
+    {
+      "label": "Present",
+      "body": "Adjective + です states a quality now.",
+      "example_ruby": "この[本|ほん]は[面白|おもしろ]いです。",
+      "example_en": "This book is interesting."
+    },
+    {
+      "label": "Negative くない",
+      "body": "Change the last い to くない. Add です to make it polite.",
+      "example_ruby": "この[部屋|へや]は[大|おお]きくないです。",
+      "example_en": "This room isn't big."
+    },
+    {
+      "label": "Past かった",
+      "body": "Change the last い to かった. Add です to make it polite.",
+      "example_ruby": "[昨日|きのう]は[暑|あつ]かったです。",
+      "example_en": "It was hot yesterday."
+    },
+    {
+      "label": "Past negative くなかった",
+      "body": "Change the last い to くなかった. Add です to make it polite.",
+      "example_ruby": "[昨日|きのう]のテストは[難|むずか]しくなかったです。",
+      "example_en": "Yesterday's test wasn't difficult."
+    },
+    {
+      "label": "Before a noun",
+      "body": "The plain adjective sits directly in front of the noun.",
+      "example_ruby": "[新|あたら]しい[車|くるま]を[買|か]いました。",
+      "example_en": "I bought a new car."
+    },
+    {
+      "label": "いい → よ forms",
+      "body": "いい stays いい in the present. Every other form starts with よ.",
+      "example_ruby": "[昨日|きのう]は[天気|てんき]がよかったです。",
+      "example_en": "The weather was nice yesterday."
+    }
+  ],
+  "register_context": "Polite default is adjective + です: [高|たか]いです / [高|たか]くないです / [高|たか]かったです / [高|たか]くなかったです. ～くありません / ～くありませんでした sounds more formal. Plain forms drop です: [高|たか]い / [高|たか]くない / [高|たか]かった. Use them in thoughts, casual talk, and in front of nouns. Questions add か: [高|たか]いですか. Answer with the adjective itself: はい、[高|たか]いです / いいえ、[高|たか]くないです.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[寒|さむ]いでした。",
+      "right_ruby": "[寒|さむ]かったです。",
+      "why": "The past goes inside the adjective: い → かった. ×寒いでした copies the noun pattern (雨でした)."
+    },
+    {
+      "wrong_ruby": "[高|たか]いじゃないです。",
+      "right_ruby": "[高|たか]くないです。",
+      "why": "い-adjectives make their own negative: い → くない. じゃないです is the negative for nouns (学生じゃないです)."
+    },
+    {
+      "wrong_ruby": "[寒|さむ]くないでした。",
+      "right_ruby": "[寒|さむ]くなかったです。",
+      "why": "Put the negative itself into the past: くない → くなかった. ×寒くないでした keeps the present form."
+    },
+    {
+      "wrong_ruby": "いくないです。",
+      "right_ruby": "よくないです。",
+      "why": "いい switches to よ in every changed form: よくない / よかった / よくなかった. ×いくない and ×いかった are wrong."
+    },
+    {
+      "wrong_ruby": "[新|あたら]しいの[車|くるま]です。",
+      "right_ruby": "[新|あたら]しい[車|くるま]です。",
+      "why": "An い-adjective goes straight before the noun. の joins two nouns (日本語の本), not an adjective and a noun."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "Present vs past",
+      "summary": "Today's quality uses い + です. Yesterday's uses かった + です.",
+      "ex_a_ruby": "[今日|きょう]は[寒|さむ]いです。",
+      "ex_a_en": "It's cold today.",
+      "ex_b_ruby": "[昨日|きのう]は[寒|さむ]かったです。",
+      "ex_b_en": "It was cold yesterday."
+    },
+    {
+      "other_slug": null,
+      "label": "Noun past vs adjective past",
+      "summary": "A noun puts the past on the copula: 雨でした. An い-adjective puts it inside the adjective and keeps です: 寒かったです.",
+      "ex_a_ruby": "[昨日|きのう]は[雨|あめ]でした。",
+      "ex_a_en": "It was rainy yesterday.",
+      "ex_b_ruby": "[昨日|きのう]は[寒|さむ]かったです。",
+      "ex_b_en": "It was cold yesterday."
+    },
+    {
+      "other_slug": "na-adjective",
+      "label": "新しい vs きれい",
+      "summary": "Not every adjective ending in い bends. 新しい is an い-adjective: 新しくないです. きれい (clean, pretty) keeps its い and takes じゃないです like a noun: きれいじゃないです, never ×きれくないです.",
+      "ex_a_ruby": "この[部屋|へや]は[新|あたら]しくないです。",
+      "ex_a_en": "This room isn't new.",
+      "ex_b_ruby": "この[部屋|へや]はきれいじゃないです。",
+      "ex_b_en": "This room isn't clean."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "このかばんは[高|たか]いです。",
+      "english": "This bag is expensive.",
+      "note": "present · polite"
+    },
+    {
+      "ruby": "この[本|ほん]は[面白|おもしろ]くないです。",
+      "english": "This book isn't interesting.",
+      "note": "negative · くない"
+    },
+    {
+      "ruby": "この[部屋|へや]は[狭|せま]くありません。",
+      "english": "This room is not cramped.",
+      "note": "negative · くありません (more formal)"
+    },
+    {
+      "ruby": "[昨日|きのう]は[暑|あつ]かったです。",
+      "english": "It was hot yesterday.",
+      "note": "past · かった"
+    },
+    {
+      "ruby": "テストは[難|むずか]しくなかったです。",
+      "english": "The test wasn't difficult.",
+      "note": "past negative · くなかった"
+    },
+    {
+      "ruby": "[公園|こうえん]に[大|おお]きい[犬|いぬ]がいます。",
+      "english": "There's a big dog in the park.",
+      "note": "before a noun"
+    },
+    {
+      "ruby": "[新|あたら]しい[車|くるま]を[買|か]いました。",
+      "english": "I bought a new car.",
+      "note": "before a noun · object"
+    },
+    {
+      "ruby": "[今日|きょう]は[天気|てんき]がいいです。",
+      "english": "The weather is nice today.",
+      "note": "いい · present"
+    },
+    {
+      "ruby": "[週末|しゅうまつ]は[天気|てんき]がよくなかったです。",
+      "english": "The weather wasn't good over the weekend.",
+      "note": "いい → よくなかった"
+    },
+    {
+      "ruby": "[今日|きょう]は[寒|さむ]い。",
+      "english": "(Thinking aloud) It's cold today.",
+      "note": "plain · present"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[昨日|きのう]、[駅|えき]の[前|まえ]の[新|あたら]しいカフェに[行|い]きました。",
+      "english": "Yesterday I went to the new café in front of the station."
+    },
+    {
+      "speaker": "B",
+      "ruby": "そうですか。いいカフェでしたか。",
+      "english": "Oh, really? Was it a nice café?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "はい、いいカフェでした。コーヒーがおいしかったです。",
+      "english": "Yes, it was a nice café. The coffee was good."
+    },
+    {
+      "speaker": "B",
+      "ruby": "[高|たか]かったですか。",
+      "english": "Was it expensive?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "いいえ、[高|たか]くなかったです。[安|やす]かったです。",
+      "english": "No, it wasn't expensive. It was cheap."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "高い → polite negative.",
+      "options": [
+        "高いじゃないです",
+        "高くないです",
+        "高いないです"
+      ],
+      "answer_idx": 1,
+      "why": "い → くない, then です: 高くないです. じゃないです is for nouns."
+    },
+    {
+      "prompt": "昨日は寒（　）。 (It was cold yesterday.)",
+      "options": [
+        "いでした",
+        "かったでした",
+        "かったです"
+      ],
+      "answer_idx": 2,
+      "why": "The past goes inside the adjective (寒かった), and です stays present: 寒かったです."
+    },
+    {
+      "prompt": "いい → polite past.",
+      "options": [
+        "よかったです",
+        "いかったです",
+        "いいでした"
+      ],
+      "answer_idx": 0,
+      "why": "いい switches to よ: よかったです."
+    },
+    {
+      "prompt": "（　）車を買いました。 (I bought a new car.)",
+      "options": [
+        "新しいの",
+        "新しいです",
+        "新しい"
+      ],
+      "answer_idx": 2,
+      "why": "An い-adjective goes straight before the noun: 新しい車."
+    },
+    {
+      "prompt": "Fix: テストは難しくないでした。",
+      "options": [
+        "テストは難しいでした。",
+        "テストは難しくなかったです。",
+        "テストは難しかったじゃないです。"
+      ],
+      "answer_idx": 1,
+      "why": "Past negative: くない → くなかった, then です: 難しくなかったです."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "desu-da"
+    ],
+    "next": [
+      "na-adjective"
+    ]
+  },
+  "lesson_version": 1
+}

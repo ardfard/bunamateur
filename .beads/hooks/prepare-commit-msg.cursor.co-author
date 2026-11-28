@@ -1,0 +1,47 @@
+#!/bin/bash
+# @cursor-managed
+# Appends the agent's co-authors (invoking user, and the launching Grok bot if any).
+
+CO_AUTHORS=(
+'Ardin Fardiansyah <ardfard@ngublag.com>'
+)
+
+# Other hooks pass refs, shas or remote names as $1; appending to one of those
+# would create a stray file in the worktree.
+case "$(basename "$0")" in
+    commit-msg | commit-msg.cursor*) ;;
+    prepare-commit-msg | prepare-commit-msg.cursor*)
+        # git runs this hook under --no-verify too. Sign only the commits
+        # commit-msg signs: not an editor or template message, whose emptiness
+        # must still abort the commit, and not a cherry-pick, rebase or am,
+        # which replay commits that may be someone else's.
+        case "$2" in
+            message | merge | squash | commit) ;;
+            *) exit 0 ;;
+        esac
+        GIT_DIR_PATH="$(git rev-parse --git-dir 2>/dev/null)" || exit 0
+        if [ -e "$GIT_DIR_PATH/CHERRY_PICK_HEAD" ] || [ -d "$GIT_DIR_PATH/rebase-merge" ] || [ -d "$GIT_DIR_PATH/rebase-apply" ]; then
+            exit 0
+        fi
+        ;;
+    *) exit 0 ;;
+esac
+if [ ! -f "$1" ]; then
+    exit 0
+fi
+
+# Another Co-authored-by line, even one naming the same person with another
+# address, doesn't stand in for this one.
+MISSING=()
+for CO_AUTHOR in "${CO_AUTHORS[@]}"; do
+    if ! grep -iqFx "Co-authored-by: $CO_AUTHOR" "$1"; then
+        MISSING+=(--trailer "Co-authored-by: $CO_AUTHOR")
+    fi
+done
+if [ "${#MISSING[@]}" -eq 0 ]; then
+    exit 0
+fi
+
+git interpret-trailers --in-place --if-exists addIfDifferent "${MISSING[@]}" "$1"
+
+exit 0

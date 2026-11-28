@@ -1,0 +1,259 @@
+{
+  "meaning": "Nをください · please give me N (asking for things)",
+  "gist": "Ask for a thing with Nをください: コーヒーをください / これをください. For more than one, put the count right after を, the same slot it takes before あります: コーヒーを[二|ふた]つください. ください ends the request; it needs no か and no です.",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Ask for a thing",
+        "N + を + ください",
+        "コーヒーをください"
+      ],
+      [
+        "Point at it",
+        "これ / それ / あれ + を + ください",
+        "これをください"
+      ],
+      [
+        "Pointing word + noun",
+        "この / その / あの + N + を + ください",
+        "あのケーキをください"
+      ],
+      [
+        "With a count",
+        "N + を + count + ください",
+        "コーヒーを[二|ふた]つください"
+      ],
+      [
+        "Flat or long things",
+        "N + を + 〜枚 / 〜本 + ください",
+        "[切手|きって]を[三枚|さんまい]ください"
+      ],
+      [
+        "Two items",
+        "N + と + N + を + ください",
+        "コーヒーとケーキをください"
+      ]
+    ],
+    "note": "The count sits between を and ください and takes no particle of its own (×二つをください). Choose the counter as you would with あります: 〜つ for most things, 〜枚 for flat things, 〜本 for long thin things."
+  },
+  "explanation": "ください means \"please give me.\" Name the thing, mark it with を, and end with ください: 水をください / これをください. When the thing is in front of you, これ / それ / あれ are enough; この / その / あの + noun picks out one item: あのケーキをください. To ask for more than one, add the count after を, the slot it already takes with あります: りんごが三つあります → りんごを三つください. Keep the counter that fits the thing: コーヒーを二つ, 切手を三枚, ペンを二本. Ask for two different things with と and one を: コーヒーとケーキをください. ください is already a polite request, so do not add か or です after it. To ask the price instead, use いくらですか: これはいくらですか.",
+  "senses": [
+    {
+      "label": "Ask for a thing",
+      "body": "Name the thing, add を, end with ください.",
+      "example_ruby": "[水|みず]をください。",
+      "example_en": "Water, please."
+    },
+    {
+      "label": "Point and ask",
+      "body": "これ / それ / あれ, or この / その / あの + noun, when the thing is in front of you.",
+      "example_ruby": "これをください。",
+      "example_en": "I'll take this one, please."
+    },
+    {
+      "label": "Ask for a number",
+      "body": "The count follows を with the counter that fits the thing.",
+      "example_ruby": "コーヒーを[二|ふた]つください。",
+      "example_en": "Two coffees, please."
+    },
+    {
+      "label": "Several things",
+      "body": "Join the items with と; one を covers the whole list.",
+      "example_ruby": "コーヒーとケーキをください。",
+      "example_en": "A coffee and a cake, please."
+    }
+  ],
+  "register_context": "ください is polite enough for cafés, shops, stations, and post offices. Get attention first with すみません: すみません、水をください. In quick spoken orders を often drops (コーヒー、ください); keep を when you write. In restaurants you will also hear Nをおねがいします, with the noun and the count in the same slots.",
+  "mistakes": [
+    {
+      "wrong_ruby": "コーヒーがください。",
+      "right_ruby": "コーヒーをください。",
+      "why": "The thing you ask for takes を, not が."
+    },
+    {
+      "wrong_ruby": "コーヒーを[二|に]ください。",
+      "right_ruby": "コーヒーを[二|ふた]つください。",
+      "why": "A bare number needs a counter. Most things take 〜つ: ひとつ, ふたつ, みっつ."
+    },
+    {
+      "wrong_ruby": "コーヒーを[二|ふた]つをください。",
+      "right_ruby": "コーヒーを[二|ふた]つください。",
+      "why": "を comes once, right after the noun. The count follows with no particle of its own."
+    },
+    {
+      "wrong_ruby": "[水|みず]をくださいか。",
+      "right_ruby": "[水|みず]をください。",
+      "why": "ください is already a polite request; do not add か."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "を + verb vs を + ください",
+      "summary": "コーヒーを飲みます says what you do. コーヒーをください asks someone to give it to you.",
+      "ex_a_ruby": "コーヒーを[飲|の]みます。",
+      "ex_a_en": "I drink coffee.",
+      "ex_b_ruby": "コーヒーをください。",
+      "ex_b_en": "Coffee, please."
+    },
+    {
+      "other_slug": null,
+      "label": "Counting what is there vs counting what you want",
+      "summary": "The count takes the same slot after the particle: りんごが三つあります / りんごを三つください.",
+      "ex_a_ruby": "りんごが[三|みっ]つあります。",
+      "ex_a_en": "There are three apples.",
+      "ex_b_ruby": "りんごを[三|みっ]つください。",
+      "ex_b_en": "Three apples, please."
+    },
+    {
+      "other_slug": null,
+      "label": "Asking for it vs asking the price",
+      "summary": "これをください asks for the item. これはいくらですか asks what it costs.",
+      "ex_a_ruby": "これをください。",
+      "ex_a_en": "I'll take this one, please.",
+      "ex_b_ruby": "これはいくらですか。",
+      "ex_b_en": "How much is this?"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "コーヒーをください。",
+      "english": "Coffee, please.",
+      "note": "thing + を"
+    },
+    {
+      "ruby": "[水|みず]をください。",
+      "english": "Water, please.",
+      "note": "thing + を"
+    },
+    {
+      "ruby": "これをください。",
+      "english": "I'll take this one, please.",
+      "note": "pointing word"
+    },
+    {
+      "ruby": "あのケーキをください。",
+      "english": "That cake over there, please.",
+      "note": "あの + noun"
+    },
+    {
+      "ruby": "コーヒーを[二|ふた]つください。",
+      "english": "Two coffees, please.",
+      "note": "〜つ"
+    },
+    {
+      "ruby": "[切手|きって]を[三枚|さんまい]ください。",
+      "english": "Three stamps, please.",
+      "note": "〜枚"
+    },
+    {
+      "ruby": "ペンを[二本|にほん]ください。",
+      "english": "Two pens, please.",
+      "note": "〜本"
+    },
+    {
+      "ruby": "[赤|あか]いペンを[一本|いっぽん]ください。",
+      "english": "One red pen, please.",
+      "note": "adjective + noun + count"
+    },
+    {
+      "ruby": "コーヒーとケーキをください。",
+      "english": "A coffee and a cake, please.",
+      "note": "と · one を"
+    },
+    {
+      "ruby": "すみません、[水|みず]を[二|ふた]つください。",
+      "english": "Excuse me, two waters, please.",
+      "note": "すみません + count"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "すみません。コーヒーを[二|ふた]つください。",
+      "english": "Excuse me. Two coffees, please."
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[二|ふた]つですね。",
+      "english": "Certainly. Two, right?"
+    },
+    {
+      "speaker": "A",
+      "ruby": "このケーキも[一|ひと]つください。いくらですか。",
+      "english": "One of these cakes too, please. How much is it?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[三百円|さんびゃくえん]です。",
+      "english": "It's 300 yen."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "コーヒー（　）ください。",
+      "options": [
+        "が",
+        "を",
+        "に"
+      ],
+      "answer_idx": 1,
+      "why": "The thing you ask for takes を: コーヒーをください."
+    },
+    {
+      "prompt": "コーヒーを（　）ください。 (two coffees)",
+      "options": [
+        "二",
+        "二人",
+        "二つ"
+      ],
+      "answer_idx": 2,
+      "why": "Coffee takes the general counter → 二つ (ふたつ). A bare 二 needs a counter; 〜人 counts people."
+    },
+    {
+      "prompt": "切手を（　）ください。 (three stamps)",
+      "options": [
+        "三枚",
+        "三本",
+        "三人"
+      ],
+      "answer_idx": 0,
+      "why": "Stamps are flat → 〜枚: 三枚 (さんまい)."
+    },
+    {
+      "prompt": "Fix: コーヒーを二つをください。",
+      "options": [
+        "コーヒーを二つください。",
+        "コーヒーが二つください。",
+        "二つをコーヒーください。"
+      ],
+      "answer_idx": 0,
+      "why": "One を after the noun; the count follows with no particle of its own."
+    },
+    {
+      "prompt": "Context: in a shop, you want the pen you are pointing at.",
+      "options": [
+        "これはいくらですか。",
+        "これをください。",
+        "これがあります。"
+      ],
+      "answer_idx": 1,
+      "why": "これをください asks for the item. いくらですか asks the price; があります only says it is there."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "wo-object",
+      "numbers-counters"
+    ],
+    "next": [
+      "kara-made"
+    ]
+  },
+  "lesson_version": 1
+}

@@ -587,7 +587,7 @@ fn test_lesson_loader_validator_and_api_json_shape() {
             "missing embedded lesson '{slug}'"
         );
     }
-    assert_eq!(lessons.len(), 53);
+    assert_eq!(lessons.len(), 63);
 
     let known: HashSet<&str> = all_seed_grammar().iter().map(|g| g.slug).collect();
     for slug in lessons.keys() {

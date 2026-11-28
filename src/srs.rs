@@ -9,6 +9,7 @@ pub const MAX_NEAR_MISS_RETRIES: u32 = 2;
 const KANJI_TO_KANA: &[(&str, &str)] = &[
     ("上手", "じょうず"),
     ("下手", "へた"),
+    ("有名", "ゆうめい"),
     ("一方", "いっぽう"),
     ("関わ", "かかわ"),
     ("お陰", "おかげ"),
@@ -367,6 +368,8 @@ const REGISTER_PAIRS: &[(&str, &str)] = &[
     ("あります", "ある"),
     ("います", "いる"),
     ("ありません", "ない"),
+    ("じゃありませんでした", "じゃなかったです"),
+    ("じゃありません", "じゃないです"),
     ("じゃなかったです", "じゃなかった"),
     ("ではなかったです", "ではなかった"),
     ("じゃないです", "じゃない"),
@@ -742,8 +745,9 @@ fn is_restricted_typo(norm_in: &str, target: &str) -> bool {
 
 /// Known wrong readings/forms that must grade Incorrect (never typo forgiveness).
 /// Pairs are (wrong_form, correct_form); both compared after `normalize_jp`.
-/// Covers counter sound changes, clock/minute misreadings, and masu-form
-/// formation mistakes taught in Unit 3 (must not get Levenshtein-1 typo retry).
+/// Covers counter sound changes, clock/minute misreadings, masu-form formation
+/// mistakes (Unit 3), and adjective conjugation mistakes (Unit 4); none may get
+/// Levenshtein-1 typo retry.
 const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("さんほん", "さんぼん"),
     ("さんほん", "三本"),
@@ -787,6 +791,28 @@ const KNOWN_INCORRECT_FORMS: &[(&str, &str)] = &[
     ("かえませんでした", "かえりませんでした"),
     ("かえませんでした", "帰りませんでした"),
     ("帰ませんでした", "帰りませんでした"),
+    // Adjective conjugation mistakes (Unit 4)
+    ("きれいくない", "きれいじゃない"),
+    ("きれいくないです", "きれいじゃないです"),
+    ("きれいかった", "きれいだった"),
+    ("きれいかったです", "きれいでした"),
+    ("いいくない", "よくない"),
+    ("いいくないです", "よくないです"),
+    ("いかった", "よかった"),
+    ("いかったです", "よかったです"),
+    ("いいかった", "よかった"),
+    ("いいかったです", "よかったです"),
+    ("おおきいでした", "おおきかったです"),
+    ("おおきいでした", "大きかったです"),
+    ("大きいでした", "大きかったです"),
+    ("すきくない", "すきじゃない"),
+    ("すきくない", "好きじゃない"),
+    ("すきくないです", "すきじゃないです"),
+    ("すきくないです", "好きじゃないです"),
+    ("好きくない", "好きじゃない"),
+    ("好きくないです", "好きじゃないです"),
+    ("ゆうめいくない", "ゆうめいじゃない"),
+    ("ゆうめいくないです", "ゆうめいじゃないです"),
 ];
 // Note: じっぷん is a valid alternate of じゅっぷん — do not list it as incorrect.
 // Note: ななじ is accepted for 七時 (textbook しちじ remains canonical).
@@ -1349,6 +1375,99 @@ mod tests {
         ) {
             GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "tense"),
             other => panic!("expected tense AlmostRight, got {:?}", other),
+        }
+    }
+
+    fn grade_seed_card(slug: &str, answer: &str, input: &str) -> GradeOutcome {
+        let g = crate::seed_data_extra::all_seed_grammar()
+            .into_iter()
+            .find(|g| g.slug == slug)
+            .unwrap_or_else(|| panic!("missing seed grammar {slug}"));
+        let s = crate::seed_data_extra::sentences_for_grammar(g)
+            .into_iter()
+            .find(|s| s.answer == answer)
+            .unwrap_or_else(|| panic!("missing {slug} card with answer {answer}"));
+        let alts: Vec<String> = s.alt_answers.iter().map(|a| (*a).to_string()).collect();
+        grade_answer(input, s.answer, &alts, s.hint)
+    }
+
+    #[test]
+    fn test_unit4_adjective_conjugation_mistakes_grade_incorrect() {
+        for (slug, answer, input) in [
+            ("na-adjective", "きれいじゃないです", "きれいくないです"),
+            ("na-adjective", "きれいでした", "きれいかったです"),
+            ("na-adjective", "有名じゃないです", "ゆうめいくないです"),
+            ("na-adjective", "有名じゃないです", "有名くないです"),
+            ("i-adjective", "よくないです", "いいくないです"),
+            ("i-adjective", "よかったです", "いかったです"),
+            ("i-adjective", "よかったです", "いいかったです"),
+            ("i-adjective", "大きかったです", "おおきいでした"),
+            ("i-adjective", "大きかったです", "大きいでした"),
+            ("suki-jouzu", "好きじゃないです", "すきくないです"),
+            ("suki-jouzu", "好きじゃないです", "好きくないです"),
+        ] {
+            assert_eq!(
+                grade_seed_card(slug, answer, input),
+                GradeOutcome::Incorrect,
+                "{slug}: {input} must not be forgiven against {answer}"
+            );
+        }
+
+        for (input, target) in [
+            ("きれいくない", "きれいじゃない"),
+            ("きれいかった", "きれいだった"),
+            ("いいくない", "よくない"),
+            ("いかった", "よかった"),
+            ("すきくない", "すきじゃない"),
+            ("ゆうめいくない", "ゆうめいじゃない"),
+        ] {
+            assert_eq!(
+                grade_answer(input, target, &[], "plain"),
+                GradeOutcome::Incorrect,
+                "{input} must not be forgiven against {target}"
+            );
+        }
+    }
+
+    #[test]
+    fn test_unit4_adjective_negatives_accept_every_polite_ending() {
+        assert!(has_kana_equivalent_path("有名じゃないです"));
+        for (slug, answer, input) in [
+            ("i-adjective", "よくないです", "よくありません"),
+            ("i-adjective", "おもしろくないです", "おもしろくありません"),
+            ("i-adjective", "おいしくなかったです", "おいしくありませんでした"),
+            ("na-adjective", "きれいじゃないです", "きれいじゃありません"),
+            ("na-adjective", "きれいじゃないです", "きれいではありません"),
+            ("na-adjective", "有名じゃないです", "有名じゃありません"),
+            ("na-adjective", "有名じゃないです", "ゆうめいじゃないです"),
+            ("suki-jouzu", "上手じゃないです", "上手ではありません"),
+            ("suki-jouzu", "好きじゃないです", "すきじゃありません"),
+        ] {
+            assert!(
+                matches!(grade_seed_card(slug, answer, input), GradeOutcome::Correct { .. }),
+                "{slug}: {input} should be Correct against {answer}"
+            );
+        }
+    }
+
+    #[test]
+    fn test_ja_arimasen_and_ja_nai_desu_are_register_variants() {
+        for (formal, conversational) in [
+            ("じゃありません", "じゃないです"),
+            ("じゃありませんでした", "じゃなかったです"),
+        ] {
+            for (input, target) in [(formal, conversational), (conversational, formal)] {
+                match grade_answer(input, target, &[], "polite") {
+                    GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "register"),
+                    other => panic!("expected register AlmostRight for {input} -> {target}, got {other:?}"),
+                }
+            }
+        }
+
+        // 好 has no kana fold, so a kanji answer with the other polite ending is a near miss, not a hard miss.
+        match grade_seed_card("suki-jouzu", "好きじゃないです", "好きじゃありません") {
+            GradeOutcome::AlmostRight { category, .. } => assert_eq!(category, "register"),
+            other => panic!("expected register AlmostRight, got {other:?}"),
         }
     }
 

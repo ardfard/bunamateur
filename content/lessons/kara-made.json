@@ -1,0 +1,269 @@
+{
+  "meaning": "から / まで · from / until (time and place)",
+  "gist": "から marks where something starts and まで where it ends, for time and for place: [九時|くじ]から[五時|ごじ]まで[働|はたら]きます / [東京|とうきょう]から[大阪|おおさか]まで[行|い]きます. Either one can stand alone: [明日|あした]から (from tomorrow), [三時|さんじ]まで (until three).",
+  "formation": {
+    "columns": [
+      "Pattern",
+      "Shape",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Time span",
+        "〜から〜まで + Vます",
+        "[九時|くじ]から[五時|ごじ]まで[勉強|べんきょう]します"
+      ],
+      [
+        "Start time",
+        "〜から + Vます",
+        "[九時|くじ]から[勉強|べんきょう]します"
+      ],
+      [
+        "End time",
+        "〜まで + Vます",
+        "[五時|ごじ]まで[勉強|べんきょう]します"
+      ],
+      [
+        "Days",
+        "〜[曜日|ようび]から〜[曜日|ようび]まで",
+        "[月曜日|げつようび]から[金曜日|きんようび]まで[働|はたら]きます"
+      ],
+      [
+        "Place span",
+        "Place から Place まで + Vます",
+        "[家|いえ]から[駅|えき]まで[歩|ある]きます"
+      ],
+      [
+        "Where from",
+        "Place から + [来|き]ます",
+        "[京都|きょうと]から[来|き]ました"
+      ],
+      [
+        "Hours",
+        "N は〜から〜までです",
+        "[図書館|としょかん]は[九時|くじ]から[五時|ごじ]までです"
+      ]
+    ],
+    "note": "から and まで take the place of time に, so do not stack them (×九時にから). Unlike に, they can follow 今日 / 明日 / 来週: 明日から / 来週まで."
+  },
+  "explanation": "から means \"from\": the start of a time or a route. 九時から勉強します / 駅から歩きます. まで means \"until\" for time and \"as far as\" for place: 五時まで勉強します / 駅まで歩きます. Together they frame a span: 九時から五時まで / 東京から大阪まで. から and まで replace time に rather than adding to it: 九時から, not ×九時にから. They also work with 今日 / 明日 / 来週, which never take に: 明日から勉強します. Time まで fits actions that last a while, such as studying, working, waiting, or sleeping: 七時まで寝ます. For where someone comes from, use から: 京都から来ました. Opening hours often end in です: 図書館は九時から五時までです.",
+  "senses": [
+    {
+      "label": "から: start time",
+      "body": "The action begins at that time.",
+      "example_ruby": "[九時|くじ]から[勉強|べんきょう]します。",
+      "example_en": "I study from nine."
+    },
+    {
+      "label": "まで: until",
+      "body": "The action lasts up to that time.",
+      "example_ruby": "[三時|さんじ]まで[待|ま]ちます。",
+      "example_en": "I'll wait until three."
+    },
+    {
+      "label": "から〜まで: a span of time",
+      "body": "Start and end together, with clock times or days.",
+      "example_ruby": "[月曜日|げつようび]から[金曜日|きんようび]まで[働|はたら]きます。",
+      "example_en": "I work from Monday to Friday."
+    },
+    {
+      "label": "から〜まで: a route",
+      "body": "Starting place and end place.",
+      "example_ruby": "[家|いえ]から[駅|えき]まで[歩|ある]きます。",
+      "example_en": "I walk from home to the station."
+    },
+    {
+      "label": "から: where someone comes from",
+      "body": "Placeから + 来ます.",
+      "example_ruby": "[田中|たなか]さんは[大阪|おおさか]から[来|き]ました。",
+      "example_en": "Tanaka-san came from Osaka."
+    }
+  ],
+  "register_context": "Polite default: 〜から〜までVます. Questions: 何時から何時までですか / どこから来ましたか. Schedules and opening hours often end in です: 銀行は九時から三時までです. から / まで stack with means で and object を: 家から駅まで自転車で行きます / 九時から日本語を勉強します.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[九時|くじ]にから[勉強|べんきょう]します。",
+      "right_ruby": "[九時|くじ]から[勉強|べんきょう]します。",
+      "why": "から replaces time に. Do not stack them."
+    },
+    {
+      "wrong_ruby": "[五時|ごじ]にまで[勉強|べんきょう]します。",
+      "right_ruby": "[五時|ごじ]まで[勉強|べんきょう]します。",
+      "why": "まで also replaces time に: 五時まで."
+    },
+    {
+      "wrong_ruby": "[東京|とうきょう]に[来|き]ました。(Meaning: I came to Tokyo.)",
+      "right_ruby": "[東京|とうきょう]から[来|き]ました。",
+      "why": "For where you came from, use から. に marks where you arrive."
+    },
+    {
+      "wrong_ruby": "から[九時|くじ][勉強|べんきょう]します。",
+      "right_ruby": "[九時|くじ]から[勉強|べんきょう]します。",
+      "why": "から and まで come right after the time or place noun, like other particles."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "から (from) vs まで (until)",
+      "summary": "九時から勉強します starts at nine. 九時まで勉強します stops at nine.",
+      "ex_a_ruby": "[九時|くじ]から[勉強|べんきょう]します。",
+      "ex_a_en": "I study from nine.",
+      "ex_b_ruby": "[九時|くじ]まで[勉強|べんきょう]します。",
+      "ex_b_en": "I study until nine."
+    },
+    {
+      "other_slug": null,
+      "label": "Time に (at) vs から (from)",
+      "summary": "九時に起きます is one point in time. 九時から勉強します starts there and keeps going.",
+      "ex_a_ruby": "[九時|くじ]に[起|お]きます。",
+      "ex_a_en": "I get up at nine.",
+      "ex_b_ruby": "[九時|くじ]から[勉強|べんきょう]します。",
+      "ex_b_en": "I study from nine on."
+    },
+    {
+      "other_slug": null,
+      "label": "Destination に vs まで",
+      "summary": "駅に行きます names where you go. 駅まで行きます marks how far you go, often with a starting point in から.",
+      "ex_a_ruby": "[駅|えき]に[行|い]きます。",
+      "ex_a_en": "I go to the station.",
+      "ex_b_ruby": "[家|いえ]から[駅|えき]まで[行|い]きます。",
+      "ex_b_en": "I go from home as far as the station."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[九時|くじ]から[五時|ごじ]まで[働|はたら]きます。",
+      "english": "I work from nine to five.",
+      "note": "time span"
+    },
+    {
+      "ruby": "[図書館|としょかん]は[九時|くじ]から[五時|ごじ]までです。",
+      "english": "The library is open from nine to five.",
+      "note": "hours + です"
+    },
+    {
+      "ruby": "[月曜日|げつようび]から[金曜日|きんようび]まで[学校|がっこう]に[行|い]きます。",
+      "english": "I go to school from Monday to Friday.",
+      "note": "days"
+    },
+    {
+      "ruby": "[明日|あした]から[日本語|にほんご]を[勉強|べんきょう]します。",
+      "english": "I'll study Japanese starting tomorrow.",
+      "note": "明日から"
+    },
+    {
+      "ruby": "[七時|しちじ]まで[寝|ね]ます。",
+      "english": "I sleep until seven.",
+      "note": "まで alone"
+    },
+    {
+      "ruby": "[三時|さんじ]まで[待|ま]ちます。",
+      "english": "I'll wait until three.",
+      "note": "まで alone"
+    },
+    {
+      "ruby": "[東京|とうきょう]から[大阪|おおさか]まで[新幹線|しんかんせん]で[行|い]きます。",
+      "english": "I go from Tokyo to Osaka by shinkansen.",
+      "note": "route + means で"
+    },
+    {
+      "ruby": "[家|いえ]から[駅|えき]まで[歩|ある]きます。",
+      "english": "I walk from home to the station.",
+      "note": "route"
+    },
+    {
+      "ruby": "[駅|えき]から[学校|がっこう]までバスで[行|い]きます。",
+      "english": "I take the bus from the station to school.",
+      "note": "route + means で"
+    },
+    {
+      "ruby": "[山田|やまだ]さんは[京都|きょうと]から[来|き]ました。",
+      "english": "Yamada-san came from Kyoto.",
+      "note": "where from"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[図書館|としょかん]は[何時|なんじ]から[何時|なんじ]までですか。",
+      "english": "What are the library's hours?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[九時|くじ]から[八時|はちじ]までです。",
+      "english": "From nine to eight."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[土曜日|どようび]も[八時|はちじ]までですか。",
+      "english": "Until eight on Saturday too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[土曜日|どようび]は[五時|ごじ]までです。",
+      "english": "No, on Saturday it's until five."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "九時（　）五時まで働きます。",
+      "options": [
+        "に",
+        "から",
+        "で"
+      ],
+      "answer_idx": 1,
+      "why": "Start of a span → 九時から五時まで."
+    },
+    {
+      "prompt": "東京から大阪（　）新幹線で行きます。",
+      "options": [
+        "まで",
+        "から",
+        "を"
+      ],
+      "answer_idx": 0,
+      "why": "End point of the route → 大阪まで."
+    },
+    {
+      "prompt": "Context: I came from Kyoto. 京都（　）来ました。",
+      "options": [
+        "に",
+        "から",
+        "で"
+      ],
+      "answer_idx": 1,
+      "why": "Where you came from → から. 京都に来ました would mean you came to Kyoto."
+    },
+    {
+      "prompt": "Context: I'll wait until three.",
+      "options": [
+        "三時から待ちます。",
+        "三時まで待ちます。",
+        "三時にから待ちます。"
+      ],
+      "answer_idx": 1,
+      "why": "Until → まで. から would mean from three; ×にから stacks two particles."
+    },
+    {
+      "prompt": "Pick the correct line (study, starting tomorrow).",
+      "options": [
+        "明日にから勉強します。",
+        "明日から勉強します。",
+        "明日まで勉強します。"
+      ],
+      "answer_idx": 1,
+      "why": "明日から = starting tomorrow. 明日 takes no に; 明日まで would mean until tomorrow."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "ni-time"
+    ],
+    "next": [
+      "masenka-mashou"
+    ]
+  },
+  "lesson_version": 1
+}

@@ -1,0 +1,279 @@
+{
+  "meaning": "が with 好き・嫌い・上手・下手・分かる · the thing liked, good at, or understood",
+  "gist": "With [好|す]き (like), [嫌|きら]い (dislike), [上手|じょうず] (good at), [下手|へた] (bad at), and [分|わ]かる (understand), the thing takes が, not を: [猫|ねこ]が[好|す]きです / [料理|りょうり]が[上手|じょうず]です / [日本語|にほんご]が[分|わ]かります. The person usually comes first with は: [私|わたし]は[猫|ねこ]が[好|す]きです.",
+  "formation": {
+    "columns": [
+      "Word",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "[好|す]き (like)",
+        "Person は + N が + [好|す]きです",
+        "[私|わたし]は[猫|ねこ]が[好|す]きです。"
+      ],
+      [
+        "[嫌|きら]い (dislike)",
+        "Person は + N が + [嫌|きら]いです",
+        "[弟|おとうと]は[野菜|やさい]が[嫌|きら]いです。"
+      ],
+      [
+        "[上手|じょうず] (good at)",
+        "Person は + N が + [上手|じょうず]です",
+        "[田中|たなか]さんは[料理|りょうり]が[上手|じょうず]です。"
+      ],
+      [
+        "[下手|へた] (bad at)",
+        "Person は + N が + [下手|へた]です",
+        "[私|わたし]は[歌|うた]が[下手|へた]です。"
+      ],
+      [
+        "[分|わ]かる (understand)",
+        "Person は + N が + [分|わ]かります",
+        "[山田|やまだ]さんは[英語|えいご]が[分|わ]かります。"
+      ],
+      [
+        "Asking",
+        "[何|なに]が + [好|す]きですか",
+        "[何|なに]が[好|す]きですか。"
+      ]
+    ],
+    "note": "[好|す]き, [嫌|きら]い, [上手|じょうず], and [下手|へた] are な-adjectives: [好|す]きじゃないです, [上手|じょうず]でした, [好|す]きな[色|いろ]. [嫌|きら]い ends in an い sound but never bends it: [嫌|きら]いじゃないです, not ×[嫌|きら]くないです. [分|わ]かる is a verb, so it uses ます forms: [分|わ]かります / [分|わ]かりません / [分|わ]かりました."
+  },
+  "explanation": "A few words describe how a person relates to something: [好|す]き (like), [嫌|きら]い (dislike), [上手|じょうず] (good at), [下手|へた] (bad at), and the verb [分|わ]かる (understand). With all five, the thing liked, disliked, done well, or understood takes が: [猫|ねこ]が[好|す]きです, [日本語|にほんご]が[分|わ]かります. English treats \"cats\" as the object of \"like,\" so learners reach for を. Japanese uses が because [好|す]き is an adjective that describes a state, not an action done to the cats. The person usually comes first with は: [私|わたし]は[猫|ねこ]が[好|す]きです. Four of the words are な-adjectives, so they take じゃないです, でした, and な before a noun: [好|す]きな[食|た]べ[物|もの]. [嫌|きら]い is one of them, even though it ends in an い sound. [分|わ]かる is a verb and uses ます forms: [分|わ]かります, [分|わ]かりません.",
+  "senses": [
+    {
+      "label": "好き · like",
+      "body": "N が[好|す]きです. [大好|だいす]きです is stronger: love.",
+      "example_ruby": "[私|わたし]は[犬|いぬ]が[好|す]きです。",
+      "example_en": "I like dogs."
+    },
+    {
+      "label": "嫌い · dislike",
+      "body": "N が[嫌|きら]いです. A な-adjective despite the い sound.",
+      "example_ruby": "[弟|おとうと]は[野菜|やさい]が[嫌|きら]いです。",
+      "example_en": "My little brother doesn't like vegetables."
+    },
+    {
+      "label": "上手 / 下手 · skill",
+      "body": "N が[上手|じょうず]です / [下手|へた]です. [上手|じょうず] is mostly said about other people.",
+      "example_ruby": "[田中|たなか]さんは[料理|りょうり]が[上手|じょうず]です。",
+      "example_en": "Tanaka-san is a good cook."
+    },
+    {
+      "label": "分かる · understand",
+      "body": "N が[分|わ]かります. A verb, so the negative is [分|わ]かりません.",
+      "example_ruby": "この[漢字|かんじ]が[分|わ]かりません。",
+      "example_en": "I don't understand this kanji."
+    },
+    {
+      "label": "好きな + noun",
+      "body": "Before a noun, [好|す]き takes な like any な-adjective.",
+      "example_ruby": "[好|す]きな[食|た]べ[物|もの]はラーメンです。",
+      "example_en": "My favorite food is ramen."
+    }
+  ],
+  "register_context": "Polite default: N が[好|す]きです / [嫌|きら]いです / [上手|じょうず]です / [下手|へた]です / [分|わ]かります. [嫌|きら]いです is blunt. [好|す]きじゃないです is a softer way to say you don't like something. [上手|じょうず] works as a compliment for other people. Said about yourself, it sounds like bragging, so people describe their own skills with [下手|へた]です instead. Questions: [何|なに]が[好|す]きですか / [日本語|にほんご]が[分|わ]かりますか.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[猫|ねこ]を[好|す]きです。",
+      "right_ruby": "[猫|ねこ]が[好|す]きです。",
+      "why": "[好|す]き is an adjective, not an action verb. The thing you like takes が, not ×を."
+    },
+    {
+      "wrong_ruby": "[日本語|にほんご]を[分|わ]かります。",
+      "right_ruby": "[日本語|にほんご]が[分|わ]かります。",
+      "why": "分かる marks what is understood with が. を is for actions done to something (日本語を勉強します)."
+    },
+    {
+      "wrong_ruby": "[嫌|きら]くないです。",
+      "right_ruby": "[嫌|きら]いじゃないです。",
+      "why": "嫌い is a な-adjective. Its い is part of the word, so negate it like a noun: 嫌いじゃないです."
+    },
+    {
+      "wrong_ruby": "[好|す]きの[食|た]べ[物|もの]はラーメンです。",
+      "right_ruby": "[好|す]きな[食|た]べ[物|もの]はラーメンです。",
+      "why": "好き is a な-adjective, so it takes な before a noun, not の."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "好き + が vs action verb + を",
+      "summary": "好き describes a state, so the thing takes が. An action verb like 食べます takes を.",
+      "ex_a_ruby": "[私|わたし]はりんごが[好|す]きです。",
+      "ex_a_en": "I like apples.",
+      "ex_b_ruby": "[私|わたし]はりんごを[食|た]べます。",
+      "ex_b_en": "I eat apples."
+    },
+    {
+      "other_slug": null,
+      "label": "分かります vs 勉強します",
+      "summary": "Understanding takes が: 日本語が分かります. Studying is an action, so it takes を: 日本語を勉強します.",
+      "ex_a_ruby": "[日本語|にほんご]が[分|わ]かります。",
+      "ex_a_en": "I understand Japanese.",
+      "ex_b_ruby": "[日本語|にほんご]を[勉強|べんきょう]します。",
+      "ex_b_en": "I study Japanese."
+    },
+    {
+      "other_slug": null,
+      "label": "Person は, thing が",
+      "summary": "は names whose like or skill it is. が marks the thing.",
+      "ex_a_ruby": "[田中|たなか]さんは[歌|うた]が[上手|じょうず]です。",
+      "ex_a_en": "Tanaka-san is good at singing.",
+      "ex_b_ruby": "[私|わたし]は[歌|うた]が[下手|へた]です。",
+      "ex_b_en": "I'm bad at singing."
+    },
+    {
+      "other_slug": null,
+      "label": "嫌いです vs 好きじゃないです",
+      "summary": "嫌いです is a strong \"I dislike it.\" 好きじゃないです says the same thing more gently.",
+      "ex_a_ruby": "[魚|さかな]が[嫌|きら]いです。",
+      "ex_a_en": "I hate fish.",
+      "ex_b_ruby": "[魚|さかな]が[好|す]きじゃないです。",
+      "ex_b_en": "I don't like fish."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[私|わたし]は[猫|ねこ]が[好|す]きです。",
+      "english": "I like cats.",
+      "note": "好き"
+    },
+    {
+      "ruby": "[弟|おとうと]は[野菜|やさい]が[嫌|きら]いです。",
+      "english": "My little brother doesn't like vegetables.",
+      "note": "嫌い"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[料理|りょうり]が[上手|じょうず]です。",
+      "english": "Tanaka-san is a good cook.",
+      "note": "上手 · about someone else"
+    },
+    {
+      "ruby": "[私|わたし]は[歌|うた]が[下手|へた]です。",
+      "english": "I'm a bad singer.",
+      "note": "下手 · about yourself"
+    },
+    {
+      "ruby": "[山田|やまだ]さんは[英語|えいご]が[分|わ]かります。",
+      "english": "Yamada-san understands English.",
+      "note": "分かる"
+    },
+    {
+      "ruby": "この[漢字|かんじ]が[分|わ]かりません。",
+      "english": "I don't understand this kanji.",
+      "note": "分かる · negative"
+    },
+    {
+      "ruby": "[何|なに]が[好|す]きですか。",
+      "english": "What do you like?",
+      "note": "question word + が"
+    },
+    {
+      "ruby": "[好|す]きな[色|いろ]は[青|あお]です。",
+      "english": "My favorite color is blue.",
+      "note": "好きな + noun"
+    },
+    {
+      "ruby": "[兄|あに]はテニスが[上手|じょうず]じゃないです。",
+      "english": "My older brother isn't good at tennis.",
+      "note": "上手 · negative"
+    },
+    {
+      "ruby": "[昔|むかし]は[肉|にく]が[嫌|きら]いでした。",
+      "english": "I used to dislike meat.",
+      "note": "嫌い · past"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "マリアさんは[日本|にほん]の[歌|うた]が[好|す]きですか。",
+      "english": "Do you like Japanese songs, Maria-san?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[大好|だいす]きです。[毎晩|まいばん][聞|き]きます。",
+      "english": "Yes, I love them. I listen to them every night."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[歌詞|かし]が[分|わ]かりますか。",
+      "english": "Do you understand the lyrics?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[分|わ]かりません。[日本語|にほんご]が[下手|へた]です。",
+      "english": "No, I don't. My Japanese isn't good."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[私|わたし]の[姉|あね]は[日本語|にほんご]が[上手|じょうず]です。[歌詞|かし]も[分|わ]かります。",
+      "english": "My older sister is good at Japanese. She understands the lyrics too."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "私は猫（　）好きです。",
+      "options": [
+        "を",
+        "が",
+        "で"
+      ],
+      "answer_idx": 1,
+      "why": "The thing you like takes が: 猫が好きです."
+    },
+    {
+      "prompt": "日本語（　）分かります。",
+      "options": [
+        "が",
+        "を",
+        "に"
+      ],
+      "answer_idx": 0,
+      "why": "What you understand takes が: 日本語が分かります."
+    },
+    {
+      "prompt": "嫌い → polite negative.",
+      "options": [
+        "嫌くないです",
+        "嫌いじゃないです",
+        "嫌いないです"
+      ],
+      "answer_idx": 1,
+      "why": "嫌い is a な-adjective, so it negates like a noun: 嫌いじゃないです."
+    },
+    {
+      "prompt": "（　）食べ物はラーメンです。 (My favorite food is ramen.)",
+      "options": [
+        "好きの",
+        "好き",
+        "好きな"
+      ],
+      "answer_idx": 2,
+      "why": "好き is a な-adjective, so it takes な before a noun: 好きな食べ物."
+    },
+    {
+      "prompt": "田中さん（　）歌（　）上手です。",
+      "options": [
+        "は / が",
+        "が / を",
+        "を / は"
+      ],
+      "answer_idx": 0,
+      "why": "The person takes は and the skill takes が: 田中さんは歌が上手です."
+    }
+  ],
+  "related": {
+    "prerequisites": [
+      "ga-subject",
+      "na-adjective"
+    ],
+    "next": [
+      "amari-zenzen"
+    ]
+  },
+  "lesson_version": 1
+}

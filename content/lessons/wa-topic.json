@@ -88,6 +88,15 @@
       "ex_a_en": "As for the cat, it's in the room. (cat = known topic)",
       "ex_b_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
       "ex_b_en": "There's a cat in the room. (cat = new info)"
+    },
+    {
+      "other_slug": "contrast-wa-ga-1",
+      "label": "は topic vs が new information",
+      "summary": "は marks the topic; が marks what is new or asked about: だれがいますか — 田中さんがいます / 田中さんはいますか。",
+      "ex_a_ruby": "[田中|たなか]さんはいますか。",
+      "ex_a_en": "Is Tanaka-san here? (Tanaka = known topic)",
+      "ex_b_ruby": "だれがいますか。—[田中|たなか]さんがいます。",
+      "ex_b_en": "Who is there? — Tanaka-san is there. (が answers だれが)"
     }
   ],
   "examples": [
