@@ -20,14 +20,19 @@
         "[私|わたし]の[友達|ともだち]も[学生|がくせい]です"
       ],
       [
+        "Both A and B",
+        "Nも + Nも + N + です",
+        "[山田|やまだ]さんも[田中|たなか]さんも[学生|がくせい]です"
+      ],
+      [
         "Also + question",
         "N + も + N + ですか",
-        "[山田|やまだ]さんも[会社員|かいしゃいん]ですか"
+        "[木村|きむら]さんも[会社員|かいしゃいん]ですか"
       ]
     ],
-    "note": "も replaces は; do not stack them (×私はも / ×私もは). も does not replace の: 私の本も… keeps の."
+    "note": "も replaces は; do not stack them (×私はも / ×私もは). Do not put も after the predicate noun (×私は学生もです → 私も学生です). も does not replace の: 私の友達も… keeps の."
   },
-  "explanation": "は introduces or focuses the topic; も says \"that description is true of this noun as well.\" So after 田中さんは先生です, 山田さんも先生です means Yamada is a teacher too. Because も already marks the topic-like slot, stacking は is ungrammatical: ×私はも学生です → 私も学生です. Keep earlier patterns: です/だ for the copula, か for questions, の for noun links (私の友達も学生です).",
+  "explanation": "は introduces or focuses the topic; も says \"that description is true of this noun as well.\" So after 田中さんは先生です, 山田さんも先生です means Yamada is a teacher too. Because も already marks the topic-like slot, stacking は is ungrammatical: ×私はも学生です → 私も学生です. Putting も on the wrong noun is another trap: ×私は学生もです → 私も学生です. Keep earlier patterns: です/だ for the copula, か for questions, の for noun links (私の友達も学生です).",
   "senses": [
     {
       "label": "Same category, another person",
@@ -37,15 +42,21 @@
     },
     {
       "label": "Also + noun link",
-      "body": "",
+      "body": "の still links possession; も marks the whole phrase.",
       "example_ruby": "[私|わたし]の[友達|ともだち]も[日本人|にほんじん]です。",
       "example_en": "My friend is Japanese too."
     },
     {
+      "label": "Both A and B",
+      "body": "NもNも means both members share the same comment.",
+      "example_ruby": "[山田|やまだ]さんも[田中|たなか]さんも[学生|がくせい]です。",
+      "example_en": "Yamada-san and Tanaka-san are both students."
+    },
+    {
       "label": "Also in a yes/no question",
-      "body": "",
-      "example_ruby": "[田中|たなか]さんも[先生|せんせい]ですか。",
-      "example_en": "Is Tanaka-san a teacher too?"
+      "body": "Ask whether someone else shares the same category: NもNですか。",
+      "example_ruby": "[木村|きむら]さんも[会社員|かいしゃいん]ですか。",
+      "example_en": "Is Kimura-san an office worker too?"
     }
   ],
   "register_context": "Default polite: NもNです / NもNですか. Plain/casual: NもNだ. Same register rules as です/だ — teach です first; use だ among friends or in plain writing.",
@@ -53,17 +64,17 @@
     {
       "wrong_ruby": "[私|わたし]はも[学生|がくせい]です。",
       "right_ruby": "[私|わたし]も[学生|がくせい]です。",
-      "why": "も replaces は; stacking はも is ungrammatical."
+      "why": "も replaces は; stacking はも is ungrammatical. This is the Unit 1 home for ×私はも."
+    },
+    {
+      "wrong_ruby": "[私|わたし]は[学生|がくせい]もです。",
+      "right_ruby": "[私|わたし]も[学生|がくせい]です。",
+      "why": "も marks the topic noun (私も…), not the predicate noun (×学生もです)."
     },
     {
       "wrong_ruby": "[私|わたし]もは[学生|がくせい]です。",
       "right_ruby": "[私|わたし]も[学生|がくせい]です。",
       "why": "Do not put は after も either — only one topic marker."
-    },
-    {
-      "wrong_ruby": "[私|わたし][友達|ともだち]も[学生|がくせい]です。",
-      "right_ruby": "[私|わたし]の[友達|ともだち]も[学生|がくせい]です。",
-      "why": "Possession still needs の; も does not replace の."
     }
   ],
   "contrasts": [
@@ -93,9 +104,9 @@
       "note": "polite · basic も"
     },
     {
-      "ruby": "[田中|たなか]さんも[先生|せんせい]です。",
-      "english": "Tanaka-san is a teacher too.",
-      "note": "polite · person + も"
+      "ruby": "[田中|たなか]さんは[先生|せんせい]です。[私|わたし]も[先生|せんせい]です。",
+      "english": "Tanaka-san is a teacher. I am a teacher too.",
+      "note": "polite · context + も"
     },
     {
       "ruby": "[私|わたし]の[友達|ともだち]も[日本人|にほんじん]です。",
@@ -103,8 +114,8 @@
       "note": "polite · の + も"
     },
     {
-      "ruby": "[山田|やまだ]さんも[会社員|かいしゃいん]ですか。",
-      "english": "Is Yamada-san an office worker too?",
+      "ruby": "[木村|きむら]さんも[会社員|かいしゃいん]ですか。",
+      "english": "Is Kimura-san an office worker too?",
       "note": "polite · question"
     },
     {
@@ -113,14 +124,14 @@
       "note": "polite · answer with も"
     },
     {
-      "ruby": "[猫|ねこ]も[犬|いぬ]も[友達|ともだち]です。",
-      "english": "Both the cat and the dog are friends (of mine).",
+      "ruby": "[山田|やまだ]さんも[田中|たなか]さんも[学生|がくせい]です。",
+      "english": "Yamada-san and Tanaka-san are both students.",
       "note": "polite · NもNも"
     },
     {
-      "ruby": "[佐藤|さとう]さんも[学生|がくせい]ですか。",
-      "english": "Is Sato-san a student too?",
-      "note": "polite · question with も"
+      "ruby": "[佐藤|さとう]さんも[学生|がくせい]です。",
+      "english": "Sato-san is a student too.",
+      "note": "polite · person + も"
     },
     {
       "ruby": "[私|わたし]の[先生|せんせい]も[日本人|にほんじん]だ。",
@@ -128,9 +139,9 @@
       "note": "plain · だ"
     },
     {
-      "ruby": "[木村|きむら]さんも[医者|いしゃ]です。",
-      "english": "Kimura-san is a doctor too.",
-      "note": "polite · occupation"
+      "ruby": "[山田|やまだ]さんは[医者|いしゃ]です。[木村|きむら]さんも[医者|いしゃ]です。",
+      "english": "Yamada-san is a doctor. Kimura-san is a doctor too.",
+      "note": "polite · occupation + context"
     },
     {
       "ruby": "[私|わたし]の[名前|なまえ]も[山田|やまだ]です。",
@@ -163,26 +174,26 @@
   "checks": [
     {
       "prompt": "A: 私は学生です。 B: 私（　）学生です。",
-      "options": ["も", "は", "の"],
-      "answer_idx": 0,
+      "options": ["は", "も", "の"],
+      "answer_idx": 1,
       "why": "Previous sentence already used は for \"I'm a student\"; B adds the same comment → も."
     },
     {
       "prompt": "A: 田中さんは先生です。 B: 山田さん（　）先生です。(Yamada is a teacher too)",
-      "options": ["も", "は", "はも"],
-      "answer_idx": 0,
+      "options": ["はも", "は", "も"],
+      "answer_idx": 2,
       "why": "Same occupation as Tanaka → も. ×はも is ungrammatical."
     },
     {
       "prompt": "Fix: 私はも会社員です。",
-      "options": ["私も会社員です。", "私は会社員もです。", "私のも会社員です。"],
-      "answer_idx": 0,
+      "options": ["私は会社員もです。", "私も会社員です。", "私のも会社員です。"],
+      "answer_idx": 1,
       "why": "も replaces は: 私も会社員です。"
     },
     {
       "prompt": "Opening a self-intro with no prior \"also\" context: 私（　）日本人です。",
-      "options": ["は", "も", "はも"],
-      "answer_idx": 0,
+      "options": ["も", "はも", "は"],
+      "answer_idx": 2,
       "why": "First mention / plain topic → は, not も."
     }
   ],

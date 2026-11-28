@@ -14,7 +14,7 @@ UNITS: list[dict] = [
   { "n": 1, "level": "N5", "title": "Saying what things are", "goal": "Introduce yourself and identify objects with です.", "points": [
     ["desu-da", "だ / です", "The copula: X is Y; polite です and plain だ", "", "keep"],
     ["wa-topic", "は (topic)", "Marks what the sentence is about: 私は学生です", "desu-da", "keep"],
-    ["ka-question", "か and question words", "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot", "wa-topic", "keep"],
+    ["ka-question", "か and question words", "Yes/no questions; 何・だれ・どこ・いつ in the answer's slot", "wa-topic", "keep"],
     ["no-noun-link", "の (noun + noun)", "Possession, belonging, description: 私の本, 日本語の先生", "wa-topic", "keep"],
     ["mo-also", "も (also)", "Too / also; replaces は rather than stacking on it", "wa-topic", "keep"],
     ["ja-nai", "じゃないです / ではありません (and past)", "Negative and past of です, polite and plain", "desu-da", "keep"],

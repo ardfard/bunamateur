@@ -15,17 +15,17 @@
         "[私|わたし]は[学生|がくせい]だ"
       ],
       [
-        "Topic + は + Noun + ですよ",
-        "は → わ",
-        "[私|わたし]は[会社員|かいしゃいん]ですよ"
-      ],
-      [
         "Name + は + Noun + です",
         "は → わ",
         "[田中|たなか]さんは[先生|せんせい]です"
+      ],
+      [
+        "Thing/role + は + Noun + です",
+        "は → わ",
+        "[専攻|せんこう]は[日本語|にほんご]です"
       ]
     ],
-    "note": "Particle は is always written は and pronounced わ (not like the mora は in はな). Do not write the particle as わ. も (\"also\") replaces は — they do not stack."
+    "note": "Particle は is always written は and pronounced わ (not like the mora は in はな). Do not write the particle as わ. も (\"also\") replaces は — they do not stack (taught in mo-also)."
   },
   "explanation": "は sets the topic frame: \"as for X, (it/I) am Y.\" [私|わたし]は[学生|がくせい]です means \"As for me, (I) am a student.\" The noun before は is what you are talking about; です/だ still does the equating. Pronunciation is the key beginner trap: the topic particle looks like は but sounds like わ. Keep register from the previous lesson — polite です by default, casual だ with friends.",
   "senses": [
@@ -37,18 +37,18 @@
     },
     {
       "label": "Other people as topic",
-      "body": "Any person noun (or name + さん) can be the topic.",
+      "body": "Any person noun (or name + さん for others) can be the topic.",
       "example_ruby": "[田中|たなか]さんは[先生|せんせい]です。",
       "example_en": "Tanaka-san is a teacher."
     },
     {
-      "label": "Casual topic + だ",
-      "body": "Same structure with plain だ.",
-      "example_ruby": "[私|わたし]は[会社員|かいしゃいん]だ。",
-      "example_en": "I'm an office worker. (casual)"
+      "label": "Role / field as topic",
+      "body": "Abstract nouns like 専攻 (major) can be the topic too.",
+      "example_ruby": "[専攻|せんこう]は[日本語|にほんご]です。",
+      "example_en": "My major is Japanese."
     }
   ],
-  "register_context": "Topic は is register-neutral; politeness still lives in です vs だ. Polite: 私は学生です. Casual: 私は学生だ. Soft assert: 私は学生ですよ.",
+  "register_context": "Topic は is register-neutral; politeness still lives in です vs だ. Polite: 私は学生です. Casual: 私は学生だ. Dropping は after a clear topic (私学生です) is common in casual speech — not a hard error, but write は in careful / classroom Japanese. Do not attach さん to your own name: ×私は田中さんです → 私は田中です.",
   "mistakes": [
     {
       "wrong_ruby": "[私|わたし]わ[学生|がくせい]です。",
@@ -56,19 +56,9 @@
       "why": "The topic particle is written は (read わ). Do not spell the particle as わ."
     },
     {
-      "wrong_ruby": "[私|わたし]はも[学生|がくせい]です。",
-      "right_ruby": "[私|わたし]は[学生|がくせい]です。",
-      "why": "は and も do not stack. Use は for topic, or later も for \"also\" — not both."
-    },
-    {
       "wrong_ruby": "は[学生|がくせい]です。",
       "right_ruby": "[私|わたし]は[学生|がくせい]です。",
       "why": "は needs a topic noun in front of it."
-    },
-    {
-      "wrong_ruby": "[私|わたし][学生|がくせい]です。",
-      "right_ruby": "[私|わたし]は[学生|がくせい]です。",
-      "why": "When you set a topic, mark it with は (read わ)."
     }
   ],
   "contrasts": [
@@ -94,82 +84,72 @@
   "examples": [
     {
       "ruby": "[私|わたし]は[学生|がくせい]です。",
-      "english": "I am a student.",
+      "english": "(Self-intro) I am a student.",
       "note": "polite · core pattern"
     },
     {
-      "ruby": "[私|わたし]は[先生|せんせい]だ。",
-      "english": "I am a teacher.",
+      "ruby": "[私|わたし]は[田中|たなか]です。",
+      "english": "(Meeting someone) I'm Tanaka.",
+      "note": "polite · name · no さん on self"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[先生|せんせい]です。",
+      "english": "(Talking about a classmate's teacher) Tanaka-san is a teacher.",
+      "note": "polite · other person"
+    },
+    {
+      "ruby": "[私|わたし]は[日本人|にほんじん]です。",
+      "english": "(Nationality in a self-intro) I am Japanese.",
+      "note": "polite · nationality"
+    },
+    {
+      "ruby": "[専攻|せんこう]は[日本語|にほんご]です。",
+      "english": "(Campus self-intro) My major is Japanese.",
+      "note": "polite · field as topic"
+    },
+    {
+      "ruby": "[山田|やまだ]さんは[会社員|かいしゃいん]です。",
+      "english": "(Office small talk) Yamada-san is an office worker.",
+      "note": "polite · workplace"
+    },
+    {
+      "ruby": "[私|わたし]は[大学生|だいがくせい]だ。",
+      "english": "(To a close friend) I'm a university student.",
       "note": "casual · だ"
     },
     {
-      "ruby": "[田中|たなか]さんは[医者|いしゃ]です。",
-      "english": "Tanaka-san is a doctor.",
-      "note": "polite · person topic"
-    },
-    {
-      "ruby": "[友達|ともだち]は[日本人|にほんじん]です。",
-      "english": "My friend is Japanese.",
+      "ruby": "[友達|ともだち]は[医者|いしゃ]です。",
+      "english": "(Introducing someone) My friend is a doctor.",
       "note": "polite · third person"
-    },
-    {
-      "ruby": "[私|わたし]は[会社員|かいしゃいん]ですよ。",
-      "english": "I'm an office worker.",
-      "note": "polite · ですよ"
-    },
-    {
-      "ruby": "[猫|ねこ]は[友達|ともだち]です。",
-      "english": "The cat is a friend. / Cats are friends.",
-      "note": "polite · animal topic"
-    },
-    {
-      "ruby": "[学校|がっこう]は[大学|だいがく]です。",
-      "english": "The school is a university.",
-      "note": "polite · place topic"
-    },
-    {
-      "ruby": "[犬|いぬ]は[友達|ともだち]だよ。",
-      "english": "Dogs are friends.",
-      "note": "casual · だよ"
-    },
-    {
-      "ruby": "[私|わたし]は[大学生|だいがくせい]です。",
-      "english": "I am a university student.",
-      "note": "polite · role"
-    },
-    {
-      "ruby": "[山田|やまだ]さんは[会社員|かいしゃいん]だ。",
-      "english": "Yamada-san is an office worker.",
-      "note": "casual · name + さん"
     }
   ],
   "dialogue": [
     {
       "speaker": "A",
-      "ruby": "[私|わたし]は[学生|がくせい]です。",
-      "english": "I am a student."
+      "ruby": "はじめまして。[私|わたし]は[田中|たなか]です。",
+      "english": "Nice to meet you. I'm Tanaka."
     },
     {
       "speaker": "B",
-      "ruby": "[私|わたし]は[先生|せんせい]です。",
-      "english": "I am a teacher."
+      "ruby": "[私|わたし]は[山田|やまだ]です。よろしくおねがいします。",
+      "english": "I'm Yamada. Nice to meet you."
     },
     {
       "speaker": "A",
-      "ruby": "[田中|たなか]さんは[医者|いしゃ]ですよ。",
-      "english": "Tanaka-san is a doctor."
+      "ruby": "[学生|がくせい]です。[専攻|せんこう]は[日本語|にほんご]です。",
+      "english": "(I'm) a student. My major is Japanese."
     },
     {
       "speaker": "B",
-      "ruby": "あ、[友達|ともだち]は[会社員|かいしゃいん]です。",
-      "english": "Ah — my friend is an office worker."
+      "ruby": "[会社員|かいしゃいん]です。よろしくおねがいします。",
+      "english": "(I'm) an office worker. Nice to meet you."
     }
   ],
   "checks": [
     {
       "prompt": "私（　）学生です。 (mark the topic \"I\")",
-      "options": ["は", "も", "わ"],
-      "answer_idx": 0,
+      "options": ["も", "は", "わ"],
+      "answer_idx": 1,
       "why": "Topic marker is written は (read わ). も means \"also\" (later lesson); spelling the particle as わ is wrong."
     },
     {
@@ -180,14 +160,14 @@
     },
     {
       "prompt": "How do you pronounce the topic particle in 私は学生です?",
-      "options": ["わ", "は (as in はな)", "ば"],
-      "answer_idx": 0,
+      "options": ["は (as in はな)", "ば", "わ"],
+      "answer_idx": 2,
       "why": "Topic は is always pronounced わ, even though it is written は."
     },
     {
       "prompt": "Context: \"As for Tanaka-san, (he) is a teacher\" — not \"Tanaka too.\"",
-      "options": ["田中さんは先生です。", "田中さんも先生です。", "田中さんわ先生です。"],
-      "answer_idx": 0,
+      "options": ["田中さんも先生です。", "田中さんわ先生です。", "田中さんは先生です。"],
+      "answer_idx": 2,
       "why": "Topic frame uses は. も would mean \"Tanaka too\"; わ is the wrong spelling of the particle."
     }
   ],

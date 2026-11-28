@@ -38,7 +38,7 @@
         {
           "slug": "ka-question",
           "title": "か and question words",
-          "summary": "Yes/no questions; 何・だれ・どこ・いつ・どうして in the answer's slot",
+          "summary": "Yes/no questions; 何・だれ・どこ・いつ in the answer's slot",
           "prerequisites": [
             "wa-topic"
           ],
