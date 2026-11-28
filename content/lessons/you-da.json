@@ -189,8 +189,8 @@
     },
     {
       "speaker": "B",
-      "ruby": "[風邪|かぜ]をひいたようです。[声|こえ]がおかしかったからです。",
-      "english": "It seems he caught a cold — his voice sounded off."
+      "ruby": "[風邪|かぜ]をひいたようです。[声|こえ]が[変|へん]でしたから。",
+      "english": "It seems he caught a cold — his voice was off."
     }
   ],
   "checks": [
