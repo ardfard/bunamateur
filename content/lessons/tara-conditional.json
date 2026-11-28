@@ -191,7 +191,7 @@
   ],
   "checks": [
     {
-      "prompt": "窓を開け（　）、エアコンをつけてください。",
+      "prompt": "窓を閉め（　）、エアコンをつけてください。",
       "options": ["たら", "ば", "なら", "と"],
       "answer_idx": 0,
       "why": "Request after opening → たら. と cannot take a request; same-subject action + てください is awkward with ば; なら is topic-picking, not \"once you open\"."
