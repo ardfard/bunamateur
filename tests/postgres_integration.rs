@@ -111,13 +111,13 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
     assert_eq!(passage_count as usize, SEED_PASSAGES.len());
     assert_eq!(conj_count as usize, SEED_CONJUGATIONS.len());
 
-    // Rich lessons seeded for sample + N5 batch-1 slugs; others remain NULL (short-field fallback).
+    // Rich lessons seeded for sample + N5 batch-1/2 slugs; others remain NULL (short-field fallback).
     let lesson_count: i64 =
         sqlx::query_scalar("SELECT COUNT(*) FROM grammar_points WHERE lesson IS NOT NULL")
             .fetch_one(&pool)
             .await
             .unwrap();
-    assert_eq!(lesson_count, 10);
+    assert_eq!(lesson_count, 19);
     let te_iru_gist: Option<String> = sqlx::query_scalar(
         "SELECT lesson->>'gist' FROM grammar_points WHERE slug = 'te-iru'",
     )
@@ -144,7 +144,7 @@ async fn test_multi_user_auth_csrf_encryption_cors_limits_and_isolation() {
 
     // Points without a lesson file stay on the short-field fallback.
     let null_lesson: Option<bool> = sqlx::query_scalar(
-        "SELECT lesson IS NULL FROM grammar_points WHERE slug = 'tsumori'",
+        "SELECT lesson IS NULL FROM grammar_points WHERE slug = 'te-miru'",
     )
     .fetch_one(&pool)
     .await

@@ -1,0 +1,217 @@
+{
+  "meaning": "and moreover · not only… but also · listing reasons",
+  "gist": "Clause + し stacks qualities or reasons toward a conclusion: \"X, and also Y, so…\". Plain nouns / な-adjectives need だ (静かだし、学生だし); い-adjectives attach directly (安いし). Polite ですし / ますし is fine.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "い-adjective",
+        "い-adj + し",
+        "[安|やす]いし / [近|ちか]いし / [忙|いそが]しかったし"
+      ],
+      [
+        "な-adjective (plain)",
+        "な-adj + だ + し",
+        "[静|しず]かだし / [親切|しんせつ]だし"
+      ],
+      [
+        "Noun (plain)",
+        "N + だ + し",
+        "[雨|あめ]だし / [学生|がくせい]だし"
+      ],
+      [
+        "Verb (plain)",
+        "V普通形 + し",
+        "ないし / [疲|つか]れていたし"
+      ],
+      [
+        "Polite",
+        "です / ます + し",
+        "[親切|しんせつ]ですし / [行|い]きますし"
+      ]
+    ],
+    "note": "Do not add だ after い-adjectives (*安いだし). Nouns and な-adjectives need だ in plain style, or ですし when polite."
+  },
+  "explanation": "し lists cumulative reasons or traits, often leading to a soft conclusion: この店は安いし、おいしいです / 駅から近いし、静かだし、いい部屋だ. In plain style, nouns and な-adjectives take だ before し (今日は雨だし; 静かだし), while い-adjectives do not (*安いだし). Polite conversation freely uses ですし / ますし: 彼は親切ですし、日本語も上手です. Negative clauses stack the same way: お金もないし、時間もない.",
+  "senses": [
+    {
+      "label": "Listing favorable qualities",
+      "body": "",
+      "example_ruby": "この[店|みせ]は[安|やす]いし、おいしいです。",
+      "example_en": "This shop is cheap, and moreover delicious."
+    },
+    {
+      "label": "Stacking reasons → conclusion",
+      "body": "Also: [今日|きょう]は[雨|あめ]だし、[寒|さむ]いし、[家|いえ]にいよう。",
+      "example_ruby": "[駅|えき]から[近|ちか]いし、[静|しず]かだし、いい[部屋|へや]だ。",
+      "example_en": "It's close to the station and quiet, so it's a great room."
+    },
+    {
+      "label": "Polite ですし / ますし",
+      "body": "",
+      "example_ruby": "[彼|かれ]は[親切|しんせつ]ですし、[日本語|にほんご]も[上手|じょうず]です。",
+      "example_en": "He is kind, and he is also good at Japanese."
+    },
+    {
+      "label": "Negative reasons",
+      "body": "Also past: [昨日|きのう]は[忙|いそが]しかったし、[疲|つか]れていたから[早|はや]く[寝|ね]た。",
+      "example_ruby": "お[金|かね]もないし、[時間|じかん]もない。",
+      "example_en": "I have neither money nor time."
+    }
+  ],
+  "register_context": "Casual: plain + し (安いし、雨だし、ないし). Polite conversation: ですし / ますし is natural and common. Ending on し alone (雨だし…) can trail off with an implied \"so…\" that the listener fills in.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼|かれ]は[学生|がくせい]し、[若|わか]いです。",
+      "right_ruby": "[彼|かれ]は[学生|がくせい]だし、[若|わか]いです。",
+      "why": "Plain nouns need だ before し: 学生だし — not bare 学生し."
+    },
+    {
+      "wrong_ruby": "この[店|みせ]は[安|やす]いだし、おいしいです。",
+      "right_ruby": "この[店|みせ]は[安|やす]いし、おいしいです。",
+      "why": "い-adjectives attach directly to し. Do not insert だ (*安いだし)."
+    },
+    {
+      "wrong_ruby": "ここは[静|しず]かなし、いい[部屋|へや]だ。",
+      "right_ruby": "ここは[静|しず]かだし、いい[部屋|へや]だ。",
+      "why": "な-adjectives take だ before し (静かだし). Do not borrow the な from なので (*静かなし)."
+    },
+    {
+      "wrong_ruby": "この[店|みせ]は[安|やす]いだったし、おいしかったです。",
+      "right_ruby": "この[店|みせ]は[安|やす]かったし、おいしかったです。",
+      "why": "Past い-adjectives use 〜かったし (安かったし) — not *安いだったし."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "し vs て (listing)",
+      "summary": "て links actions/states neutrally; し stacks reasons or qualities toward a conclusion.",
+      "ex_a_ruby": "[安|やす]いし、おいしいです。",
+      "ex_a_en": "It's cheap, and moreover delicious (reasons/qualities)",
+      "ex_b_ruby": "[安|やす]くて、おいしいです。",
+      "ex_b_en": "It's cheap and delicious (simple て conjunction)"
+    },
+    {
+      "other_slug": null,
+      "label": "だ + し vs bare noun",
+      "summary": "Plain nouns / な-adjectives need だ before し; い-adjectives never take だ.",
+      "ex_a_ruby": "[雨|あめ]だし、[寒|さむ]いし。",
+      "ex_a_en": "It's rainy and cold (noun + だ + し)",
+      "ex_b_ruby": "[寒|さむ]いし、[暗|くら]いし。",
+      "ex_b_en": "It's cold and dark (い-adj + し, no だ)"
+    },
+    {
+      "other_slug": null,
+      "label": "Plain だし vs polite ですし",
+      "summary": "Same listing meaning; politeness follows だ vs です / ます.",
+      "ex_a_ruby": "[静|しず]かだし、[近|ちか]いし。",
+      "ex_a_en": "It's quiet and close (casual)",
+      "ex_b_ruby": "[親切|しんせつ]ですし、[上手|じょうず]です。",
+      "ex_b_en": "He's kind, and also skilled (polite)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "この[店|みせ]は[安|やす]いし、おいしいです。",
+      "english": "This shop is cheap, and moreover delicious.",
+      "note": "い-adj + し · polite close"
+    },
+    {
+      "ruby": "[駅|えき]から[近|ちか]いし、[静|しず]かだし、いい[部屋|へや]だ。",
+      "english": "It's close to the station and quiet, so it's a great room.",
+      "note": "stacked し · conclusion"
+    },
+    {
+      "ruby": "[今日|きょう]は[雨|あめ]だし、[寒|さむ]いし、[家|いえ]にいよう。",
+      "english": "It's rainy and cold today, so let's stay home.",
+      "note": "noun + だ + し · volitional"
+    },
+    {
+      "ruby": "[彼|かれ]は[親切|しんせつ]ですし、[日本語|にほんご]も[上手|じょうず]です。",
+      "english": "He is kind, and he is also good at Japanese.",
+      "note": "polite ですし"
+    },
+    {
+      "ruby": "お[金|かね]もないし、[時間|じかん]もない。",
+      "english": "I have neither money nor time.",
+      "note": "negative + し"
+    },
+    {
+      "ruby": "[昨日|きのう]は[忙|いそが]しかったし、[疲|つか]れていたから[早|はや]く[寝|ね]た。",
+      "english": "Yesterday I was busy and tired, so I went to bed early.",
+      "note": "past · reasons"
+    },
+    {
+      "ruby": "[子|こ]どもだし、まだ[分|わ]からないよ。",
+      "english": "He's a kid, and he still doesn't get it.",
+      "note": "noun + だし · casual"
+    },
+    {
+      "ruby": "[便利|べんり]だし、[安|やす]いし、ここに[住|す]みたい。",
+      "english": "It's convenient and cheap, so I want to live here.",
+      "note": "な-adj + だし · desire"
+    },
+    {
+      "ruby": "[味|あじ]もいいし、[量|りょう]も[多|おお]いし。",
+      "english": "The taste is good, and there's plenty of it too.",
+      "note": "trailing し · implied \"so…\""
+    },
+    {
+      "ruby": "[道|みち]も[分|わ]からないし、[地図|ちず]もないし、[困|こま]った。",
+      "english": "I don't know the way and I have no map, so I'm stuck.",
+      "note": "negative stack · past result"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "この[部屋|へや]、どうですか。",
+      "english": "What do you think of this room?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[駅|えき]から[近|ちか]いし、[静|しず]かだし、いいと[思|おも]います。",
+      "english": "It's close to the station and quiet, so I think it's good."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[今日|きょう]は[出|で]かけますか。",
+      "english": "Are you going out today?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ。[雨|あめ]だし、[寒|さむ]いし、[家|いえ]にいます。",
+      "english": "No. It's rainy and cold, so I'll stay home."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "この店は安い（　）、おいしいです。",
+      "options": ["し", "だし"],
+      "answer_idx": 0,
+      "why": "い-adjective 安い takes し directly — not だし."
+    },
+    {
+      "prompt": "今日は雨（　）、寒いし、家にいよう。",
+      "options": ["だし", "し"],
+      "answer_idx": 0,
+      "why": "Noun 雨 needs だ before し: 雨だし."
+    },
+    {
+      "prompt": "彼は親切です（　）、日本語も上手です。",
+      "options": ["し", "だ"],
+      "answer_idx": 0,
+      "why": "After polite です, add し → ですし. Do not insert another だ."
+    }
+  ],
+  "related": {
+    "prerequisites": ["い-adjectives", "な-adjectives", "だ / です"],
+    "next": ["kara-reason", "node"]
+  },
+  "lesson_version": 1
+}

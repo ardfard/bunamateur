@@ -435,12 +435,21 @@ mod tests {
             "ta-koto-ga-aru",
             "kara-reason",
             "node",
+            "tsumori",
+            "hou-ga-ii",
+            "nagara",
+            "no-ga-jouzu",
+            "koto-ga-dekiru",
+            "to-omou",
+            "mae-ni",
+            "ato-de",
+            "shi-listing",
         ] {
             assert!(
                 lessons.contains_key(slug),
                 "missing embedded lesson '{slug}'"
             );
         }
-        assert_eq!(lessons.len(), 10);
+        assert_eq!(lessons.len(), 19);
     }
 }

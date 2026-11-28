@@ -1,0 +1,211 @@
+{
+  "meaning": "can / be able to · it is possible to",
+  "gist": "Dictionary form + ことができる / できます: \"can V\" / \"it is possible to V.\" Slightly more formal and objective than the potential conjugation (話せる). The particle before できる is が, never を. Host is always plain dictionary — not ます-form.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (dictionary)",
+        "V辞書形 + ことができる",
+        "[話|はな]すことができる"
+      ],
+      [
+        "Polite",
+        "V辞書形 + ことができます",
+        "[日本語|にほんご]を[話|はな]すことができます"
+      ],
+      [
+        "Negative",
+        "ことができない / できません",
+        "クレジットカードを[使|つか]うことができません"
+      ],
+      [
+        "Past",
+        "ことができた / できました",
+        "[乗|の]ることができました"
+      ],
+      [
+        "Past negative",
+        "ことができなかった / できませんでした",
+        "[出|で]ることができなかった"
+      ]
+    ],
+    "note": "Particle is が before できる (*をできる is wrong). Do not attach ことができる to ます-form (*話しますことができる)."
+  },
+  "explanation": "ことができる states ability or situational possibility: 日本語を少し話すことができます = \"I can speak a little Japanese\"; ここではクレジットカードを使うことができません = \"You cannot use a credit card here.\" It is a clear, slightly formal alternative to the potential form (話せる). Both are correct; ことができる often feels more objective or textbook-polite. Do not confuse it with たことがある (life experience): 話すことができる = \"can speak,\" while 話したことがある = \"have spoken (before).\"",
+  "senses": [
+    {
+      "label": "Personal ability",
+      "body": "Also casual: [彼|かれ]はピアノを[弾|ひ]くことができる。",
+      "example_ruby": "[私|わたし]は[日本語|にほんご]を[少|すこ]し[話|はな]すことができます。",
+      "example_en": "I can speak a little Japanese."
+    },
+    {
+      "label": "Situational possibility / permission-like ban",
+      "body": "Also: この[窓|まど]から[富士山|ふじさん]を[見|み]ることができますか。",
+      "example_ruby": "ここではクレジットカードを[使|つか]うことができません。",
+      "example_en": "You cannot use a credit card here."
+    },
+    {
+      "label": "Past achievement / failure",
+      "body": "Also: [雨|あめ]が[強|つよ]くて、[外|そと]に[出|で]ることができなかった。",
+      "example_ruby": "[早|はや]く[起|お]きたので、[始発|しはつ][電車|でんしゃ]に[乗|の]ることができました。",
+      "example_en": "Because I woke up early, I was able to catch the first train."
+    }
+  ],
+  "register_context": "ことができます / ことができません is neutral-polite and common in signs, textbooks, and careful speech. Casual: ことができる / できない. The short potential (話せる / 話せます) is often more natural in everyday conversation; ことができる sounds a bit more formal or explicit.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[日本語|にほんご]を[話|はな]すことをできます。",
+      "right_ruby": "[日本語|にほんご]を[話|はな]すことができます。",
+      "why": "The particle before できる is が, not を — ことができる."
+    },
+    {
+      "wrong_ruby": "[日本語|にほんご]を[話|はな]しますことができます。",
+      "right_ruby": "[日本語|にほんご]を[話|はな]すことができます。",
+      "why": "Attach ことができる to the dictionary form (話す), never the ます-form."
+    },
+    {
+      "wrong_ruby": "[私|わたし]は[日本語|にほんご]を[話|はな]したことができます。",
+      "right_ruby": "[私|わたし]は[日本語|にほんご]を[話|はな]すことができます。",
+      "why": "(Meant \"I can speak Japanese.\") たことがある = life experience; ability needs dictionary + ことができる."
+    },
+    {
+      "wrong_ruby": "クレジットカードを[使|つか]うをできません。",
+      "right_ruby": "クレジットカードを[使|つか]うことができません。",
+      "why": "Need こと + が before できる — not bare をできません."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "ことができる vs potential form",
+      "summary": "Same core meaning (\"can\"); ことができる is slightly more formal/objective; 話せる is the conjugated potential and often more conversational.",
+      "ex_a_ruby": "[日本語|にほんご]を[話|はな]すことができます。",
+      "ex_a_en": "I can speak Japanese (ことができる)",
+      "ex_b_ruby": "[日本語|にほんご]が[話|はな]せます。",
+      "ex_b_en": "I can speak Japanese (potential form)"
+    },
+    {
+      "other_slug": null,
+      "label": "ことができる vs たことがある",
+      "summary": "Ability / possibility now vs life experience (have done before).",
+      "ex_a_ruby": "[寿司|すし]を[作|つく]ることができる。",
+      "ex_a_en": "I can make sushi (ability)",
+      "ex_b_ruby": "[寿司|すし]を[作|つく]ったことがある。",
+      "ex_b_en": "I have made sushi before (experience)"
+    },
+    {
+      "other_slug": "no-ga-jouzu",
+      "label": "ことができる vs のが上手",
+      "summary": "Able to do vs skilled / good at doing.",
+      "ex_a_ruby": "[彼|かれ]は[日本語|にほんご]を[話|はな]すことができます。",
+      "ex_a_en": "He can speak Japanese (ability)",
+      "ex_b_ruby": "[彼|かれ]は[日本語|にほんご]を[話|はな]すのが[上手|じょうず]です。",
+      "ex_b_en": "He is good at speaking Japanese (skill quality)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[私|わたし]は[日本語|にほんご]を[少|すこ]し[話|はな]すことができます。",
+      "english": "I can speak a little Japanese.",
+      "note": "polite · ability · seed"
+    },
+    {
+      "ruby": "ここではクレジットカードを[使|つか]うことができません。",
+      "english": "You cannot use a credit card here.",
+      "note": "polite negative · situational"
+    },
+    {
+      "ruby": "[彼|かれ]はピアノを[弾|ひ]くことができる。",
+      "english": "He can play the piano.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[早|はや]く[起|お]きたので、[始発|しはつ][電車|でんしゃ]に[乗|の]ることができました。",
+      "english": "Because I woke up early, I was able to catch the first train.",
+      "note": "polite past · achievement"
+    },
+    {
+      "ruby": "[雨|あめ]が[強|つよ]くて、[外|そと]に[出|で]ることができなかった。",
+      "english": "The rain was heavy, so I couldn't go outside.",
+      "note": "casual past negative"
+    },
+    {
+      "ruby": "この[窓|まど]から[富士山|ふじさん]を[見|み]ることができますか。",
+      "english": "Can you see Mt. Fuji from this window?",
+      "note": "polite question · possibility"
+    },
+    {
+      "ruby": "[漢字|かんじ]を[書|か]くことができますか。",
+      "english": "Can you write kanji?",
+      "note": "polite · asking ability"
+    },
+    {
+      "ruby": "[今日|きょう]は[早|はや]く[帰|かえ]ることができません。",
+      "english": "I can't go home early today.",
+      "note": "polite negative"
+    },
+    {
+      "ruby": "[子供|こども]でも[使|つか]うことができます。",
+      "english": "Even a child can use it.",
+      "note": "polite · general possibility"
+    },
+    {
+      "ruby": "[昨日|きのう]は[忙|いそが]しくて、[電話|でんわ]することができなかった。",
+      "english": "I was busy yesterday, so I couldn't call.",
+      "note": "casual past negative"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[日本語|にほんご]を[話|はな]すことができますか。",
+      "english": "Can you speak Japanese?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[少|すこ]し[話|はな]すことができます。",
+      "english": "Yes, I can speak a little."
+    },
+    {
+      "speaker": "A",
+      "ruby": "ここではカードを[使|つか]うことができますか。",
+      "english": "Can I use a card here?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、ここでは[使|つか]うことができません。[現金|げんきん]でお[願|ねが]いします。",
+      "english": "No, you can't use one here. Cash, please."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "私は日本語を少し話す（　）。",
+      "options": ["ことができます", "をできます", "したことがあります"],
+      "answer_idx": 0,
+      "why": "Dictionary + ことができます. Seed: 話す（ことができます）."
+    },
+    {
+      "prompt": "ここではクレジットカードを使う（　）。",
+      "options": ["ことができません", "をできません", "ことがあります"],
+      "answer_idx": 0,
+      "why": "Negative ability/possibility: ことができません — が, not を."
+    },
+    {
+      "prompt": "\"I can make sushi\" (ability) — which is correct?",
+      "options": ["寿司を作ることができます。", "寿司を作ったことがあります。"],
+      "answer_idx": 0,
+      "why": "Ability = dictionary + ことができる; たことがある is life experience (\"have made before\")."
+    }
+  ],
+  "related": {
+    "prerequisites": ["dictionary form (Dojo)"],
+    "next": ["ta-koto-ga-aru", "no-ga-jouzu"]
+  },
+  "lesson_version": 1
+}

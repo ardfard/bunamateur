@@ -1,0 +1,211 @@
+{
+  "meaning": "while doing · (same-subject simultaneous action)",
+  "gist": "ます-stem + ながら + main verb: two actions by the SAME subject at once. The verb after ながら is the primary action; the ながら clause is secondary (\"while doing X, do Y\").",
+  "formation": {
+    "columns": [
+      "Verb type",
+      "ます-stem",
+      "ながら pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Godan",
+        "[聞|き]き / [歩|ある]き / [飲|の]み",
+        "stem + ながら",
+        "[音楽|おんがく]を[聞|き]きながら"
+      ],
+      [
+        "Ichidan",
+        "[食|た]べ / [見|み]",
+        "stem + ながら",
+        "テレビを[見|み]ながら"
+      ],
+      [
+        "Irregular",
+        "し / [来|き]",
+        "し / [来|き] + ながら",
+        "[仕事|しごと]をしながら / [走|はし]りながら[来|き]た"
+      ],
+      [
+        "Full sentence",
+        "secondary + ながら + primary",
+        "stem + ながら + main V",
+        "[聞|き]きながら[散歩|さんぽ]をする"
+      ]
+    ],
+    "note": "Attach ながら to the ます-stem only — never the dictionary form (*聞くながら). Both actions must share one subject. Put the main action last."
+  },
+  "explanation": "ながら links a secondary action to a primary one done by the same person: 音楽を聞きながら、散歩をするのが好きです = \"I like taking a walk while listening to music.\" The stem before ながら is background; the final verb is the main action and carries tense and politeness. For different subjects (\"while I cooked, he read\"), use 〜ている間(に) instead. N2 also has a concessive ながら (\"although\"), which is a separate sense.",
+  "senses": [
+    {
+      "label": "Simultaneous actions (same subject)",
+      "body": "Also: [音楽|おんがく]を[聞|き]きながら、[部屋|へや]を[掃除|そうじ]します。",
+      "example_ruby": "[音楽|おんがく]を[聞|き]きながら、[散歩|さんぽ]をするのが[好|す]きです。",
+      "example_en": "I like taking a walk while listening to music."
+    },
+    {
+      "label": "Main action last (tense on the final verb)",
+      "body": "The final verb controls tense: 飲みながら読んでいた = was reading while drinking.",
+      "example_ruby": "コーヒーを[飲|の]みながら、[新聞|しんぶん]を[読|よ]んでいた。",
+      "example_en": "I was reading the newspaper while drinking coffee."
+    },
+    {
+      "label": "Ongoing parallel activities",
+      "body": "",
+      "example_ruby": "アルバイトをしながら、[大学|だいがく]に[通|かよ]っています。",
+      "example_en": "I attend university while working a part-time job."
+    }
+  ],
+  "register_context": "ながら is neutral and common in both casual and polite speech; politeness rides on the final verb (します / しています). Keep the secondary action in the stem + ながら clause. For different subjects or \"during the time that…\", prefer ている間(に).",
+  "mistakes": [
+    {
+      "wrong_ruby": "[私|わたし]が[料理|りょうり]を[作|つく]りながら、[弟|おとうと]はゲームをした。",
+      "right_ruby": "[私|わたし]が[料理|りょうり]を[作|つく]っている[間|あいだ]に、[弟|おとうと]はゲームをした。",
+      "why": "ながら requires the same subject for both actions. Different subjects need ている間(に)."
+    },
+    {
+      "wrong_ruby": "[音楽|おんがく]を[聞|き]いてながら、[散歩|さんぽ]をする。",
+      "right_ruby": "[音楽|おんがく]を[聞|き]きながら、[散歩|さんぽ]をする。",
+      "why": "ながら attaches to the ます-stem (聞き), never the て-form (*聞いてながら)."
+    },
+    {
+      "wrong_ruby": "[音楽|おんがく]を[聞|き]くながら、[散歩|さんぽ]をする。",
+      "right_ruby": "[音楽|おんがく]を[聞|き]きながら、[散歩|さんぽ]をする。",
+      "why": "ながら attaches to the ます-stem (聞き), never the dictionary form (*聞くながら)."
+    },
+    {
+      "wrong_ruby": "[歩|ある]きますながらスマホを[見|み]てはいけません。",
+      "right_ruby": "[歩|ある]きながらスマホを[見|み]てはいけません。",
+      "why": "Use the bare ます-stem (歩き), not the full ます-form (*歩きますながら)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "ながら vs ている間(に)",
+      "summary": "Same-subject simultaneous actions vs \"during the time that…\" (subjects may differ).",
+      "ex_a_ruby": "[音楽|おんがく]を[聞|き]きながら[歩|ある]く。",
+      "ex_a_en": "I walk while listening to music (same subject)",
+      "ex_b_ruby": "[私|わたし]が[料理|りょうり]をしている[間|あいだ]に、[彼|かれ]は[寝|ね]ていた。",
+      "ex_b_en": "While I was cooking, he was sleeping (different subjects)"
+    },
+    {
+      "other_slug": null,
+      "label": "Secondary vs primary order",
+      "summary": "Background action takes ながら; the main action is the final verb.",
+      "ex_a_ruby": "テレビを[見|み]ながらごはんを[食|た]べる。",
+      "ex_a_en": "Eat a meal while watching TV (eating is main)",
+      "ex_b_ruby": "ごはんを[食|た]べながらテレビを[見|み]る。",
+      "ex_b_en": "Watch TV while eating (watching is main)"
+    },
+    {
+      "other_slug": null,
+      "label": "ながら (simultaneous) vs concessive ながら",
+      "summary": "N5 simultaneous \"while\" vs a separate N2 \"although\" sense — same word, different grammar.",
+      "ex_a_ruby": "[笑|わら]いながら[話|はな]した。",
+      "ex_a_en": "Spoke while smiling (simultaneous)",
+      "ex_b_ruby": "[狭|せま]いながらも[住|す]みやすい[部屋|へや]だ。",
+      "ex_b_en": "It's a small room, but comfortable to live in (concessive; advanced)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[音楽|おんがく]を[聞|き]きながら、[散歩|さんぽ]をするのが[好|す]きです。",
+      "english": "I like taking a walk while listening to music.",
+      "note": "polite · seed pattern"
+    },
+    {
+      "ruby": "[音楽|おんがく]を[聞|き]きながら、[部屋|へや]を[掃除|そうじ]します。",
+      "english": "I clean my room while listening to music.",
+      "note": "polite · simultaneous"
+    },
+    {
+      "ruby": "コーヒーを[飲|の]みながら、[新聞|しんぶん]を[読|よ]んでいた。",
+      "english": "I was reading the newspaper while drinking coffee.",
+      "note": "past · tense on final verb"
+    },
+    {
+      "ruby": "[歩|ある]きながらスマホを[見|み]てはいけません。",
+      "english": "You must not look at your smartphone while walking.",
+      "note": "prohibition · 歩きながら"
+    },
+    {
+      "ruby": "アルバイトをしながら、[大学|だいがく]に[通|かよ]っています。",
+      "english": "I attend university while working a part-time job.",
+      "note": "long-term parallel"
+    },
+    {
+      "ruby": "[笑顔|えがお]で[挨拶|あいさつ]しながら、[店|みせ]に[入|はい]った。",
+      "english": "I entered the shop while greeting with a smile.",
+      "note": "casual past · し + ながら"
+    },
+    {
+      "ruby": "テレビを[見|み]ながらごはんを[食|た]べる。",
+      "english": "I eat while watching TV.",
+      "note": "casual · main = eat"
+    },
+    {
+      "ruby": "[歌|うた]いながら[仕事|しごと]をするのが[好|す]きです。",
+      "english": "I like working while singing.",
+      "note": "polite · godan stem"
+    },
+    {
+      "ruby": "[子供|こども]は[泣|な]きながら[母|はは]を[呼|よ]んだ。",
+      "english": "The child called for their mother while crying.",
+      "note": "past · same subject"
+    },
+    {
+      "ruby": "[音楽|おんがく]を[聞|き]きながら[勉強|べんきょう]しています。",
+      "english": "I'm studying while listening to music.",
+      "note": "polite progressive"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[普段|ふだん]、[音楽|おんがく]を[聞|き]きながら[何|なに]をしますか。",
+      "english": "What do you usually do while listening to music?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[散歩|さんぽ]をするのが[好|す]きです。",
+      "english": "I like taking a walk."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[勉強|べんきょう]もしますか。",
+      "english": "Do you study too?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ。[音楽|おんがく]を[聞|き]きながら[勉強|べんきょう]すると、[集中|しゅうちゅう]できません。",
+      "english": "No. If I study while listening to music, I can't concentrate."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "音楽を聞き（　）、散歩をするのが好きです。",
+      "options": ["ながら", "ている間に", "ても"],
+      "answer_idx": 0,
+      "why": "Same-subject simultaneous action → ます-stem + ながら (seed cloze)."
+    },
+    {
+      "prompt": "音楽を（　）ながら、部屋を掃除します。",
+      "options": ["聞き", "聞く", "聞きます"],
+      "answer_idx": 0,
+      "why": "ながら attaches to the ます-stem (聞き), not dictionary or full ます-form."
+    },
+    {
+      "prompt": "私が料理を作っている（　）、弟はゲームをした。",
+      "options": ["間に", "ながら"],
+      "answer_idx": 0,
+      "why": "Different subjects need ている間(に), not ながら."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ます-form (Dojo)"],
+    "next": ["te-iru"]
+  },
+  "lesson_version": 1
+}

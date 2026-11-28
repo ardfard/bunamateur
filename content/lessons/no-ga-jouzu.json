@@ -1,0 +1,217 @@
+{
+  "meaning": "good at / bad at / like / dislike doing · skilled at V-ing",
+  "gist": "Dictionary form + のが + 上手 / 下手 / 好き / 嫌い: の turns the verb into \"doing ~,\" and が marks it as the subject of the adjective. Use の (not こと) for this sensory/emotional pattern. Avoid praising yourself with 上手 — prefer 得意 or できます.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (dictionary)",
+        "V辞書形 + のが[上手|じょうず]だ / です",
+        "[料理|りょうり]を[作|つく]るのが[上手|じょうず]です"
+      ],
+      [
+        "Verb (dictionary)",
+        "V辞書形 + のが[下手|へた]だ / です",
+        "[歌|うた]うのが[下手|へた]です"
+      ],
+      [
+        "Verb (dictionary)",
+        "V辞書形 + のが[好|す]きだ / です",
+        "[泳|およ]ぐのが[好|す]きです"
+      ],
+      [
+        "Verb (dictionary)",
+        "V辞書形 + のが[嫌|きら]いだ / です",
+        "[早|はや]く[起|お]きるのが[嫌|きら]いです"
+      ],
+      [
+        "Negative / past (上手)",
+        "のが[上手|じょうず]ではありません / だった",
+        "[歌|うた]うのが[上手|じょうず]ではありません"
+      ]
+    ],
+    "note": "Always use the plain dictionary form before の — never ます-form (*作りますのが上手). The particle after の is が (subject of 上手/好き), not を."
+  },
+  "explanation": "の nominalizes a verb phrase so an adjective can judge it: 料理を作るのが上手です = \"(she) is good at making meals.\" The same frame works with 下手, 好き, and 嫌い. Textbooks prefer の over こと here because these adjectives are immediate and emotional; こと sounds more abstract or formal as a nominalizer. 上手 comments on skilled performance; 得意 marks a strong suit or area of confidence — related but not identical. Saying 私は日本語が上手です about yourself is socially awkward in Japanese (self-praise); use 得意です, できます, or a modest negative instead.",
+  "senses": [
+    {
+      "label": "Good / bad at doing",
+      "body": "Also: [妹|いもうと]は[泳|およ]ぐのが[上手|じょうず]です。",
+      "example_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]るのが[上手|じょうず]です。",
+      "example_en": "She is good at making food."
+    },
+    {
+      "label": "Like / dislike doing",
+      "body": "",
+      "example_ruby": "[私|わたし]は[映画|えいが]を[見|み]るのが[好|す]きです。",
+      "example_en": "I like watching movies."
+    },
+    {
+      "label": "Not good at (self, modest)",
+      "body": "Negative 上手 or 下手 about yourself is fine; bare self-praise with 上手 is the awkward move.",
+      "example_ruby": "[私|わたし]は[歌|うた]うのが[上手|じょうず]ではありません。",
+      "example_en": "I am not good at singing."
+    },
+    {
+      "label": "Past skill",
+      "body": "",
+      "example_ruby": "[子供|こども]のころから[絵|え]を[描|か]くのが[上手|じょうず]だった。",
+      "example_en": "He's been good at drawing since childhood."
+    }
+  ],
+  "register_context": "のが上手です / 好きです is neutral-polite; casual ends in 上手だ / 好きだ. 私は…が上手です is grammatical but sounds boastful about yourself — prefer 得意です, できます, or modest phrasing (まだ下手です / 上手ではありません). Praising others with 上手 is natural and common.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]りますのが[上手|じょうず]です。",
+      "right_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]るのが[上手|じょうず]です。",
+      "why": "の takes the plain dictionary form (作る), never the ます-form (*作りますの)."
+    },
+    {
+      "wrong_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]るのを[上手|じょうず]です。",
+      "right_ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]るのが[上手|じょうず]です。",
+      "why": "上手 / 好き take が on the nominalized subject — not を."
+    },
+    {
+      "wrong_ruby": "[歌|うた]うが[上手|じょうず]です。",
+      "right_ruby": "[歌|うた]うのが[上手|じょうず]です。",
+      "why": "Nominalize the verb with の before が — *歌うが上手 drops the required の."
+    },
+    {
+      "wrong_ruby": "[泳|およ]ぐの[好|す]きです。",
+      "right_ruby": "[泳|およ]ぐのが[好|す]きです。",
+      "why": "の alone does not mark the subject — you need のが before 好き / 上手."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "の vs こと (nominalizer)",
+      "summary": "の fits sensory, immediate, emotional judgments (上手・好き); こと is more formal/abstract as a nominalizer.",
+      "ex_a_ruby": "[歌|うた]うのが[好|す]きです。",
+      "ex_a_en": "I like singing (の + emotion/skill adjective)",
+      "ex_b_ruby": "[日本語|にほんご]を[勉強|べんきょう]することが[大切|たいせつ]です。",
+      "ex_b_en": "Studying Japanese is important (こと + abstract judgment)"
+    },
+    {
+      "other_slug": null,
+      "label": "上手 vs 得意",
+      "summary": "上手 = skilled-looking performance; 得意 = strong suit / confident skill area (safer for self).",
+      "ex_a_ruby": "[彼|かれ]はピアノを[弾|ひ]くのが[上手|じょうず]です。",
+      "ex_a_en": "He plays the piano skillfully (performance)",
+      "ex_b_ruby": "[私|わたし]はピアノが[得意|とくい]です。",
+      "ex_b_en": "Piano is my strong suit (self · 得意)"
+    },
+    {
+      "other_slug": "koto-ga-dekiru",
+      "label": "のが上手 vs ことができる",
+      "summary": "Skilled at / good at doing vs able to / can (possibility or ability).",
+      "ex_a_ruby": "[彼|かれ]は[日本語|にほんご]を[話|はな]すのが[上手|じょうず]です。",
+      "ex_a_en": "He is good at speaking Japanese (skill quality)",
+      "ex_b_ruby": "[彼|かれ]は[日本語|にほんご]を[話|はな]すことができます。",
+      "ex_b_en": "He can speak Japanese (ability / possibility)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[彼女|かのじょ]は[料理|りょうり]を[作|つく]るのが[上手|じょうず]です。",
+      "english": "She is good at making food.",
+      "note": "polite · seed pattern"
+    },
+    {
+      "ruby": "[母|はは]は[料理|りょうり]を[作|つく]るのが[上手|じょうず]です。",
+      "english": "My mother is good at cooking.",
+      "note": "polite · praising other"
+    },
+    {
+      "ruby": "[妹|いもうと]は[泳|およ]ぐのが[上手|じょうず]です。",
+      "english": "My younger sister is good at swimming.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[彼|かれ]は[日本語|にほんご]を[話|はな]すのが[上手|じょうず]だ。",
+      "english": "He is good at speaking Japanese.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[私|わたし]は[歌|うた]うのが[上手|じょうず]ではありません。",
+      "english": "I am not good at singing.",
+      "note": "polite · modest negative (self OK)"
+    },
+    {
+      "ruby": "[私|わたし]は[映画|えいが]を[見|み]るのが[好|す]きです。",
+      "english": "I like watching movies.",
+      "note": "polite · 好き"
+    },
+    {
+      "ruby": "[早|はや]く[起|お]きるのが[嫌|きら]いです。",
+      "english": "I dislike getting up early.",
+      "note": "polite · 嫌い"
+    },
+    {
+      "ruby": "[子供|こども]のころから[絵|え]を[描|か]くのが[上手|じょうず]だった。",
+      "english": "He's been good at drawing since childhood.",
+      "note": "past · casual"
+    },
+    {
+      "ruby": "[私|わたし]は[料理|りょうり]が[得意|とくい]です。",
+      "english": "Cooking is my strong suit.",
+      "note": "self · 得意 (not 上手)"
+    },
+    {
+      "ruby": "[弟|おとうと]はゲームをするのが[下手|へた]だ。",
+      "english": "My little brother is bad at playing games.",
+      "note": "casual · 下手"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[妹|いもうと]さんは[泳|およ]ぐのが[上手|じょうず]ですね。",
+      "english": "Your little sister is good at swimming, isn't she?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "ええ。[子供|こども]のころから[練習|れんしゅう]しています。",
+      "english": "Yes. She's been practicing since she was a child."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[田中|たなか]さんは[何|なに]をするのが[好|す]きですか。",
+      "english": "What do you like doing, Tanaka-san?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[映画|えいが]を[見|み]るのが[好|す]きです。[私|わたし]は[歌|うた]うのはちょっと…。",
+      "english": "I like watching movies. Singing is… not really my thing."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "彼女は料理を作る（　）上手です。",
+      "options": ["のが", "ことが", "ますのが"],
+      "answer_idx": 0,
+      "why": "Dictionary + のが + 上手. Seed cloze: 作る（のが）上手です."
+    },
+    {
+      "prompt": "私は歌う（　）。（modest · not good at）",
+      "options": ["のが上手です", "のが上手ではありません", "のを上手です"],
+      "answer_idx": 1,
+      "why": "Negative/modest about yourself: のが上手ではありません — not self-praise 上手です, and not を."
+    },
+    {
+      "prompt": "Talking about your own skill — which is more natural?",
+      "options": ["私は日本語が上手です。", "私は日本語が得意です。"],
+      "answer_idx": 1,
+      "why": "Self-praise with 上手 is socially awkward; 得意 (or できます) is the safer self form."
+    }
+  ],
+  "related": {
+    "prerequisites": ["dictionary form (Dojo)"],
+    "next": ["koto-ga-dekiru"]
+  },
+  "lesson_version": 1
+}

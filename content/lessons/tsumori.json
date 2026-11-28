@@ -1,0 +1,230 @@
+{
+  "meaning": "intend to / plan to · (ないつもり) intend not to · (つもりはない) have no intention of",
+  "gist": "Plain dictionary or ない-form + つもりだ / つもりです: the speaker's personal intention — \"I plan / intend to…\". Not for weather or other uncontrollable events. Softer \"I'm thinking I'll…\" is ようと思う; fixed schedules prefer 予定.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (dictionary)",
+        "V辞書形 + つもりだ / つもりです",
+        "[掃除|そうじ]するつもりです"
+      ],
+      [
+        "Verb (negative)",
+        "Vない + つもりだ / つもりです",
+        "[飲|の]まないつもりです"
+      ],
+      [
+        "Past intention",
+        "V + つもりだった / つもりでした",
+        "[早|はや]く[寝|ね]るつもりだった"
+      ],
+      [
+        "Strong denial",
+        "V辞書形 + つもりはない / つもりはありません",
+        "[行|い]くつもりはありません"
+      ]
+    ],
+    "note": "Attach つもり to the plain dictionary or ない form — never the ます-form (*しますつもり). Close with だ / です (or casual bare つもり). つもりはない denies having any intention; ないつもり states an intention not to do it."
+  },
+  "explanation": "つもり marks a personal plan you mean to carry out: 週末は部屋を掃除するつもりです = \"I plan to clean my room this weekend.\" Affirmative intention uses the dictionary form; intention not to do something uses the ない-form: 今夜はお酒を飲まないつもりです. ないつもり is \"I intend not to…\"; つもりはない / つもりはありません is a stronger \"I have no intention of…\". Past つもりだった / つもりでした often means an intention that was not fulfilled. Do not use つもり for things outside your control (明日は晴れるつもりです is wrong — use でしょう / はず or a weather forecast).",
+  "senses": [
+    {
+      "label": "Personal plan / intention",
+      "body": "Also: [来年|らいねん]、[日本|にほん]の[大学|だいがく]に[留学|りゅうがく]するつもりです。",
+      "example_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "example_en": "I plan to clean my room this weekend."
+    },
+    {
+      "label": "Intend not to (ないつもり)",
+      "body": "ないつもり = \"I intend not to…\" — a deliberate plan to avoid the action.",
+      "example_ruby": "[今夜|こんや]はお[酒|さけ]を[飲|の]まないつもりです。",
+      "example_en": "I don't intend to drink alcohol tonight."
+    },
+    {
+      "label": "Past / unfulfilled intention",
+      "body": "",
+      "example_ruby": "[昨日|きのう]は[早|はや]く[寝|ね]るつもりだったのに、つい[夜更|よふ]かしした。",
+      "example_en": "I had intended to sleep early yesterday, yet I stayed up late."
+    },
+    {
+      "label": "Strong denial (つもりはない)",
+      "body": "つもりはない / つもりはありません denies having any intention — stronger than simply \"I plan not to.\"",
+      "example_ruby": "[私|わたし]は[会社|かいしゃ]を[辞|や]めるつもりはありません。",
+      "example_en": "I have no intention of quitting the company."
+    }
+  ],
+  "register_context": "つもりです is neutral-polite; つもりだ / つもり is casual. Soften with んです (行くつもりなんです) when explaining. For fixed schedules and official plans, 予定 is more natural. Soft intention often uses 〜ようと思う; つもり sounds more settled as a personal plan. Reporting someone else's plan with bare つもり can sound as if you are speaking for them — quote them (と言っている) or use 予定 / そうだ when unsure.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[部屋|へや]を[掃除|そうじ]しますつもりです。",
+      "right_ruby": "[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "why": "つもり attaches to the plain dictionary form (する), never the ます-form (*しますつもり)."
+    },
+    {
+      "wrong_ruby": "[明日|あした]は[晴|は]れるつもりです。",
+      "right_ruby": "[明日|あした]は[晴|は]れるでしょう。",
+      "why": "つもり is for personal intention, not uncontrollable events like weather — use でしょう / はず / a forecast instead."
+    },
+    {
+      "wrong_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]したつもりです。",
+      "right_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "why": "(Meaning \"I plan to clean this weekend.\") Future intention takes dictionary / ない-form + つもり — not the た-form (*したつもり, which is a different \"I thought I had…\" pattern)."
+    },
+    {
+      "wrong_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するのつもりです。",
+      "right_ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "why": "つもり attaches directly to the plain verb — no の between them (*するのつもり)."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "tai",
+      "label": "つもりだ vs たい",
+      "summary": "Intention/plan (\"I intend to\") vs desire (\"I want to\").",
+      "ex_a_ruby": "[来年|らいねん][日本|にほん]へ[行|い]くつもりです。",
+      "ex_a_en": "I plan / intend to go to Japan next year",
+      "ex_b_ruby": "[来年|らいねん][日本|にほん]へ[行|い]きたいです。",
+      "ex_b_en": "I want to go to Japan next year"
+    },
+    {
+      "other_slug": "koto-ni-suru",
+      "label": "つもりだ vs ことにする",
+      "summary": "Intention that can still change vs a settled decision.",
+      "ex_a_ruby": "[日本|にほん]へ[行|い]くつもりです。",
+      "ex_a_en": "I'm planning to go (intention, can change)",
+      "ex_b_ruby": "[日本|にほん]へ[行|い]くことにしました。",
+      "ex_b_en": "I've decided to go (settled)"
+    },
+    {
+      "other_slug": null,
+      "label": "ないつもり vs つもりはない",
+      "summary": "Both are grammatical. ないつもり = \"I intend not to…\"; つもりはない = stronger denial of having any intention.",
+      "ex_a_ruby": "[会社|かいしゃ]を[辞|や]めないつもりです。",
+      "ex_a_en": "I intend not to quit (deliberate plan to stay)",
+      "ex_b_ruby": "[会社|かいしゃ]を[辞|や]めるつもりはありません。",
+      "ex_b_en": "I have no intention of quitting (stronger denial)"
+    },
+    {
+      "other_slug": null,
+      "label": "つもり vs 〜ようと思う",
+      "summary": "つもり is a firmer personal plan; ようと思う is a softer \"I'm thinking I'll…\".",
+      "ex_a_ruby": "[週末|しゅうまつ]は[掃除|そうじ]するつもりです。",
+      "ex_a_en": "I plan to clean this weekend (settled intention)",
+      "ex_b_ruby": "[週末|しゅうまつ]は[掃除|そうじ]しようと[思|おも]います。",
+      "ex_b_en": "I'm thinking I'll clean this weekend (softer)"
+    },
+    {
+      "other_slug": null,
+      "label": "つもり vs 予定",
+      "summary": "Personal intention vs a fixed / official schedule.",
+      "ex_a_ruby": "[来月|らいげつ][旅行|りょこう]に[行|い]くつもりです。",
+      "ex_a_en": "I intend to travel next month (my plan)",
+      "ex_b_ruby": "[来月|らいげつ][旅行|りょこう]に[行|い]く[予定|よてい]です。",
+      "ex_b_en": "I'm scheduled to travel next month (fixed plan)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[週末|しゅうまつ]は[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "english": "I plan to clean my room this weekend.",
+      "note": "polite · personal intention"
+    },
+    {
+      "ruby": "[来年|らいねん]、[日本|にほん]の[大学|だいがく]に[留学|りゅうがく]するつもりです。",
+      "english": "I plan to study abroad at a Japanese university next year.",
+      "note": "polite · firm plan"
+    },
+    {
+      "ruby": "[今夜|こんや]はお[酒|さけ]を[飲|の]まないつもりです。",
+      "english": "I don't intend to drink alcohol tonight.",
+      "note": "polite · ないつもり"
+    },
+    {
+      "ruby": "[週末|しゅうまつ]は[友達|ともだち]と[映画|えいが]を[見|み]るつもりだ。",
+      "english": "I plan to watch a movie with my friend this weekend.",
+      "note": "casual · つもりだ"
+    },
+    {
+      "ruby": "[今年|ことし]は[毎日|まいにち][運動|うんどう]を[続|つづ]けるつもりです。",
+      "english": "This year I intend to keep exercising every day.",
+      "note": "polite · continue"
+    },
+    {
+      "ruby": "[昨日|きのう]は[早|はや]く[寝|ね]るつもりだったのに、つい[夜更|よふ]かしした。",
+      "english": "I had intended to sleep early yesterday, yet I stayed up late.",
+      "note": "past · unfulfilled"
+    },
+    {
+      "ruby": "[私|わたし]は[会社|かいしゃ]を[辞|や]めるつもりはありません。",
+      "english": "I have no intention of quitting the company.",
+      "note": "polite · つもりはない"
+    },
+    {
+      "ruby": "[明日|あした]から[早|はや]く[起|お]きるつもり。",
+      "english": "I plan to get up early from tomorrow.",
+      "note": "very casual · bare つもり"
+    },
+    {
+      "ruby": "[来月|らいげつ]、[京都|きょうと]へ[行|い]くつもりです。",
+      "english": "I plan to go to Kyoto next month.",
+      "note": "polite"
+    },
+    {
+      "ruby": "[今日|きょう]は[何|なに]も[買|か]わないつもりだ。",
+      "english": "I don't intend to buy anything today.",
+      "note": "casual · ないつもり"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[週末|しゅうまつ]は[何|なに]をするつもりですか。",
+      "english": "What do you plan to do this weekend?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[部屋|へや]を[掃除|そうじ]するつもりです。",
+      "english": "I plan to clean my room."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[友達|ともだち]と[遊|あそ]ぶつもりはないの？",
+      "english": "You have no intention of hanging out with friends?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "ええ。[今週|こんしゅう]は[家|いえ]にいるつもりです。",
+      "english": "Yeah. I plan to stay home this week."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "週末は部屋を掃除する（　）。",
+      "options": ["つもりです", "たいです", "つもりをします"],
+      "answer_idx": 0,
+      "why": "Personal intention after a plain verb → つもりです (seed cloze). *つもりをします is not a pattern."
+    },
+    {
+      "prompt": "今夜はお酒を（　）つもりです。",
+      "options": ["飲まない", "飲みます", "飲んだ"],
+      "answer_idx": 0,
+      "why": "Intend not to → ない-form + つもり (飲まないつもり)."
+    },
+    {
+      "prompt": "明日は晴れる（　）。",
+      "options": ["でしょう", "つもりです"],
+      "answer_idx": 0,
+      "why": "Weather is outside your control — not つもり; use でしょう / a forecast."
+    }
+  ],
+  "related": {
+    "prerequisites": ["dictionary form (Dojo)", "ない-form (Dojo)"],
+    "next": ["koto-ni-suru", "tai"]
+  },
+  "lesson_version": 1
+}

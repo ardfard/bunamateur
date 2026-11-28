@@ -1,0 +1,212 @@
+{
+  "meaning": "before doing · before N · prior to",
+  "gist": "Dictionary form + 前に (or Noun + の前に) marks what happens first: \"before V / before N.\" The verb before 前に stays non-past even when the main clause is past — 日本へ来る前に勉強した, never *来た前に.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Godan dictionary",
+        "Vる + 前に",
+        "[寝|ね]る前に / [出|で]かける前に"
+      ],
+      [
+        "Ichidan dictionary",
+        "Vる + 前に",
+        "[食|た]べる前に / [忘|わす]れる前に"
+      ],
+      [
+        "Irregular",
+        "する / [来|く]る + 前に",
+        "する前に / [来|く]る前に"
+      ],
+      [
+        "Noun",
+        "N + の前に",
+        "[食事|しょくじ]の前に / [会議|かいぎ]の前に"
+      ]
+    ],
+    "note": "Always dictionary (non-past) form before 前に — even if the main sentence is past (勉強しました / 閉めた). The general noun pattern is Nの前に. Some everyday nouns also form compounds without の (食事前、授業前) — both 食事の前に and 食事前に are fine."
+  },
+  "explanation": "前に attaches to a dictionary-form verb or to a noun with の and means the main action happens before that point. The key trap is tense: 日本へ来る前に少し日本語を勉強しました keeps 来る in dictionary form even though the studying is past — *来た前に is wrong. Everyday routines use the same shape: 寝る前に歯を磨きます. With nouns, the general pattern is Nの前に (会議の前に資料を確認しました). Some common nouns also form compounds without の (食事前に手を洗う / 授業前) — those compounds are natural Japanese, not errors.",
+  "senses": [
+    {
+      "label": "Before doing (habit / plan)",
+      "body": "",
+      "example_ruby": "[寝|ね]る前に、[歯|は]を[磨|みが]きます。",
+      "example_en": "I brush my teeth before going to bed."
+    },
+    {
+      "label": "Before doing (past main clause)",
+      "body": "The verb before 前に stays dictionary form: [来|く]る前に…勉強しました — not *来た前に.",
+      "example_ruby": "[日本|にほん]へ[来|く]る前に、[少|すこ]し[日本語|にほんご]を[勉強|べんきょう]しました。",
+      "example_en": "Before coming to Japan, I studied a little Japanese."
+    },
+    {
+      "label": "Before a noun event",
+      "body": "Nouns take の: [会議|かいぎ]の前に、[資料|しりょう]を[確認|かくにん]しました。",
+      "example_ruby": "[食事|しょくじ]の前に[手|て]を[洗|あら]ってください。",
+      "example_en": "Please wash your hands before the meal."
+    },
+    {
+      "label": "Before something happens (caution)",
+      "body": "",
+      "example_ruby": "[忘|わす]れる前に、メモを[書|か]いておこう。",
+      "example_en": "Let's write a note before I forget."
+    }
+  ],
+  "register_context": "Neutral in both polite and casual speech. Polite main clauses: 磨きます / してください. Casual past: 鍵を閉めた. 前に itself does not force politeness — the main verb does.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[日本|にほん]へ[来|き]た前に、[日本語|にほんご]を[勉強|べんきょう]しました。",
+      "right_ruby": "[日本|にほん]へ[来|く]る前に、[日本語|にほんご]を[勉強|べんきょう]しました。",
+      "why": "前に takes the dictionary form, never the た-form — even when the main clause is past."
+    },
+    {
+      "wrong_ruby": "[寝|ね]た前に、[歯|は]を[磨|みが]きました。",
+      "right_ruby": "[寝|ね]る前に、[歯|は]を[磨|みが]きました。",
+      "why": "前に takes the dictionary form even when the main clause is past — *寝た前に is wrong; use 寝る前に."
+    },
+    {
+      "wrong_ruby": "[寝|ね]るの前に、[歯|は]を[磨|みが]きます。",
+      "right_ruby": "[寝|ね]る前に、[歯|は]を[磨|みが]きます。",
+      "why": "Verbs take 前に directly — do not insert の (*寝るの前に). の belongs with nouns (Nの前に)."
+    },
+    {
+      "wrong_ruby": "[会議|かいぎ]のあとで、[資料|しりょう]を[確認|かくにん]しました。",
+      "right_ruby": "[会議|かいぎ]の前に、[資料|しりょう]を[確認|かくにん]しました。",
+      "why": "Learner meant \"I checked the documents before the meeting.\" あとで = after; use 前に for before."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ato-de",
+      "label": "前に vs あとで",
+      "summary": "Before (dictionary + 前に) vs after (た-form + あとで). Host form flips with the meaning.",
+      "ex_a_ruby": "[寝|ね]る前に[歯|は]を[磨|みが]く。",
+      "ex_a_en": "I brush my teeth before sleeping",
+      "ex_b_ruby": "[寝|ね]たあとで[本|ほん]を[読|よ]む。",
+      "ex_b_en": "I read a book after sleeping / going to bed"
+    },
+    {
+      "other_slug": null,
+      "label": "Verb 前に vs Noun の前に",
+      "summary": "Verbs attach directly (dictionary + 前に). Nouns use Nの前に in general; some everyday nouns also form compounds (食事前、授業前) while others stay with の.",
+      "ex_a_ruby": "[出|で]かける前に[鍵|かぎ]を[閉|し]めた。",
+      "ex_a_en": "I locked up before going out (verb)",
+      "ex_b_ruby": "[会議|かいぎ]の前に[資料|しりょう]を[確認|かくにん]した。",
+      "ex_b_en": "I checked the documents before the meeting (noun + の)"
+    },
+    {
+      "other_slug": null,
+      "label": "Main-clause tense vs 前に form",
+      "summary": "Past or present in the main clause does not change the dictionary form before 前に.",
+      "ex_a_ruby": "[寝|ね]る前に[歯|は]を[磨|みが]きます。",
+      "ex_a_en": "Habit: brush before sleeping (present main)",
+      "ex_b_ruby": "[出|で]かける前に[鍵|かぎ]を[閉|し]めた。",
+      "ex_b_en": "Past main: locked before going out — still 出かける"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[寝|ね]る前に、[歯|は]を[磨|みが]きます。",
+      "english": "I brush my teeth before going to bed.",
+      "note": "polite · habit"
+    },
+    {
+      "ruby": "[日本|にほん]へ[来|く]る前に、[少|すこ]し[日本語|にほんご]を[勉強|べんきょう]しました。",
+      "english": "Before coming to Japan, I studied a little Japanese.",
+      "note": "dictionary + past main"
+    },
+    {
+      "ruby": "[食事|しょくじ]の前に[手|て]を[洗|あら]ってください。",
+      "english": "Please wash your hands before the meal.",
+      "note": "noun + の前に · request"
+    },
+    {
+      "ruby": "[出|で]かける前に、[鍵|かぎ]を[閉|し]めた。",
+      "english": "I locked the door before going out.",
+      "note": "casual past main"
+    },
+    {
+      "ruby": "[忘|わす]れる前に、メモを[書|か]いておこう。",
+      "english": "Let's write a note before I forget.",
+      "note": "casual · volitional"
+    },
+    {
+      "ruby": "[会議|かいぎ]の前に、[資料|しりょう]を[確認|かくにん]しました。",
+      "english": "I checked the documents before the meeting.",
+      "note": "noun · polite past"
+    },
+    {
+      "ruby": "[寝|ね]る前に、スマホを[見|み]ない。",
+      "english": "I don't look at my phone before sleeping.",
+      "note": "casual · negative habit"
+    },
+    {
+      "ruby": "[旅行|りょこう]の前に、ホテルを[予約|よやく]します。",
+      "english": "I book a hotel before the trip.",
+      "note": "noun + の前に · plan"
+    },
+    {
+      "ruby": "[買|か]う前に、よく[考|かんが]えてください。",
+      "english": "Please think carefully before buying.",
+      "note": "polite request"
+    },
+    {
+      "ruby": "[寝|ね]る前に[本|ほん]を[読|よ]むのが[好|す]きです。",
+      "english": "I like reading a book before going to bed.",
+      "note": "polite · preference"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[寝|ね]る前に、[何|なに]をしますか。",
+      "english": "What do you do before going to bed?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[歯|は]を[磨|みが]きます。[本|ほん]も[読|よ]みます。",
+      "english": "I brush my teeth. I also read a book."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[食事|しょくじ]の前に[手|て]を[洗|あら]いましたか。",
+      "english": "Did you wash your hands before the meal?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、[洗|あら]いました。",
+      "english": "Yes, I did."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "日本へ（　）前に、少し日本語を勉強しました。",
+      "options": ["来る", "来た"],
+      "answer_idx": 0,
+      "why": "前に takes dictionary form 来る even when the main clause is past."
+    },
+    {
+      "prompt": "出かける（　）、窓を閉めました。",
+      "options": ["前に", "の前に", "あとで"],
+      "answer_idx": 0,
+      "why": "A verb attaches directly to 前に (*出かけるの前に is wrong). あとで would need the た-form (出かけたあとで)."
+    },
+    {
+      "prompt": "寝る（　）、歯を磨きます。",
+      "options": ["前に", "あとで"],
+      "answer_idx": 0,
+      "why": "Brushing happens before sleeping → 前に (dictionary host already given)."
+    }
+  ],
+  "related": {
+    "prerequisites": ["dictionary form (Dojo)"],
+    "next": ["ato-de"]
+  },
+  "lesson_version": 1
+}

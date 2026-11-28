@@ -1,0 +1,217 @@
+{
+  "meaning": "I think that… · it seems to me that…",
+  "gist": "Plain clause + と思う / と思います: speaker's opinion or conjecture. Nouns and な-adjectives need だ before と (学生だと思う); い-adjectives do not (*おもしろいだと思う). For a third person's ongoing belief, use と思っている / と思っています — not bare と思う.",
+  "formation": {
+    "columns": [
+      "Host",
+      "Pattern",
+      "Example"
+    ],
+    "rows": [
+      [
+        "Verb (plain)",
+        "V普通形 + と[思|おも]う / [思|おも]います",
+        "[晴|は]れると[思|おも]います"
+      ],
+      [
+        "い-adjective",
+        "い-adj + と[思|おも]う (no だ)",
+        "おもしろいと[思|おも]う"
+      ],
+      [
+        "な-adjective / Noun",
+        "な-adj / N + だ + と[思|おも]う",
+        "いい[意見|いけん]だと[思|おも]います / [静|しず]かだと[思|おも]う"
+      ],
+      [
+        "Past impression",
+        "plain past + と[思|おも]った",
+        "[難|むずか]しいと[思|おも]った"
+      ],
+      [
+        "Third person / ongoing",
+        "plain + と[思|おも]っている / [思|おも]っています",
+        "[住|す]みたいと[思|おも]っています"
+      ]
+    ],
+    "note": "Always plain before と — never *ですと思います / *ますと思います. Nouns and な-adjectives require だ (学生だと思う), not bare 学生と思う."
+  },
+  "explanation": "と思う softens a statement into the speaker's opinion: 明日は晴れると思います = \"I think it will be sunny tomorrow.\" The clause before と must be plain, even when the whole sentence is polite (…と思います). After nouns and な-adjectives, insert だ: いい意見だと思います / 静かだと思う. い-adjectives attach directly: おもしろいと思う — not *おもしろいだと思う. Bare と思う reports the speaker's own thought; for someone else's belief or an ongoing stance, use と思っている: 彼は日本に住みたいと思っています.",
+  "senses": [
+    {
+      "label": "Speaker's opinion / conjecture",
+      "body": "Also: [彼|かれ]はもう[帰|かえ]ったと[思|おも]います。",
+      "example_ruby": "[明日|あした]は[晴|は]れると[思|おも]います。",
+      "example_en": "I think it will be sunny tomorrow."
+    },
+    {
+      "label": "い-adjective opinion (no だ)",
+      "body": "",
+      "example_ruby": "この[映画|えいが]はとてもおもしろいと[思|おも]う。",
+      "example_en": "I think this movie is very interesting."
+    },
+    {
+      "label": "Noun / な-adjective + だ",
+      "body": "Also: ここは[静|しず]かだと[思|おも]います。",
+      "example_ruby": "それはいい[意見|いけん]だと[思|おも]います。",
+      "example_en": "I think that is a good idea."
+    },
+    {
+      "label": "Third person / ongoing belief",
+      "body": "Speaker about self can also use と思っている for a held intention, but N5 focus is third-person report.",
+      "example_ruby": "[彼|かれ]は[日本|にほん]に[住|す]みたいと[思|おも]っています。",
+      "example_en": "He's thinking of living in Japan. / He wants to live in Japan (reported)."
+    }
+  ],
+  "register_context": "と思います is neutral-polite; と思う is plain-casual. Soften strong claims in polite conversation with と思います rather than bare assertions. Reporting others' thoughts: と思っています / と思っている — bare と思う about a third person sounds like you are inside their head.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[彼|かれ]は[学生|がくせい]と[思|おも]います。",
+      "right_ruby": "[彼|かれ]は[学生|がくせい]だと[思|おも]います。",
+      "why": "Nouns need だ before と思う — 学生だと思う, not bare 学生と思う."
+    },
+    {
+      "wrong_ruby": "[明日|あした]は[晴|は]れますと[思|おも]います。",
+      "right_ruby": "[明日|あした]は[晴|は]れると[思|おも]います。",
+      "why": "Use the plain form before と (*ますと思います / *ですと思います is wrong)."
+    },
+    {
+      "wrong_ruby": "[彼|かれ]は[日本|にほん]に[住|す]みたいと[思|おも]います。",
+      "right_ruby": "[彼|かれ]は[日本|にほん]に[住|す]みたいと[思|おも]っています。",
+      "why": "(Reporting what he himself is thinking — not \"I think that he…\".) Third-person ongoing belief needs と思っている; bare と思う is the speaker's own conjecture."
+    },
+    {
+      "wrong_ruby": "おもしろいだと[思|おも]う。",
+      "right_ruby": "おもしろいと[思|おも]う。",
+      "why": "い-adjectives take no だ before と — only nouns and な-adjectives need だ."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": null,
+      "label": "と思う vs と思っている",
+      "summary": "Speaker's (current) opinion vs ongoing / third-person belief.",
+      "ex_a_ruby": "[明日|あした]は[晴|は]れると[思|おも]います。",
+      "ex_a_en": "I think it will be sunny tomorrow (speaker)",
+      "ex_b_ruby": "[彼|かれ]は[雨|あめ]だと[思|おも]っています。",
+      "ex_b_en": "He thinks it's rain / he believes that (third person)"
+    },
+    {
+      "other_slug": null,
+      "label": "だ after nouns vs no だ after い-adj",
+      "summary": "Nouns / な-adjectives need だ; い-adjectives attach bare.",
+      "ex_a_ruby": "いい[意見|いけん]だと[思|おも]います。",
+      "ex_a_en": "I think it's a good idea (noun + だ)",
+      "ex_b_ruby": "おもしろいと[思|おも]います。",
+      "ex_b_en": "I think it's interesting (い-adj, no だ)"
+    },
+    {
+      "other_slug": null,
+      "label": "Opinion vs bare assertion",
+      "summary": "と思う softens; without it the sentence is a flat claim.",
+      "ex_a_ruby": "[彼|かれ]はもう[帰|かえ]ったと[思|おも]います。",
+      "ex_a_en": "I think he already went home",
+      "ex_b_ruby": "[彼|かれ]はもう[帰|かえ]りました。",
+      "ex_b_en": "He already went home (assertion)"
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[明日|あした]は[晴|は]れると[思|おも]います。",
+      "english": "I think it will be sunny tomorrow.",
+      "note": "polite · verb · seed"
+    },
+    {
+      "ruby": "この[映画|えいが]はとてもおもしろいと[思|おも]う。",
+      "english": "I think this movie is very interesting.",
+      "note": "casual · い-adj · no だ"
+    },
+    {
+      "ruby": "[彼|かれ]はもう[帰|かえ]ったと[思|おも]います。",
+      "english": "I think he already went home.",
+      "note": "polite · past plain + と"
+    },
+    {
+      "ruby": "それはいい[意見|いけん]だと[思|おも]います。",
+      "english": "I think that is a good idea.",
+      "note": "polite · noun + だ"
+    },
+    {
+      "ruby": "[彼|かれ]は[日本|にほん]に[住|す]みたいと[思|おも]っています。",
+      "english": "He's thinking of living in Japan.",
+      "note": "third person · と思っている"
+    },
+    {
+      "ruby": "[最初|さいしょ]は[難|むずか]しいと[思|おも]ったが、[慣|な]れると[楽|たの]しい。",
+      "english": "At first I thought it was hard, but once you get used to it, it's fun.",
+      "note": "past impression · と思った"
+    },
+    {
+      "ruby": "ここは[静|しず]かだと[思|おも]います。",
+      "english": "I think it's quiet here.",
+      "note": "polite · な-adj + だ"
+    },
+    {
+      "ruby": "[今日|きょう]は[寒|さむ]くなると[思|おも]う。",
+      "english": "I think it will get cold today.",
+      "note": "casual"
+    },
+    {
+      "ruby": "[彼|かれ]はもう[知|し]っていると[思|おも]います。",
+      "english": "I think he already knows.",
+      "note": "polite · conjecture"
+    },
+    {
+      "ruby": "[田中|たなか]さんは[来|こ]ないと[思|おも]っています。",
+      "english": "Tanaka-san thinks (someone) won't come. / He doesn't think he'll come.",
+      "note": "third person · ongoing"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[明日|あした]の[天気|てんき]はどうだと[思|おも]いますか。",
+      "english": "What do you think the weather will be like tomorrow?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[晴|は]れると[思|おも]います。[傘|かさ]は[要|い]らないと[思|おも]います。",
+      "english": "I think it'll be sunny. I don't think you'll need an umbrella."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[山田|やまだ]さんはどう[思|おも]っていますか。",
+      "english": "What does Yamada-san think?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[山田|やまだ]さんは[雨|あめ]だと[思|おも]っています。",
+      "english": "Yamada-san thinks it will rain."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "明日は晴れる（　）。",
+      "options": ["と思います", "ですと思います", "ますと思います"],
+      "answer_idx": 0,
+      "why": "Plain clause + と思います. Never *ですと思います / *ますと思います."
+    },
+    {
+      "prompt": "それはいい意見（　）と思います。",
+      "options": ["だ", "な", "(nothing)"],
+      "answer_idx": 0,
+      "why": "Nouns need だ before と思う: 意見だと思います."
+    },
+    {
+      "prompt": "彼は日本に住みたい（　）。（third person）",
+      "options": ["と思っています", "と思います", "ですと思います"],
+      "answer_idx": 0,
+      "why": "Third-person ongoing thought/desire → と思っています, not bare と思います."
+    }
+  ],
+  "related": {
+    "prerequisites": ["plain form (Dojo)"],
+    "next": ["tai"]
+  },
+  "lesson_version": 1
+}
