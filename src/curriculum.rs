@@ -308,7 +308,7 @@ mod tests {
         assert!(!curriculum.sketch.is_empty());
 
         let order = curriculum.teaching_order();
-        assert_eq!(order.len(), 211);
+        assert_eq!(order.len(), 212);
 
         let seeded = seeded_from_catalog();
         assert_eq!(seeded.len(), 62);
