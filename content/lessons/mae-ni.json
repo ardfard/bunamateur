@@ -192,10 +192,10 @@
       "why": "前に takes dictionary form 来る even when the main clause is past."
     },
     {
-      "prompt": "テスト（　）よく復習しました。",
-      "options": ["の前に", "前に", "のあとで"],
+      "prompt": "出かける（　）、窓を閉めました。",
+      "options": ["前に", "の前に", "あとで"],
       "answer_idx": 0,
-      "why": "General noun pattern is Nの前に (テストの前に). Bare 前に is for verbs; のあとで would mean after the test."
+      "why": "A verb attaches directly to 前に (*出かけるの前に is wrong). あとで would need the た-form (出かけたあとで)."
     },
     {
       "prompt": "寝る（　）、歯を磨きます。",
