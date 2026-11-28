@@ -66,9 +66,9 @@
       "why": "い-adjectives attach directly (忙しいので / past 忙しかったので). Do not insert な after an い-adjective."
     },
     {
-      "wrong_ruby": "[雨|あめ]だので、[傘|かさ]を[持|も]っていきます。",
-      "right_ruby": "[雨|あめ]なので、[傘|かさ]を[持|も]っていきます。",
-      "why": "Noun + ので → なので, not ×だので."
+      "wrong_ruby": "[静|しず]かだので、ここで[勉強|べんきょう]しています。",
+      "right_ruby": "[静|しず]かなので、ここで[勉強|べんきょう]しています。",
+      "why": "な-adjectives take な before ので (静かなので), not だ (*静かだので)."
     }
   ],
   "contrasts": [
@@ -94,9 +94,9 @@
       "other_slug": null,
       "label": "Polite excuse vs casual explanation",
       "summary": "Telling a teacher why you were late usually takes ので; から is fine with friends.",
-      "ex_a_ruby": "[電車|でんしゃ]が[遅|おく]れたので、[遅|おく]れました。",
+      "ex_a_ruby": "[電車|でんしゃ]が[遅|おく]れたので、[遅刻|ちこく]しました。",
       "ex_a_en": "The train was delayed, so I was late. (polite excuse)",
-      "ex_b_ruby": "[電車|でんしゃ]が[遅|おく]れたから、[遅|おく]れたよ。",
+      "ex_b_ruby": "[電車|でんしゃ]が[遅|おく]れたから、[遅刻|ちこく]したよ。",
       "ex_b_en": "The train was late, so I was late. (casual)"
     }
   ],
@@ -189,7 +189,7 @@
     },
     {
       "prompt": "Which sounds more polite when telling your teacher why you were late?",
-      "options": ["電車が遅れたので、遅れました。", "電車が遅れたから、遅れました。"],
+      "options": ["電車が遅れたので、遅刻しました。", "電車が遅れたから、遅刻しました。"],
       "answer_idx": 0,
       "why": "Excuses to superiors usually take ので; から is grammatical but more personal/assertive."
     }
