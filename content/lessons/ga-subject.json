@@ -1,0 +1,204 @@
+{
+  "meaning": "subject marker が · marks who/what exists or is asked about",
+  "gist": "が marks the subject when it is new information or a question word: だれがいますか / [何|なに]がありますか. Question words take が — not ×だれは. Builds on topic は from Unit 1; existence forms います / あります appear here with が.",
+  "formation": {
+    "columns": ["Use", "Pattern", "Example"],
+    "rows": [
+      [
+        "Who exists?",
+        "だれ + が + いますか",
+        "だれがいますか。"
+      ],
+      [
+        "What exists?",
+        "[何|なに] + が + ありますか",
+        "[何|なに]がありますか。"
+      ],
+      [
+        "New subject exists",
+        "N + が + います / あります",
+        "[猫|ねこ]がいます。 / [本|ほん]があります。"
+      ],
+      [
+        "Place + new subject",
+        "Place + に + N + が + います",
+        "[部屋|へや]に[猫|ねこ]がいます。"
+      ]
+    ],
+    "note": "Question words (だれ / 何 / どこ…) take が in existence questions — never ×だれはいますか. が often marks a new or focused subject; は frames a known topic. Place + に pairs with this pattern for located existence."
+  },
+  "explanation": "が points to the subject of the sentence — often something new, or the answer to who/what. The core classroom questions are だれがいますか (Who is there?) and 何がありますか (What is there?). Do not put topic は on those question words: ×だれはいますか. When you introduce something new in a place, が is natural: 部屋に猫がいます (There's a cat in the room — the cat is new information). When the thing is already known and you say where it is, は is natural: 猫は部屋にいます (As for the cat, it's in the room). Keep that contrast modest: both particles appear with existence; the choice tracks new vs known framing, not a total ban on either pattern.",
+  "senses": [
+    {
+      "label": "Question words take が",
+      "body": "だれ / 何 ask with が: だれがいますか / 何がありますか. Never ×だれは… for these.",
+      "example_ruby": "だれがいますか。",
+      "example_en": "Who is there? / Who is (here)?"
+    },
+    {
+      "label": "New subject of existence",
+      "body": "が marks the person, animal, or thing that exists when you are presenting it as new information.",
+      "example_ruby": "[猫|ねこ]がいます。",
+      "example_en": "There is a cat. / A cat is here."
+    },
+    {
+      "label": "Place + が (new info)",
+      "body": "Placeに + subjectが + います/あります presents what is in that place.",
+      "example_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "example_en": "There is a cat in the room."
+    },
+    {
+      "label": "What is there?",
+      "body": "何がありますか asks what (thing) exists; answer with Nがあります.",
+      "example_ruby": "[何|なに]がありますか。",
+      "example_en": "What is there?"
+    }
+  ],
+  "register_context": "Classroom default stays polite: います / あります / ですか. Same です/だ habits as Unit 1 when you equate (これは本です). Existence questions with が are the focus here.",
+  "mistakes": [
+    {
+      "wrong_ruby": "だれはいますか。",
+      "right_ruby": "だれがいますか。",
+      "why": "Question words take が in existence questions. ×だれは is ungrammatical here."
+    },
+    {
+      "wrong_ruby": "[何|なに]はありますか。",
+      "right_ruby": "[何|なに]がありますか。",
+      "why": "何 also takes が when asking what exists — not topic は."
+    },
+    {
+      "wrong_ruby": "が[猫|ねこ]います。",
+      "right_ruby": "[猫|ねこ]がいます。",
+      "why": "が comes after the subject noun, not before it."
+    },
+    {
+      "wrong_ruby": "(Meaning: introducing a cat in the room as new info) [猫|ねこ]は[部屋|へや]にいます。",
+      "right_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "why": "For new information \"there's a cat in the room,\" が on 猫 is the natural pattern. 猫は… fits when the cat is already the known topic."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "wa-topic",
+      "label": "が (new) vs は (known topic)",
+      "summary": "部屋に猫がいます presents the cat as new. 猫は部屋にいます frames a known cat and says where it is.",
+      "ex_a_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_a_en": "There's a cat in the room. (cat = new info)",
+      "ex_b_ruby": "[猫|ねこ]は[部屋|へや]にいます。",
+      "ex_b_en": "As for the cat, it's in the room. (cat = known topic)"
+    },
+    {
+      "other_slug": "aru-iru",
+      "label": "が + います / あります",
+      "summary": "が marks the subject; います / あります say that subject exists. Question words still take が.",
+      "ex_a_ruby": "だれがいますか。",
+      "ex_a_en": "Who is there?",
+      "ex_b_ruby": "[田中|たなか]さんがいます。",
+      "ex_b_en": "Tanaka-san is here. / There is Tanaka-san."
+    },
+    {
+      "other_slug": null,
+      "label": "だれが vs known person は",
+      "summary": "Ask with だれが. Answer or talk about a known person with nameは… when framing that person as the topic.",
+      "ex_a_ruby": "だれがいますか。",
+      "ex_a_en": "Who is there?",
+      "ex_b_ruby": "[山田|やまだ]さんは[教室|きょうしつ]にいます。",
+      "ex_b_en": "As for Yamada-san, (he/she) is in the classroom."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "だれがいますか。",
+      "english": "Who is there?",
+      "note": "lead · question word + が"
+    },
+    {
+      "ruby": "[何|なに]がありますか。",
+      "english": "What is there?",
+      "note": "question · things"
+    },
+    {
+      "ruby": "[猫|ねこ]がいます。",
+      "english": "There is a cat.",
+      "note": "new subject · animate"
+    },
+    {
+      "ruby": "[本|ほん]があります。",
+      "english": "There is a book.",
+      "note": "new subject · thing"
+    },
+    {
+      "ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "english": "There is a cat in the room.",
+      "note": "place + が · new info"
+    },
+    {
+      "ruby": "[猫|ねこ]は[部屋|へや]にいます。",
+      "english": "As for the cat, it is in the room.",
+      "note": "known topic は · location comment"
+    },
+    {
+      "ruby": "[田中|たなか]さんがいますか。",
+      "english": "Is Tanaka-san here?",
+      "note": "person + が · yes/no"
+    },
+    {
+      "ruby": "[図書館|としょかん]に[何|なに]がありますか。",
+      "english": "What is there in the library?",
+      "note": "place + 何が"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[部屋|へや]にだれがいますか。",
+      "english": "Who is in the room?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[田中|たなか]さんがいます。",
+      "english": "Tanaka-san is there."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[何|なに]がありますか。",
+      "english": "What is there?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[本|ほん]があります。",
+      "english": "There is a book."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "（　）がいますか。 (Who is there?)",
+      "options": ["だれ", "だれは", "私は"],
+      "answer_idx": 0,
+      "why": "Question word だれ takes が: だれがいますか. ×だれは is wrong here."
+    },
+    {
+      "prompt": "何（　）ありますか。",
+      "options": ["は", "の", "が"],
+      "answer_idx": 2,
+      "why": "何がありますか — question words take が."
+    },
+    {
+      "prompt": "Context: introducing a cat in the room as new information.",
+      "options": ["猫は部屋にいます。", "部屋に猫がいます。", "部屋は猫がいます。"],
+      "answer_idx": 1,
+      "why": "New info in a place → Placeに + Nが + います."
+    },
+    {
+      "prompt": "Context: the cat is already known; you say where it is.",
+      "options": ["部屋に猫がいます。", "猫が部屋はいます。", "猫は部屋にいます。"],
+      "answer_idx": 2,
+      "why": "Known topic → 猫は…にいます."
+    }
+  ],
+  "related": {
+    "prerequisites": ["wa-topic"],
+    "next": ["aru-iru"]
+  },
+  "lesson_version": 1
+}

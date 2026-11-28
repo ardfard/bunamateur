@@ -1,0 +1,214 @@
+{
+  "meaning": "上・下・中・前・後ろ・隣 · position nouns with の",
+  "gist": "[机|つくえ]の[上|うえ]に[本|ほん]があります。 Position words are nouns: link them with の, then add に for location — Nの[上|うえ]に / Nの[中|なか]に / Nの[隣|となり]に.",
+  "formation": {
+    "columns": ["Position", "Pattern", "Example"],
+    "rows": [
+      [
+        "[上|うえ] (on / above)",
+        "Nの[上|うえ]に",
+        "[机|つくえ]の[上|うえ]に[本|ほん]があります"
+      ],
+      [
+        "[下|した] (under)",
+        "Nの[下|した]に",
+        "[机|つくえ]の[下|した]に[鞄|かばん]があります"
+      ],
+      [
+        "[中|なか] (inside)",
+        "Nの[中|なか]に",
+        "[部屋|へや]の[中|なか]に[猫|ねこ]がいます"
+      ],
+      [
+        "[前|まえ] (in front)",
+        "Nの[前|まえ]に",
+        "[大学|だいがく]の[前|まえ]に[駅|えき]があります"
+      ],
+      [
+        "[後|うし]ろ (behind)",
+        "Nの[後|うし]ろに",
+        "ドアの[後|うし]ろに[猫|ねこ]がいます"
+      ],
+      [
+        "[隣|となり] (next to)",
+        "Nの[隣|となり]に",
+        "[図書館|としょかん]の[隣|となり]に[教室|きょうしつ]があります"
+      ]
+    ],
+    "note": "Always Nの + position + に for existence location. ×机上に and ×上の机に (for \"on the desk\") miss the pattern. の is the same linker as 私の本 — here the head noun is the position word."
+  },
+  "explanation": "上・下・中・前・後ろ・隣 are nouns meaning on/above, under, inside, in front, behind, and next to. Glue them to another noun with の, then mark the whole phrase as a place with に: 机の上に本があります / 部屋の中に猫がいます / 図書館の隣に教室があります. The existence verb still follows が: people and animals います, things あります. These positions refine bare placeに from the previous lesson — 部屋に本があります (in the room) vs 机の上に本があります (on the desk).",
+  "senses": [
+    {
+      "label": "上 / 下",
+      "body": "On or above vs under: 机の上 / 机の下.",
+      "example_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "example_en": "There is a book on the desk."
+    },
+    {
+      "label": "中",
+      "body": "Inside a space: 部屋の中 / 鞄の中.",
+      "example_ruby": "[部屋|へや]の[中|なか]に[猫|ねこ]がいます。",
+      "example_en": "There is a cat inside the room."
+    },
+    {
+      "label": "前 / 後ろ",
+      "body": "In front of vs behind: 大学の前 / ドアの後ろ.",
+      "example_ruby": "[大学|だいがく]の[前|まえ]に[駅|えき]があります。",
+      "example_en": "There is a station in front of the university."
+    },
+    {
+      "label": "隣",
+      "body": "Next to / beside: 図書館の隣.",
+      "example_ruby": "[図書館|としょかん]の[隣|となり]に[教室|きょうしつ]があります。",
+      "example_en": "There is a classroom next to the library."
+    }
+  ],
+  "register_context": "Polite classroom default: Nの上にNがあります / います. Same が and います/あります habits as earlier Unit 2. Questions: 机の上に何がありますか / 部屋の中にだれがいますか.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[机|つくえ][上|うえ]に[本|ほん]があります。",
+      "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "why": "Position nouns need の: 机の上に, not ×机上に."
+    },
+    {
+      "wrong_ruby": "[上|うえ]の[机|つくえ]に[本|ほん]があります。",
+      "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "why": "Order is landmarkのposition: 机の上, not ×上の机 for \"on the desk.\""
+    },
+    {
+      "wrong_ruby": "[机|つくえ]の[上|うえ]が[本|ほん]があります。",
+      "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "why": "The position phrase takes location に, not が. が marks the subject 本."
+    },
+    {
+      "wrong_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]がいます。",
+      "right_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "why": "Books are things → あります."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ni-location",
+      "label": "Bare place vs Nのposition",
+      "summary": "部屋に locates in the room. 机の上に locates on the desk — a position noun after の.",
+      "ex_a_ruby": "[部屋|へや]に[本|ほん]があります。",
+      "ex_a_en": "There is a book in the room.",
+      "ex_b_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "ex_b_en": "There is a book on the desk."
+    },
+    {
+      "other_slug": null,
+      "label": "の possession vs の + position",
+      "summary": "私の本 = my book (possession). 机の上 = the top of the desk (position noun as head).",
+      "ex_a_ruby": "[私|わたし]の[本|ほん]です。",
+      "ex_a_en": "It's my book.",
+      "ex_b_ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "ex_b_en": "There is a book on the desk."
+    },
+    {
+      "other_slug": null,
+      "label": "前 vs 後ろ",
+      "summary": "前 = in front; 後ろ = behind. Same Nの…に frame.",
+      "ex_a_ruby": "[大学|だいがく]の[前|まえ]に[駅|えき]があります。",
+      "ex_a_en": "There is a station in front of the university.",
+      "ex_b_ruby": "[大学|だいがく]の[後|うし]ろに[木|き]があります。",
+      "ex_b_en": "There is a tree behind the university."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[机|つくえ]の[上|うえ]に[本|ほん]があります。",
+      "english": "There is a book on the desk.",
+      "note": "lead · 上"
+    },
+    {
+      "ruby": "[机|つくえ]の[下|した]に[鞄|かばん]があります。",
+      "english": "There is a bag under the desk.",
+      "note": "下"
+    },
+    {
+      "ruby": "[部屋|へや]の[中|なか]に[猫|ねこ]がいます。",
+      "english": "There is a cat inside the room.",
+      "note": "中 · animate"
+    },
+    {
+      "ruby": "[大学|だいがく]の[前|まえ]に[駅|えき]があります。",
+      "english": "There is a station in front of the university.",
+      "note": "前"
+    },
+    {
+      "ruby": "ドアの[後|うし]ろに[猫|ねこ]がいます。",
+      "english": "There is a cat behind the door.",
+      "note": "後ろ · animate"
+    },
+    {
+      "ruby": "[図書館|としょかん]の[隣|となり]に[教室|きょうしつ]があります。",
+      "english": "There is a classroom next to the library.",
+      "note": "隣"
+    },
+    {
+      "ruby": "[机|つくえ]の[上|うえ]に[何|なに]がありますか。",
+      "english": "What is on the desk?",
+      "note": "question · 何が"
+    },
+    {
+      "ruby": "[鞄|かばん]の[中|なか]に[電話|でんわ]があります。",
+      "english": "There is a phone inside the bag.",
+      "note": "中 · thing"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[机|つくえ]の[上|うえ]に[何|なに]がありますか。",
+      "english": "What is on the desk?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[本|ほん]があります。[鞄|かばん]は[机|つくえ]の[下|した]にあります。",
+      "english": "There is a book. The bag is under the desk."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[猫|ねこ]はどこにいますか。",
+      "english": "Where is the cat?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "[部屋|へや]の[中|なか]にいます。",
+      "english": "It's inside the room."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "机（　）上に本があります。",
+      "options": ["が", "の", "は"],
+      "answer_idx": 1,
+      "why": "Position nouns link with の: 机の上に."
+    },
+    {
+      "prompt": "部屋の中に猫（　）。",
+      "options": ["がいます", "があります", "です"],
+      "answer_idx": 0,
+      "why": "Cats → がいます."
+    },
+    {
+      "prompt": "Context: There is a book on the desk.",
+      "options": ["上の机に本があります。", "机上に本があります。", "机の上に本があります。"],
+      "answer_idx": 2,
+      "why": "Landmarkのpositionに: 机の上に本があります。"
+    },
+    {
+      "prompt": "図書館の（　）に教室があります。 (next to)",
+      "options": ["上", "隣", "中"],
+      "answer_idx": 1,
+      "why": "Next to → 隣."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ni-location", "no-noun-link"],
+    "next": ["to-and"]
+  },
+  "lesson_version": 1
+}

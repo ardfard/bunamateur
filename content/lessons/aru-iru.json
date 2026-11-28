@@ -1,0 +1,218 @@
+{
+  "meaning": "います / あります · existence and having",
+  "gist": "[猫|ねこ]がいます。 / [本|ほん]があります。 います is for people and animals; あります is for things — and for plants. Same forms also mean \"have\": [兄弟|きょうだい]がいます / [時間|じかん]があります. Learn the ready-made polite set: います・いません・いました・いませんでした / あります・ありません・ありました・ありませんでした.",
+  "formation": {
+    "columns": ["Kind", "Affirmative", "Negative", "Past"],
+    "rows": [
+      [
+        "People / animals",
+        "Nがいます",
+        "Nがいません",
+        "Nがいました / いませんでした"
+      ],
+      [
+        "Things / plants",
+        "Nがあります",
+        "Nがありません",
+        "Nがありました / ありませんでした"
+      ],
+      [
+        "Have (people)",
+        "[兄弟|きょうだい]がいます",
+        "[兄弟|きょうだい]がいません",
+        "—"
+      ],
+      [
+        "Have (things)",
+        "[時間|じかん]があります",
+        "[時間|じかん]がありません",
+        "—"
+      ]
+    ],
+    "note": "Treat います / あります as ready-made polite forms here. Subject usually takes が: 猫がいます / 本があります. Plants use あります (木があります), not います."
+  },
+  "explanation": "います and あります both mean \"there is / exists,\" but they split by what exists. People and animals take います: 猫がいます / 田中さんがいます. Things take あります: 本があります / 傘があります. Plants count with things: 木があります / 花があります. The same pair covers \"have\": 兄弟がいます (I have siblings) / 時間があります (I have time). Negatives and past stay inside this set: いません / ありません, いました / ありました, いませんでした / ありませんでした. Keep が on the subject from the previous lesson: だれがいますか / 何がありますか.",
+  "senses": [
+    {
+      "label": "います — people and animals",
+      "body": "Animate beings: friends, teachers, cats, dogs.",
+      "example_ruby": "[猫|ねこ]がいます。",
+      "example_en": "There is a cat."
+    },
+    {
+      "label": "あります — things and plants",
+      "body": "Inanimate things and plants: books, bags, trees, flowers.",
+      "example_ruby": "[本|ほん]があります。",
+      "example_en": "There is a book."
+    },
+    {
+      "label": "Having",
+      "body": "Same forms mean possession or availability: siblings, time, a phone.",
+      "example_ruby": "[兄弟|きょうだい]がいます。",
+      "example_en": "I have siblings. / (Someone) has siblings."
+    },
+    {
+      "label": "Negative and past",
+      "body": "いません / ありません; いました / ありました; いませんでした / ありませんでした.",
+      "example_ruby": "[時間|じかん]がありません。",
+      "example_en": "I don't have time. / There isn't time."
+    }
+  ],
+  "register_context": "Classroom default: polite います / あります and their ません / ました / ませんでした forms. Pair with が on the subject and か on questions: 猫がいますか / 本がありますか. Use these ready-made polite forms — not plain いる / ある — in classroom speech for now.",
+  "mistakes": [
+    {
+      "wrong_ruby": "[本|ほん]がいます。",
+      "right_ruby": "[本|ほん]があります。",
+      "why": "Books are things → あります, not います."
+    },
+    {
+      "wrong_ruby": "[猫|ねこ]があります。",
+      "right_ruby": "[猫|ねこ]がいます。",
+      "why": "Cats are animals → います, not あります."
+    },
+    {
+      "wrong_ruby": "[木|き]がいます。",
+      "right_ruby": "[木|き]があります。",
+      "why": "Plants take あります, even though they are living."
+    },
+    {
+      "wrong_ruby": "[時間|じかん]がいます。",
+      "right_ruby": "[時間|じかん]があります。",
+      "why": "Time is a thing (availability) → あります."
+    }
+  ],
+  "contrasts": [
+    {
+      "other_slug": "ga-subject",
+      "label": "が marks the subject of います / あります",
+      "summary": "が picks who/what exists; います / あります say that it exists. Question words still take が.",
+      "ex_a_ruby": "だれがいますか。",
+      "ex_a_en": "Who is there?",
+      "ex_b_ruby": "[猫|ねこ]がいます。",
+      "ex_b_en": "There is a cat."
+    },
+    {
+      "other_slug": null,
+      "label": "います vs あります",
+      "summary": "います = people and animals. あります = things and plants. Having follows the same split (兄弟がいます / 時間があります).",
+      "ex_a_ruby": "[友達|ともだち]がいます。",
+      "ex_a_en": "There is a friend. / I have a friend.",
+      "ex_b_ruby": "[鞄|かばん]があります。",
+      "ex_b_en": "There is a bag. / I have a bag."
+    },
+    {
+      "other_slug": "ni-location",
+      "label": "Bare existence vs place + に",
+      "summary": "猫がいます states existence. 部屋に猫がいます locates that existence.",
+      "ex_a_ruby": "[猫|ねこ]がいます。",
+      "ex_a_en": "There is a cat.",
+      "ex_b_ruby": "[部屋|へや]に[猫|ねこ]がいます。",
+      "ex_b_en": "There is a cat in the room."
+    }
+  ],
+  "examples": [
+    {
+      "ruby": "[猫|ねこ]がいます。",
+      "english": "There is a cat.",
+      "note": "lead · animate"
+    },
+    {
+      "ruby": "[本|ほん]があります。",
+      "english": "There is a book.",
+      "note": "lead · thing"
+    },
+    {
+      "ruby": "[田中|たなか]さんがいます。",
+      "english": "Tanaka-san is here.",
+      "note": "person · います"
+    },
+    {
+      "ruby": "[木|き]があります。",
+      "english": "There is a tree.",
+      "note": "plant · あります"
+    },
+    {
+      "ruby": "[兄弟|きょうだい]がいます。",
+      "english": "I have siblings.",
+      "note": "having · people"
+    },
+    {
+      "ruby": "[時間|じかん]があります。",
+      "english": "I have time.",
+      "note": "having · thing"
+    },
+    {
+      "ruby": "[犬|いぬ]がいません。",
+      "english": "There is no dog. / I don't have a dog.",
+      "note": "negative · animate"
+    },
+    {
+      "ruby": "[傘|かさ]がありません。",
+      "english": "There is no umbrella. / I don't have an umbrella.",
+      "note": "negative · thing"
+    },
+    {
+      "ruby": "[昨日|きのう]、[先生|せんせい]がいました。",
+      "english": "The teacher was here yesterday.",
+      "note": "past · いました"
+    },
+    {
+      "ruby": "[昨日|きのう]、[時間|じかん]がありませんでした。",
+      "english": "I didn't have time yesterday.",
+      "note": "past negative · ありませんでした"
+    }
+  ],
+  "dialogue": [
+    {
+      "speaker": "A",
+      "ruby": "[猫|ねこ]がいますか。",
+      "english": "Do you have a cat? / Is there a cat?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "はい、います。[犬|いぬ]もいます。",
+      "english": "Yes, I do. I have a dog too."
+    },
+    {
+      "speaker": "A",
+      "ruby": "[時間|じかん]がありますか。",
+      "english": "Do you have time?"
+    },
+    {
+      "speaker": "B",
+      "ruby": "いいえ、[時間|じかん]がありません。",
+      "english": "No, I don't have time."
+    }
+  ],
+  "checks": [
+    {
+      "prompt": "本（　）。",
+      "options": ["があります", "がいます", "ですいます"],
+      "answer_idx": 0,
+      "why": "Books are things → 本があります."
+    },
+    {
+      "prompt": "猫（　）。",
+      "options": ["があります", "です", "がいます"],
+      "answer_idx": 2,
+      "why": "Cats are animals → 猫がいます."
+    },
+    {
+      "prompt": "木（　）。 (There is a tree.)",
+      "options": ["がいます", "があります", "にいます"],
+      "answer_idx": 1,
+      "why": "Plants take あります."
+    },
+    {
+      "prompt": "時間（　）。 (I don't have time.)",
+      "options": ["がいません", "がありません", "じゃないです"],
+      "answer_idx": 1,
+      "why": "Time → ありません. がいません is for people/animals; じゃないです negates noun + です."
+    }
+  ],
+  "related": {
+    "prerequisites": ["ga-subject"],
+    "next": ["ni-location", "numbers-counters"]
+  },
+  "lesson_version": 1
+}
