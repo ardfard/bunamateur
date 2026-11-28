@@ -105,7 +105,7 @@
     {
       "ruby": "[部屋|へや]に[猫|ねこ]がいます。",
       "english": "There is a cat in the room.",
-      "note": "lead · place + animate"
+      "note": "place + animate"
     },
     {
       "ruby": "[教室|きょうしつ]に[本|ほん]があります。",

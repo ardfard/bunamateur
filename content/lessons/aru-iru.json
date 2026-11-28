@@ -114,12 +114,12 @@
     {
       "ruby": "[猫|ねこ]がいます。",
       "english": "There is a cat.",
-      "note": "lead · animate"
+      "note": "animate"
     },
     {
       "ruby": "[本|ほん]があります。",
       "english": "There is a book.",
-      "note": "lead · thing"
+      "note": "thing"
     },
     {
       "ruby": "[田中|たなか]さんがいます。",

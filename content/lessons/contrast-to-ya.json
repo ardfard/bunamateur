@@ -80,7 +80,7 @@
     {
       "other_slug": "to-and",
       "label": "と — complete set",
-      "summary": "と closes the list. Lead pattern: 冷蔵庫にパンと卵があります.",
+      "summary": "と closes the list. Pattern: 冷蔵庫にパンと卵があります.",
       "ex_a_ruby": "[冷蔵庫|れいぞうこ]にパンと[卵|たまご]があります。",
       "ex_a_en": "In the fridge: bread and eggs (complete).",
       "ex_b_ruby": "パンや[卵|たまご]があります。",
@@ -89,7 +89,7 @@
     {
       "other_slug": "ya-nado",
       "label": "や / など — open list",
-      "summary": "や (and など) leave the list unfinished. Lead pattern: パンや卵があります.",
+      "summary": "や (and など) leave the list unfinished. Pattern: パンや卵があります.",
       "ex_a_ruby": "パンや[卵|たまご]などがあります。",
       "ex_a_en": "Bread, eggs, and so on.",
       "ex_b_ruby": "パンと[卵|たまご]があります。",

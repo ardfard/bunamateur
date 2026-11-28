@@ -99,18 +99,18 @@
     {
       "other_slug": null,
       "label": "だれが vs known person は",
-      "summary": "Ask with だれが. Answer or talk about a known person with nameは… when framing that person as the topic.",
-      "ex_a_ruby": "だれがいますか。",
-      "ex_a_en": "Who is there?",
-      "ex_b_ruby": "[山田|やまだ]さんは[教室|きょうしつ]にいます。",
-      "ex_b_en": "As for Yamada-san, (he/she) is in the classroom."
+      "summary": "Answer だれがいますか with が (山田さんがいます). Use nameは… when that person is already the topic (山田さんはどこにいますか → 山田さんは教室にいます).",
+      "ex_a_ruby": "だれがいますか。—[山田|やまだ]さんがいます。",
+      "ex_a_en": "Who is there? — Yamada-san is there. (が answers だれが)",
+      "ex_b_ruby": "[山田|やまだ]さんはどこにいますか。—[山田|やまだ]さんは[教室|きょうしつ]にいます。",
+      "ex_b_en": "Where is Yamada-san? — Yamada-san is in the classroom. (は for a known topic)"
     }
   ],
   "examples": [
     {
       "ruby": "だれがいますか。",
       "english": "Who is there?",
-      "note": "lead · question word + が"
+      "note": "question word + が"
     },
     {
       "ruby": "[何|なに]がありますか。",

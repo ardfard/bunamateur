@@ -72,18 +72,18 @@
       "why": "×三つりんご drops の. Main pattern: りんごが三つあります (三つのりんご is a different style)."
     },
     {
-      "wrong_ruby": "ペンが[三本|さんほん]あります。",
-      "right_ruby": "ペンが[三本|さんぼん]あります。",
+      "wrong_ruby": "ペンがさんほんあります。",
+      "right_ruby": "ペンがさんぼんあります。",
       "why": "さん + ほん → さんぼん (rendaku / sound change). Same family: いっぽん, ろっぽん."
     },
     {
-      "wrong_ruby": "[学生|がくせい]が[二人|ににん]います。",
-      "right_ruby": "[学生|がくせい]が[二人|ふたり]います。",
+      "wrong_ruby": "[学生|がくせい]がににんいます。",
+      "right_ruby": "[学生|がくせい]がふたりいます。",
       "why": "Two people is ふたり, not ×ににん. One person is ひとり."
     },
     {
-      "wrong_ruby": "[学生|がくせい]が[四人|よんにん]います。",
-      "right_ruby": "[学生|がくせい]が[四人|よにん]います。",
+      "wrong_ruby": "[学生|がくせい]がよんにんいます。",
+      "right_ruby": "[学生|がくせい]がよにんいます。",
       "why": "Four people is よにん (not ×よんにん)."
     },
     {
@@ -197,10 +197,10 @@
   ],
   "checks": [
     {
-      "prompt": "りんごが（　）あります。 (three)",
-      "options": ["三つ", "三本", "三人"],
+      "prompt": "Fix: 三つりんごがあります。",
+      "options": ["りんごが三つあります。", "りんごが三つがあります。", "三つがりんごあります。"],
       "answer_idx": 0,
-      "why": "Apples take the general counter 〜つ here: 三つ."
+      "why": "Main pattern: noun + が + counter + あります. ×三つりんご needs の or the after-が pattern."
     },
     {
       "prompt": "ペンが三本あります — reading of 三本?",
@@ -215,10 +215,10 @@
       "why": "Two people → ふたり (not ×ににん)."
     },
     {
-      "prompt": "Fix: 三つりんごがあります。",
-      "options": ["りんごが三つあります。", "りんごが三つがあります。", "三つがりんごあります。"],
+      "prompt": "りんごが（　）あります。 (three)",
+      "options": ["三つ", "三本", "三人"],
       "answer_idx": 0,
-      "why": "Main pattern: noun + が + counter + あります. ×三つりんご needs の or the after-が pattern."
+      "why": "Apples take the general counter 〜つ here: 三つ."
     },
     {
       "prompt": "これは（　）です。 (900 yen)",
